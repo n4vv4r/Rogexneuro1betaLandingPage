@@ -1,0 +1,2 @@
+/* Las tipografías (Inter + JetBrains Mono) se cargan vía <link> en index.html
+   con preconnect, que es más rápido que un @import de CSS. */

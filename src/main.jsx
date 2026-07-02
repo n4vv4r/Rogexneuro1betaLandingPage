@@ -21,7 +21,7 @@ import {
 import logo from './assets/rogex-logo-transparent.png';
 import './styles.css';
 
-const routes = ['research', 'prisma', 'methods', 'collaborations', 'notes', 'contact'];
+const routes = ['research', 'prisma', 'methods', 'collaborations', 'advances', 'notes', 'contact'];
 
 const copy = {
   es: {
@@ -30,6 +30,7 @@ const copy = {
       prisma: 'PRISMA',
       methods: 'Métodos',
       collaborations: 'Colaboraciones',
+      advances: 'Avances',
       notes: 'Notas',
       contact: 'Contacto',
     },
@@ -247,6 +248,7 @@ const copy = {
       prisma: 'PRISMA',
       methods: 'Methods',
       collaborations: 'Collaborations',
+      advances: 'Progress',
       notes: 'Notes',
       contact: 'Contact',
     },
@@ -623,7 +625,269 @@ function PageHero({ eyebrow, title, text, children }) {
   );
 }
 
-function Home({ t, navigate }) {
+
+const researchAdvances = {
+  es: {
+    eyebrow: 'Avances de investigación',
+    title: 'Teoría del Todo Dual: del audio ambiguo al traductor biológico.',
+    intro:
+      'Registro público de avances experimentales alrededor de percepción reconstructiva, degradación material de señales, emergencia simbólica y desarrollo futuro de PRISMA 2 / rogex-neuro-2.',
+    statusLabel: 'Estado actual',
+    status: [
+      {
+        title: 'Probado hasta ahora',
+        text:
+          'El audio original no contiene evidencia fonética robusta de “hiéreme”. Los controles y nulos se mezclan con el objetivo. El símbolo debe tratarse como reconstrucción perceptiva, no como transcripción objetiva.',
+      },
+      {
+        title: 'Altamente posible',
+        text:
+          'La materia filtra el sonido, elimina detalles del habla y crea ausencia de información. Esa ausencia puede aumentar la intervención del traductor biológico: memoria, emoción, cuerpo y lenguaje.',
+      },
+      {
+        title: 'Teorizado',
+        text:
+          'Información sobreviviente + ausencia + emoción + memoria pueden producir símbolo percibido. La formulación actual es: Sp = Tb(Is, A, E, Mp).',
+      },
+      {
+        title: 'Pendiente de replicación',
+        text:
+          'Faltan experimentos con humanos, priming, grupos de control, escucha ciega y correlación entre inteligibilidad objetiva y símbolo reportado.',
+      },
+    ],
+    experimentsTitle: 'Experimentos y resultados',
+    experiments: [
+      {
+        tag: 'Experimento 01',
+        title: 'Matching acústico contra controles',
+        result: 'Negativo útil',
+        text:
+          'Las plantillas objetivo no se separaron de los nulos. Esto desplaza la hipótesis: el fenómeno no está en una palabra oculta en el audio, sino en la reconstrucción del perceptor.',
+        image: '/research/distribucion_coincidencias.png',
+      },
+      {
+        tag: 'Experimento 02',
+        title: 'Curva paramétrica de inteligibilidad',
+        result: 'Instrumento experimental',
+        text:
+          'Se generaron estímulos degradados con vocoder para estudiar cómo cambia la inteligibilidad cuando se reduce o transforma la información acústica.',
+        image: '/research/stoi_curve.png',
+      },
+      {
+        tag: 'Experimento 03',
+        title: 'Escalera de degradación material',
+        result: 'Traductor material',
+        text:
+          'Filtros tipo puerta/pared reducen la estructura útil del habla. Esto permite modelar la materia como H(f), un filtro físico de información.',
+        image: '/research/qc_ladder.png',
+      },
+    ],
+    formulaTitle: 'Formulación actual',
+    formula: 'Sp = Tb(Is, A, E, Mp)',
+    formulaText:
+      'Símbolo percibido = traductor biológico aplicado a información sobreviviente, ausencia, emoción y memoria del perceptor.',
+    nextTitle: 'Siguientes pasos',
+    next: [
+      'Construir experimento de escucha humana ciega.',
+      'Comparar grupos sin contexto, con priming “hiéreme”, con priming “quiéreme” y con priming falso.',
+      'Medir palabra reportada, confianza, emoción percibida y efecto del contexto.',
+      'Publicar código reproducible para generar estímulos degradados y métricas.',
+      'Separar PRISMA 2 como línea neuroinformacional experimental, sin promesas diagnósticas.',
+    ],
+    disclaimer:
+      'Esta línea no afirma que exista una voz oculta en el audio. El resultado actual apunta a un fenómeno de reconstrucción perceptiva bajo información degradada.',
+  },
+  en: {
+    eyebrow: 'Research progress',
+    title: 'Dual Theory of Everything: from ambiguous audio to biological translation.',
+    intro:
+      'Public research log on reconstructive perception, material signal degradation, symbolic emergence and the future development of PRISMA 2 / rogex-neuro-2.',
+    statusLabel: 'Current status',
+    status: [
+      {
+        title: 'Confirmed so far',
+        text:
+          'The original audio does not contain robust phonetic evidence for “hiéreme”. Controls and nulls overlap with target templates. The symbol must be treated as perceptual reconstruction, not objective transcription.',
+      },
+      {
+        title: 'Highly plausible',
+        text:
+          'Matter filters sound, removes speech detail and creates absence of information. That absence may increase the role of the biological translator: memory, emotion, body and language.',
+      },
+      {
+        title: 'Theorized',
+        text:
+          'Surviving information + absence + emotion + memory may produce perceived symbol. Current formulation: Sp = Tb(Is, A, E, Mp).',
+      },
+      {
+        title: 'Not yet replicated',
+        text:
+          'Human listening experiments, priming groups, blind controls and correlation between objective intelligibility and reported symbol are still required.',
+      },
+    ],
+    experimentsTitle: 'Experiments and results',
+    experiments: [
+      {
+        tag: 'Experiment 01',
+        title: 'Acoustic matching against controls',
+        result: 'Useful negative',
+        text:
+          'Target templates did not separate from nulls. This moves the hypothesis: the phenomenon is not a hidden word in the audio, but reconstruction inside the perceiver.',
+        image: '/research/distribucion_coincidencias.png',
+      },
+      {
+        tag: 'Experiment 02',
+        title: 'Parametric intelligibility curve',
+        result: 'Experimental instrument',
+        text:
+          'Degraded stimuli were generated with vocoder methods to study how intelligibility changes when acoustic information is reduced or transformed.',
+        image: '/research/stoi_curve.png',
+      },
+      {
+        tag: 'Experiment 03',
+        title: 'Material degradation ladder',
+        result: 'Material translator',
+        text:
+          'Door/wall-like filters reduce useful speech structure. This models matter as H(f), a physical filter of information.',
+        image: '/research/qc_ladder.png',
+      },
+    ],
+    formulaTitle: 'Current formulation',
+    formula: 'Sp = Tb(Is, A, E, Mp)',
+    formulaText:
+      'Perceived symbol = biological translator applied to surviving information, absence, emotion and the perceiver’s memory.',
+    nextTitle: 'Next steps',
+    next: [
+      'Build a blind human listening experiment.',
+      'Compare groups with no context, “hiéreme” priming, “quiéreme” priming and false priming.',
+      'Measure reported word, confidence, perceived emotion and context effect.',
+      'Publish reproducible code for degraded stimulus generation and metrics.',
+      'Keep PRISMA 2 as an experimental neuroinformational line, without diagnostic claims.',
+    ],
+    disclaimer:
+      'This line does not claim there is a hidden voice in the audio. Current results point to perceptual reconstruction under degraded information.',
+  },
+};
+
+function ResearchProgressPreview({ lang, navigate }) {
+  const data = researchAdvances[lang] || researchAdvances.es;
+
+  return (
+    <section className="research-progress-preview">
+      <div className="section-kicker">{data.eyebrow}</div>
+
+      <div className="research-progress-header">
+        <div>
+          <h2>{data.title}</h2>
+          <p>{data.intro}</p>
+        </div>
+
+        <a
+          href="/advances"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate('/advances');
+          }}
+          className="button button-outline"
+        >
+          Ver avances <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div className="status-grid">
+        {data.status.map((item) => (
+          <article className="status-card" key={item.title}>
+            <span>{data.statusLabel}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="formula-strip">
+        <span>{data.formulaTitle}</span>
+        <strong>{data.formula}</strong>
+        <p>{data.formulaText}</p>
+      </div>
+    </section>
+  );
+}
+
+function AdvancesPage({ lang }) {
+  const data = researchAdvances[lang] || researchAdvances.es;
+
+  return (
+    <>
+      <section className="advances-hero">
+        <div className="section-kicker">{data.eyebrow}</div>
+        <h1>{data.title}</h1>
+        <p>{data.intro}</p>
+      </section>
+
+      <section className="research-progress-page">
+        <div className="formula-panel">
+          <span>{data.formulaTitle}</span>
+          <h2>{data.formula}</h2>
+          <p>{data.formulaText}</p>
+        </div>
+
+        <div className="status-grid">
+          {data.status.map((item) => (
+            <article className="status-card" key={item.title}>
+              <span>{data.statusLabel}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="section-heading">
+          <span>{data.experimentsTitle}</span>
+          <h2>{data.experimentsTitle}</h2>
+        </div>
+
+        <div className="experiment-list">
+          {data.experiments.map((experiment) => (
+            <article className="experiment-card" key={experiment.title}>
+              <div className="experiment-copy">
+                <div className="experiment-meta">
+                  <span>{experiment.tag}</span>
+                  <strong>{experiment.result}</strong>
+                </div>
+                <h3>{experiment.title}</h3>
+                <p>{experiment.text}</p>
+              </div>
+
+              <img
+                src={experiment.image}
+                alt={experiment.title}
+                loading="lazy"
+              />
+            </article>
+          ))}
+        </div>
+
+        <div className="next-steps">
+          <span>{data.nextTitle}</span>
+          <h2>{data.nextTitle}</h2>
+          <ol>
+            {data.next.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="research-disclaimer">
+          <strong>Nota</strong>
+          <p>{data.disclaimer}</p>
+        </div>
+      </section>
+    </>
+  );
+}
+
+
+function Home({ t, lang, navigate }) {
   return (
     <>
       <section className="hero section-block">
@@ -865,11 +1129,12 @@ function App() {
     if (key === 'prisma') return <PrismaPage t={t} />;
     if (key === 'methods') return <MethodsPage t={t} />;
     if (key === 'collaborations') return <CollaborationsPage t={t} />;
+    if (key === 'advances') return <AdvancesPage lang={lang} />;
     if (key === 'notes') return <NotesPage t={t} />;
     if (key === 'contact') return <ContactPage t={t} />;
 
-    return <Home t={t} navigate={navigate} />;
-  }, [path, t, navigate]);
+    return <Home t={t} lang={lang} navigate={navigate} />;
+  }, [path, t, lang, navigate]);
 
   return (
     <div className="page-shell">

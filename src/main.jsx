@@ -790,7 +790,7 @@ function ResearchProgressPreview({ lang, navigate }) {
           }}
           className="button button-outline"
         >
-          Ver avances <span aria-hidden="true">→</span>
+          {lang === 'es' ? 'Ver avances' : 'View progress'} <span aria-hidden="true">→</span>
         </a>
       </div>
 

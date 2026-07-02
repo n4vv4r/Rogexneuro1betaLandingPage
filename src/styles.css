@@ -1140,3 +1140,699 @@ a {
   }
 }
 
+
+/* =========================================================
+   Research Advances — Minimal / Brutalist override
+   ========================================================= */
+
+.advances-hero,
+.research-progress-preview,
+.research-progress-page {
+  width: min(1180px, calc(100% - 48px));
+  margin: 72px auto 0;
+  color: #111;
+}
+
+.advances-hero {
+  padding-top: 42px;
+  border-top: 2px solid #111;
+}
+
+.advances-hero h1 {
+  max-width: 980px;
+  margin: 22px 0 0;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+  color: #111 !important;
+}
+
+.advances-hero p {
+  max-width: 760px;
+  margin: 28px 0 0;
+  color: #222 !important;
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+
+.section-kicker,
+.section-heading span,
+.formula-panel span,
+.formula-strip span,
+.next-steps span,
+.status-card span {
+  display: inline-block;
+  width: fit-content;
+  padding: 5px 8px;
+  border: 1px solid #111;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #111 !important;
+  background: #fff;
+}
+
+.research-progress-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 36px;
+  align-items: end;
+  margin-top: 22px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid #111;
+}
+
+.research-progress-header h2,
+.section-heading h2,
+.next-steps h2 {
+  margin: 0;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(2.4rem, 5vw, 5.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  color: #111 !important;
+}
+
+.research-progress-header p {
+  max-width: 760px;
+  margin: 20px 0 0;
+  color: #222 !important;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.research-progress-header .button,
+.research-progress-header .button-outline {
+  border: 2px solid #111 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.research-progress-header .button:hover,
+.research-progress-header .button-outline:hover {
+  background: #111 !important;
+  color: #fff !important;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 34px;
+  border-top: 2px solid #111;
+  border-left: 2px solid #111;
+}
+
+.status-card {
+  min-height: unset;
+  padding: 24px;
+  border: 0;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.status-card h3 {
+  margin: 24px 0 14px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: #111 !important;
+}
+
+.status-card p {
+  margin: 0;
+  color: #222 !important;
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.formula-strip,
+.formula-panel {
+  margin-top: 28px;
+  padding: 28px;
+  border: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.formula-strip strong,
+.formula-panel h2 {
+  display: block;
+  margin: 18px 0 12px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 5vw, 5.4rem);
+  line-height: 0.95;
+  font-weight: 500;
+  color: #111 !important;
+  letter-spacing: -0.055em;
+}
+
+.formula-strip p,
+.formula-panel p {
+  margin: 0;
+  max-width: 840px;
+  color: #222 !important;
+  line-height: 1.7;
+}
+
+.research-progress-page {
+  margin-top: 56px;
+}
+
+.section-heading {
+  margin-top: 70px;
+  padding-top: 28px;
+  border-top: 2px solid #111;
+}
+
+.experiment-list {
+  display: grid;
+  gap: 0;
+  margin-top: 28px;
+  border-top: 2px solid #111;
+  border-left: 2px solid #111;
+}
+
+.experiment-card {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(420px, 1.15fr);
+  gap: 0;
+  align-items: stretch;
+  padding: 0;
+  border: 0;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.experiment-copy {
+  padding: 32px;
+  border-right: 2px solid #111;
+}
+
+.experiment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.experiment-meta span,
+.experiment-meta strong {
+  display: inline-flex;
+  padding: 6px 8px;
+  border: 1px solid #111;
+  border-radius: 0 !important;
+  background: #fff;
+  color: #111 !important;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.experiment-meta strong {
+  background: #111;
+  color: #fff !important;
+}
+
+.experiment-card h3 {
+  margin: 28px 0 16px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  color: #111 !important;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.experiment-card p {
+  margin: 0;
+  color: #222 !important;
+  line-height: 1.7;
+}
+
+.experiment-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: contain;
+  padding: 18px;
+  border-radius: 0 !important;
+  border: 0;
+  background: #0b0f14;
+}
+
+.next-steps {
+  margin-top: 56px;
+  padding: 32px;
+  border: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.next-steps ol {
+  margin: 28px 0 0;
+  padding-left: 24px;
+  color: #222 !important;
+  line-height: 1.9;
+}
+
+.next-steps li + li {
+  margin-top: 8px;
+}
+
+.research-disclaimer {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-top: 28px;
+  padding: 20px;
+  border: 2px solid #111;
+  border-radius: 0 !important;
+  background: #f4f4f4 !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.research-disclaimer strong {
+  color: #111 !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.research-disclaimer p {
+  margin: 0;
+  color: #222 !important;
+  line-height: 1.65;
+}
+
+@media (max-width: 980px) {
+  .research-progress-header,
+  .experiment-card {
+    grid-template-columns: 1fr;
+  }
+
+  .experiment-copy {
+    border-right: 0;
+    border-bottom: 2px solid #111;
+  }
+
+  .status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .experiment-card img {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 620px) {
+  .advances-hero,
+  .research-progress-preview,
+  .research-progress-page {
+    width: min(100% - 24px, 1180px);
+    margin-top: 54px;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formula-strip,
+  .formula-panel,
+  .next-steps,
+  .experiment-copy {
+    padding: 22px;
+  }
+
+  .experiment-card img {
+    min-height: 220px;
+    padding: 10px;
+  }
+}
+
+
+/* =========================================================
+   Research Advances — Minimal / Brutalist override
+   ========================================================= */
+
+.advances-hero,
+.research-progress-preview,
+.research-progress-page {
+  width: min(1180px, calc(100% - 48px));
+  margin: 72px auto 0;
+  color: #111;
+}
+
+.advances-hero {
+  padding-top: 42px;
+  border-top: 2px solid #111;
+}
+
+.advances-hero h1 {
+  max-width: 980px;
+  margin: 22px 0 0;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+  color: #111 !important;
+}
+
+.advances-hero p {
+  max-width: 760px;
+  margin: 28px 0 0;
+  color: #222 !important;
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+
+.section-kicker,
+.section-heading span,
+.formula-panel span,
+.formula-strip span,
+.next-steps span,
+.status-card span {
+  display: inline-block;
+  width: fit-content;
+  padding: 5px 8px;
+  border: 1px solid #111;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #111 !important;
+  background: #fff;
+}
+
+.research-progress-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 36px;
+  align-items: end;
+  margin-top: 22px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid #111;
+}
+
+.research-progress-header h2,
+.section-heading h2,
+.next-steps h2 {
+  margin: 0;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(2.4rem, 5vw, 5.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  color: #111 !important;
+}
+
+.research-progress-header p {
+  max-width: 760px;
+  margin: 20px 0 0;
+  color: #222 !important;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.research-progress-header .button,
+.research-progress-header .button-outline {
+  border: 2px solid #111 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.research-progress-header .button:hover,
+.research-progress-header .button-outline:hover {
+  background: #111 !important;
+  color: #fff !important;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 34px;
+  border-top: 2px solid #111;
+  border-left: 2px solid #111;
+}
+
+.status-card {
+  min-height: unset;
+  padding: 24px;
+  border: 0;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.status-card h3 {
+  margin: 24px 0 14px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: #111 !important;
+}
+
+.status-card p {
+  margin: 0;
+  color: #222 !important;
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.formula-strip,
+.formula-panel {
+  margin-top: 28px;
+  padding: 28px;
+  border: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.formula-strip strong,
+.formula-panel h2 {
+  display: block;
+  margin: 18px 0 12px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 5vw, 5.4rem);
+  line-height: 0.95;
+  font-weight: 500;
+  color: #111 !important;
+  letter-spacing: -0.055em;
+}
+
+.formula-strip p,
+.formula-panel p {
+  margin: 0;
+  max-width: 840px;
+  color: #222 !important;
+  line-height: 1.7;
+}
+
+.research-progress-page {
+  margin-top: 56px;
+}
+
+.section-heading {
+  margin-top: 70px;
+  padding-top: 28px;
+  border-top: 2px solid #111;
+}
+
+.experiment-list {
+  display: grid;
+  gap: 0;
+  margin-top: 28px;
+  border-top: 2px solid #111;
+  border-left: 2px solid #111;
+}
+
+.experiment-card {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(420px, 1.15fr);
+  gap: 0;
+  align-items: stretch;
+  padding: 0;
+  border: 0;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.experiment-copy {
+  padding: 32px;
+  border-right: 2px solid #111;
+}
+
+.experiment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.experiment-meta span,
+.experiment-meta strong {
+  display: inline-flex;
+  padding: 6px 8px;
+  border: 1px solid #111;
+  border-radius: 0 !important;
+  background: #fff;
+  color: #111 !important;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.experiment-meta strong {
+  background: #111;
+  color: #fff !important;
+}
+
+.experiment-card h3 {
+  margin: 28px 0 16px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  color: #111 !important;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.experiment-card p {
+  margin: 0;
+  color: #222 !important;
+  line-height: 1.7;
+}
+
+.experiment-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: contain;
+  padding: 18px;
+  border-radius: 0 !important;
+  border: 0;
+  background: #0b0f14;
+}
+
+.next-steps {
+  margin-top: 56px;
+  padding: 32px;
+  border: 2px solid #111;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.next-steps ol {
+  margin: 28px 0 0;
+  padding-left: 24px;
+  color: #222 !important;
+  line-height: 1.9;
+}
+
+.next-steps li + li {
+  margin-top: 8px;
+}
+
+.research-disclaimer {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-top: 28px;
+  padding: 20px;
+  border: 2px solid #111;
+  border-radius: 0 !important;
+  background: #f4f4f4 !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.research-disclaimer strong {
+  color: #111 !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.research-disclaimer p {
+  margin: 0;
+  color: #222 !important;
+  line-height: 1.65;
+}
+
+@media (max-width: 980px) {
+  .research-progress-header,
+  .experiment-card {
+    grid-template-columns: 1fr;
+  }
+
+  .experiment-copy {
+    border-right: 0;
+    border-bottom: 2px solid #111;
+  }
+
+  .status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .experiment-card img {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 620px) {
+  .advances-hero,
+  .research-progress-preview,
+  .research-progress-page {
+    width: min(100% - 24px, 1180px);
+    margin-top: 54px;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formula-strip,
+  .formula-panel,
+  .next-steps,
+  .experiment-copy {
+    padding: 22px;
+  }
+
+  .experiment-card img {
+    min-height: 220px;
+    padding: 10px;
+  }
+}
+

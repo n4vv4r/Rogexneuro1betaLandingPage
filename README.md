@@ -1,31 +1,49 @@
-# Rogex Laboratories — PRISMA Beta · Landing
+# Rogex Laboratories — Vite Website
 
-Landing page de **rogex-neuro-1-beta / PRISMA Beta**, el primer motor software de
-neuroanálisis de Rogex Laboratories. Vende la *Founding Beta License* (599 €) y
-presenta el roadmap a inversores.
+Clean research-oriented website for Rogex Laboratories and PRISMA.
 
-**Stack:** React 18 · TypeScript · Vite 6 · Tailwind CSS v4 · Recharts · lucide-react.
+## Stack
 
-## Desarrollo
+- Vite
+- React
+- CSS
+- lucide-react icons
+- Icons8 social icons loaded from `img.icons8.com`
 
-    npm install
-    npm run dev        # http://localhost:5173
+## Run locally
 
-## Build de producción
+```bash
+npm install
+npm run dev
+```
 
-    npm run build      # genera dist/
-    npm run preview    # sirve el build para revisarlo
+Open the local URL Vite prints in the terminal.
 
-## Despliegue (Vercel / Cloudflare)
+## Build
 
-- Build command:  `npm run build`
-- Output dir:     `dist`
-- Install command: `npm install`
+```bash
+npm run build
+npm run preview
+```
 
-## Notas
+## Pages
 
-- Página 100% estática: sin imágenes raster (los visuales son SVG/CSS y gráficos Recharts).
-- Para mantenerla privada durante la beta, cambia `robots` a `noindex, nofollow` en `index.html`.
-- Pendiente: subir una imagen Open Graph 1200x630 a `public/og-image.png`.
+The site uses clean SPA routes instead of hash anchors:
 
-PRISMA Beta es software experimental de análisis y visualización. No es un dispositivo médico.
+- `/`
+- `/research`
+- `/prisma`
+- `/methods`
+- `/collaborations`
+- `/notes`
+- `/contact`
+
+If you deploy to Vercel or Netlify, enable SPA fallback/rewrite to `index.html` so direct page reloads work.
+
+## Language
+
+Spanish is the default language. The `EN/ES` button toggles the interface language and stores the preference in `localStorage`.
+
+## Content direction
+
+This site intentionally avoids medical claims, pricing, hype language and beta-sales language. It presents Rogex Laboratories as an independent research software and neurotechnology lab focused on reproducible EEG analysis.

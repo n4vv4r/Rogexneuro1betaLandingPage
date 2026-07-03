@@ -47,3 +47,10 @@ Spanish is the default language. The `EN/ES` button toggles the interface langua
 ## Content direction
 
 This site intentionally avoids medical claims, pricing, hype language and beta-sales language. It presents Rogex Laboratories as an independent research software and neurotechnology lab focused on reproducible EEG analysis.
+
+
+## PRISMA 3 scientific article
+
+The `/prisma3` page documents Rogex PRISMA 3 as an experimental research architecture for individual EEG baselines, inter-individual variability, simulated EEG, feature extraction, machine learning and explainable interpretation.
+
+It is not diagnostic software, not a medical device and not a clinical claim.

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#f7f7f4"/>
+  <g fill="none" stroke="#111" stroke-width="4" opacity=".4">
+    <path d="M120 260H1080M120 420H1080M120 580H1080M120 740H1080M120 900H1080"/>
+  </g>
+  <g fill="#111">
+    <rect x="170" y="760" width="150" height="140"/>
+    <rect x="390" y="580" width="150" height="320"/>
+    <rect x="610" y="420" width="150" height="480"/>
+    <rect x="830" y="260" width="150" height="640"/>
+  </g>
+  <text x="115" y="1080" font-family="Georgia,serif" font-size="64" fill="#111">LOSO / baseline / features</text>
+</svg>

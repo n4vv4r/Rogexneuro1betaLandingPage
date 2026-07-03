@@ -1235,6 +1235,106 @@ function Prisma4ArticlePage({ lang }) {
 }
 
 
+
+const carouselSets = {
+  home: [
+    '/carousel/prisma-signal-01.svg',
+    '/carousel/prisma-signal-02.svg',
+    '/carousel/prisma-signal-03.svg',
+  ],
+  research: [
+    '/carousel/research-01.svg',
+    '/carousel/research-02.svg',
+    '/carousel/research-03.svg',
+  ],
+  prisma: [
+    '/carousel/prisma-signal-01.svg',
+    '/carousel/prisma-signal-02.svg',
+    '/carousel/prisma-signal-03.svg',
+  ],
+  methods: [
+    '/carousel/methods-01.svg',
+    '/carousel/methods-02.svg',
+    '/carousel/methods-03.svg',
+  ],
+  collaborations: [
+    '/carousel/research-02.svg',
+    '/carousel/prisma-signal-03.svg',
+    '/carousel/methods-01.svg',
+  ],
+  advances: [
+    '/carousel/prisma-signal-03.svg',
+    '/carousel/research-01.svg',
+    '/carousel/methods-02.svg',
+  ],
+  notes: [
+    '/carousel/methods-03.svg',
+    '/carousel/research-03.svg',
+    '/carousel/prisma-signal-02.svg',
+  ],
+  contact: [
+    '/carousel/research-02.svg',
+    '/carousel/methods-02.svg',
+    '/carousel/prisma-signal-01.svg',
+  ],
+  prisma3: [
+    '/carousel/prisma-signal-01.svg',
+    '/carousel/research-01.svg',
+    '/carousel/methods-01.svg',
+  ],
+  prisma4: [
+    '/carousel/prisma-signal-02.svg',
+    '/carousel/prisma-signal-03.svg',
+    '/carousel/research-03.svg',
+  ],
+};
+
+function inferCarouselSet(eyebrow = '', title = '') {
+  const text = `${eyebrow} ${title}`.toLowerCase();
+
+  if (text.includes('prisma 4')) return 'prisma4';
+  if (text.includes('prisma 3')) return 'prisma3';
+  if (text.includes('prisma')) return 'prisma';
+  if (text.includes('método') || text.includes('method')) return 'methods';
+  if (text.includes('colabor') || text.includes('collab')) return 'collaborations';
+  if (text.includes('avance') || text.includes('progress')) return 'advances';
+  if (text.includes('nota') || text.includes('note')) return 'notes';
+  if (text.includes('contact')) return 'contact';
+  if (text.includes('research') || text.includes('investig')) return 'research';
+
+  return 'home';
+}
+
+function BlendCarousel({ setName = 'home', label = 'Rogex visual carousel' }) {
+  const images = carouselSets[setName] || carouselSets.home;
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % images.length);
+    }, 3600);
+
+    return () => window.clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div className="blend-carousel" aria-label={label}>
+      {images.map((src, index) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          aria-hidden="true"
+          className={index === active ? 'is-active' : ''}
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
+      ))}
+      <div className="blend-carousel__grain" aria-hidden="true" />
+    </div>
+  );
+}
+
+
 function usePath() {
   const [path, setPath] = useState(window.location.pathname);
 
@@ -1302,62 +1402,25 @@ function Header({ lang, setLang, navigate, t }) {
 }
 
 function BrainVisual() {
-  return (
-    <div className="brain-panel" aria-label="EEG analysis illustration">
-      <div className="grid-field" />
-      <div className="brain-outline">
-        <svg viewBox="0 0 600 360" role="img" aria-label="Abstract brain and EEG waveform">
-          <defs>
-            <linearGradient id="waveGradient" x1="0" x2="1">
-              <stop offset="0%" stopColor="#7d7af5" />
-              <stop offset="100%" stopColor="#b255a9" />
-            </linearGradient>
-          </defs>
-
-          <path
-            className="brain-shape"
-            d="M177 259C106 246 75 197 86 143c8-42 43-77 87-84 18-38 63-51 101-31 39-25 98-17 127 18 47 2 86 39 87 85 41 22 52 80 18 114-29 29-85 27-121 9-45 24-98 25-139 1-22 10-47 12-69 4Z"
-          />
-          {Array.from({ length: 26 }).map((_, i) => {
-            const x = 120 + (i * 17) % 370;
-            const y = 70 + ((i * 31) % 180);
-            const r = 18 + ((i * 7) % 45);
-            return <circle key={i} className="brain-cell" cx={x} cy={y} r={r} />;
-          })}
-          <path
-            className="wave"
-            d="M22 181 L60 181 L72 170 L83 190 L95 166 L106 203 L119 147 L130 211 L142 179 L154 181 L174 181 L185 176 L195 190 L209 169 L220 197 L230 173 L240 181 L257 181 L267 161 L277 203 L288 151 L301 214 L312 163 L325 197 L335 181 L353 181 L368 169 L380 193 L394 160 L405 207 L417 176 L429 181 L454 181 L466 174 L480 187 L493 171 L507 197 L520 166 L532 202 L544 181 L580 181"
-          />
-        </svg>
-      </div>
-
-      <div className="chart-card psd-card">
-        <span>Welch PSD</span>
-        <svg viewBox="0 0 220 120">
-          <polyline
-            points="8,24 26,30 40,22 55,45 70,38 86,56 104,49 122,70 140,66 158,81 176,84 198,102"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <line x1="8" y1="108" x2="212" y2="108" />
-          <line x1="8" y1="12" x2="8" y2="108" />
-        </svg>
-        <small>Frequency / Power</small>
-      </div>
-
-      <div className="chart-card topo-card">
-        <span>Alpha band</span>
-        <div className="topomap">
-          <div />
-        </div>
-        <small>8–12 Hz</small>
-      </div>
-    </div>
-  );
+  return <BlendCarousel setName="home" label="Rogex Laboratories visual carousel" />;
 }
 
-function PageHero({ eyebrow, title, text, children }) {
+function PageHero({ eyebrow, title, text, children, visualKey }) {
+  const carouselKey = visualKey || inferCarouselSet(eyebrow, title);
+
+  return (
+    <section className="page-hero split-visual-hero">
+      <div className="split-visual-copy">
+        <span>{eyebrow}</span>
+        <h1>{title}</h1>
+        <p>{text}</p>
+        {children}
+      </div>
+
+      <BlendCarousel setName={carouselKey} label={`${title} visual carousel`} />
+    </section>
+  );
+}) {
   return (
     <section className="page-hero section-block">
       <div>

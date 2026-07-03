@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#fbfbf9"/>
+  <g fill="none" stroke="#111" stroke-linecap="round">
+    <path d="M180 620C260 380 430 300 600 600C770 900 940 820 1020 560" stroke-width="22"/>
+    <path d="M180 730C330 570 460 560 600 600C740 640 880 660 1020 460" stroke-width="12" opacity=".48"/>
+    <path d="M180 500C320 700 460 720 600 600C740 480 880 420 1020 760" stroke-width="12" opacity=".25"/>
+  </g>
+  <text x="100" y="1040" font-family="Georgia,serif" font-size="62" fill="#111">reproducible analysis</text>
+</svg>

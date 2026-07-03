@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import logo from './assets/rogex-logo-transparent.png';
 import './styles.css';
+import carouselManifest from './generated/carouselManifest.js';
 
 const routes = [
   'research',
@@ -46,11 +47,8 @@ const copy = {
     },
     ui: {
       language: 'EN',
-      backHome: 'Inicio',
       viewPrisma: 'Ver PRISMA',
       documentation: 'Documentación',
-      contact: 'Contactar',
-      readNotes: 'Leer notas',
       follow: 'Seguir y conectar',
     },
     home: {
@@ -106,11 +104,8 @@ const copy = {
     },
     ui: {
       language: 'ES',
-      backHome: 'Home',
       viewPrisma: 'View PRISMA',
       documentation: 'Documentation',
-      contact: 'Contact',
-      readNotes: 'Read notes',
       follow: 'Follow & connect',
     },
     home: {
@@ -162,18 +157,7 @@ const socialLinks = [
   { label: 'Linktree', href: 'https://linktr.ee/rogynavy', icon: 'https://img.icons8.com/ios-filled/50/linktree.png' },
 ];
 
-const carouselSets = {
-  home: ['/carousel/prisma-signal-01.svg', '/carousel/prisma-signal-02.svg', '/carousel/prisma-signal-03.svg'],
-  research: ['/carousel/research-01.svg', '/carousel/research-02.svg', '/carousel/research-03.svg'],
-  prisma: ['/carousel/prisma-signal-01.svg', '/carousel/prisma-signal-02.svg', '/carousel/prisma-signal-03.svg'],
-  methods: ['/carousel/methods-01.svg', '/carousel/methods-02.svg', '/carousel/methods-03.svg'],
-  collaborations: ['/carousel/research-02.svg', '/carousel/prisma-signal-03.svg', '/carousel/methods-01.svg'],
-  advances: ['/carousel/prisma-signal-03.svg', '/carousel/research-01.svg', '/carousel/methods-02.svg'],
-  notes: ['/carousel/methods-03.svg', '/carousel/research-03.svg', '/carousel/prisma-signal-02.svg'],
-  contact: ['/carousel/research-02.svg', '/carousel/methods-02.svg', '/carousel/prisma-signal-01.svg'],
-  prisma3: ['/carousel/prisma-signal-01.svg', '/carousel/research-01.svg', '/carousel/methods-01.svg'],
-  prisma4: ['/carousel/prisma-signal-02.svg', '/carousel/prisma-signal-03.svg', '/carousel/research-03.svg'],
-};
+const carouselSets = carouselManifest;
 
 function usePath() {
   const [path, setPath] = useState(window.location.pathname);
@@ -209,16 +193,32 @@ function InternalLink({ href, navigate, children, className }) {
 }
 
 function BlendCarousel({ setName = 'home', label = 'Rogex visual carousel' }) {
-  const images = carouselSets[setName] || carouselSets.home;
+  const images =
+    carouselSets[setName]?.length
+      ? carouselSets[setName]
+      : carouselSets.home?.length
+        ? carouselSets.home
+        : [];
+
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    if (images.length <= 1) return undefined;
+
     const timer = window.setInterval(() => {
       setActive((current) => (current + 1) % images.length);
     }, 3600);
 
     return () => window.clearInterval(timer);
   }, [images.length]);
+
+  if (!images.length) {
+    return (
+      <div className="blend-carousel blend-carousel-empty" aria-label={label}>
+        <span>Add images to public/carousel/{setName}/</span>
+      </div>
+    );
+  }
 
   return (
     <div className="blend-carousel" aria-label={label}>

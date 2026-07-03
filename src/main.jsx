@@ -21,13 +21,13 @@ import {
 import logo from './assets/rogex-logo-transparent.png';
 import './styles.css';
 
-const routes = ['research', 'prisma', 'prisma3', 'methods', 'collaborations', 'advances', 'notes', 'contact'];
+const routes = ['research', 'prisma', 'prisma3', 'prisma4', 'methods', 'collaborations', 'advances', 'notes', 'contact'];
 
 const copy = {
   es: {
     nav: {
       research: 'Investigación',
-      prisma: 'PRISMA', prisma3: 'PRISMA 3', prisma3: 'PRISMA 3',
+      prisma: 'PRISMA', prisma3: 'PRISMA 3', prisma4: 'PRISMA 4', prisma3: 'PRISMA 3', prisma4: 'PRISMA 4',
       methods: 'Métodos',
       collaborations: 'Colaboraciones',
       advances: 'Avances',
@@ -918,6 +918,323 @@ function Prisma3ArticlePage({ lang }) {
 }
 
 
+
+const prisma4Article = {
+  es: {
+    eyebrow: 'Artículo científico / Rogex Laboratories',
+    title: 'PRISMA 4: baseline dinámico y adaptación a la variabilidad neurofisiológica real.',
+    subtitle: 'PRISMA 3 demuestra la arquitectura. PRISMA 4 debe demostrar adaptación al mundo real.',
+    date: 'Julio 2026',
+    author: 'Roger Navarro · Rogex Laboratories',
+    abstractTitle: 'Resumen',
+    abstract: 'PRISMA 4 es la evolución experimental propuesta después de PRISMA 3. Si PRISMA 3 demuestra que la normalización individual puede reducir variabilidad interindividual en datos sintéticos, PRISMA 4 busca estudiar una fase más difícil: variabilidad real entre días, fatiga, respiración, emoción no etiquetada, cambios de postura, calidad de electrodos, drift fisiológico y adaptación dinámica del baseline. No es diagnóstico, no es dispositivo médico y no pretende leer la mente. Es una línea de investigación para convertir una teoría neuroinformacional en arquitectura experimental verificable.',
+    thesisTitle: 'Tesis central',
+    thesis: 'PRISMA 3 aprende el idioma neurofisiológico de cada individuo. PRISMA 4 debe aprender cómo ese idioma cambia con el tiempo, el cuerpo, el contexto y la calidad de señal.',
+    relationTitle: 'De PRISMA 3 a PRISMA 4',
+    relation: [
+      ['PRISMA 3', 'Arquitectura individual demostrada en simulación', 'EEG simulado, baseline personal, normalización intrasujeto, machine learning, traductor individual y reportes explicables.'],
+      ['PRISMA 4', 'Arquitectura adaptativa preparada para variabilidad real', 'EEG real o simulación avanzada, baseline dinámico, drift entre sesiones, filtros adaptativos, test-retest y validación con datos reales.'],
+    ],
+    formulaTitle: 'Modelo conceptual',
+    formula: 'Sp = Tb(Is, A, E, Mp, T)',
+    formulaText: 'PRISMA 4 añade T: tiempo. El estado estimado no depende solo de la señal actual, sino de cómo cambia el usuario entre sesiones, días, estados corporales y condiciones de medida.',
+    mapping: [
+      ['Is', 'Información sobreviviente', 'Features EEG reales o simuladas que sobreviven a ruido, artefactos y filtrado.'],
+      ['A', 'Ausencia / incertidumbre', 'Información incompleta, mala calidad de señal, artefactos, drift, baja confianza y ruido instrumental.'],
+      ['E', 'Estado/contexto', 'Respiración, fatiga, emoción, postura, hora del día, tarea, atención o estado no etiquetado.'],
+      ['Mp', 'Memoria personal', 'Baseline histórico, sesiones recientes, variabilidad propia y respuesta individual a tareas.'],
+      ['T', 'Tiempo', 'Cambios entre días, sesiones, ciclos de fatiga, drift fisiológico y evolución del usuario.'],
+      ['Tb', 'Traductor individual adaptativo', 'Motor que interpreta la señal usando baseline dinámico, calidad de señal y contexto temporal.'],
+    ],
+    architectureTitle: 'Arquitectura propuesta',
+    architecture: [
+      ['1. EEG real o simulador avanzado', 'La entrada puede venir de EEG real o de un simulador que represente variabilidad entre días, fatiga, respiración, impedancia y drift fisiológico.'],
+      ['2. Signal Quality Engine', 'Evalúa si la señal es usable. Detecta artefactos, mala impedancia, ruido muscular, parpadeos, drift y baja estabilidad.'],
+      ['3. Artifact and Physiology Separator', 'Intenta separar ruido instrumental, artefactos corporales y cambios fisiológicos lentos para evitar falsas interpretaciones.'],
+      ['4. Dynamic Baseline Engine', 'Actualiza el baseline de forma prudente usando historial, sesiones recientes, estabilidad y calidad de señal.'],
+      ['5. Individual Translator Engine v2', 'Interpreta desviaciones personales en vez de aplicar umbrales universales rígidos.'],
+      ['6. Adaptive ML', 'Compara modelo global, baseline estático, baseline dinámico y personalización adaptativa.'],
+      ['7. Explainable State Estimate', 'Devuelve estado probable, confianza, incertidumbre, razones principales y límites de interpretación.'],
+    ],
+    dynamicTitle: 'Baseline dinámico',
+    dynamicFormula: 'baseline_dynamic = weighted(historical_baseline, recent_sessions, current_stability, signal_quality, context)',
+    dynamicText: 'El baseline no debe actualizarse siempre. PRISMA 4 debe evitar actualizarlo cuando hay baja calidad de señal, exceso de artefactos, drift fuerte, estado extremo o confianza baja. El objetivo no es perseguir cualquier cambio, sino distinguir cambio real, ruido y variabilidad temporal.',
+    variabilityTitle: 'Variabilidad que PRISMA 4 debe simular o aprender',
+    variability: [
+      'Variabilidad fisiológica entre días.',
+      'Fatiga progresiva dentro de una sesión.',
+      'Respiración irregular y cambios autonómicos.',
+      'Fluctuaciones emocionales no etiquetadas.',
+      'Microtransiciones internas de atención.',
+      'Cambios de impedancia de electrodos.',
+      'Variabilidad por postura, hidratación, temperatura y hora del día.',
+      'Drift fisiológico no lineal.',
+      'Mala calidad de señal y artefactos dinámicos.',
+    ],
+    modulesTitle: 'Módulos técnicos propuestos',
+    modules: [
+      ['dynamic_baseline.py', 'Crea y actualiza baselines dinámicos con reglas de confianza.'],
+      ['session_drift.py', 'Mide cambios entre sesiones y detecta drift temporal.'],
+      ['impedance_simulator.py', 'Simula degradación por mala impedancia o contacto irregular.'],
+      ['fatigue_model.py', 'Modela fatiga progresiva y cambios lentos de banda.'],
+      ['respiration_model.py', 'Introduce modulación respiratoria y cambios autonómicos.'],
+      ['adaptive_filters.py', 'Aplica filtros que cambian según calidad de señal y tipo de artefacto.'],
+      ['test_retest_evaluation.py', 'Evalúa estabilidad del mismo usuario en distintos días.'],
+      ['real_eeg_importer.py', 'Importa CSV, EDF, MAT, FIF u otros formatos de EEG real.'],
+      ['lsl_stream.py', 'Prepara entrada en tiempo real para Muse, OpenBCI u otros dispositivos vía LSL.'],
+      ['calibration_protocols.py', 'Define protocolos de calibración por tarea, sesión y usuario.'],
+    ],
+    validationTitle: 'Plan de validación',
+    validation: [
+      ['Test-retest', 'El mismo usuario repite la misma tarea en días distintos. Se mide si PRISMA reconoce el patrón pese a cambios fisiológicos.'],
+      ['Comparación de modelos', 'raw_global < static_baseline < dynamic_baseline < personalized_adaptive. Esta progresión sería la señal de que el baseline dinámico aporta valor.'],
+      ['Datos reales', 'La validación debe incluir EEG real, sujetos reales, sesiones repetidas, control de calidad y revisión externa.'],
+      ['Métricas', 'accuracy, f1, estabilidad intrasujeto, drift entre sesiones, signal quality, uncertainty, personalization gain y dynamic baseline gain.'],
+    ],
+    interpretationTitle: 'Cómo interpretar PRISMA 4',
+    interpretation: [
+      ['Lectura correcta', 'PRISMA 4 propone una arquitectura para estudiar adaptación temporal e individual en señales EEG. Busca separar variabilidad útil, ruido y contexto.'],
+      ['Lectura incorrecta', 'No debe leerse como diagnóstico, medicina, lectura mental, medición directa de neurotransmisores o prueba clínica.'],
+      ['Objetivo científico', 'Medir si un traductor individual con baseline dinámico generaliza mejor que un baseline estático cuando aparece variabilidad real.'],
+    ],
+    limitsTitle: 'Límites científicos',
+    limits: [
+      'PRISMA 4 no es un dispositivo médico.',
+      'PRISMA 4 no diagnostica enfermedades.',
+      'PRISMA 4 no mide CB1, CB2 ni neurotransmisores de forma directa.',
+      'PRISMA 4 no lee pensamientos.',
+      'La teoría guía la arquitectura, pero debe ser probada con datos reales.',
+      'Cualquier resultado debe mostrar incertidumbre, calidad de señal y límites metodológicos.',
+    ],
+    nextTitle: 'Siguientes pasos',
+    next: [
+      'Construir un prototipo de Dynamic Baseline Engine.',
+      'Crear simulador avanzado de variabilidad entre días.',
+      'Añadir importación EEG real desde CSV/EDF/MAT/FIF.',
+      'Preparar LSL para Muse/OpenBCI.',
+      'Diseñar protocolos de test-retest.',
+      'Comparar baseline estático contra baseline dinámico.',
+      'Publicar reportes reproducibles con límites científicos claros.',
+    ],
+  },
+  en: {
+    eyebrow: 'Scientific article / Rogex Laboratories',
+    title: 'PRISMA 4: dynamic baseline and adaptation to real neurophysiological variability.',
+    subtitle: 'PRISMA 3 demonstrates the architecture. PRISMA 4 must demonstrate adaptation to the real world.',
+    date: 'July 2026',
+    author: 'Roger Navarro · Rogex Laboratories',
+    abstractTitle: 'Abstract',
+    abstract: 'PRISMA 4 is the proposed experimental evolution after PRISMA 3. If PRISMA 3 shows that individual normalization can reduce inter-individual variability in synthetic data, PRISMA 4 studies a harder phase: real day-to-day variability, fatigue, breathing, unlabeled emotion, posture changes, electrode quality, physiological drift and dynamic baseline adaptation. It is not diagnostic, not a medical device and does not attempt to read minds. It is a research line for turning a neuroinformational theory into a verifiable experimental architecture.',
+    thesisTitle: 'Central thesis',
+    thesis: 'PRISMA 3 learns the neurophysiological language of each individual. PRISMA 4 must learn how that language changes with time, body state, context and signal quality.',
+    relationTitle: 'From PRISMA 3 to PRISMA 4',
+    relation: [
+      ['PRISMA 3', 'Individual architecture demonstrated in simulation', 'Simulated EEG, personal baseline, within-subject normalization, machine learning, individual translator and explainable reports.'],
+      ['PRISMA 4', 'Adaptive architecture prepared for real variability', 'Real EEG or advanced simulation, dynamic baseline, session drift, adaptive filters, test-retest and validation with real data.'],
+    ],
+    formulaTitle: 'Conceptual model',
+    formula: 'Sp = Tb(Is, A, E, Mp, T)',
+    formulaText: 'PRISMA 4 adds T: time. The estimated state depends not only on the current signal, but on how the user changes across sessions, days, body states and measurement conditions.',
+    mapping: [
+      ['Is', 'Surviving information', 'Real or simulated EEG features that survive noise, artifacts and filtering.'],
+      ['A', 'Absence / uncertainty', 'Incomplete information, low signal quality, artifacts, drift, low confidence and instrumental noise.'],
+      ['E', 'State/context', 'Breathing, fatigue, emotion, posture, time of day, task, attention or unlabeled state.'],
+      ['Mp', 'Personal memory', 'Historical baseline, recent sessions, personal variability and individual task response.'],
+      ['T', 'Time', 'Day-to-day changes, sessions, fatigue cycles, physiological drift and user evolution.'],
+      ['Tb', 'Adaptive individual translator', 'Engine that interprets the signal using dynamic baseline, signal quality and temporal context.'],
+    ],
+    architectureTitle: 'Proposed architecture',
+    architecture: [
+      ['1. Real EEG or advanced simulator', 'Input can come from real EEG or from a simulator representing day-to-day variability, fatigue, breathing, impedance and physiological drift.'],
+      ['2. Signal Quality Engine', 'Evaluates whether the signal is usable. Detects artifacts, bad impedance, muscle noise, blinks, drift and low stability.'],
+      ['3. Artifact and Physiology Separator', 'Attempts to separate instrumental noise, body artifacts and slow physiological changes to avoid false interpretations.'],
+      ['4. Dynamic Baseline Engine', 'Updates baseline carefully using history, recent sessions, stability and signal quality.'],
+      ['5. Individual Translator Engine v2', 'Interprets personal deviations instead of applying rigid universal thresholds.'],
+      ['6. Adaptive ML', 'Compares global model, static baseline, dynamic baseline and adaptive personalization.'],
+      ['7. Explainable State Estimate', 'Returns probable state, confidence, uncertainty, main reasons and interpretation limits.'],
+    ],
+    dynamicTitle: 'Dynamic baseline',
+    dynamicFormula: 'baseline_dynamic = weighted(historical_baseline, recent_sessions, current_stability, signal_quality, context)',
+    dynamicText: 'The baseline should not always update. PRISMA 4 should avoid updating it when signal quality is low, artifacts are high, drift is strong, the state is extreme or confidence is low. The goal is not to chase every change, but to distinguish real change, noise and temporal variability.',
+    variabilityTitle: 'Variability PRISMA 4 must simulate or learn',
+    variability: [
+      'Day-to-day physiological variability.',
+      'Progressive fatigue within a session.',
+      'Irregular breathing and autonomic changes.',
+      'Unlabeled emotional fluctuations.',
+      'Internal micro-transitions of attention.',
+      'Electrode impedance changes.',
+      'Posture, hydration, temperature and time-of-day variability.',
+      'Non-linear physiological drift.',
+      'Low signal quality and dynamic artifacts.',
+    ],
+    modulesTitle: 'Proposed technical modules',
+    modules: [
+      ['dynamic_baseline.py', 'Creates and updates dynamic baselines with confidence rules.'],
+      ['session_drift.py', 'Measures session-to-session change and detects temporal drift.'],
+      ['impedance_simulator.py', 'Simulates degradation from bad impedance or unstable contact.'],
+      ['fatigue_model.py', 'Models progressive fatigue and slow band changes.'],
+      ['respiration_model.py', 'Introduces respiratory modulation and autonomic changes.'],
+      ['adaptive_filters.py', 'Applies filters that change depending on signal quality and artifact type.'],
+      ['test_retest_evaluation.py', 'Evaluates same-user stability across different days.'],
+      ['real_eeg_importer.py', 'Imports CSV, EDF, MAT, FIF or other real EEG formats.'],
+      ['lsl_stream.py', 'Prepares real-time input for Muse, OpenBCI or other devices through LSL.'],
+      ['calibration_protocols.py', 'Defines calibration protocols by task, session and user.'],
+    ],
+    validationTitle: 'Validation plan',
+    validation: [
+      ['Test-retest', 'The same user repeats the same task across days. PRISMA measures whether it recognizes the pattern despite physiological changes.'],
+      ['Model comparison', 'raw_global < static_baseline < dynamic_baseline < personalized_adaptive. This progression would indicate that dynamic baseline adds value.'],
+      ['Real data', 'Validation must include real EEG, real subjects, repeated sessions, quality control and external review.'],
+      ['Metrics', 'accuracy, f1, within-subject stability, session drift, signal quality, uncertainty, personalization gain and dynamic baseline gain.'],
+    ],
+    interpretationTitle: 'How to interpret PRISMA 4',
+    interpretation: [
+      ['Correct reading', 'PRISMA 4 proposes an architecture to study temporal and individual adaptation in EEG signals. It tries to separate useful variability, noise and context.'],
+      ['Incorrect reading', 'It must not be read as diagnosis, medicine, mind reading, direct neurotransmitter measurement or clinical proof.'],
+      ['Scientific goal', 'Measure whether an individual translator with dynamic baseline generalizes better than a static baseline when real variability appears.'],
+    ],
+    limitsTitle: 'Scientific limits',
+    limits: [
+      'PRISMA 4 is not a medical device.',
+      'PRISMA 4 does not diagnose disease.',
+      'PRISMA 4 does not directly measure CB1, CB2 or neurotransmitters.',
+      'PRISMA 4 does not read thoughts.',
+      'The theory guides the architecture, but must be tested with real data.',
+      'Every result must show uncertainty, signal quality and methodological limits.',
+    ],
+    nextTitle: 'Next steps',
+    next: [
+      'Build a Dynamic Baseline Engine prototype.',
+      'Create an advanced simulator for day-to-day variability.',
+      'Add real EEG import from CSV/EDF/MAT/FIF.',
+      'Prepare LSL for Muse/OpenBCI.',
+      'Design test-retest protocols.',
+      'Compare static baseline against dynamic baseline.',
+      'Publish reproducible reports with clear scientific limits.',
+    ],
+  },
+};
+
+function Prisma4ArticlePage({ lang }) {
+  const data = prisma4Article[lang] || prisma4Article.es;
+
+  const renderPairs = (items) => (
+    <div className="prisma4-pair-table">
+      {items.map(([title, label, text]) => (
+        <div className="prisma4-pair-row" key={title}>
+          <strong>{title}</strong>
+          <span>{label}</span>
+          <p>{text}</p>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderCards = (items) => (
+    <div className="prisma4-grid">
+      {items.map(([title, text]) => (
+        <div className="prisma4-card" key={title}>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <>
+      <section className="prisma4-hero">
+        <div className="section-kicker">{data.eyebrow}</div>
+        <h1>{data.title}</h1>
+        <p className="prisma4-subtitle">{data.subtitle}</p>
+        <div className="prisma4-meta">
+          <span>{data.author}</span>
+          <span>{data.date}</span>
+        </div>
+      </section>
+
+      <article className="prisma4-article">
+        <section className="prisma4-section">
+          <div className="section-kicker">{data.abstractTitle}</div>
+          <p className="prisma4-lead">{data.abstract}</p>
+        </section>
+
+        <section className="prisma4-section prisma4-thesis">
+          <h2>{data.thesisTitle}</h2>
+          <p>{data.thesis}</p>
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.relationTitle}</h2>
+          {renderPairs(data.relation)}
+        </section>
+
+        <section className="prisma4-section">
+          <div className="section-kicker">{data.formulaTitle}</div>
+          <div className="prisma4-formula">{data.formula}</div>
+          <p>{data.formulaText}</p>
+          {renderPairs(data.mapping)}
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.architectureTitle}</h2>
+          {renderCards(data.architecture)}
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.dynamicTitle}</h2>
+          <div className="prisma4-formula small">{data.dynamicFormula}</div>
+          <p>{data.dynamicText}</p>
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.variabilityTitle}</h2>
+          <ul className="prisma4-list">
+            {data.variability.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.modulesTitle}</h2>
+          {renderCards(data.modules)}
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.validationTitle}</h2>
+          {renderCards(data.validation)}
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.interpretationTitle}</h2>
+          {renderCards(data.interpretation)}
+        </section>
+
+        <section className="prisma4-section prisma4-limits">
+          <h2>{data.limitsTitle}</h2>
+          <ul>
+            {data.limits.map((limit) => (
+              <li key={limit}>{limit}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="prisma4-section">
+          <h2>{data.nextTitle}</h2>
+          <ol className="prisma4-next">
+            {data.next.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+        </section>
+      </article>
+    </>
+  );
+}
+
+
 function usePath() {
   const [path, setPath] = useState(window.location.pathname);
 
@@ -1555,6 +1872,7 @@ function App() {
 
     if (key === 'research') return <ResearchPage t={t} />;
     if (key === 'prisma') return <PrismaPage t={t} />; if (key === 'prisma3') return <Prisma3ArticlePage lang={lang} />;
+    if (key === 'prisma4') return <Prisma4ArticlePage lang={lang} />;
     if (key === 'methods') return <MethodsPage t={t} />;
     if (key === 'collaborations') return <CollaborationsPage t={t} />;
     if (key === 'advances') return <AdvancesPage lang={lang} />;

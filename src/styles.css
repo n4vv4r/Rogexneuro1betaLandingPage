@@ -2148,3 +2148,331 @@ a {
   }
 }
 
+
+
+/* PRISMA 4 Article and responsive refinements */
+
+.prisma4-hero,
+.prisma4-article {
+  width: min(1180px, calc(100% - 48px));
+  margin: 72px auto 0;
+  color: #111;
+}
+
+.prisma4-hero {
+  padding-top: 48px;
+  border-top: 2px solid #111;
+}
+
+.prisma4-hero h1 {
+  max-width: 1080px;
+  margin: 24px 0 0;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 7vw, 7.4rem);
+  line-height: 0.88;
+  letter-spacing: -0.08em;
+  color: #111;
+}
+
+.prisma4-subtitle {
+  max-width: 860px;
+  margin: 28px 0 0;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  line-height: 1.55;
+  color: #1b1b1b;
+}
+
+.prisma4-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.prisma4-meta span {
+  display: inline-flex;
+  padding: 7px 10px;
+  border: 1px solid #111;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prisma4-article {
+  margin-top: 54px;
+}
+
+.prisma4-section {
+  padding: 34px 0;
+  border-top: 2px solid #111;
+}
+
+.prisma4-section h2 {
+  max-width: 920px;
+  margin: 0 0 24px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 5vw, 5rem);
+  line-height: 0.94;
+  letter-spacing: -0.07em;
+  color: #111;
+}
+
+.prisma4-section p,
+.prisma4-section li {
+  color: #222;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.prisma4-lead {
+  max-width: 940px;
+  margin: 24px 0 0;
+  font-size: clamp(1.05rem, 2vw, 1.35rem) !important;
+  line-height: 1.75 !important;
+}
+
+.prisma4-thesis {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.3fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.prisma4-thesis h2 {
+  margin: 0;
+}
+
+.prisma4-thesis p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.prisma4-formula {
+  margin: 24px 0;
+  padding: 26px;
+  border: 2px solid #111;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 6vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  color: #111;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.prisma4-formula.small {
+  font-size: clamp(1.35rem, 3vw, 3rem);
+  letter-spacing: -0.04em;
+}
+
+.prisma4-pair-table {
+  border-top: 2px solid #111;
+  border-left: 2px solid #111;
+}
+
+.prisma4-pair-row {
+  display: grid;
+  grid-template-columns: 170px 260px minmax(0, 1fr);
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  background: #fff;
+}
+
+.prisma4-pair-row strong,
+.prisma4-pair-row span,
+.prisma4-pair-row p {
+  margin: 0;
+  padding: 18px;
+  color: #111;
+}
+
+.prisma4-pair-row strong {
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  letter-spacing: -0.04em;
+}
+
+.prisma4-pair-row span {
+  font-weight: 800;
+}
+
+.prisma4-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 2px solid #111;
+  border-left: 2px solid #111;
+}
+
+.prisma4-card {
+  padding: 24px;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  background: #fff;
+}
+
+.prisma4-card h3 {
+  margin: 0 0 14px;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: 1.65rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: #111;
+}
+
+.prisma4-card p {
+  margin: 0;
+}
+
+.prisma4-list {
+  columns: 2;
+  column-gap: 42px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.prisma4-list li {
+  break-inside: avoid;
+  margin-bottom: 8px;
+}
+
+.prisma4-limits {
+  padding: 30px;
+  border: 2px solid #111;
+  background: #f4f4f4;
+}
+
+.prisma4-limits h2 {
+  margin-top: 0;
+}
+
+.prisma4-limits ul,
+.prisma4-next {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.prisma4-next li + li,
+.prisma4-limits li + li {
+  margin-top: 8px;
+}
+
+/* Better phone and iPad readability for long scientific pages */
+
+@media (max-width: 1024px) {
+  .prisma3-hero,
+  .prisma3-article,
+  .prisma4-hero,
+  .prisma4-article,
+  .advances-hero,
+  .research-progress-preview,
+  .research-progress-page {
+    width: min(100% - 32px, 920px);
+    margin-top: 56px;
+  }
+
+  .prisma3-hero h1,
+  .prisma4-hero h1 {
+    font-size: clamp(2.7rem, 9vw, 5.6rem);
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+  }
+
+  .prisma3-paper-section h2,
+  .prisma4-section h2 {
+    font-size: clamp(2rem, 6vw, 4rem);
+  }
+
+  .prisma4-thesis,
+  .prisma4-pair-row {
+    grid-template-columns: 1fr;
+  }
+
+  .prisma4-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prisma4-list {
+    columns: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .prisma3-hero,
+  .prisma3-article,
+  .prisma4-hero,
+  .prisma4-article,
+  .advances-hero,
+  .research-progress-preview,
+  .research-progress-page {
+    width: min(100% - 22px, 760px);
+    margin-top: 42px;
+  }
+
+  .prisma3-hero,
+  .prisma4-hero {
+    padding-top: 28px;
+  }
+
+  .prisma3-meta,
+  .prisma4-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .prisma3-meta span,
+  .prisma4-meta span,
+  .section-kicker {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .prisma3-subtitle,
+  .prisma4-subtitle,
+  .paper-lead,
+  .prisma4-lead {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .prisma3-paper-section,
+  .prisma4-section {
+    padding: 26px 0;
+  }
+
+  .prisma3-formula,
+  .prisma4-formula {
+    padding: 18px;
+    font-size: clamp(1.9rem, 11vw, 3.4rem);
+  }
+
+  .mapping-row,
+  .results-row,
+  .code-row,
+  .prisma3-figure,
+  .prisma4-pair-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .prisma3-card,
+  .prisma4-card,
+  .mapping-row strong,
+  .mapping-row span,
+  .mapping-row p,
+  .results-row strong,
+  .results-row span,
+  .results-row p,
+  .code-row code,
+  .code-row p,
+  .prisma4-pair-row strong,
+  .prisma4-pair-row span,
+  .prisma4-pair-row p {
+    padding: 16px;
+  }
+
+  .prisma3-figure img {
+    min-height: 180px;
+    padding: 8px;
+  }
+}
+

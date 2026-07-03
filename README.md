@@ -54,3 +54,10 @@ This site intentionally avoids medical claims, pricing, hype language and beta-s
 The `/prisma3` page documents Rogex PRISMA 3 as an experimental research architecture for individual EEG baselines, inter-individual variability, simulated EEG, feature extraction, machine learning and explainable interpretation.
 
 It is not diagnostic software, not a medical device and not a clinical claim.
+
+
+## PRISMA 4 scientific article
+
+The `/prisma4` page documents the proposed next phase after PRISMA 3: dynamic baseline, real variability, signal quality, adaptive filtering, test-retest validation and real EEG readiness.
+
+It is not diagnostic software, not a medical device and not a clinical claim.

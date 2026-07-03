@@ -21,13 +21,13 @@ import {
 import logo from './assets/rogex-logo-transparent.png';
 import './styles.css';
 
-const routes = ['research', 'prisma', 'methods', 'collaborations', 'advances', 'notes', 'contact'];
+const routes = ['research', 'prisma', 'prisma3', 'methods', 'collaborations', 'advances', 'notes', 'contact'];
 
 const copy = {
   es: {
     nav: {
       research: 'Investigación',
-      prisma: 'PRISMA',
+      prisma: 'PRISMA', prisma3: 'PRISMA 3', prisma3: 'PRISMA 3',
       methods: 'Métodos',
       collaborations: 'Colaboraciones',
       advances: 'Avances',
@@ -489,6 +489,434 @@ const socialLinks = [
     icon: 'https://img.icons8.com/ios-filled/50/linktree.png',
   },
 ];
+
+
+const prisma3Article = {
+  es: {
+    eyebrow: 'Artículo científico / Rogex Laboratories',
+    title: 'PRISMA 3: un traductor neuroinformacional individual para estudiar la variabilidad interindividual.',
+    subtitle:
+      'PRISMA 3 no busca un patrón universal de cerebro. Busca aprender el idioma neurofisiológico de cada individuo.',
+    date: 'Julio 2026',
+    author: 'Roger Navarro · Rogex Laboratories',
+    abstractTitle: 'Resumen',
+    abstract:
+      'PRISMA 3 es una plataforma experimental de software neuroinformacional construida para estudiar una hipótesis concreta: la variabilidad interindividual no debe tratarse como ruido a eliminar, sino como parte central del traductor biológico de cada persona. El sistema usa EEG simulado, extracción de features, baseline individual, normalización intrasujeto, machine learning y reportes explicables para probar una arquitectura de análisis que después podrá conectarse a EEG real. No es diagnóstico, no es dispositivo médico y no mide neurotransmisores ni receptores. Es una base experimental para investigar.',
+    thesisTitle: 'Tesis central',
+    thesis:
+      'La misma tarea mental no produce exactamente la misma firma EEG en todas las personas. Por eso, un modelo universal puede fallar: interpreta a todos desde el mismo molde. PRISMA 3 propone otro enfoque: primero construir una línea base individual, luego interpretar cada señal como desviación respecto al propio patrón del usuario.',
+    formulaTitle: 'Traducción de la Teoría del Todo Dual a software',
+    formula: 'Sp = Tb(Is, A, E, Mp)',
+    mapping: [
+      ['Is', 'Información sobreviviente', 'features EEG disponibles: bandpower, ratios, entropía, Hjorth, calidad de señal.'],
+      ['A', 'Ausencia / incertidumbre', 'ruido, artefactos, datos incompletos, baja calidad de señal, incertidumbre del modelo.'],
+      ['E', 'Estado/contexto', 'tarea, ejercicio, emoción reportada, respiración, fatiga, sueño o priming experimental.'],
+      ['Mp', 'Memoria personal', 'baseline individual, historia de sesiones, varianza propia, respuesta a tareas.'],
+      ['Tb', 'Traductor biológico individual', 'motor que normaliza por sujeto, estima confianza y explica desviaciones personales.'],
+      ['Sp', 'Estado estimado', 'salida interpretable: estado probable, confianza, incertidumbre y advertencias.'],
+    ],
+    pipelineTitle: 'Flujo de uso',
+    pipeline: [
+      {
+        title: '1. Generar o importar señal',
+        text: 'En la Parte 1, PRISMA 3 usa EEG simulado para probar la arquitectura sin hardware. En una fase posterior, esta entrada puede sustituirse por Muse, OpenBCI, LSL, CSV, EDF, MAT u otros formatos EEG reales.',
+      },
+      {
+        title: '2. Extraer features',
+        text: 'La señal se convierte en métricas: potencia relativa delta/theta/alpha/beta/gamma, theta/alpha, beta/alpha, entropía espectral, Hjorth, RMS, artifact score y signal quality index.',
+      },
+      {
+        title: '3. Construir baseline personal',
+        text: 'Cada usuario tiene su propia línea base. PRISMA 3 no compara directamente una persona con otra: compara el estado actual de una persona con su propio patrón histórico.',
+      },
+      {
+        title: '4. Normalizar por usuario',
+        text: 'Las features se transforman en desviaciones personales, como z-scores intrasujeto. Esto permite reducir el efecto de variabilidad interindividual.',
+      },
+      {
+        title: '5. Entrenar y evaluar modelos',
+        text: 'El sistema compara modelos globales crudos, modelos normalizados por usuario y modelos personalizados. La evaluación principal es LOSO: Leave-One-Subject-Out.',
+      },
+      {
+        title: '6. Explicar, no diagnosticar',
+        text: 'Las salidas explican qué features cambiaron respecto al baseline y con qué confianza. No diagnostican enfermedades ni afirman estados clínicos.',
+      },
+    ],
+    resultsTitle: 'Resultados sintéticos iniciales',
+    resultsIntro:
+      'Los resultados actuales son sintéticos: prueban la ingeniería y la arquitectura, no rendimiento clínico. La demo compara tres enfoques sobre usuarios simulados con firmas distintas.',
+    results: [
+      ['Modelo global con features crudas', '76.7%', 'El modelo intenta aprender un patrón común para todos. Funciona, pero sufre por diferencias entre usuarios.'],
+      ['Modelo global normalizado por usuario', '94.4%', 'La normalización intrasujeto produce el mayor salto. Apoya la idea de que la baseline personal reduce variabilidad interindividual.'],
+      ['Modelo personalizado por usuario', '96.1%', 'El modelo individual añade una mejora extra. No prueba EEG real todavía, pero sí demuestra la lógica del enfoque.'],
+    ],
+    figuresTitle: 'Cómo leer las figuras',
+    figures: [
+      {
+        file: '/prisma3/user_variability_comparison.png',
+        title: 'user_variability_comparison.png',
+        text:
+          'Es la figura clave. Muestra que una misma etiqueta simulada puede expresarse con perfiles espectrales diferentes según el usuario. Lectura correcta: los umbrales universales son insuficientes; hace falta baseline individual.',
+      },
+      {
+        file: '/prisma3/confusion_matrix.png',
+        title: 'confusion_matrix.png',
+        text:
+          'Muestra aciertos y confusiones del modelo. Una diagonal fuerte indica buena clasificación sintética. Si aparecen errores fuera de la diagonal, muestran qué estados se confunden.',
+      },
+      {
+        file: '/prisma3/bandpower_over_time.png',
+        title: 'bandpower_over_time.png',
+        text:
+          'Muestra cómo cambian las bandas EEG simuladas en el tiempo. Sirve para visualizar transiciones entre estados y comprobar que el simulador genera señales coherentes.',
+      },
+      {
+        file: '/prisma3/baseline_deviation.png',
+        title: 'baseline_deviation.png',
+        text:
+          'Muestra cuánto se aleja una sesión del baseline personal. No significa enfermedad ni mejora clínica: solo mide desviación respecto al patrón individual.',
+      },
+      {
+        file: '/prisma3/personal_clusters.png',
+        title: 'personal_clusters.png',
+        text:
+          'Visualiza clusters personales mediante reducción dimensional. Sirve para ver si los estados simulados se agrupan, pero no debe interpretarse como prueba clínica.',
+      },
+    ],
+    codeTitle: 'Qué hace cada parte del código',
+    codeModules: [
+      ['eeg_simulator.py', 'Genera EEG sintético con bandas delta/theta/alpha/beta/gamma, ruido, artefactos de parpadeo, músculo, drift y diferencias por usuario.'],
+      ['feature_extraction.py', 'Convierte la señal en features numéricas: bandpower, ratios, entropía, Hjorth, calidad de señal y artefactos.'],
+      ['baseline_engine.py', 'Construye la línea base individual y calcula desviaciones personales. Es una pieza central para la variabilidad interindividual.'],
+      ['individual_translator.py', 'Implementa el traductor individual: normalización por sujeto, umbrales adaptativos, confianza, incertidumbre y explicación.'],
+      ['ml/', 'Entrena, evalúa y compara modelos globales, normalizados y personalizados. Usa evaluación LOSO para evitar conclusiones tramposas.'],
+      ['exercise_engine.py', 'Define ejercicios simulados como Alpha Calm, Focus Beta, Theta Imagery, Noise Control y Baseline Builder.'],
+      ['theory/', 'Mapea la Teoría del Todo Dual a variables computables: Is, A, E, Mp, Tb y Sp.'],
+      ['reports/', 'Genera informes legibles para explicar resultados, límites y próximos pasos.'],
+    ],
+    guideTitle: 'Guía de interpretación',
+    guide: [
+      {
+        title: 'Qué prueban estos resultados',
+        text:
+          'Prueban que, en datos sintéticos, normalizar por sujeto y usar baseline individual puede mejorar mucho la clasificación entre estados simulados. También prueban que la arquitectura es ejecutable y revisable.',
+      },
+      {
+        title: 'Qué NO prueban',
+        text:
+          'No prueban diagnóstico, no prueban lectura mental, no prueban rendimiento clínico, no prueban que PRISMA 3 funcione igual en EEG real y no miden CB1/CB2 ni neurotransmisores.',
+      },
+      {
+        title: 'Cómo debe leerse el accuracy',
+        text:
+          'El accuracy actual pertenece a una demo sintética. Sirve para validar el flujo de software. La validación real requerirá EEG real, sujetos reales, repetición entre sesiones y comparación contra baselines publicados.',
+      },
+      {
+        title: 'Qué significa LOSO',
+        text:
+          'Leave-One-Subject-Out: entrenar con algunos sujetos y probar en un sujeto no visto. Es más honesto que mezclar ventanas de todos los usuarios, porque mide generalización entre individuos.',
+      },
+      {
+        title: 'Qué significa baseline personal',
+        text:
+          'La señal actual se interpreta como desviación respecto al propio historial del usuario. Esto evita imponer umbrales universales rígidos.',
+      },
+    ],
+    limitsTitle: 'Límites científicos',
+    limits: [
+      'PRISMA 3 no es un dispositivo médico.',
+      'PRISMA 3 no diagnostica enfermedades.',
+      'PRISMA 3 no mide neurotransmisores, receptores CB1/CB2 ni sistema endocannabinoide de forma directa.',
+      'Los resultados actuales son sintéticos y sirven para probar arquitectura, no eficacia clínica.',
+      'Cualquier uso con EEG real requiere validación, consentimiento, documentación y revisión externa.',
+    ],
+    nextTitle: 'Siguientes pasos',
+    next: [
+      'Convertir los ejercicios simulados en ejercicios interactivos dentro de la UI.',
+      'Añadir importación CSV desde la interfaz.',
+      'Preparar conexión LSL para Muse/OpenBCI.',
+      'Usar datos EEG reales y repetir evaluación LOSO.',
+      'Comparar test-retest entre sesiones.',
+      'Publicar reportes reproducibles y límites metodológicos.',
+    ],
+  },
+  en: {
+    eyebrow: 'Scientific article / Rogex Laboratories',
+    title: 'PRISMA 3: an individual neuroinformational translator for inter-individual variability.',
+    subtitle:
+      'PRISMA 3 does not search for a universal brain pattern. It learns the neurophysiological language of each individual.',
+    date: 'July 2026',
+    author: 'Roger Navarro · Rogex Laboratories',
+    abstractTitle: 'Abstract',
+    abstract:
+      'PRISMA 3 is an experimental neuroinformational software platform designed to study one concrete hypothesis: inter-individual variability should not be treated as noise to erase, but as a central part of each person’s biological translator. The system uses simulated EEG, feature extraction, individual baseline, within-subject normalization, machine learning and explainable reports to test an architecture that can later connect to real EEG. It is not diagnostic, not a medical device and does not measure neurotransmitters or receptors. It is an experimental research base.',
+    thesisTitle: 'Central thesis',
+    thesis:
+      'The same mental task does not produce exactly the same EEG signature in every person. A universal model can fail because it interprets everyone through the same template. PRISMA 3 proposes a different approach: first build an individual baseline, then interpret each signal as a deviation from the user’s own pattern.',
+    formulaTitle: 'Dual Theory of Everything translated into software',
+    formula: 'Sp = Tb(Is, A, E, Mp)',
+    mapping: [
+      ['Is', 'Surviving information', 'available EEG features: bandpower, ratios, entropy, Hjorth, signal quality.'],
+      ['A', 'Absence / uncertainty', 'noise, artifacts, missing data, low signal quality, model uncertainty.'],
+      ['E', 'State/context', 'task, exercise, reported emotion, breathing, fatigue, sleep or experimental priming.'],
+      ['Mp', 'Personal memory', 'individual baseline, session history, personal variance, response to tasks.'],
+      ['Tb', 'Individual biological translator', 'engine that normalizes by subject, estimates confidence and explains personal deviations.'],
+      ['Sp', 'Estimated state', 'interpretable output: probable state, confidence, uncertainty and warnings.'],
+    ],
+    pipelineTitle: 'Usage flow',
+    pipeline: [
+      {
+        title: '1. Generate or import signal',
+        text: 'In Part 1, PRISMA 3 uses simulated EEG to test the architecture without hardware. Later this input can be replaced by Muse, OpenBCI, LSL, CSV, EDF, MAT or other real EEG formats.',
+      },
+      {
+        title: '2. Extract features',
+        text: 'The signal is converted into metrics: relative delta/theta/alpha/beta/gamma power, theta/alpha, beta/alpha, spectral entropy, Hjorth, RMS, artifact score and signal quality index.',
+      },
+      {
+        title: '3. Build personal baseline',
+        text: 'Each user has their own baseline. PRISMA 3 does not directly compare one person with another: it compares the current state of a person with their own historical pattern.',
+      },
+      {
+        title: '4. Normalize by user',
+        text: 'Features are transformed into personal deviations, such as within-subject z-scores. This helps reduce the effect of inter-individual variability.',
+      },
+      {
+        title: '5. Train and evaluate models',
+        text: 'The system compares raw global models, user-normalized models and personalized models. The main evaluation is LOSO: Leave-One-Subject-Out.',
+      },
+      {
+        title: '6. Explain, do not diagnose',
+        text: 'Outputs explain which features changed from baseline and with what confidence. They do not diagnose disease or claim clinical states.',
+      },
+    ],
+    resultsTitle: 'Initial synthetic results',
+    resultsIntro:
+      'Current results are synthetic: they test engineering and architecture, not clinical performance. The demo compares three approaches over simulated users with different signatures.',
+    results: [
+      ['Global model with raw features', '76.7%', 'The model tries to learn one common pattern for everyone. It works, but suffers from user differences.'],
+      ['Global model normalized by user', '94.4%', 'Within-subject normalization produces the largest jump. It supports the idea that personal baseline reduces inter-individual variability.'],
+      ['Personalized model by user', '96.1%', 'The individual model adds an extra gain. It does not prove real EEG performance yet, but demonstrates the logic of the approach.'],
+    ],
+    figuresTitle: 'How to read the figures',
+    figures: [
+      {
+        file: '/prisma3/user_variability_comparison.png',
+        title: 'user_variability_comparison.png',
+        text:
+          'The key figure. It shows that the same simulated label can be expressed through different spectral profiles depending on the user. Correct reading: universal thresholds are insufficient; individual baseline is required.',
+      },
+      {
+        file: '/prisma3/confusion_matrix.png',
+        title: 'confusion_matrix.png',
+        text:
+          'Shows model hits and confusions. A strong diagonal means good synthetic classification. Errors outside the diagonal show which states get confused.',
+      },
+      {
+        file: '/prisma3/bandpower_over_time.png',
+        title: 'bandpower_over_time.png',
+        text:
+          'Shows how simulated EEG bands change over time. It helps visualize transitions between states and check that the simulator produces coherent signals.',
+      },
+      {
+        file: '/prisma3/baseline_deviation.png',
+        title: 'baseline_deviation.png',
+        text:
+          'Shows how far a session moves away from personal baseline. It does not mean disease or clinical improvement: it only measures deviation from the individual pattern.',
+      },
+      {
+        file: '/prisma3/personal_clusters.png',
+        title: 'personal_clusters.png',
+        text:
+          'Visualizes personal clusters through dimensionality reduction. It helps inspect whether simulated states group together, but must not be interpreted as clinical proof.',
+      },
+    ],
+    codeTitle: 'What each code part does',
+    codeModules: [
+      ['eeg_simulator.py', 'Generates synthetic EEG with delta/theta/alpha/beta/gamma bands, noise, blink artifacts, muscle artifacts, drift and user differences.'],
+      ['feature_extraction.py', 'Converts the signal into numerical features: bandpower, ratios, entropy, Hjorth, signal quality and artifacts.'],
+      ['baseline_engine.py', 'Builds the individual baseline and calculates personal deviations. This is central for inter-individual variability.'],
+      ['individual_translator.py', 'Implements the individual translator: subject normalization, adaptive thresholds, confidence, uncertainty and explanation.'],
+      ['ml/', 'Trains, evaluates and compares global, normalized and personalized models. Uses LOSO evaluation to avoid misleading conclusions.'],
+      ['exercise_engine.py', 'Defines simulated exercises such as Alpha Calm, Focus Beta, Theta Imagery, Noise Control and Baseline Builder.'],
+      ['theory/', 'Maps the Dual Theory into computable variables: Is, A, E, Mp, Tb and Sp.'],
+      ['reports/', 'Generates readable reports to explain results, limitations and next steps.'],
+    ],
+    guideTitle: 'Interpretation guide',
+    guide: [
+      {
+        title: 'What these results prove',
+        text:
+          'They show that, in synthetic data, subject normalization and individual baseline can greatly improve classification between simulated states. They also show the architecture is executable and reviewable.',
+      },
+      {
+        title: 'What they do NOT prove',
+        text:
+          'They do not prove diagnosis, mind reading, clinical performance, equal performance on real EEG, or measurement of CB1/CB2 or neurotransmitters.',
+      },
+      {
+        title: 'How accuracy should be read',
+        text:
+          'Current accuracy belongs to a synthetic demo. It validates the software flow. Real validation will require real EEG, real subjects, session repetition and comparison against published baselines.',
+      },
+      {
+        title: 'What LOSO means',
+        text:
+          'Leave-One-Subject-Out: train on some subjects and test on an unseen subject. It is more honest than mixing windows from all users because it measures cross-individual generalization.',
+      },
+      {
+        title: 'What personal baseline means',
+        text:
+          'The current signal is interpreted as deviation from the user’s own history. This avoids imposing rigid universal thresholds.',
+      },
+    ],
+    limitsTitle: 'Scientific limits',
+    limits: [
+      'PRISMA 3 is not a medical device.',
+      'PRISMA 3 does not diagnose disease.',
+      'PRISMA 3 does not directly measure neurotransmitters, CB1/CB2 receptors or the endocannabinoid system.',
+      'Current results are synthetic and test architecture, not clinical efficacy.',
+      'Any real EEG usage requires validation, consent, documentation and external review.',
+    ],
+    nextTitle: 'Next steps',
+    next: [
+      'Turn simulated exercises into interactive UI exercises.',
+      'Add CSV import from the interface.',
+      'Prepare LSL connection for Muse/OpenBCI.',
+      'Use real EEG data and repeat LOSO evaluation.',
+      'Compare test-retest across sessions.',
+      'Publish reproducible reports and methodological limits.',
+    ],
+  },
+};
+
+function Prisma3ArticlePage({ lang }) {
+  const data = prisma3Article[lang] || prisma3Article.es;
+
+  return (
+    <>
+      <section className="prisma3-hero">
+        <div className="section-kicker">{data.eyebrow}</div>
+        <h1>{data.title}</h1>
+        <p className="prisma3-subtitle">{data.subtitle}</p>
+        <div className="prisma3-meta">
+          <span>{data.author}</span>
+          <span>{data.date}</span>
+        </div>
+      </section>
+
+      <article className="prisma3-article">
+        <section className="prisma3-paper-section">
+          <div className="section-kicker">{data.abstractTitle}</div>
+          <p className="paper-lead">{data.abstract}</p>
+        </section>
+
+        <section className="prisma3-paper-section prisma3-thesis">
+          <h2>{data.thesisTitle}</h2>
+          <p>{data.thesis}</p>
+        </section>
+
+        <section className="prisma3-paper-section">
+          <div className="section-kicker">{data.formulaTitle}</div>
+          <div className="prisma3-formula">{data.formula}</div>
+          <div className="mapping-table">
+            {data.mapping.map(([symbol, label, explanation]) => (
+              <div className="mapping-row" key={symbol}>
+                <strong>{symbol}</strong>
+                <span>{label}</span>
+                <p>{explanation}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="prisma3-paper-section">
+          <h2>{data.pipelineTitle}</h2>
+          <div className="prisma3-grid">
+            {data.pipeline.map((item) => (
+              <div className="prisma3-card" key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="prisma3-paper-section">
+          <h2>{data.resultsTitle}</h2>
+          <p>{data.resultsIntro}</p>
+          <div className="results-table">
+            {data.results.map(([model, value, note]) => (
+              <div className="results-row" key={model}>
+                <strong>{model}</strong>
+                <span>{value}</span>
+                <p>{note}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="prisma3-paper-section">
+          <h2>{data.figuresTitle}</h2>
+          <div className="figure-list">
+            {data.figures.map((figure) => (
+              <figure className="prisma3-figure" key={figure.title}>
+                <img src={figure.file} alt={figure.title} loading="lazy" />
+                <figcaption>
+                  <strong>{figure.title}</strong>
+                  <span>{figure.text}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+
+        <section className="prisma3-paper-section">
+          <h2>{data.codeTitle}</h2>
+          <div className="code-table">
+            {data.codeModules.map(([module, explanation]) => (
+              <div className="code-row" key={module}>
+                <code>{module}</code>
+                <p>{explanation}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="prisma3-paper-section">
+          <h2>{data.guideTitle}</h2>
+          <div className="prisma3-grid">
+            {data.guide.map((item) => (
+              <div className="prisma3-card" key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="prisma3-paper-section prisma3-limits">
+          <h2>{data.limitsTitle}</h2>
+          <ul>
+            {data.limits.map((limit) => (
+              <li key={limit}>{limit}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="prisma3-paper-section">
+          <h2>{data.nextTitle}</h2>
+          <ol className="prisma3-next">
+            {data.next.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+        </section>
+      </article>
+    </>
+  );
+}
+
 
 function usePath() {
   const [path, setPath] = useState(window.location.pathname);
@@ -1126,7 +1554,7 @@ function App() {
     const key = path.replace('/', '') || 'home';
 
     if (key === 'research') return <ResearchPage t={t} />;
-    if (key === 'prisma') return <PrismaPage t={t} />;
+    if (key === 'prisma') return <PrismaPage t={t} />; if (key === 'prisma3') return <Prisma3ArticlePage lang={lang} />;
     if (key === 'methods') return <MethodsPage t={t} />;
     if (key === 'collaborations') return <CollaborationsPage t={t} />;
     if (key === 'advances') return <AdvancesPage lang={lang} />;

@@ -1,63 +1,30 @@
-# Rogex Laboratories — Vite Website
+# Rogex Laboratories — PRISMA 3 Web
 
-Clean research-oriented website for Rogex Laboratories and PRISMA.
+Public website for Rogex Laboratories presenting PRISMA 3 as experimental EEG research software.
 
-## Stack
+## What this version includes
 
-- Vite
-- React
-- CSS
-- lucide-react icons
-- Icons8 social icons loaded from `img.icons8.com`
+- Updated PRISMA 3 narrative: company-style public release, not a sales-only landing page.
+- Real EEG validation section using OpenNeuro DS007358: 28 subjects, 3304 windows, ec vs eo, LOSO evaluation.
+- Public technical reports served from `/research/*.md` and rendered inside the app through `/docs/<slug>`.
+- Built-in Markdown reader with headings, lists, tables, code blocks, blockquotes and raw `.md` access.
+- Theme selector with Light, Dark, Solarized, Wikipedia-style and Modern modes.
+- Validation figures served from `/prisma3/*.png`.
+- Technical pipeline explanation: signal import, preprocessing, feature extraction, baseline engine, individual translator and ML.
+- Clear scientific limits: not a medical device, not diagnostic, no clinical claims.
 
-## Run locally
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the local URL Vite prints in the terminal.
-
-## Build
+## Production build
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Pages
-
-The site uses clean SPA routes instead of hash anchors:
-
-- `/`
-- `/research`
-- `/prisma`
-- `/methods`
-- `/collaborations`
-- `/notes`
-- `/contact`
-
-If you deploy to Vercel or Netlify, enable SPA fallback/rewrite to `index.html` so direct page reloads work.
-
-## Language
-
-Spanish is the default language. The `EN/ES` button toggles the interface language and stores the preference in `localStorage`.
-
-## Content direction
-
-This site intentionally avoids medical claims, pricing, hype language and beta-sales language. It presents Rogex Laboratories as an independent research software and neurotechnology lab focused on reproducible EEG analysis.
-
-
-## PRISMA 3 scientific article
-
-The `/prisma3` page documents Rogex PRISMA 3 as an experimental research architecture for individual EEG baselines, inter-individual variability, simulated EEG, feature extraction, machine learning and explainable interpretation.
-
-It is not diagnostic software, not a medical device and not a clinical claim.
-
-
-## PRISMA 4 scientific article
-
-The `/prisma4` page documents the proposed next phase after PRISMA 3: dynamic baseline, real variability, signal quality, adaptive filtering, test-retest validation and real EEG readiness.
-
-It is not diagnostic software, not a medical device and not a clinical claim.
+The production output is in `dist/` and is ready for Vercel/static deployment.

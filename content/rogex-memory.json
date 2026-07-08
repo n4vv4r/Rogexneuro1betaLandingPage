@@ -1,0 +1,33 @@
+{
+  "version": "2026-07-modern-apple",
+  "brand": "Rogex Laboratories",
+  "current_public_focus": "PRISMA 3 real EEG validation and PRISMA 4 roadmap",
+  "real_prisma3": {
+    "status": "Experimental research software; non-diagnostic; non-medical",
+    "dataset": "OpenNeuro DS007358",
+    "task": "eyes closed vs eyes open",
+    "subjects": 28,
+    "windows": 3304,
+    "raw_loso_accuracy": "71.5%",
+    "subject_normalized_loso_accuracy": "84.2%",
+    "gain": "+12.7 percentage points",
+    "personalized_intra_cv_accuracy": "91.4%",
+    "physiology_check": "occipital relative alpha ec=0.338 vs eo=0.083"
+  },
+  "ecosystem": [
+    "PRISMA 3",
+    "PRISMA 4",
+    "RogexOS",
+    "Catalonian / RXos",
+    "Moscovium",
+    "Roxenite / RX-C",
+    "RGX Protocol / rgx://",
+    "Navi / Nivalynx"
+  ],
+  "mascot": {
+    "name": "Nivalynx",
+    "animal": "Iberian lynx",
+    "style": "calm, precise, curious, independent"
+  },
+  "scientific_boundary": "PRISMA is not a medical device and does not diagnose, treat, cure, or predict disease."
+}

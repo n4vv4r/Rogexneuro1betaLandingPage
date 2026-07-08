@@ -1,56 +1,27 @@
 # Rogex Laboratories — Industrial Research Infrastructure
 
-Nueva versión de la web de Rogex Laboratories.
+Versión corregida:
 
-Dirección visual:
-- industrial
-- sharp borders
-- márgenes marcados
-- fondos oscuros con imagen técnica simulada en baja opacidad
-- menos Apple soft
-- nada de liquid glass
-- menos plantilla de IA
-- más laboratorio / infraestructura / sistema real
+- sin fondos blancos residuales
+- contacto actualizado: roger@rogexlaboratories.com
+- posts de X cargados por API propia en `/api/x-posts`
+- sin embed oficial de X
+- traducciones extendidas para ES, EN, ZH, JA, FR y DE
+- PayPal real añadido
+- PRISMA 3 sales note añadido
+- fallback local para X si no hay token
 
-Stack:
+## Stack
+
 - Vite
 - React
 - lucide-react
-- Vercel serverless function para Navi en `api/chat.js`
+- Vercel serverless functions
 
-## Añadido en esta versión
-
-- Enlace real de donación PayPal:
-  https://www.paypal.com/ncp/payment/WWL8SE2XGSZNA
-
-- Aviso de ventas futuras:
-  PRISMA 3 abrirá ventas pronto para investigadores o gente con interés técnico/científico real.
-  No se venderá a cualquiera automáticamente.
-  El precio queda pendiente de decidir.
-
-- Embed opcional de X:
-  https://x.com/rogexlabs
-
-El embed usa `platform.twitter.com/widgets.js`.
-Si X o el navegador bloquean el embed, queda un botón fallback a @rogexlabs.
-
-## Información real incorporada
-
-- PRISMA 3 como subject-normalized EEG decoding software
-- OpenNeuro DS007358
-- 28 sujetos
-- 3304 ventanas
-- 71.5% raw LOSO
-- 84.2% subject-normalized LOSO
-- +12.7 puntos frente a raw features
-- 91.4% personalized intra-CV, indicado como régimen más fácil
-- límite científico: no diagnóstico, no dispositivo médico
-
-## Instalar
+## Probar localmente
 
 ```bash
 npm install
-cp .env.example .env.local
 npm run dev
 ```
 
@@ -60,45 +31,37 @@ Abrir:
 http://localhost:5173
 ```
 
-## Chatbot Navi
+Con `npm run dev`, la API `/api/x-posts` no funciona porque Vite no ejecuta funciones serverless de Vercel. En ese caso la web muestra posts fallback.
 
-En Vite local puro, `/api/chat` no se ejecuta salvo que uses Vercel.
-
-Para usar Navi con OpenAI en local:
+Para probar APIs reales localmente:
 
 ```bash
 npm i -g vercel
 vercel dev
 ```
 
-En `.env.local`:
+## Variables de entorno
 
 ```bash
 OPENAI_API_KEY=tu_api_key
 OPENAI_MODEL=gpt-5.4-mini
 ROGEX_MEMORY_URL=
+
+X_BEARER_TOKEN=tu_x_bearer_token_opcional
+X_USERNAME=rogexlabs
+X_USER_ID=
 ```
 
-## Memoria viva
+`X_USER_ID` es opcional. Si no lo pones, `/api/x-posts` busca primero el usuario por username y luego pide sus posts.
 
-Edita:
+## Donación
 
-```bash
-content/rogex-memory.json
-```
+https://www.paypal.com/ncp/payment/WWL8SE2XGSZNA
 
-o usa:
+## Contacto
 
-```bash
-ROGEX_MEMORY_URL=https://www.rogexlaboratories.com/rogex-memory.json
-```
+roger@rogexlaboratories.com
 
-## Deploy recomendado
+## Nota de ventas PRISMA 3
 
-Vercel.
-
-```bash
-npm run build
-```
-
-Luego subir a GitHub y conectar con Vercel.
+PRISMA 3 abrirá ventas pronto para investigadores o personas con interés técnico/científico real. No se venderá automáticamente a cualquiera. El precio queda pendiente.

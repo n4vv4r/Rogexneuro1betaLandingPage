@@ -33,5 +33,15 @@
   "donation_url": "https://www.paypal.com/ncp/payment/WWL8SE2XGSZNA",
   "sales_note": "PRISMA 3 sales will open soon for researchers or qualified interested users; it is not sold to anyone without context. Price is not decided yet.",
   "x_profile": "https://x.com/rogexlabs",
-  "visual_direction": "Rogex Laboratories as industrial research infrastructure: sharp borders, dark image backgrounds, editorial grids, lab/security/server aesthetic."
+  "visual_direction": "Rogex Laboratories as industrial research infrastructure: sharp borders, dark image backgrounds, editorial grids, lab/security/server aesthetic.",
+  "contact_email": "roger@rogexlaboratories.com",
+  "x_api": {
+    "route": "/api/x-posts",
+    "username": "rogexlabs",
+    "env": [
+      "X_BEARER_TOKEN",
+      "X_USERNAME",
+      "X_USER_ID"
+    ]
+  }
 }

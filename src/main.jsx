@@ -16,6 +16,9 @@ import {
 import './styles.css';
 import { localeNames, locales, metrics, products, roadmap, socialLinks, t } from './data/content.js';
 
+const DONATION_URL = 'https://www.paypal.com/ncp/payment/WWL8SE2XGSZNA';
+const X_PROFILE_URL = 'https://x.com/rogexlabs';
+
 const routeMap = [
   ['/', 'Inicio'],
   ['/prisma', 'PRISMA'],
@@ -66,7 +69,7 @@ function Header({ path, navigate, locale, setLocale }) {
           <div className="brand-mark">R</div>
           <div>
             <span className="brand-title">Rogex Laboratories</span>
-            <span className="brand-subtitle">PRISMA · RogexOS · rgx://</span>
+            <span className="brand-subtitle">Industrial Research Infrastructure</span>
           </div>
         </a>
 
@@ -137,10 +140,10 @@ function HeroDevice({ copy }) {
                 <span>Navi</span>
               </div>
               <div className="app-body">
-                <p style={{ color: '#30343a', fontWeight: 800, lineHeight: 1.45 }}>{copy.mascotBubble}</p>
+                <p style={{ color: '#e7eee7', fontWeight: 800, lineHeight: 1.45 }}>{copy.mascotBubble}</p>
                 <div style={{ marginTop: 16, display: 'grid', gap: 8 }}>
                   {['Productos', 'Roadmap', 'Colaborar'].map((item) => (
-                    <span key={item} style={{ borderRadius: 14, background: '#f1f3f7', padding: '10px 12px', fontSize: 13, fontWeight: 800 }}>
+                    <span key={item} style={{ borderRadius: 14, background: 'rgba(255,255,255,.10)', padding: '10px 12px', fontSize: 13, fontWeight: 800 }}>
                       {item}
                     </span>
                   ))}
@@ -154,8 +157,8 @@ function HeroDevice({ copy }) {
                 <span>rgx://</span>
               </div>
               <div className="app-body">
-                <p style={{ color: '#30343a', fontSize: 14, lineHeight: 1.6 }}>
-                  A calmer app and social layer for research notes, signed apps, simulations and reproducible reports.
+                <p style={{ color: '#e7eee7', fontSize: 14, lineHeight: 1.6 }}>
+                  An industrial app and social layer for research notes, signed apps, simulations and reproducible reports.
                 </p>
               </div>
             </div>
@@ -167,7 +170,7 @@ function HeroDevice({ copy }) {
               </div>
               <div className="app-body">
                 <div className="wave" style={{ height: 80 }} />
-                <p style={{ marginTop: 12, color: '#666b73', fontSize: 13 }}>RF spectrum · noise lab · PRISMA sync</p>
+                <p style={{ marginTop: 12, color: '#a9b2aa', fontSize: 13 }}>RF spectrum · noise lab · PRISMA sync</p>
               </div>
             </div>
           </div>
@@ -179,8 +182,8 @@ function HeroDevice({ copy }) {
 
 function MiniStat({ label, value }) {
   return (
-    <div style={{ borderRadius: 16, background: '#f1f3f7', padding: 12 }}>
-      <span style={{ color: '#666b73', fontSize: 11, fontWeight: 850, textTransform: 'uppercase' }}>{label}</span>
+    <div style={{ borderRadius: 16, background: 'rgba(255,255,255,.10)', padding: 12 }}>
+      <span style={{ color: '#a9b2aa', fontSize: 11, fontWeight: 850, textTransform: 'uppercase' }}>{label}</span>
       <strong style={{ display: 'block', marginTop: 5, fontSize: 24, letterSpacing: '-.04em' }}>{value}</strong>
     </div>
   );
@@ -254,7 +257,12 @@ function Home({ locale, navigate }) {
               <button className="btn primary" onClick={() => navigate('/prisma')}>
                 {copy.ctaPrimary} <ArrowRight size={16} style={{ marginLeft: 8 }} />
               </button>
+              <button className="btn donate" onClick={() => window.open(DONATION_URL, '_blank', 'noopener,noreferrer')}>Donate via PayPal</button>
               <button className="btn" onClick={() => navigate('/donate')}>{copy.ctaSecondary}</button>
+            </div>
+
+            <div className="sales-note">
+              PRISMA 3 sales will open soon for researchers or qualified interested users. It will not be sold to everyone automatically. Price is not decided yet.
             </div>
           </div>
 
@@ -268,7 +276,7 @@ function Home({ locale, navigate }) {
         <div className="container">
           <div className="deep-section">
             <span className="eyebrow" style={{ background: 'rgba(255,255,255,.08)', color: '#fff', borderColor: 'rgba(255,255,255,.14)' }}>
-              {copy.scientificBoundary}
+              {copy.scientificBoundary / Access}
             </span>
             <h2 className="h2" style={{ marginTop: 24 }}>Model the person before interpreting the state.</h2>
             <p className="lead" style={{ color: 'rgba(255,255,255,.72)' }}>
@@ -312,8 +320,8 @@ function Prisma({ locale }) {
           </div>
           <div className="panel">
             <ShieldCheck size={32} />
-            <h2 className="h3" style={{ marginTop: 18 }}>Boundary</h2>
-            <p style={{ marginTop: 14 }}>{copy.scientificBoundary}</p>
+            <h2 className="h3" style={{ marginTop: 18 }}>Boundary / Access</h2>
+            <p style={{ marginTop: 14 }}>{copy.scientificBoundary / Access}</p>
           </div>
         </div>
       </section>
@@ -468,13 +476,24 @@ function Collaborate() {
       <div className="container split">
         <div className="panel">
           <HeartHandshake size={34} />
-          <h2 className="h2" style={{ marginTop: 18 }}>Collaborate without taking over the roadmap.</h2>
-          <p style={{ marginTop: 18 }}>Rogex can accept help from researchers, developers, designers, hardware people, translators and donors while keeping a coherent direction.</p>
+          <h2 className="h2" style={{ marginTop: 18 }}>Collaborate with a research infrastructure, not a hype page.</h2>
+          <p style={{ marginTop: 18 }}>Rogex can accept help from researchers, developers, designers, hardware people, translators and donors while keeping a coherent roadmap.</p>
+
+          <div className="sales-note">
+            PRISMA 3 sales will open soon for researchers and qualified interested users. It is not a mass-market product and the price will be decided later.
+          </div>
+
+          <div className="actions">
+            <a className="btn donate" href={DONATION_URL} target="_blank" rel="noreferrer">Donate via PayPal</a>
+            <a className="btn" href="mailto:contact@rogexlaboratories.com">Propose collaboration</a>
+          </div>
         </div>
-        <div className="panel">
-          <Sparkles size={34} />
-          <h2 className="h3" style={{ marginTop: 18 }}>Useful collaboration paths</h2>
-          <p style={{ marginTop: 14 }}>EEG validation, SDR experiments, frontend polish, RogexOS UX, docs, translations, academic review, hardware testing and ethical funding.</p>
+
+        <div className="panel x-panel">
+          <Globe2 size={34} />
+          <h2 className="h3" style={{ marginTop: 18 }}>Live public signal</h2>
+          <p style={{ marginTop: 14 }}>Optional X embed for posts from @rogexlabs. It keeps the website connected to public progress without making the whole site depend on social media.</p>
+          <XTimeline />
         </div>
       </div>
     </section>
@@ -486,9 +505,32 @@ function Donate() {
     <>
       <section className="section">
         <div className="container">
-          <span className="eyebrow">Support</span>
-          <h1 className="h1">Fund tools, validation and independent development.</h1>
-          <p className="lead">Donations should be framed as support for PRISMA, RogexOS, documentation, public demos and future Moscovium experiments. Not hype, not speculation.</p>
+          <span className="eyebrow">Support / PayPal</span>
+          <h1 className="h1">Fund PRISMA validation, RogexOS infrastructure and Moscovium experiments.</h1>
+          <p className="lead">Donations support independent development: PRISMA reports, public demos, RogexOS UX, documentation, future SDR hardware and the research path toward PRISMA 4.</p>
+          <div className="actions">
+            <a className="btn donate" href={DONATION_URL} target="_blank" rel="noreferrer">Donate via PayPal</a>
+            <a className="btn" href="mailto:contact@rogexlaboratories.com">Contact Rogex</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container split">
+          <div className="panel paypal-panel">
+            <h2 className="h3">PRISMA 3 sales opening soon.</h2>
+            <p style={{ marginTop: 16 }}>PRISMA 3 will be offered to researchers or people with a real technical/scientific interest. It is not a casual consumer product and it will not be sold to anyone automatically.</p>
+            <p style={{ marginTop: 12 }}>The price is not decided yet. The first focus is clarity, validation, responsible use and collaboration fit.</p>
+            <div className="actions">
+              <a className="btn donate" href={DONATION_URL} target="_blank" rel="noreferrer">Support before launch</a>
+            </div>
+          </div>
+
+          <div className="panel x-panel">
+            <h2 className="h3">Public progress feed</h2>
+            <p style={{ marginTop: 16 }}>Optional embed with posts from x.com/rogexlabs. If X blocks embeds, the fallback link remains visible.</p>
+            <XTimeline />
+          </div>
         </div>
       </section>
 
@@ -496,18 +538,52 @@ function Donate() {
         <div className="container science-grid">
           {[
             ['PRISMA', 'More datasets, better reports, live EEG path and validation.'],
-            ['RogexOS', 'UI, Studio, rgx:// runtime, Navi and developer experience.'],
+            ['RogexOS', 'Industrial UI, Studio, rgx:// runtime, Navi and developer experience.'],
             ['Moscovium', 'SDR hardware, baselines, noise lab and reproducible experiments.'],
           ].map(([title, text]) => (
             <article className="science-card" key={title}>
               <h3>{title}</h3>
               <p>{text}</p>
-              <a className="btn primary" style={{ marginTop: 20 }} href="#">Add donation link</a>
+              <a className="btn donate" style={{ marginTop: 20 }} href={DONATION_URL} target="_blank" rel="noreferrer">Donate</a>
             </article>
           ))}
         </div>
       </section>
     </>
+  );
+}
+
+function XTimeline() {
+  useEffect(() => {
+    if (window.twttr?.widgets) {
+      window.twttr.widgets.load();
+      return;
+    }
+
+    if (!document.querySelector('script[src="https://platform.twitter.com/widgets.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://platform.twitter.com/widgets.js';
+      script.async = true;
+      script.charset = 'utf-8';
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  return (
+    <div className="twitter-timeline-wrap">
+      <a
+        className="twitter-timeline"
+        data-height="360"
+        data-theme="dark"
+        href={X_PROFILE_URL}
+      >
+        Posts by @rogexlabs
+      </a>
+      <div className="twitter-fallback">
+        <p>If the X embed is blocked by privacy settings or browser extensions, open the profile directly.</p>
+        <a className="btn" href={X_PROFILE_URL} target="_blank" rel="noreferrer">Open @rogexlabs</a>
+      </div>
+    </div>
   );
 }
 
@@ -570,7 +646,7 @@ function NaviChat({ locale }) {
             <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder={copy.askPlaceholder} />
             <div className="chat-row">
               <button className="btn primary" onClick={() => ask()}>{loading ? '...' : copy.askButton}</button>
-              <span style={{ color: '#666b73', fontSize: 12, fontWeight: 800 }}>gpt-5.4-mini</span>
+              <span style={{ color: '#a9b2aa', fontSize: 12, fontWeight: 800 }}>gpt-5.4-mini</span>
             </div>
 
             {reply && <div className="chat-reply">{reply}</div>}
@@ -587,7 +663,7 @@ function Footer() {
       <div className="container footer-grid">
         <div>
           <h3>Rogex Laboratories</h3>
-          <p style={{ marginTop: 12 }}>Experimental research software, sovereign computing and future rgx:// ecosystem. Built around PRISMA, RogexOS, Moscovium and Navi.</p>
+          <p style={{ marginTop: 12 }}>Industrial research infrastructure for PRISMA, RogexOS, Moscovium, Navi and the future rgx:// ecosystem.</p>
         </div>
         <div>
           <h3>Public links</h3>
@@ -596,8 +672,8 @@ function Footer() {
           </div>
         </div>
         <div>
-          <h3>Boundary</h3>
-          <p style={{ marginTop: 12 }}>PRISMA is non-diagnostic experimental research software. Clinical, medical and treatment claims are intentionally excluded.</p>
+          <h3>Boundary / Access</h3>
+          <p style={{ marginTop: 12 }}>PRISMA is non-diagnostic experimental research software. PRISMA 3 sales open soon for researchers or qualified interested users only.</p>
         </div>
       </div>
     </footer>

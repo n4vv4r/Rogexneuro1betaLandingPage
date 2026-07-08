@@ -1,14 +1,16 @@
-# Rogex Laboratories — Modern Apple-style Web
+# Rogex Laboratories — Industrial Research Infrastructure
 
 Nueva versión de la web de Rogex Laboratories.
 
 Dirección visual:
-- moderna, clara, estilo Apple
-- menos papel
-- menos retro
+- industrial
+- sharp borders
+- márgenes marcados
+- fondos oscuros con imagen técnica simulada en baja opacidad
+- menos Apple soft
+- nada de liquid glass
 - menos plantilla de IA
-- más producto científico real
-- más respirable y scrollable
+- más laboratorio / infraestructura / sistema real
 
 Stack:
 - Vite
@@ -16,9 +18,23 @@ Stack:
 - lucide-react
 - Vercel serverless function para Navi en `api/chat.js`
 
-## Información real incorporada
+## Añadido en esta versión
 
-Esta versión usa información del repo actual y del whitepaper PRISMA 3:
+- Enlace real de donación PayPal:
+  https://www.paypal.com/ncp/payment/WWL8SE2XGSZNA
+
+- Aviso de ventas futuras:
+  PRISMA 3 abrirá ventas pronto para investigadores o gente con interés técnico/científico real.
+  No se venderá a cualquiera automáticamente.
+  El precio queda pendiente de decidir.
+
+- Embed opcional de X:
+  https://x.com/rogexlabs
+
+El embed usa `platform.twitter.com/widgets.js`.
+Si X o el navegador bloquean el embed, queda un botón fallback a @rogexlabs.
+
+## Información real incorporada
 
 - PRISMA 3 como subject-normalized EEG decoding software
 - OpenNeuro DS007358
@@ -29,15 +45,6 @@ Esta versión usa información del repo actual y del whitepaper PRISMA 3:
 - +12.7 puntos frente a raw features
 - 91.4% personalized intra-CV, indicado como régimen más fácil
 - límite científico: no diagnóstico, no dispositivo médico
-
-También conserva la línea futura:
-- PRISMA 4
-- RogexOS
-- Catalonian / RXos
-- Roxenite / RX-C
-- RGX Protocol / rgx://
-- Moscovium
-- Navi / Nivalynx
 
 ## Instalar
 
@@ -83,10 +90,8 @@ content/rogex-memory.json
 o usa:
 
 ```bash
-ROGEX_MEMORY_URL=https://tu-dominio.com/rogex-memory.json
+ROGEX_MEMORY_URL=https://www.rogexlaboratories.com/rogex-memory.json
 ```
-
-La función serverless lee esa memoria para actualizar el contexto de Navi.
 
 ## Deploy recomendado
 

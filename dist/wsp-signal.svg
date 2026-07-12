@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#e7e3d8"/>
+  <g fill="none" stroke="#11110f" stroke-width="3">
+    <circle cx="230" cy="350" r="120"/>
+    <circle cx="970" cy="350" r="120"/>
+    <path d="M350 350c70-140 140 140 210 0s140 140 210 0 140 140 200 0" stroke="#e64a32" stroke-width="8"/>
+    <path d="M230 230v240M110 350h240M885 265l170 170M1055 265L885 435" opacity=".55"/>
+    <path d="M75 85h1050M75 615h1050"/>
+  </g>
+  <g font-family="monospace" fill="#11110f">
+    <text x="75" y="65" font-size="22">WSP / ONE MEANING CORE / MANY PHYSICAL MASKS</text>
+    <text x="170" y="555" font-size="18">SYMBOL</text>
+    <text x="890" y="555" font-size="18">SIGNAL RETURN</text>
+    <text x="445" y="330" font-size="18">I + E → S</text>
+    <text x="425" y="390" font-size="15">TEXT / AUDIO / GLYPH / BINARY</text>
+  </g>
+</svg>

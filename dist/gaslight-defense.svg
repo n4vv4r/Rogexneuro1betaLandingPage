@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#10100f"/>
+  <g fill="none" stroke="#f0eee6" stroke-width="2">
+    <rect x="80" y="80" width="1040" height="540"/>
+    <path d="M80 145h1040M390 145v475"/>
+    <path d="M120 205h220M120 245h170M120 285h205M120 325h135" opacity=".7"/>
+    <path d="M450 215h580M450 260h450M450 305h530M450 350h330M450 395h480" stroke-dasharray="12 8" opacity=".7"/>
+    <path d="M700 455l85-85 85 85 85-85 85 85" stroke="#e64a32" stroke-width="8"/>
+    <circle cx="575" cy="475" r="78" stroke="#d6ff3f" stroke-width="7"/>
+    <path d="M575 430v90M530 475h90" stroke="#d6ff3f" stroke-width="5"/>
+  </g>
+  <g font-family="monospace" fill="#f0eee6">
+    <text x="105" y="122" font-size="22">ROGEX GASLIGHT / DEFENSIVE DECEPTION LAB</text>
+    <text x="115" y="190" font-size="16">EVENTS</text>
+    <text x="430" y="190" font-size="16">TELEMETRY / MODULE PROFILE</text>
+    <text x="505" y="590" font-size="16" fill="#d6ff3f">OBSERVE. MISDIRECT. REPORT.</text>
+  </g>
+</svg>

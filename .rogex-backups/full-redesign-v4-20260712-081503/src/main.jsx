@@ -67,7 +67,7 @@ const CAMPAIGNS = [
     status: 'OPEN · SYSTEMS',
     text: 'Consolidar un sistema experimental bare-metal para herramientas científicas verificables, interfaces mínimas y ejecución soberana.',
     need: 'Drivers · QEMU · hardware x86_64 · revisión',
-    image: '/rxos/desktop-home.png',
+    image: '/rxos-concept.svg',
     icon: Cpu,
     internal: '/rx-os',
   },
@@ -88,15 +88,14 @@ const CAMPAIGNS = [
     need: 'Linux · telemetría · módulos YAML · revisión',
     image: '/gaslight-defense.svg',
     icon: Shield,
-    internal: '/about',
   },
 ];
 
 const PRISMA_EVIDENCE = [
   {
-    value: '51 passed',
-    label: 'verification',
-    note: 'Pytest documentado tras integrar la auditoría de confounding; compileall limpio.',
+    value: '26 / 26',
+    label: 'tests',
+    note: 'Suite actual en verde; compileall limpio.',
   },
   {
     value: '≈73%',
@@ -112,33 +111,6 @@ const PRISMA_EVIDENCE = [
     value: '≈91%',
     label: 'personalizado',
     note: 'Evaluación intra-sujeto; un problema más fácil y explícitamente etiquetado.',
-  },
-];
-
-const PRISMA_32_MODULES = [
-  {
-    icon: Activity,
-    code: 'FEATURE REGISTRY',
-    title: 'SEVEN PURPOSE-BUILT FEATURE SETS',
-    text: 'Registro central para spectral, temporal, covariance, spectral-temporal, speech, motor y cognitive. El modo auto selecciona según el paradigma sin romper el flujo histórico EC/EO.',
-  },
-  {
-    icon: CircleDot,
-    code: 'EVENT MODE',
-    title: 'EPOCHS ALIGNED TO REAL EVENTS',
-    text: 'Lectura de events.tsv o anotaciones MNE, ventanas configurables, corrección de baseline, rechazo de épocas fuera de rango y descarte por artefactos superiores a 200 µV peak-to-peak.',
-  },
-  {
-    icon: Shield,
-    code: 'CONFOUND AUDITOR',
-    title: 'BLOCK UNSAFE TRAINING FIRST',
-    text: 'Audita la matriz sujeto × clase, cobertura, entropía y consistencia de features/canales antes de entrenar. El override exploratorio queda marcado como riesgo alto de leakage.',
-  },
-  {
-    icon: Database,
-    code: 'BENCHMARK MATRIX',
-    title: 'COMPARE PIPELINES WITHOUT MOVING THE GOALPOSTS',
-    text: 'Compara feature sets con none, train-fold y subject-transductive. Solo una celda train-fold puede ganar best_strict; la calibración transductiva permanece etiquetada como ceiling.',
   },
 ];
 
@@ -541,9 +513,7 @@ function Prisma() {
               <ul className="check-list">
                 <li><CheckCircle size={18} /> Welch PSD, filtros, bandpower, ratios, entropía, Hjorth, RMS y SQI.</li>
                 <li><CheckCircle size={18} /> Baseline personal, traductor individual, modelos ML y reportes.</li>
-                <li><CheckCircle size={18} /> CLI retrocompatible y Feature Registry implementado con siete familias de características.</li>
-                <li><CheckCircle size={18} /> Modo evento con épocas, baseline, rechazo de artefactos y visor de respuestas evocadas.</li>
-                <li><CheckCircle size={18} /> Auditoría de confounding obligatoria antes de ML y Benchmark Matrix con selección estricta.</li>
+                <li><CheckCircle size={18} /> CLI retrocompatible y registro modular de feature sets en desarrollo.</li>
                 <li><CheckCircle size={18} /> Flujo de descubrimiento para datasets BIDS/OpenNeuro.</li>
                 <li><CheckCircle size={18} /> Alpha blocking limitado al paradigma resting EC/EO.</li>
               </ul>
@@ -595,53 +565,11 @@ function Prisma() {
 
         <section className="section wrap">
           <SectionTitle
-            code="03 / PRISMA 3.2"
-            title="THE PIPELINE NOW INSPECTS ITSELF"
-            text="PRISMA 3.2 no solo extrae variables: comprueba balance, separa protocolos de evaluación y hace visible qué parte del resultado es generalización estricta, calibración o personalización."
+            code="03 / INTERFACE"
+            title="CAPTURAS DEL SOFTWARE"
+            text="La interfaz actual expone tutorial, importación, análisis real y compatibilidad de datasets. Las imágenes son capturas del flujo de trabajo, no renders promocionales."
           />
-          <div className="prisma-module-grid">
-            {PRISMA_32_MODULES.map(({ icon: Icon, code, title, text: moduleText }, index) => (
-              <article className="prisma-module-card" key={code} data-reveal style={{ '--delay': `${index * 70}ms` }}>
-                <div className="prisma-module-head"><Icon size={28} strokeWidth={1.35} /><span>{code}</span></div>
-                <h3>{title}</h3>
-                <p>{moduleText}</p>
-              </article>
-            ))}
-          </div>
-          <div className="protocol-strip" data-reveal>
-            <span>STRICT</span><strong>RAW / TRAIN-FOLD LOSO</strong>
-            <span>CALIBRATION</span><strong>SUBJECT-TRANSDUCTIVE</strong>
-            <span>PERSONAL</span><strong>INTRA-SUBJECT CV</strong>
-          </div>
-        </section>
-
-        <section className="section wrap">
-          <SectionTitle
-            code="04 / INTERFACE"
-            title="CAPTURAS REALES DE PRISMA 3.2"
-            text="Estas imágenes son capturas auténticas del software en desarrollo. La primera muestra una demostración sintética del Feature Lab; la segunda, el visor experimental de eventos y épocas. No son renders ni mockups promocionales."
-          />
-
-          <div className="prisma-capture-grid">
-            <figure className="screenshot scientific-capture" data-reveal>
-              <img src="/tutorial/prisma3/04_feature_lab_complete.png" alt="Captura real de PRISMA 3.2 Feature Lab con forma de onda, PSD y vector de características" loading="lazy" />
-              <figcaption className="capture-caption">
-                <span>01</span>
-                <div><strong>FEATURE LAB / REAL UI CAPTURE</strong><p>Forma de onda multicanal, densidad espectral de potencia y vector spectral-temporal. La señal mostrada es una demostración sintética no clínica para inspección técnica.</p></div>
-              </figcaption>
-            </figure>
-
-            <figure className="screenshot scientific-capture" data-reveal>
-              <img src="/tutorial/prisma3/05_event_epoch_viewer.png" alt="Captura real del visor de eventos y épocas de PRISMA 3.2" loading="lazy" />
-              <figcaption className="capture-caption">
-                <span>02</span>
-                <div><strong>EVENT &amp; EPOCH VIEWER / REAL UI CAPTURE</strong><p>Línea temporal de eventos, épocas válidas, baseline −200–0 ms y respuesta evocada promedio por clase. El visor admite demo sintética reproducible y carga de EEG real con events.tsv.</p></div>
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="archive-label">ADDITIONAL WORKFLOW CAPTURES</div>
-          <div className="screenshot-grid compact-screenshot-grid">
+          <div className="screenshot-grid">
             {[
               ['/tutorial/prisma3/01_home.png', 'Dashboard / entrada al flujo'],
               ['/tutorial/prisma3/02_tutorial.png', 'Tutorial / límites y pasos'],
@@ -651,7 +579,7 @@ function Prisma() {
             ].map(([src, caption], index) => (
               <figure className={index === 0 ? 'screenshot featured' : 'screenshot'} key={src} data-reveal>
                 <img src={src} alt={caption} loading="lazy" />
-                <figcaption><span>{String(index + 3).padStart(2, '0')}</span>{caption}</figcaption>
+                <figcaption><span>0{index + 1}</span>{caption}</figcaption>
               </figure>
             ))}
           </div>
@@ -660,7 +588,7 @@ function Prisma() {
         <section className="section research-method">
           <div className="wrap">
             <SectionTitle
-              code="05 / METHOD"
+              code="04 / METHOD"
               title="POR QUÉ ESTO ES INVESTIGACIÓN SERIA"
               text="Serio no significa infalible. Significa que cada afirmación puede rastrearse hasta un protocolo, una partición de datos, una métrica y una limitación."
             />
@@ -685,7 +613,7 @@ function Prisma() {
 
         <section className="section wrap consciousness-section">
           <div className="consciousness-title" data-reveal>
-            <span>06 / CONSCIOUSNESS</span>
+            <span>05 / CONSCIOUSNESS</span>
             <h2>ESTUDIAR CORRELATOS.<br />NO INVENTAR CERTEZAS.</h2>
           </div>
           <div className="consciousness-copy" data-reveal>
@@ -698,7 +626,7 @@ function Prisma() {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="07 / ROADMAP"
+              code="06 / ROADMAP"
               title="DE PRISMA 3.2 A NOOSPHERE"
               text="Las etapas futuras son direcciones de investigación, no funcionalidades ya disponibles."
             />
@@ -715,32 +643,6 @@ function Prisma() {
                 </article>
               ))}
             </div>
-          </div>
-        </section>
-
-        <section className="section wrap prisma-video-section">
-          <SectionTitle
-            code="08 / EXTRA / ARCHIVE"
-            title="PRISMA 1 — VIDEO DEMONSTRATION"
-            text="Material histórico para entender de dónde viene el proyecto. Este vídeo no representa PRISMA 3 ni PRISMA 3.2."
-          />
-          <div className="video-layout">
-            <div className="video-frame" data-reveal>
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/3Jw7r_unoPg?rel=0"
-                title="PRISMA 1 historical demonstration"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
-            <aside className="video-note" data-reveal>
-              <span className="panel-label">IMPORTANT VERSION NOTE</span>
-              <h3>THIS IS PRISMA 1.<br />NOT PRISMA 3.</h3>
-              <p>El vídeo documenta una versión temprana y sirve como archivo del proceso. PRISMA 3.2 continúa en desarrollo: el material público actual son las capturas reales mostradas arriba y teasers breves publicados en Instagram y TikTok.</p>
-              <a className="archive-video-link" href="https://youtu.be/3Jw7r_unoPg" target="_blank" rel="noreferrer">OPEN ON YOUTUBE <ArrowUpRight size={16} /></a>
-            </aside>
           </div>
         </section>
       </main>
@@ -829,7 +731,7 @@ function RXOS() {
         eyebrow="RX OS / EXPERIMENTAL SYSTEMS"
         title={<>A LABORATORY<br />THAT BOOTS.</>}
         text="RX OS es una base bare-metal x86_64 construida para explorar un entorno científico mínimo, verificable y soberano. El sistema actual es un prototipo técnico, no un reemplazo de Linux ni un producto de producción."
-        image="/rxos/boot-banner.png"
+        image="/rxos-concept.svg"
       >
         <div className="hero-tags">
           <span>NASM</span><span>C FREESTANDING</span><span>RUST NO_STD</span><span>QEMU</span><span>GRUB / MULTIBOOT2</span>
@@ -855,101 +757,17 @@ function RXOS() {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="02 / REAL CAPTURES"
-              title="THE SYSTEM, RUNNING IN QEMU"
-              text="Estas capturas proceden de RXos v4.1.1 ejecutándose realmente. No son mockups ni renders: muestran el arranque verificado, el escritorio clickable y la vista de estado del sistema."
+              code="02 / INTERFACE"
+              title="CAPTURA CONCEPTUAL DEL ENTORNO"
+              text="La composición visual representa la dirección de interfaz: navegación lateral, herramientas mínimas y una sola superficie de trabajo. La shell gráfica y los elementos clickables ya existen; el acabado final sigue en desarrollo."
             />
-            <div className="screenshot-grid rxos-capture-grid">
-              <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src="/rxos/boot-banner.png" alt="RXos v4.1.1 real boot banner and first-run pseudonym setup in QEMU" loading="lazy" />
-                <figcaption className="capture-caption">
-                  <span>REAL / 01</span>
-                  <div><strong>VERIFIED BOOT + FIRST-RUN SETUP</strong><p>Cada OK se imprime después de comprobar la etapa correspondiente. La pantalla termina en el setup de pseudónimo ligado al UID del hardware virtual.</p></div>
-                </figcaption>
-              </figure>
-              <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/desktop-home.png" alt="RXos v4.1.1 real clickable desktop home screen in QEMU" loading="lazy" />
-                <figcaption className="capture-caption">
-                  <span>REAL / 02</span>
-                  <div><strong>CLICKABLE DESKTOP HOME</strong><p>Navegación lateral, tiles de sistema, cuenta local, editor, ajustes y rutas rgx:// servidas por el runtime actual.</p></div>
-                </figcaption>
-              </figure>
-              <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/shell-status.png" alt="RXos v4.1.1 real terminal status view in QEMU" loading="lazy" />
-                <figcaption className="capture-caption">
-                  <span>REAL / 03</span>
-                  <div><strong>STATUS VIEW: IMPLEMENTED / STUB / TODO</strong><p>La propia interfaz distingue subsistemas operativos de superficies reservadas y funciones todavía pendientes.</p></div>
-                </figcaption>
-              </figure>
-            </div>
+            <DesktopMock />
           </div>
-        </section>
-
-        <section className="section wrap rxos-download-section">
-          <SectionTitle
-            code="03 / PUBLIC TEST BUILD"
-            title="DOWNLOAD RXos v4.1.1"
-            text="Paquete oficial para pruebas locales. Incluye la ISO arrancable, README técnico y las tres capturas reales. QEMU es la vía recomendada y más segura para evaluarlo."
-          />
-          <div className="rxos-download-layout">
-            <article className="download-card" data-reveal>
-              <div className="download-card-top"><span>OFFICIAL ZIP</span><strong>v4.1.1</strong></div>
-              <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
-              <p>Build experimental bare-metal x86_64. No es un sistema de producción, no está auditado y no debe utilizarse para almacenar información importante.</p>
-              <dl className="download-facts">
-                <div><dt>CONTENTS</dt><dd>ISO + README + screenshots</dd></div>
-                <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
-                <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
-                <div><dt>SHA-256</dt><dd><code>a275d6b1783d439625e0bcc7395535a085bd87a2ba4db6ff88a8b402de8745af</code></dd></div>
-              </dl>
-              <div className="download-actions">
-                <a className="brutal-button primary" href="/downloads/RXos-v4.1.1.zip" download>DOWNLOAD OFFICIAL ZIP <ArrowUpRight size={16} /></a>
-                <a className="brutal-button" href="/downloads/RXos-v4.1.1-README.md" target="_blank" rel="noreferrer">READ INCLUDED GUIDE <ArrowUpRight size={16} /></a>
-                <a className="checksum-link" href="/downloads/RXos-v4.1.1.zip.sha256" download>DOWNLOAD CHECKSUM</a>
-              </div>
-            </article>
-
-            <article className="qemu-guide" data-reveal>
-              <span className="panel-label">QUICKSTART / QEMU</span>
-              <h3>RUN WITHOUT INSTALLING RXos ON YOUR MACHINE.</h3>
-              <p>Instala QEMU, descomprime el paquete en una carpeta nueva y arranca la ISO. La opción <code>-serial stdio</code> refleja el log de arranque en tu terminal.</p>
-              <div className="platform-install">
-                <div><span>macOS</span><code>brew install qemu</code></div>
-                <div><span>Fedora</span><code>sudo dnf install qemu-system-x86-core</code></div>
-                <div><span>Debian / Ubuntu</span><code>sudo apt install qemu-system-x86</code></div>
-              </div>
-              <pre><code>{`mkdir rxos-v4.1.1 && cd rxos-v4.1.1
-unzip ../RXos-v4.1.1.zip
-
-qemu-system-x86_64 \\
-  -machine q35 \\
-  -m 512M \\
-  -cdrom RXos-v4-foundation.iso \\
-  -serial stdio`}</code></pre>
-              <div className="qemu-commands">
-                <span>TRY INSIDE RXos</span>
-                <code>help</code><code>status</code><code>ls</code><code>write hola.txt hola</code><code>cat hola.txt</code><code>go rgx://hello</code><code>devices</code><code>uptime</code>
-              </div>
-              <details>
-                <summary>OPTIONAL ATA PERSISTENCE IN QEMU</summary>
-                <pre><code>{`qemu-img create -f raw rxos-disk.img 512K
-qemu-system-x86_64 -machine pc -m 512M \\
-  -cdrom RXos-v4-foundation.iso \\
-  -drive file=rxos-disk.img,format=raw,if=ide \\
-  -serial stdio
-
-# Inside RXos:
-format hda yes
-save`}</code></pre>
-              </details>
-            </article>
-          </div>
-          <p className="download-boundary" data-reveal><AlertTriangle size={17} /> Experimental research build. Run it in a virtual machine first. The download is provided for inspection, education and reproducible testing, without warranty.</p>
         </section>
 
         <section className="section wrap">
           <SectionTitle
-            code="04 / ARCHITECTURE"
+            code="03 / ARCHITECTURE"
             title="DE BOOT.ASM A LA INTERFAZ"
             text="Una pila pequeña, legible y separada por capas."
           />
@@ -957,13 +775,6 @@ save`}</code></pre>
         </section>
 
         <section className="section rx-state-section">
-          <div className="wrap">
-            <SectionTitle
-              code="05 / ENGINEERING STATUS"
-              title="WHAT WORKS — AND WHAT DOES NOT"
-              text="El release y su README mantienen una separación explícita entre implementación verificada, superficies STUB y roadmap."
-            />
-          </div>
           <div className="wrap rx-state-grid">
             <article data-reveal>
               <div className="state-heading state-ok"><CheckCircle /> IMPLEMENTED</div>
@@ -978,7 +789,7 @@ save`}</code></pre>
 
         <section className="section wrap">
           <SectionTitle
-            code="06 / EDITIONS"
+            code="04 / EDITIONS"
             title="DOS DIRECCIONES DE PRODUCTO"
             text="Estas ediciones son visión de diseño sobre la misma base técnica; no se presentan como releases terminadas."
           />
@@ -1001,7 +812,7 @@ save`}</code></pre>
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="07 / ROADMAP"
+              code="05 / ROADMAP"
               title="LO QUE CONVIERTE UN PROTOTIPO EN SISTEMA"
               text="La prioridad no es añadir efectos visuales. Es construir aislamiento, drivers y verificaciones."
             />
@@ -1140,39 +951,10 @@ function About() {
           </div>
         </section>
 
-        <section className="section section-black gaslight-media-section" id="gaslight-demo">
-          <div className="wrap">
-            <SectionTitle
-              code="03 / VIDEO / DEFENSIVE SECURITY"
-              title="ROGEX GASLIGHT — DEMONSTRATION"
-              text="Vídeo técnico del framework experimental de defensa, engaño y observabilidad. Documenta el proyecto como herramienta defensiva; no se presenta como framework ofensivo ni como sistema de explotación."
-            />
-            <div className="video-layout gaslight-video-layout">
-              <div className="video-frame" data-reveal>
-                <iframe
-                  src="https://www.youtube-nocookie.com/embed/ToIAxNt07y0?rel=0"
-                  title="Rogex Gaslight defensive security demonstration"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                />
-              </div>
-              <aside className="video-note" data-reveal>
-                <span className="panel-label">PROJECT RECORD / REAL DEMO</span>
-                <h3>DECEPTION AS A DEFENSIVE SENSOR.</h3>
-                <p>Rogex Gaslight explora superficies señuelo, perfiles modulares, eventos y reportes para observar automatización hostil y mejorar la respuesta defensiva. El vídeo muestra una fase concreta del desarrollo y puede quedar desactualizado respecto a builds posteriores.</p>
-                <div className="tag-row gaslight-video-tags"><span>PYTHON</span><span>LINUX</span><span>YAML</span><span>TELEMETRY</span><span>DEFENSIVE ONLY</span></div>
-                <a className="archive-video-link" href="https://youtu.be/ToIAxNt07y0" target="_blank" rel="noreferrer">OPEN ON YOUTUBE <ArrowUpRight size={16} /></a>
-              </aside>
-            </div>
-          </div>
-        </section>
-
         <section className="section contact-section" id="contact">
           <div className="wrap">
             <SectionTitle
-              code="04 / CONTACT"
+              code="03 / CONTACT"
               title="WRITE TO THE LAB"
               text="Colaboración científica, revisión técnica, hardware, trabajo, prensa o propuestas de proyecto."
             />

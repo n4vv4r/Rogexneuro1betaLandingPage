@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/prisma", "destination": "/index.html" },
+    { "source": "/rx-os", "destination": "/index.html" },
+    { "source": "/rogexos", "destination": "/index.html" },
+    { "source": "/about", "destination": "/index.html" }
+  ]
+}

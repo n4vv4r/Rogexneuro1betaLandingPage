@@ -2863,9 +2863,70 @@ function setCanonical(url) {
   el.setAttribute('href', url);
 }
 
+/** JSON-LD WebPage graph for SERP / rich results (Screaming Frog + Google). */
+function setJsonLd(meta) {
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://www.rogexlaboratories.com/#organization',
+        name: 'Knights Labs',
+        alternateName: ['Rogex Laboratories', 'ROGEX Laboratories'],
+        url: 'https://www.rogexlaboratories.com/',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://www.rogexlaboratories.com/knightslabs_logo.png',
+          width: 1200,
+          height: 1200,
+        },
+        image: 'https://www.rogexlaboratories.com/rogexlaboratories_logo.png',
+        description:
+          'Independent lab for low-carbon neurotech: PRISMA EEG software, PRISMA 5 SNN path and RXos neuromorphic event fabric.',
+        email: 'knightsys@proton.me',
+        sameAs: ['https://x.com/rogexlabs'],
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.rogexlaboratories.com/#website',
+        url: 'https://www.rogexlaboratories.com/',
+        name: 'Knights Labs — Rogex Laboratories',
+        description:
+          'Neurotech low-carbon: PRISMA 3.2 EEG, PRISMA 5 SNN y RXos v4.5.0 event fabric.',
+        publisher: { '@id': 'https://www.rogexlaboratories.com/#organization' },
+        inLanguage: ['es', 'en'],
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${meta.url}#webpage`,
+        url: meta.url,
+        name: meta.title,
+        description: meta.description,
+        isPartOf: { '@id': 'https://www.rogexlaboratories.com/#website' },
+        about: { '@id': 'https://www.rogexlaboratories.com/#organization' },
+        inLanguage: 'es',
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: meta.image,
+        },
+      },
+    ],
+  };
+
+  let el = document.getElementById('ld-org');
+  if (!el) {
+    el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.id = 'ld-org';
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(graph);
+}
+
 const DEFAULT_OG = {
   title: 'Knights Labs — Rogex Laboratories',
-  description: 'Low-carbon neurotech suite: PRISMA 3/5, rxOS Desktop and open neuromorphic kernel for developers, researchers and OEM integrators.',
+  description:
+    'Knights Labs (Rogex Laboratories): neurotech low-carbon — PRISMA 3.2 EEG, PRISMA 5 SNN y RXos v4.5.0 event fabric (bench 6/6). Para developers, research y OEM.',
   image: 'https://www.rogexlaboratories.com/knightslabs_logo.png',
   imageType: 'image/png',
   imageWidth: '1200',
@@ -2878,7 +2939,8 @@ const ROUTE_META = {
   '/': { ...DEFAULT_OG },
   '/suite': {
     title: 'Product Suite — Knights Labs',
-    description: 'rxOS Desktop, neuromorphic kernel, PRISMA 3 and PRISMA 5. Licensing layers for developers, researchers and OEM.',
+    description:
+      'Suite de producto: rxOS Desktop, kernel neuromórfico, PRISMA 3 y PRISMA 5. Licencias para developers, research y OEM.',
     image: DEFAULT_OG.image,
     imageType: 'image/png',
     imageWidth: '1200',
@@ -2888,7 +2950,8 @@ const ROUTE_META = {
   },
   '/prisma': {
     title: 'PRISMA 3.2 & 5 — Knights Labs',
-    description: 'Experimental EEG research software and neuromorphic SNN engine. Non-clinical. Coming-soon public downloads.',
+    description:
+      'PRISMA 3.2 software EEG experimental y PRISMA 5 motor SNN. No clínico. Descargas públicas en camino.',
     image: 'https://www.rogexlaboratories.com/rogexlaboratories_logo.png',
     imageType: 'image/png',
     imageWidth: '1080',
@@ -2898,7 +2961,8 @@ const ROUTE_META = {
   },
   '/rx-os': {
     title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
-    description: 'Bare-metal x86_64 event fabric: LIF Q16.16, STDP, bench 6/6. Levels 1–2 closed. Akida AKD1000 (Level 3) pending — chip not yet in lab.',
+    description:
+      'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.',
     image: RXOS_OG_IMAGE,
     imageType: 'image/jpeg',
     imageWidth: '1600',
@@ -2908,7 +2972,8 @@ const ROUTE_META = {
   },
   '/rogexos': {
     title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
-    description: 'Bare-metal x86_64 event fabric: LIF Q16.16, STDP, bench 6/6. Levels 1–2 closed. Akida AKD1000 (Level 3) pending — chip not yet in lab.',
+    description:
+      'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.',
     image: RXOS_OG_IMAGE,
     imageType: 'image/jpeg',
     imageWidth: '1600',
@@ -2918,7 +2983,8 @@ const ROUTE_META = {
   },
   '/architecture': {
     title: 'Architecture RXos v4.5 — Knights Labs',
-    description: 'Event fabric on von Neumann: 64 B events, SPSC rings, LIF Q16.16, STDP, four-level neuromorphic roadmap. Papers PDF public.',
+    description:
+      'Arquitectura RXos: event fabric en von Neumann, anillos SPSC, LIF/STDP y roadmap neuromórfico en 4 niveles. Papers PDF públicos.',
     image: RXOS_OG_IMAGE,
     imageType: 'image/jpeg',
     imageWidth: '1600',
@@ -2928,7 +2994,8 @@ const ROUTE_META = {
   },
   '/about': {
     title: 'About — Knights Labs / Rogex',
-    description: 'Independent lab for low-carbon neurotech, EEG software and bare-metal systems. Contact developers, researchers and OEM.',
+    description:
+      'Lab independiente de neurotech low-carbon, software EEG y sistemas bare-metal. Contacto para developers, research y OEM.',
     image: DEFAULT_OG.image,
     imageType: 'image/png',
     imageWidth: '1200',
@@ -2938,7 +3005,8 @@ const ROUTE_META = {
   },
   '/investors': {
     title: 'Para inversores — Knights Labs',
-    description: 'Tecnoactivismo con P&L: RXos v4.5, PRISMA 3/5, Robin Hood licensing, low-carbon compute and honest deep-tech risks.',
+    description:
+      'Tecnoactivismo con P&L: RXos v4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
     image: RXOS_OG_IMAGE,
     imageType: 'image/jpeg',
     imageWidth: '1600',
@@ -2948,7 +3016,8 @@ const ROUTE_META = {
   },
   '/pitch': {
     title: 'Pre-Seed Pitch 150k€ — Knights Labs',
-    description: 'DeepTech pre-seed: €150,000 for PRISMA + RXos to Dec 2026 launch. Technical traction, use of funds, developer-first GTM, EEG real-time device path.',
+    description:
+      'Pitch pre-seed DeepTech: 150.000 € para PRISMA + RXos hasta lanzamiento dic. 2026. Tracción, use of funds y GTM developer-first.',
     image: RXOS_OG_IMAGE,
     imageType: 'image/jpeg',
     imageWidth: '1600',
@@ -2958,7 +3027,8 @@ const ROUTE_META = {
   },
   '/startup-idea': {
     title: 'Startup idea — Knights Labs',
-    description: 'Event-driven compute, EEG software and neuromorphic SNN with philanthropic licensing. Problem, solution, model and traction.',
+    description:
+      'Idea de startup: compute event-driven, software EEG y SNN neuromórfico con licensing filantrópico. Problema, solución y tracción.',
     image: DEFAULT_OG.image,
     imageType: 'image/png',
     imageWidth: '1200',
@@ -2976,8 +3046,19 @@ function App() {
     const meta = ROUTE_META[path] || DEFAULT_OG;
     document.title = meta.title;
     setCanonical(meta.url);
+    setJsonLd(meta);
 
     setMetaTag('name', 'description', meta.description);
+    setMetaTag(
+      'name',
+      'robots',
+      'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    );
+    setMetaTag(
+      'name',
+      'googlebot',
+      'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    );
     setMetaTag('property', 'og:type', 'website');
     setMetaTag('property', 'og:site_name', 'Knights Labs / Rogex Laboratories');
     setMetaTag('property', 'og:title', meta.title);

@@ -268,6 +268,25 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 }
 .brutal-button:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--accent); }
 .brutal-button.primary { background: var(--acid); color: var(--ink); border-color: var(--ink); }
+.brutal-button:disabled,
+.brutal-button.download-btn-disabled,
+.brutal-button.download-btn-disabled:hover {
+  cursor: not-allowed;
+  opacity: 0.48;
+  transform: none;
+  box-shadow: none;
+  background: rgba(17, 17, 15, 0.08);
+  color: var(--ink-soft);
+  border-color: rgba(17, 17, 15, 0.28);
+  filter: grayscale(0.35);
+}
+.prisma-product-card-dark .brutal-button:disabled,
+.prisma-product-card-dark .brutal-button.download-btn-disabled,
+.prisma-product-card-dark .brutal-button.download-btn-disabled:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.28);
+}
 
 .section { padding: clamp(90px, 10vw, 150px) 0; border-bottom: 1.5px solid var(--ink); }
 .section-black { background: var(--black); color: var(--white); border-color: var(--paper); }
@@ -1040,6 +1059,210 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .prisma5-card p { font-size: 12px; line-height: 1.75; color: rgba(255,255,255,.72); }
 
 .compact-list { margin-top: 22px; }
+
+/* ─── Prisma 3 / Prisma 5 product download cards ─── */
+.prisma-download-section {
+  background: var(--paper-2);
+}
+
+.prisma-product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+
+.prisma-product-card {
+  min-width: 0;
+  padding: clamp(28px, 3.6vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-right: 1.5px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  position: relative;
+  scroll-margin-top: 88px;
+}
+
+.prisma-product-card:last-child { border-right: 0; }
+
+.prisma-product-card-paper {
+  background:
+    linear-gradient(160deg, rgba(214, 255, 63, 0.12), transparent 42%),
+    var(--paper);
+}
+
+.prisma-product-card-dark {
+  background:
+    linear-gradient(160deg, rgba(230, 74, 50, 0.22), transparent 48%),
+    var(--black);
+  color: var(--paper);
+}
+
+.prisma-product-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.prisma-product-codes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.prisma-product-code {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1.5px solid currentColor;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: var(--acid);
+  color: var(--ink);
+}
+
+.prisma-product-card-dark .prisma-product-code {
+  background: var(--accent);
+  color: var(--white);
+  border-color: var(--paper);
+}
+
+.prisma-product-titles h3 {
+  font-family: var(--script);
+  font-size: clamp(36px, 4.6vw, 58px);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+.prisma-product-version {
+  display: block;
+  margin-top: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  opacity: 0.72;
+}
+
+.prisma-product-tagline {
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 48ch;
+  font-weight: 600;
+}
+
+.prisma-product-desc {
+  font-size: 12px;
+  line-height: 1.75;
+  max-width: 54ch;
+  opacity: 0.82;
+}
+
+.prisma-product-card-dark .prisma-product-desc {
+  color: rgba(255, 255, 255, 0.72);
+  opacity: 1;
+}
+
+.prisma-product-features {
+  margin-top: 6px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.prisma-product-card-dark .prisma-product-features {
+  border-top-color: rgba(255, 255, 255, 0.22);
+}
+
+.prisma-product-features .panel-label {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.prisma-product-features ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.prisma-product-features li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: start;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.prisma-product-features li svg {
+  margin-top: 2px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.prisma-product-card-dark .prisma-product-features li svg {
+  color: var(--acid);
+}
+
+.prisma-product-footer {
+  margin-top: auto;
+  padding-top: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.download-soon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1.5px dashed currentColor;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(230, 74, 50, 0.08);
+}
+
+.prisma-product-card-dark .coming-soon-badge {
+  color: var(--acid);
+  background: rgba(214, 255, 63, 0.08);
+  border-color: rgba(214, 255, 63, 0.55);
+}
+
+.prisma-product-note {
+  font-size: 10px;
+  line-height: 1.55;
+  opacity: 0.62;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 900px) {
+  .prisma-product-grid { grid-template-columns: 1fr; }
+  .prisma-product-card {
+    border-right: 0;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .prisma-product-card:last-child { border-bottom: 0; }
+  .download-soon { flex-direction: column; align-items: stretch; }
+  .download-soon .brutal-button { width: 100%; }
+  .coming-soon-badge { justify-content: center; }
+}
 
 .about-principles > div:nth-child(n+3) {
   border-top: 1.5px solid var(--ink);

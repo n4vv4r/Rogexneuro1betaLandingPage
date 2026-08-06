@@ -10,10 +10,12 @@ import {
   Code2,
   Cpu,
   Database,
+  Download,
   Factory,
   FlaskConical,
   Leaf,
   Link as LinkIcon,
+  Lock,
   Mail,
   Menu,
   Microscope,
@@ -78,7 +80,7 @@ const PRODUCT_SUITE = [
     status: 'ACTIVE · COMMUNITY / PRO LAYERS',
     text: 'Pipeline experimental de EEG con Feature Registry, Event Mode, Confound Auditor y Benchmark Matrix. Separa generalización, calibración y personalización.',
     tags: ['Python 3.10+', 'MNE', 'BIDS', '≈73% raw LOSO'],
-    href: '/prisma',
+    href: '/prisma#prisma3',
     icon: Brain,
     tone: 'paper',
   },
@@ -120,6 +122,50 @@ const LICENSE_TIERS = [
       ['Desktop Experience', 'Closed source', 'Bootable lab surface'],
       ['OEM integration', 'Custom arch', 'Hardware partners'],
     ],
+  },
+];
+
+/** Fichas de producto con descarga "coming soon" — Prisma 3 y Prisma 5 */
+const PRISMA_DOWNLOAD_PRODUCTS = [
+  {
+    id: 'prisma3',
+    code: 'P3',
+    name: 'Prisma 3',
+    version: '3.2 DevBug',
+    status: 'IN DEVELOPMENT',
+    badge: 'Próximamente / Coming Soon',
+    tagline: 'Software experimental de investigación EEG con pipelines reproducibles, baselines individuales y separación estricta de regímenes de evaluación.',
+    description:
+      'Prisma 3 modela a la persona antes de interpretar el estado: features espectrales y temporales, Event Mode, Confound Auditor y Benchmark Matrix. No es un dispositivo médico ni software de diagnóstico.',
+    features: [
+      'Feature Registry con siete familias (spectral, temporal, covariance, speech, motor, cognitive…)',
+      'Event Mode: épocas alineadas a events.tsv / anotaciones MNE con rechazo de artefactos',
+      'Confound Auditor + Benchmark Matrix (raw LOSO vs calibración vs personalizado)',
+      'Soporte BIDS / OpenNeuro y CLI Python 3.10+ con reportes trazables',
+    ],
+    downloadLabel: 'Descargar Prisma 3',
+    tone: 'paper',
+    icon: Brain,
+  },
+  {
+    id: 'prisma5',
+    code: 'P5',
+    name: 'Prisma 5',
+    version: 'Neuromorphic Core',
+    status: 'IN DEVELOPMENT',
+    badge: 'Aún no disponible',
+    tagline: 'Motor event-driven sobre redes de impulsos (SNN): de señal continua MNE a spike trains, plasticidad STDP y predictive coding en el stack rxOS.',
+    description:
+      'Prisma 5 conecta el laboratorio EEG con el kernel neuromórfico: Delta Modulation asíncrona, poblaciones LIF y detección de anomalías por error de predicción de espigas. Camino académico, commercial y OEM.',
+    features: [
+      'Delta Modulation: eventos UP/DOWN por umbral adaptativo θ_adp',
+      'Predictive coding neuromórfico sobre poblaciones LIF',
+      'STDP continuo y homeostasis local (tau_m / θ₀)',
+      'Integración con rxOS event fabric · target Akida / Loihi',
+    ],
+    downloadLabel: 'Descargar Prisma 5',
+    tone: 'dark',
+    icon: Zap,
   },
 ];
 
@@ -524,6 +570,91 @@ function StatusBadge({ children, tone = 'open' }) {
   return <span className={`status-badge status-${tone}`}>{children}</span>;
 }
 
+function DownloadSoonButton({ label, badge = 'Coming Soon' }) {
+  return (
+    <div className="download-soon">
+      <button
+        type="button"
+        className="brutal-button download-btn-disabled"
+        disabled
+        aria-disabled="true"
+        title={`${label} — ${badge}`}
+      >
+        <Download size={16} strokeWidth={2} />
+        {label}
+        <Lock size={14} strokeWidth={2} />
+      </button>
+      <span className="coming-soon-badge" role="status">
+        {badge}
+      </span>
+    </div>
+  );
+}
+
+function PrismaProductCard({ product, index }) {
+  const Icon = product.icon;
+  return (
+    <article
+      id={product.id}
+      className={`prisma-product-card prisma-product-card-${product.tone}`}
+      data-reveal
+      style={{ '--delay': `${index * 80}ms` }}
+    >
+      <header className="prisma-product-head">
+        <div className="prisma-product-codes">
+          <span className="prisma-product-code">{product.code}</span>
+          <StatusBadge tone={product.tone === 'dark' ? 'warn' : 'open'}>{product.status}</StatusBadge>
+        </div>
+        <Icon size={32} strokeWidth={1.35} aria-hidden="true" />
+      </header>
+
+      <div className="prisma-product-titles">
+        <h3>{product.name}</h3>
+        <span className="prisma-product-version">{product.version}</span>
+      </div>
+
+      <p className="prisma-product-tagline">{product.tagline}</p>
+      <p className="prisma-product-desc">{product.description}</p>
+
+      <div className="prisma-product-features">
+        <span className="panel-label">KEY FEATURES</span>
+        <ul>
+          {product.features.map((feature) => (
+            <li key={feature}>
+              <CheckCircle size={16} strokeWidth={1.8} aria-hidden="true" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <footer className="prisma-product-footer">
+        <DownloadSoonButton label={product.downloadLabel} badge={product.badge} />
+        <p className="prisma-product-note">
+          Release de distribución pública pendiente · software experimental, no clínico
+        </p>
+      </footer>
+    </article>
+  );
+}
+
+function PrismaDownloadSection({ code = '00 / MODULES', title = 'PRISMA 3 Y PRISMA 5', text }) {
+  return (
+    <section className="section wrap prisma-download-section" id="prisma-downloads">
+      <SectionTitle
+        code={code}
+        title={title}
+        text={text || 'Fichas de producto con descarga pública. Los binarios aún no están publicados: los botones permanecen deshabilitados hasta el release.'}
+      />
+      <div className="prisma-product-grid">
+        {PRISMA_DOWNLOAD_PRODUCTS.map((product, index) => (
+          <PrismaProductCard product={product} index={index} key={product.id} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ProductCard({ product, navigate, index }) {
   const Icon = product.icon;
   return (
@@ -748,10 +879,16 @@ function Suite({ navigate }) {
           </div>
         </section>
 
+        <PrismaDownloadSection
+          code="02 / PRISMA MODULES"
+          title="DESCARGA PRISMA"
+          text="Prisma 3 y Prisma 5: fichas de producto con botones de descarga públicos. Estado actual: no disponibles."
+        />
+
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="02 / WHO IT'S FOR"
+              code="03 / WHO IT'S FOR"
               title="TRES PERFILES, TRES CONTRATOS"
               text="El copy no vende milagros. Declara interfaces, artefactos y caminos de colaboración."
             />
@@ -780,7 +917,7 @@ function Suite({ navigate }) {
 
         <section className="section wrap">
           <SectionTitle
-            code="03 / PRICING LAYERS"
+            code="04 / PRICING LAYERS"
             title="REFERENCIA COMERCIAL 2026"
             text="Estructura pública de capas. Confirmación contractual al release."
           />
@@ -958,10 +1095,14 @@ function EvidenceCard({ item, index }) {
 
 function Prisma({ navigate }) {
   useEffect(() => {
-    if (window.location.hash === '#prisma5') {
-      const el = document.getElementById('prisma5');
-      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return undefined;
+    const el = document.getElementById(hash);
+    if (el) {
+      const timer = setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      return () => clearTimeout(timer);
     }
+    return undefined;
   }, []);
 
   return (
@@ -980,12 +1121,23 @@ function Prisma({ navigate }) {
           <span>DELTA MOD</span>
           <span>BIDS / OPENNEURO</span>
         </div>
+        <div className="hero-actions">
+          <a className="brutal-button primary" href="#prisma-downloads">VER MÓDULOS</a>
+          <a className="brutal-button" href="#prisma3">PRISMA 3</a>
+          <a className="brutal-button" href="#prisma5">PRISMA 5</a>
+        </div>
       </PageHero>
 
       <main>
+        <PrismaDownloadSection
+          code="01 / DOWNLOAD"
+          title="PRISMA 3 · PRISMA 5"
+          text="Dos módulos de la suite Knights Labs. Descripción técnica, características clave y descarga pública — pendiente de publicación."
+        />
+
         <section className="section wrap">
           <SectionTitle
-            code="01 / CURRENT"
+            code="02 / CURRENT"
             title="PRISMA 3.2 DEVBUG EDITION"
             text="La versión actual prioriza compatibilidad, trazabilidad y separación estricta entre generalización, calibración y personalización."
           />
@@ -1025,7 +1177,7 @@ function Prisma({ navigate }) {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="02 / EVIDENCE"
+              code="03 / EVIDENCE"
               title="RESULTADOS QUE INCLUYEN SUS LÍMITES"
               text="La evidencia actual es útil precisamente porque también muestra dónde el pipeline todavía no funciona bien."
             />
@@ -1054,7 +1206,7 @@ function Prisma({ navigate }) {
 
         <section className="section wrap">
           <SectionTitle
-            code="03 / PRISMA 3.2"
+            code="04 / PRISMA 3.2"
             title="THE PIPELINE NOW INSPECTS ITSELF"
             text="PRISMA 3.2 no solo extrae variables: comprueba balance, separa protocolos de evaluación y hace visible qué parte del resultado es generalización estricta, calibración o personalización."
           />
@@ -1074,10 +1226,10 @@ function Prisma({ navigate }) {
           </div>
         </section>
 
-        <section className="section section-black" id="prisma5">
+        <section className="section section-black" id="prisma5-engine">
           <div className="wrap">
             <SectionTitle
-              code="04 / PRISMA 5"
+              code="05 / PRISMA 5 ENGINE"
               title="NEUROMORPHIC ENGINE ON rxOS"
               text="De matrices de features a event streams. PRISMA 5 integra el core SNN con el kernel neuromórfico: delta modulation, predictive coding y STDP continuo."
             />
@@ -1110,13 +1262,16 @@ function Prisma({ navigate }) {
               <button className="brutal-button" onClick={() => navigate('/suite')}>
                 PRISMA 5 LICENSE LAYERS
               </button>
+              <a className="brutal-button" href="#prisma5">
+                FICHA DE DESCARGA <ArrowUpRight size={15} />
+              </a>
             </div>
           </div>
         </section>
 
         <section className="section wrap">
           <SectionTitle
-            code="05 / INTERFACE"
+            code="06 / INTERFACE"
             title="CAPTURAS REALES DE PRISMA 3.2"
             text="Estas imágenes son capturas auténticas del software en desarrollo. No son renders ni mockups promocionales."
           />
@@ -1159,7 +1314,7 @@ function Prisma({ navigate }) {
         <section className="section research-method">
           <div className="wrap">
             <SectionTitle
-              code="06 / METHOD"
+              code="07 / METHOD"
               title="POR QUÉ ESTO ES INVESTIGACIÓN SERIA"
               text="Serio no significa infalible. Significa que cada afirmación puede rastrearse hasta un protocolo, una partición de datos, una métrica y una limitación."
             />
@@ -1185,7 +1340,7 @@ function Prisma({ navigate }) {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="07 / ROADMAP"
+              code="08 / ROADMAP"
               title="DE PRISMA 3.2 AL HARDWARE"
               text="Las etapas futuras son direcciones de investigación, no funcionalidades ya disponibles."
             />
@@ -1207,7 +1362,7 @@ function Prisma({ navigate }) {
 
         <section className="section wrap prisma-video-section">
           <SectionTitle
-            code="08 / EXTRA / ARCHIVE"
+            code="09 / EXTRA / ARCHIVE"
             title="PRISMA 1 — VIDEO DEMONSTRATION"
             text="Material histórico. Este vídeo no representa PRISMA 3 ni PRISMA 5."
           />

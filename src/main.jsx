@@ -2162,7 +2162,7 @@ function Investors({ navigate }) {
                 <h3>LO QUE PUEDE DOLER</h3>
                 <p>Mercado EEG conservador; chip Akida aún no en el lab; UEFI/disco boot y USB bare-metal son proyectos enteros; no somos un SO de producción ni un producto clínico.</p>
               </article>
-              <article className="track-card" data-reveal style={{ border: 0, background: 'var(--acid)', color: 'var(--ink)' }}>
+              <article className="track-card track-card-edge" data-reveal>
                 <span>EDGE</span>
                 <h3>LO QUE NADIE MÁS JUNTA</h3>
                 <p>Kernel event-driven propio + papers falsables + PRISMA personalizado + precios accesibles + narrativa low-carbon creíble. Deep tech con moral de trinchera, no de slide deck.</p>

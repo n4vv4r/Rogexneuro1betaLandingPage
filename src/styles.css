@@ -503,6 +503,29 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .track-card > svg:last-child { margin-top: auto; align-self: flex-end; }
 .track-card.inverted { background: var(--ink); color: var(--paper); }
 
+/* Acid yellow card: dark violet text (near-complement of #d6ff3f), not pure black/gray */
+.track-card-edge,
+.section-black .track-card-edge {
+  border: 0;
+  background: var(--acid);
+  color: #1c0b3a;
+}
+.section-black .track-card-edge > span,
+.track-card-edge > span {
+  color: #3a1470;
+}
+.section-black .track-card-edge h3,
+.section-black .track-card-edge p,
+.track-card-edge h3,
+.track-card-edge p {
+  color: #1c0b3a;
+}
+.section-black .track-card-edge p,
+.track-card-edge p {
+  color: #2a1450;
+  opacity: 1;
+}
+
 .evidence-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--ink); }
 .evidence-card { min-height: 260px; padding: 24px; border-right: 1.5px solid var(--ink); display: flex; flex-direction: column; }
 .evidence-card:last-child { border-right: 0; }

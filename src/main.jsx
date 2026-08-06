@@ -75,11 +75,11 @@ const PRODUCT_SUITE = [
   {
     id: 'prisma3',
     code: 'P3',
-    name: 'PRISMA 3.2',
-    tier: 'EEG RESEARCH SOFTWARE',
-    status: 'ACTIVE · COMMUNITY / PRO LAYERS',
-    text: 'Pipeline experimental de EEG con Feature Registry, Event Mode, Confound Auditor y Benchmark Matrix. Separa generalización, calibración y personalización.',
-    tags: ['Python 3.10+', 'MNE', 'BIDS', '≈73% raw LOSO'],
+    name: 'PRISMA 3',
+    tier: 'POSIX / SIMD · HIGH PERFORMANCE EEG',
+    status: 'ACTIVE · OPEN-CORE PATH',
+    text: 'Motor de alto rendimiento frente al software monolítico tipo NeuroREC: zero-copy SPSC, DSP SIMD, ICA en vivo, geometría Riemanniana y normalización por sujeto. Objetivo <64 MB en stack rxOS.',
+    tags: ['Zero-copy', 'SIMD FFT', 'ICA RT', '73.3%→91% personal'],
     href: '/prisma#prisma3',
     icon: Brain,
     tone: 'paper',
@@ -88,10 +88,10 @@ const PRODUCT_SUITE = [
     id: 'prisma5',
     code: 'P5',
     name: 'PRISMA 5',
-    tier: 'NEUROMORPHIC ENGINE',
-    status: 'R&D · ACADEMIC / OEM PATHS',
-    text: 'Motor event-driven sobre SNNs: Delta Modulation asíncrona, Predictive Coding de espigas y STDP continuo. Puente entre MNE y el kernel neuromórfico de rxOS.',
-    tags: ['Delta mod', 'LIF', 'Spike error', 'Akida / Loihi target'],
+    tier: 'EVENT-DRIVEN SNN · BCI <1 ms',
+    status: 'R&D · NEUROMORPHIC ENGINE',
+    text: 'Abandona ventanas/FFT: spike trains por Delta Modulation, LIF, STDP, predictive coding y resonancia de ritmos. Corre sobre el event fabric de RXos v4.5. Target Akida cuando haya silicio.',
+    tags: ['Delta mod', 'LIF/STDP', 'Predictive coding', '<1 ms event'],
     href: '/prisma#prisma5',
     icon: Zap,
     tone: 'accent',
@@ -102,25 +102,25 @@ const LICENSE_TIERS = [
   {
     product: 'PRISMA 3',
     rows: [
-      ['Community / Student', 'Open / free', 'Investigación y aprendizaje'],
-      ['Indie / Dev', '€60', 'Desarrolladores independientes'],
-      ['Research Lab / Pro', '€150', 'Laboratorios y uso profesional'],
+      ['Community / Student', 'Gratis / Open', 'Estudiantes, makers, países en desarrollo'],
+      ['Indie / Developer', '€49 – €89', 'Integración en prototipos (pago único)'],
+      ['Research Lab / Pro', '€149 – €199', 'Labs y equipos · licencia por puesto/año'],
     ],
   },
   {
     product: 'PRISMA 5',
     rows: [
-      ['Academic / Personal', '€150 · binary', 'Uso académico no comercial'],
-      ['Commercial / Lab', '€300 · source', 'Integración y laboratorio'],
-      ['OEM / Hardware', 'Royalty + custom', 'Integradores y silicio'],
+      ['Academic / Personal', '€129 – €199', 'Investigación SNN / BCI (pago único)'],
+      ['Commercial / Lab', '€299 – €399', 'Neurofeedback, BCI, labs comerciales'],
+      ['OEM / Integrator', 'Royalty / custom', 'Hardware (OpenBCI, Muse, BrainBit…)'],
     ],
   },
   {
     product: 'rxOS',
     rows: [
-      ['Neuromorphic Kernel', 'Open source', 'Event fabric + SNN runtime'],
-      ['Desktop Experience', 'Closed source', 'Bootable lab surface'],
-      ['OEM integration', 'Custom arch', 'Hardware partners'],
+      ['Event fabric docs', 'Open papers', 'Paper + hoja de ruta 4 niveles'],
+      ['Desktop Experience', 'Closed source', 'Bootable lab surface v4.5'],
+      ['OEM / Akida path', 'Custom arch', 'Nivel 3 bare-metal NPU'],
     ],
   },
 ];
@@ -131,17 +131,17 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
     id: 'prisma3',
     code: 'P3',
     name: 'Prisma 3',
-    version: '3.2 DevBug',
+    version: 'High-Performance POSIX / SIMD',
     status: 'IN DEVELOPMENT',
     badge: 'Próximamente / Coming Soon',
-    tagline: 'Software experimental de investigación EEG con pipelines reproducibles, baselines individuales y separación estricta de regímenes de evaluación.',
+    tagline: 'Alternativa moderna a software monolítico Windows: pipeline EEG multiplataforma, zero-copy, SIMD y firma biológica por sujeto — no una caja negra de 4 GB.',
     description:
-      'Prisma 3 modela a la persona antes de interpretar el estado: features espectrales y temporales, Event Mode, Confound Auditor y Benchmark Matrix. No es un dispositivo médico ni software de diagnóstico.',
+      'Prisma 3 reescribe el camino de la señal: buffers SPSC lock-free en C/Rust, FFT/filtros vectorizados (AVX2/NEON), ICA en tiempo real y geometría Riemanniana en espacio tangente. Evidencia actual: ~73.3% raw LOSO → ~91% personalizado. Experimental, no clínico.',
     features: [
-      'Feature Registry con siete familias (spectral, temporal, covariance, speech, motor, cognitive…)',
-      'Event Mode: épocas alineadas a events.tsv / anotaciones MNE con rechazo de artefactos',
-      'Confound Auditor + Benchmark Matrix (raw LOSO vs calibración vs personalizado)',
-      'Soporte BIDS / OpenNeuro y CLI Python 3.10+ con reportes trazables',
+      'Zero-copy SPSC + streaming multicanal sin alloc en hot path',
+      'DSP SIMD (IIR/FIR + FFT) · latencia de ventana ~5–10 ms objetivo',
+      'ICA / wavelet en vivo para artefactos oculares y EMG',
+      'Normalización por sujeto + Riemann covariance · footprint objetivo <64 MB en rxOS',
     ],
     downloadLabel: 'Descargar Prisma 3',
     tone: 'paper',
@@ -151,21 +151,66 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
     id: 'prisma5',
     code: 'P5',
     name: 'Prisma 5',
-    version: 'Neuromorphic Core',
+    version: 'Neuromorphic Event Engine',
     status: 'IN DEVELOPMENT',
     badge: 'Aún no disponible',
-    tagline: 'Motor event-driven sobre redes de impulsos (SNN): de señal continua MNE a spike trains, plasticidad STDP y predictive coding en el stack rxOS.',
+    tagline: 'Motor SNN event-driven: el EEG deja de ser bloques FFT y pasa a ser trenes de espigas. Latencia de evento <1 ms · idle en mW sobre RXos.',
     description:
-      'Prisma 5 conecta el laboratorio EEG con el kernel neuromórfico: Delta Modulation asíncrona, poblaciones LIF y detección de anomalías por error de predicción de espigas. Camino académico, commercial y OEM.',
+      'Prisma 5 codifica microvoltios → spikes (Delta Modulation), filtra artefactos con STDP, detecta ritmos por resonancia de poblaciones LIF y anomalías por error de predicción de espigas. Puente hacia silicio Akida cuando el lab disponga del chip.',
     features: [
-      'Delta Modulation: eventos UP/DOWN por umbral adaptativo θ_adp',
-      'Predictive coding neuromórfico sobre poblaciones LIF',
-      'STDP continuo y homeostasis local (tau_m / θ₀)',
-      'Integración con rxOS event fabric · target Akida / Loihi',
+      'ΔV(t)=V(t)−V(t_prev) → spike UP/DOWN si |ΔV|≥θ_adp',
+      'Predictive coding LIF: anomalía = spike-error, no solo espectro',
+      'STDP + homeostasis local (τ_m, θ₀) como firma biológica inicial',
+      'Ritmos δ/θ/α/β por resonancia (sin windowing FFT) · target MCU/FPGA/Akida',
     ],
     downloadLabel: 'Descargar Prisma 5',
     tone: 'dark',
     icon: Zap,
+  },
+];
+
+const PRISMA_VS_NEUROREC = [
+  {
+    criterion: 'Arquitectura',
+    neurorec: 'Monolítica / Windows Von Neumann',
+    p3: 'POSIX nativo / SIMD vectorial',
+    p5: 'SNN event-driven sobre RXos',
+  },
+  {
+    criterion: 'Entrada',
+    neurorec: 'Muestreo por ventanas / batch',
+    p3: 'Zero-copy vectorial · SPSC rings',
+    p5: 'Spike streams (Delta Modulation)',
+  },
+  {
+    criterion: 'Ritmos',
+    neurorec: 'FFT / power spectrum',
+    p3: 'FFT acelerada SIMD',
+    p5: 'Resonancia de poblaciones LIF',
+  },
+  {
+    criterion: 'Artefactos',
+    neurorec: 'Manual / filtros estáticos',
+    p3: 'ICA / wavelet en tiempo real',
+    p5: 'Inhibición de espigas (STDP)',
+  },
+  {
+    criterion: 'Latencia',
+    neurorec: '~100–500 ms / ventana',
+    p3: '~5–10 ms objetivo',
+    p5: '<1 ms por evento',
+  },
+  {
+    criterion: 'Hardware',
+    neurorec: 'Win10 · Quad-core · ≥4 GB RAM',
+    p3: 'x86_64 / ARM64 · ≥128 MB (objetivo <64 MB en rxOS)',
+    p5: 'MCU / FPGA / coprocesador SNN / Akida',
+  },
+  {
+    criterion: 'Energía',
+    neurorec: 'Alto (CPU continua)',
+    p3: 'Medio-bajo (SIMD + idle controlado)',
+    p5: 'Ultra-bajo (mW, wake-on-event)',
   },
 ];
 
@@ -300,73 +345,100 @@ const PRISMA_EVIDENCE = [
     note: 'Pytest documentado tras integrar la auditoría de confounding; compileall limpio.',
   },
   {
-    value: '≈73%',
+    value: '73.3%',
     label: 'raw LOSO',
-    note: 'Referencia ds007358 EC/EO sin calibración del sujeto de test.',
+    note: 'Modelo genérico inter-sujeto (ds007358 EC/EO) sin calibrar al sujeto de test.',
   },
   {
     value: '87.7%',
     label: 'calibración',
-    note: 'Régimen subject-transductive; no se presenta como generalización pura.',
+    note: 'Régimen subject-transductive; ceiling etiquetado — no se vende como generalización pura.',
   },
   {
-    value: '≈91%',
+    value: '91.0%',
     label: 'personalizado',
-    note: 'Evaluación intra-sujeto; un problema más fácil y explícitamente etiquetado.',
+    note: 'Intra-sujeto / firma biológica. Variabilidad individual no es ruido: es la señal.',
   },
 ];
 
 const PRISMA_32_MODULES = [
   {
     icon: Activity,
-    code: 'FEATURE REGISTRY',
-    title: 'SEVEN PURPOSE-BUILT FEATURE SETS',
-    text: 'Registro central para spectral, temporal, covariance, spectral-temporal, speech, motor y cognitive. El modo auto selecciona según el paradigma sin romper el flujo histórico EC/EO.',
+    code: 'ZERO-COPY PIPELINE',
+    title: 'SPSC LOCK-FREE · SIN ALLOC EN HOT PATH',
+    text: 'Buffers circulares C/Rust para streaming multicanal. Elimina el abstraction penalty del batch Windows y las copias en el path crítico de señal.',
+  },
+  {
+    icon: Cpu,
+    code: 'DSP SIMD',
+    title: 'FFT / IIR / FIR VECTORIZADOS',
+    text: 'AVX2/AVX-512 o ARM NEON sobre el pipeline espectral-temporal. Objetivo de latencia de ventana ~5–10 ms frente a los 100–500 ms típicos de software comercial pesado.',
   },
   {
     icon: CircleDot,
-    code: 'EVENT MODE',
-    title: 'EPOCHS ALIGNED TO REAL EVENTS',
-    text: 'Lectura de events.tsv o anotaciones MNE, ventanas configurables, corrección de baseline, rechazo de épocas fuera de rango y descarte por artefactos superiores a 200 µV peak-to-peak.',
-  },
-  {
-    icon: Shield,
-    code: 'CONFOUND AUDITOR',
-    title: 'BLOCK UNSAFE TRAINING FIRST',
-    text: 'Audita la matriz sujeto × clase, cobertura, entropía y consistencia de features/canales antes de entrenar. El override exploratorio queda marcado como riesgo alto de leakage.',
+    code: 'ICA REAL-TIME',
+    title: 'ARTEFACTOS EN VIVO, NO A MANO',
+    text: 'ICA/wavelet en hilos dedicados para separar actividad ocular y EMG del EEG útil, en lugar de exclusiones manuales o filtros estáticos de caja negra.',
   },
   {
     icon: Database,
-    code: 'BENCHMARK MATRIX',
-    title: 'COMPARE PIPELINES WITHOUT MOVING THE GOALPOSTS',
-    text: 'Compara feature sets con none, train-fold y subject-transductive. Solo una celda train-fold puede ganar best_strict; la calibración transductiva permanece etiquetada como ceiling.',
+    code: 'RIEMANN + SUBJECT',
+    title: 'GEOMETRÍA + FIRMA BIOLÓGICA',
+    text: 'Matrices de covarianza en espacio tangente y normalización por sujeto. Confound Auditor + Benchmark Matrix separan raw LOSO, calibración y personalización.',
+  },
+];
+
+const PRISMA_5_MODULES = [
+  {
+    icon: Zap,
+    code: 'DELTA MODULATION',
+    title: 'EEG → SPIKE TRAINS',
+    text: 'ΔV(t)=V(t)−V(t_prev). Spike UP si ΔV≥+θ_adp; DOWN si ΔV≤−θ_adp. Solo hay eventos cuando la señal cambia — no hay muestreo inútil.',
+  },
+  {
+    icon: Network,
+    code: 'PREDICTIVE CODING',
+    title: 'ANOMALÍA = SPIKE ERROR',
+    text: 'Población LIF recurrente predice la cadencia del sujeto. Error entre espigas predichas e ingresadas dispara la detección — experimental, no diagnóstico clínico.',
+  },
+  {
+    icon: Activity,
+    code: 'STDP FILTER',
+    title: 'ARTEFACTOS POR PLASTICIDAD',
+    text: 'Parpadeos y EMG generan descargas masivas características. STDP inhibe esos patrones al vuelo sin FFT ni matrices pesadas en el path de eventos.',
+  },
+  {
+    icon: Radio,
+    code: 'RHYTHM RESONANCE',
+    title: 'δ θ α β SIN WINDOWING',
+    text: 'Los ritmos no se extraen esperando 512 ms de FFT: resonancia de poblaciones sintonizadas elimina el windowing delay. Objetivo BCI: <1 ms por evento.',
   },
 ];
 
 const PRISMA_ROADMAP = [
   {
     year: 'NOW',
-    title: 'PRISMA 3.2',
+    title: 'PRISMA 3.2 RESEARCH',
     state: 'IMPLEMENTED / ACTIVE',
-    text: 'Pipeline Python 3.10+, CLI, features, Event Mode, Confound Auditor, Benchmark Matrix e informes con límites explícitos.',
+    text: 'Pipeline Python/MNE, Feature Registry, Event Mode, Confound Auditor, Benchmark Matrix. Evidencia 73.3%→91% personalizado en referencia EC/EO.',
   },
   {
     year: 'NEXT',
-    title: 'PRISMA 3 → LIVE PATH',
+    title: 'PRISMA 3 PERF ENGINE',
     state: 'ENGINEERING',
-    text: 'Adquisición LSL, ring buffers sin bloqueo, control de artefactos y calibración online hacia 60 FPS de telemetría.',
+    text: 'Zero-copy SPSC, SIMD DSP, ICA en vivo, UI ligera y path LSL hacia footprint &lt;64 MB sobre rxOS.',
   },
   {
     year: 'R+D',
-    title: 'PRISMA 5',
+    title: 'PRISMA 5 SNN',
     state: 'NEUROMORPHIC CORE',
-    text: 'SNN event-driven, Delta Modulation, Predictive Coding de espigas y STDP continuo acoplado a rxOS.',
+    text: 'Delta mod, LIF, STDP, predictive coding y resonancia de ritmos. Event fabric RXos v4.5.',
   },
   {
     year: 'H/W',
     title: 'AKIDA AKD1000',
     state: 'NIVEL 3 · CHIP FALTANTE',
-    text: 'Driver bare-metal + trenes de impulsos sobre RXos. El lab aún no dispone del chip BrainChip para test en silicio real.',
+    text: 'Delegación bare-metal de spikes al NPU. El lab aún no dispone del chip BrainChip para silicio real.',
   },
   {
     year: 'L/T',
@@ -1181,22 +1253,24 @@ function Prisma({ navigate }) {
     <>
       <PageHero
         index="03"
-        eyebrow="PRISMA / EEG + NEUROMORPHIC"
+        eyebrow="PRISMA 3 · HIGH-PERF · PRISMA 5 · SNN"
         title={<>MEASURE THE SIGNAL.<br />MODEL THE PERSON.<br />SPIKE THE EVENT.</>}
-        text="PRISMA 3.2 es software experimental de EEG reproducible. PRISMA 5 es el motor neuromórfico event-driven sobre rxOS. Ninguno es un dispositivo médico ni afirma leer pensamientos."
+        text="PRISMA 3 es el motor POSIX/SIMD de EEG (alternativa ligera al software comercial pesado). PRISMA 5 es el engine neuromórfico event-driven sobre RXos. Ninguno es dispositivo médico ni lee pensamientos."
         image="/tutorial/prisma3/04_eeg_real.png"
       >
         <div className="hero-tags">
-          <span>PYTHON 3.10+</span>
-          <span>MNE</span>
-          <span>SNN / LIF</span>
+          <span>ZERO-COPY SPSC</span>
+          <span>SIMD FFT</span>
+          <span>ICA RT</span>
           <span>DELTA MOD</span>
-          <span>BIDS / OPENNEURO</span>
+          <span>LIF / STDP</span>
+          <span>&lt;1 ms EVENT</span>
         </div>
         <div className="hero-actions">
           <a className="brutal-button primary" href="#prisma-downloads">VER MÓDULOS</a>
           <a className="brutal-button" href="#prisma3">PRISMA 3</a>
           <a className="brutal-button" href="#prisma5">PRISMA 5</a>
+          <a className="brutal-button" href="#compare">VS NEUROREC</a>
         </div>
       </PageHero>
 
@@ -1204,31 +1278,34 @@ function Prisma({ navigate }) {
         <PrismaDownloadSection
           code="01 / DOWNLOAD"
           title="PRISMA 3 · PRISMA 5"
-          text="Dos módulos de la suite Knights Labs. Descripción técnica, características clave y descarga pública — pendiente de publicación."
+          text="Arquitecturas en desarrollo. Precios accesibles (Robin Hood): community gratis; Pro/OEM financian el ecosistema. Descarga pública aún no publicada."
         />
 
         <section className="section wrap">
           <SectionTitle
-            code="02 / CURRENT"
-            title="PRISMA 3.2 DEVBUG EDITION"
-            text="La versión actual prioriza compatibilidad, trazabilidad y separación estricta entre generalización, calibración y personalización."
+            code="02 / EVIDENCE"
+            title="FIRMA BIOLÓGICA, NO PROMEDIO UNIVERSAL"
+            text="Cada cerebro es único. La variabilidad no es ruido que borrar: es la calibración. Evidencia de referencia del pipeline PRISMA."
           />
           <div className="evidence-grid">
             {PRISMA_EVIDENCE.map((item, index) => <EvidenceCard item={item} index={index} key={item.label} />)}
           </div>
+          <div className="protocol-strip" data-reveal>
+            <span>GENERIC</span><strong>73.3% RAW LOSO</strong>
+            <span>CALIBRATION</span><strong>87.7% TRANSDUCTIVE</strong>
+            <span>PERSONAL</span><strong>91.0% INTRA-SUBJECT</strong>
+          </div>
 
-          <div className="current-grid">
+          <div className="current-grid" style={{ marginTop: 28 }}>
             <article className="paper-panel" data-reveal>
-              <span className="panel-label">WHAT EXISTS</span>
-              <h3>UN PIPELINE DE INVESTIGACIÓN, NO UNA PROMESA UNIVERSAL.</h3>
+              <span className="panel-label">WHAT EXISTS TODAY</span>
+              <h3>PIPELINE DE INVESTIGACIÓN TRAZABLE.</h3>
               <ul className="check-list">
                 <li><CheckCircle size={18} /> Welch PSD, filtros, bandpower, ratios, entropía, Hjorth, RMS y SQI.</li>
-                <li><CheckCircle size={18} /> Baseline personal, traductor individual, modelos ML y reportes.</li>
-                <li><CheckCircle size={18} /> CLI retrocompatible y Feature Registry con siete familias de características.</li>
-                <li><CheckCircle size={18} /> Modo evento con épocas, baseline, rechazo de artefactos y visor de respuestas evocadas.</li>
-                <li><CheckCircle size={18} /> Auditoría de confounding obligatoria antes de ML y Benchmark Matrix con selección estricta.</li>
-                <li><CheckCircle size={18} /> Flujo de descubrimiento para datasets BIDS/OpenNeuro.</li>
-                <li><CheckCircle size={18} /> Alpha blocking limitado al paradigma resting EC/EO.</li>
+                <li><CheckCircle size={18} /> Baseline personal, Feature Registry (7 familias), Event Mode y visor de épocas.</li>
+                <li><CheckCircle size={18} /> Confound Auditor + Benchmark Matrix (strict vs ceiling etiquetados).</li>
+                <li><CheckCircle size={18} /> BIDS/OpenNeuro discovery · CLI Python 3.10+ · tests documentados.</li>
+                <li><CheckCircle size={18} /> Camino en curso: zero-copy SPSC, SIMD y ICA en vivo (motor de alto rendimiento).</li>
               </ul>
             </article>
 
@@ -1246,41 +1323,41 @@ function Prisma({ navigate }) {
           </div>
         </section>
 
-        <section className="section section-black">
+        <section className="section section-black" id="compare">
           <div className="wrap">
             <SectionTitle
-              code="03 / EVIDENCE"
-              title="RESULTADOS QUE INCLUYEN SUS LÍMITES"
-              text="La evidencia actual es útil precisamente porque también muestra dónde el pipeline todavía no funciona bien."
+              code="03 / COMPARE"
+              title="NEUROREC VS PRISMA 3 VS PRISMA 5"
+              text="Misma clase de problema (EEG de investigación). Categorías distintas de arquitectura. Cifras de latencia/footprint son objetivos de diseño o tipologías de mercado — no un ensayo clínico."
             />
-            <div className="dataset-table" data-reveal>
-              <div className="dataset-row dataset-head">
-                <span>DATASET / PARADIGM</span><span>STATE</span><span>INTERPRETATION</span>
+            <div className="compare-table" data-reveal>
+              <div className="compare-row compare-head">
+                <span>CRITERIO</span>
+                <span>NEUROREC (CLASE)</span>
+                <span>PRISMA 3</span>
+                <span>PRISMA 5</span>
               </div>
-              <div className="dataset-row">
-                <span>ds007358 / resting EC–EO</span>
-                <span><StatusBadge tone="ok">REFERENCE</StatusBadge></span>
-                <span>Raw LOSO alrededor del 73%; calibración transductiva 87,7%; alpha EC &gt; EO confirmado.</span>
-              </div>
-              <div className="dataset-row">
-                <span>ds007808 / speech</span>
-                <span><StatusBadge tone="warn">EXPLORATORY</StatusBadge></span>
-                <span>Lectura y features específicas todavía en exploración; no se usa como evidencia principal.</span>
-              </div>
-              <div className="dataset-row">
-                <span>ds007554 / cognitive–motor</span>
-                <span><StatusBadge tone="danger">NEAR CHANCE</StatusBadge></span>
-                <span>Las features genéricas no separan bien el paradigma. Es una señal para diseñar adaptadores específicos.</span>
-              </div>
+              {PRISMA_VS_NEUROREC.map((row) => (
+                <div className="compare-row" key={row.criterion}>
+                  <span>{row.criterion}</span>
+                  <span>{row.neurorec}</span>
+                  <span>{row.p3}</span>
+                  <span>{row.p5}</span>
+                </div>
+              ))}
             </div>
+            <p className="license-note" style={{ color: 'rgba(255,254,248,.72)', marginTop: 18 }}>
+              Software comercial típico de la vieja escuela: monólito Windows, ≥4 GB RAM, FFT por ventanas, UI pesada.
+              PRISMA apunta a latencia sub-ventana, footprint objetivo &lt;64 MB en rxOS y (en P5) wake-on-event en mW.
+            </p>
           </div>
         </section>
 
         <section className="section wrap">
           <SectionTitle
-            code="04 / PRISMA 3.2"
-            title="THE PIPELINE NOW INSPECTS ITSELF"
-            text="PRISMA 3.2 no solo extrae variables: comprueba balance, separa protocolos de evaluación y hace visible qué parte del resultado es generalización estricta, calibración o personalización."
+            code="04 / PRISMA 3 ARCHITECTURE"
+            title="HIGH-PERFORMANCE EEG ENGINE"
+            text="De Streamlit/Python hacia un stack de bajo nivel: zero-copy, SIMD, ICA y geometría — sin vender milagros clínicos."
           />
           <div className="prisma-module-grid">
             {PRISMA_32_MODULES.map(({ icon: Icon, code, title, text: moduleText }, index) => (
@@ -1291,48 +1368,80 @@ function Prisma({ navigate }) {
               </article>
             ))}
           </div>
-          <div className="protocol-strip" data-reveal>
-            <span>STRICT</span><strong>RAW / TRAIN-FOLD LOSO</strong>
-            <span>CALIBRATION</span><strong>SUBJECT-TRANSDUCTIVE</strong>
-            <span>PERSONAL</span><strong>INTRA-SUBJECT CV</strong>
+          <div className="dataset-table" data-reveal style={{ marginTop: 28 }}>
+            <div className="dataset-row dataset-head">
+              <span>DATASET / PARADIGM</span><span>STATE</span><span>INTERPRETATION</span>
+            </div>
+            <div className="dataset-row">
+              <span>ds007358 / resting EC–EO</span>
+              <span><StatusBadge tone="ok">REFERENCE</StatusBadge></span>
+              <span>Raw LOSO 73.3%; calibración 87.7%; personalizado 91.0%; alpha EC &gt; EO confirmado.</span>
+            </div>
+            <div className="dataset-row">
+              <span>ds007808 / speech</span>
+              <span><StatusBadge tone="warn">EXPLORATORY</StatusBadge></span>
+              <span>Features específicas en exploración; no se usa como evidencia principal.</span>
+            </div>
+            <div className="dataset-row">
+              <span>ds007554 / cognitive–motor</span>
+              <span><StatusBadge tone="danger">NEAR CHANCE</StatusBadge></span>
+              <span>Features genéricas no separan el paradigma — señal para adaptadores específicos.</span>
+            </div>
           </div>
         </section>
 
         <section className="section section-black" id="prisma5-engine">
           <div className="wrap">
             <SectionTitle
-              code="05 / PRISMA 5 ENGINE"
-              title="NEUROMORPHIC ENGINE ON rxOS"
-              text="De matrices de features a event streams. PRISMA 5 integra el core SNN con el kernel neuromórfico: delta modulation, predictive coding y STDP continuo."
+              code="05 / PRISMA 5 ARCHITECTURE"
+              title="EVENT-DRIVEN NEUROMORPHIC ENGINE"
+              text="El cerebro no corre FFT cada 512 ms. PRISMA 5 solo gasta ciclos cuando hay eventos. Sobre el tejido de RXos v4.5."
             />
+            <div className="formula-grid" style={{ marginBottom: 28 }}>
+              <article className="formula-card" data-reveal>
+                <span>01 · ENCODE</span>
+                <h3>ΔV(t)</h3>
+                <code>ΔV = V(t) − V(t_prev)</code>
+                <p>Diferencia local de microvoltios. Sin evento si la señal no se mueve.</p>
+              </article>
+              <article className="formula-card" data-reveal>
+                <span>02 · SPIKES</span>
+                <h3>UP / DOWN</h3>
+                <code>ΔV ≥ +θ_adp → UP · ΔV ≤ −θ_adp → DOWN</code>
+                <p>Umbral adaptativo por sujeto (θ_adp). Entrada asíncrona al SNN.</p>
+              </article>
+              <article className="formula-card" data-reveal>
+                <span>03 · LATENCY</span>
+                <h3>&lt;1 ms</h3>
+                <code>no windowing delay</code>
+                <p>Cada spike actualiza la red. Objetivo BCI/HCI de ultra-baja latencia.</p>
+              </article>
+            </div>
             <div className="prisma5-grid">
-              <article className="prisma5-card" data-reveal>
-                <span>EVENT ENCODING</span>
-                <h3>DELTA MODULATION</h3>
-                <p>Convierte MNE continuous samples en spike trains asíncronos UP/DOWN con umbral adaptativo θ_adp.</p>
-              </article>
-              <article className="prisma5-card" data-reveal>
-                <span>ANOMALY PATH</span>
-                <h3>PREDICTIVE CODING</h3>
-                <p>Error de predicción de espigas en población LIF como señal de anomalía — experimental, no clínica.</p>
-              </article>
-              <article className="prisma5-card" data-reveal>
-                <span>PLASTICITY</span>
-                <h3>STDP + HOMEOSTASIS</h3>
-                <p>Plasticidad local en tiempo real; tau_m y θ₀ como firma biológica inicial del sujeto/sistema.</p>
-              </article>
-              <article className="prisma5-card" data-reveal>
-                <span>HARDWARE</span>
-                <h3>AKIDA / LOIHI</h3>
-                <p>Target de integración y benchmarking en silicio neuromórfico. Camino OEM con royalty + custom arch.</p>
-              </article>
+              {PRISMA_5_MODULES.map(({ icon: Icon, code, title, text: moduleText }) => (
+                <article className="prisma5-card" key={code} data-reveal>
+                  <span className="prisma5-card-icon"><Icon size={22} strokeWidth={1.4} /> {code}</span>
+                  <h3>{title}</h3>
+                  <p>{moduleText}</p>
+                </article>
+              ))}
+            </div>
+            <div className="akida-callout" data-reveal style={{ marginTop: 28 }}>
+              <AlertTriangle size={22} />
+              <div>
+                <strong>SILICIO NEUROMÓRFICO PENDIENTE</strong>
+                <p>
+                  PRISMA 5 se diseña para MCU/FPGA y, en Nivel 3 de RXos, para BrainChip Akida AKD1000.
+                  El laboratorio aún no dispone del chip: no hay benchmarks J/inferencia NPU vs CPU en metal neuromórfico real.
+                </p>
+              </div>
             </div>
             <div className="hero-actions section-actions">
               <button className="brutal-button primary" onClick={() => navigate('/architecture')}>
-                SEE FULL STACK <ArrowUpRight size={15} />
+                RXos EVENT FABRIC <ArrowUpRight size={15} />
               </button>
               <button className="brutal-button" onClick={() => navigate('/suite')}>
-                PRISMA 5 LICENSE LAYERS
+                LICENSE LAYERS
               </button>
               <a className="brutal-button" href="#prisma5">
                 FICHA DE DESCARGA <ArrowUpRight size={15} />

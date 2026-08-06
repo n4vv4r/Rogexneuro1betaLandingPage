@@ -15,6 +15,8 @@ import {
   FlaskConical,
   Heart,
   Leaf,
+  Rocket,
+  Target,
   Link as LinkIcon,
   Lock,
   Mail,
@@ -38,6 +40,7 @@ const NAV_ITEMS = [
   ['/prisma', 'PRISMA'],
   ['/rx-os', 'RX OS'],
   ['/investors', 'INVESTORS'],
+  ['/pitch', 'PITCH'],
   ['/startup-idea', 'STARTUP'],
   ['/about', 'ABOUT'],
 ];
@@ -2022,6 +2025,349 @@ function ContactForm() {
   );
 }
 
+function Pitch({ navigate }) {
+  return (
+    <>
+      <PageHero
+        index="09"
+        eyebrow="PITCH DECK · CLUBES DE INVERSORES"
+        title={<>DE SOFTWARE<br />VERIFICABLE<br />A HARDWARE EEG<br />EN TIEMPO REAL.</>}
+        text="Knights Labs busca capital serio para cerrar el salto de categoría: dispositivo EEG de medición en tiempo real potenciado por PRISMA 5 (SNN) sobre RXos v4.5. No pedimos fe en slides — pedimos inversión sobre un stack que ya arranca, mide y publica límites."
+        image={RXOS_HERO_IMAGE}
+      >
+        <div className="hero-tags">
+          <span>RAISE: HARDWARE + SNN</span>
+          <span>EEG REAL-TIME</span>
+          <span>PRISMA 5</span>
+          <span>RXos v4.5</span>
+          <span>AKIDA PATH</span>
+          <span>ROBIN HOOD</span>
+        </div>
+        <div className="hero-actions">
+          <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
+            SOLICITAR DECK / CALL <Send size={15} />
+          </a>
+          <button className="brutal-button" onClick={() => navigate('/investors')}>PARA INVERSORES</button>
+          <a className="brutal-button" href="#ask">THE ASK</a>
+        </div>
+      </PageHero>
+
+      <main>
+        {/* SLIDE 01 — ONE LINER */}
+        <section className="section wrap pitch-slide" id="one-liner">
+          <SectionTitle
+            code="01 / THE HOOK"
+            title="UNA FRASE"
+            text="Deep tech de neurotecnología low-carbon: de un SO bare-metal y un motor EEG personalizado a un dispositivo de medición en tiempo real con IA neuromórfica."
+          />
+          <div className="pitch-hook" data-reveal>
+            <p>
+              <strong>Knights Labs</strong> construye el stack <em>RXos + PRISMA 3/5</em> para medir y modelar señales cerebrales
+              con latencia de evento, footprint mínimo y honestidad científica — y el siguiente hito es un
+              <strong> dispositivo EEG en tiempo real</strong> que no dependa de monólitos de varios GB ni de la nube para el path crítico.
+            </p>
+          </div>
+        </section>
+
+        {/* SLIDE 02 — PROBLEM */}
+        <section className="section section-black pitch-slide" id="problem">
+          <div className="wrap">
+            <SectionTitle
+              code="02 / PROBLEM"
+              title="POR QUÉ EL MERCADO DOLIÓ"
+              text="Tres fricciones que un club de inversores reconoce al instante."
+            />
+            <div className="pitch-cards">
+              <article data-reveal>
+                <span>01</span>
+                <h3>SOFTWARE EEG PESADO</h3>
+                <p>Herramientas de escritorio tradicionales exigen PCs potentes, varios GB de RAM y latencias de cientos de ms por ventana. El acceso se vuelve de élite; el path crítico se hincha.</p>
+              </article>
+              <article data-reveal>
+                <span>02</span>
+                <h3>CEREBRO “PROMEDIO”</h3>
+                <p>Los modelos genéricos ignoran la firma individual. En nuestra referencia: 73.3% raw LOSO vs 91.0% personalizado. Sin calibración al sujeto, el producto miente con una media.</p>
+              </article>
+              <article data-reveal>
+                <span>03</span>
+                <h3>NUBE ≠ TIEMPO REAL LOCAL</h3>
+                <p>BCI y neurofeedback serios no pueden depender de round-trips a data centers. El path de eventos debe vivir en el borde: metal, mW y determinismo.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 03 — SOLUTION */}
+        <section className="section wrap pitch-slide" id="solution">
+          <SectionTitle
+            code="03 / SOLUTION"
+            title="STACK COMPLETO · NO UN APP"
+            text="Software que ya existe + hardware que el capital debe desbloquear."
+          />
+          <div className="pitch-stack">
+            <article className="pitch-stack-item" data-reveal>
+              <Cpu size={28} strokeWidth={1.35} />
+              <div>
+                <span>HOY · SOFTWARE</span>
+                <h3>RXos v4.5 + PRISMA 3 → 5</h3>
+                <p>Event fabric LIF/STDP verificable (bench 6/6). PRISMA 3 high-perf (zero-copy, SIMD, ICA). PRISMA 5: delta mod, predictive coding, &lt;1 ms/evento. Papers PDF públicos.</p>
+              </div>
+            </article>
+            <article className="pitch-stack-item pitch-stack-highlight" data-reveal>
+              <Radio size={28} strokeWidth={1.35} />
+              <div>
+                <span>ASK · HARDWARE</span>
+                <h3>DISPOSITIVO EEG TIEMPO REAL</h3>
+                <p>Adquisición multicanal en vivo + pipeline PRISMA 5 on-device / edge. Sin batch de nube en el camino crítico. Telemetría a 60 FPS; decisión en la máquina del usuario o del lab.</p>
+              </div>
+            </article>
+            <article className="pitch-stack-item" data-reveal>
+              <Zap size={28} strokeWidth={1.35} />
+              <div>
+                <span>PATH · SILICIO</span>
+                <h3>AKIDA / NPU + RXos NIVEL 3</h3>
+                <p>USB/XHCI bare-metal, HPET, driver Akida AKD1000 y J/inferencia medida. El chip aún no está en el lab: el raise incluye acceso a silicio neuromórfico real.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* SLIDE 04 — TRACTION */}
+        <section className="section section-black pitch-slide" id="traction">
+          <div className="wrap">
+            <SectionTitle
+              code="04 / TRACTION"
+              title="NO ES UNA IDEA EN BLANCO"
+              text="Artefactos que un due diligence puede tocar."
+            />
+            <div className="invest-metrics pitch-metrics" data-reveal>
+              <div><strong>6/6</strong><span>bench PASS codificación temporal</span></div>
+              <div><strong>~299</strong><span>ciclos / evento en RXos</span></div>
+              <div><strong>~3 MiB</strong><span>RAM al boot del kernel</span></div>
+              <div><strong>73→91%</strong><span>LOSO → personalizado (ref.)</span></div>
+            </div>
+            <div className="pitch-cards pitch-cards-3" style={{ marginTop: 28 }}>
+              <article data-reveal>
+                <span>METAL</span>
+                <h3>HP 15 + PC INSTALADO</h3>
+                <p>RXos verificado en hardware de referencia e imagen principal de sistema en metal. No solo QEMU.</p>
+              </article>
+              <article data-reveal>
+                <span>DOCS</span>
+                <h3>PAPERS FALSABLES</h3>
+                <p>Paper neuromórfico rev 1.0 y hoja de ruta 4 niveles rev 1.3 — públicos, con [x]/[~]/[ ] honestos.</p>
+              </article>
+              <article data-reveal>
+                <span>BOUNDARIES</span>
+                <h3>SIN CLAIMS CLÍNICOS</h3>
+                <p>Software experimental de investigación. Eso no es debilidad: es credibilidad ante labs, revisores y reguladores futuros.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 05 — MARKET */}
+        <section className="section wrap pitch-slide" id="market">
+          <SectionTitle
+            code="05 / MARKET"
+            title="DÓNDE JUEGA EL DINERO"
+            text="No competimos solo con “otra app EEG”. Jugamos en BCI/research tools, edge neuromórfico y dispositivos de adquisición."
+          />
+          <div className="startup-points">
+            {[
+              ['RESEARCH & BCI TOOLS', 'Labs, makers y pymes que hoy pagan software pesado o se quedan fuera por precio. PRISMA Community gratis abre embudo; Pro/OEM monetizan.'],
+              ['EDGE NEUROTECH', 'Dispositivos y wearables que necesitan path local de baja latencia. Motor + royalty OEM, no solo licencia de escritorio.'],
+              ['LOW-CARBON COMPUTE', 'Inversores de impacto y clubs que quieren deep tech medible en mW y RAM, no greenwashing de data center.'],
+              ['HARDWARE + SOFTWARE LOCK-IN', 'Quien controla adquisición + engine + OS edge define el stack. El dispositivo EEG cierra el loop comercial.'],
+            ].map(([title, text], index) => (
+              <article key={title} data-reveal style={{ '--delay': `${index * 50}ms` }}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* SLIDE 06 — BUSINESS MODEL */}
+        <section className="section section-black pitch-slide" id="model">
+          <div className="wrap">
+            <SectionTitle
+              code="06 / MODEL"
+              title="ROBIN HOOD CON P&L"
+              text="La base open genera tracción. OEM y Pro financian el hardware y el lab."
+            />
+            <div className="audience-table" data-reveal>
+              <div className="audience-row audience-head">
+                <span>CAPA</span><span>PRECIO REF.</span><span>ROL EN EL RAISE</span>
+              </div>
+              <div className="audience-row">
+                <span>PRISMA 3 Community</span>
+                <span>Gratis / open</span>
+                <span>Adopción, feedback, embudo makers/labs</span>
+              </div>
+              <div className="audience-row">
+                <span>PRISMA 3 Indie / Pro</span>
+                <span>€49–€199</span>
+                <span>Ingresos tempranos, validación de pago</span>
+              </div>
+              <div className="audience-row">
+                <span>PRISMA 5 Academic / Lab</span>
+                <span>€129–€399</span>
+                <span>Deep tech SNN; margen alto por valor</span>
+              </div>
+              <div className="audience-row">
+                <span>OEM / dispositivo</span>
+                <span>Royalty + hardware</span>
+                <span>Escalado: headset/EEG kit + motor embebido</span>
+              </div>
+              <div className="audience-row">
+                <span>rxOS Desktop</span>
+                <span>Closed / lab</span>
+                <span>Superficie soberana para early adopters</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 07 — THE ASK */}
+        <section className="section wrap pitch-slide" id="ask">
+          <SectionTitle
+            code="07 / THE ASK"
+            title="QUÉ PEDIMOS · A CAMBIO DE QUÉ"
+            text="Ronda orientada a clubes e inversores patient capital. Magnitud: inversión grande (ticket significativo / club round) para hardware + equipo, no un micro-MVP."
+          />
+          <div className="pitch-ask" data-reveal>
+            <div className="pitch-ask-main">
+              <span className="panel-label">USE OF FUNDS</span>
+              <h3>CAPITAL PARA EL SALTO A METAL</h3>
+              <ul className="check-list compact-list">
+                <li><CheckCircle size={18} /> <strong>Dispositivo EEG tiempo real</strong> — diseño, prototipos, adquisición multicanal, pilotos con labs.</li>
+                <li><CheckCircle size={18} /> <strong>PRISMA 5 production path</strong> — engine SNN, LSL/live, telemetría, integración en el path del dispositivo.</li>
+                <li><CheckCircle size={18} /> <strong>RXos Nivel 3</strong> — USB/XHCI, HPET, driver NPU (Akida AKD1000) y banco de energía J/inferencia.</li>
+                <li><CheckCircle size={18} /> <strong>Equipo</strong> — firmware, hardware, DSP/SNN, y compliance de producto experimental (no claim clínico prematuro).</li>
+                <li><CheckCircle size={18} /> <strong>Runway + go-to-market</strong> — early OEM, academic sales, comunidad open-core.</li>
+              </ul>
+            </div>
+            <div className="pitch-ask-side">
+              <div>
+                <span>OBJETIVO</span>
+                <strong>HARDWARE EEG<br />+ PRISMA 5 LIVE</strong>
+              </div>
+              <div>
+                <span>PERFIL</span>
+                <strong>CLUBS · ANGELS<br />IMPACTO · DEEP TECH</strong>
+              </div>
+              <div>
+                <span>NO BUSCAMOS</span>
+                <strong>HYPE CLÍNICO<br />NI GROWTH FAKE</strong>
+              </div>
+              <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
+                CONTACTAR <ArrowUpRight size={15} />
+              </a>
+            </div>
+          </div>
+          <div className="pitch-funds" data-reveal>
+            {[
+              ['35–40%', 'Hardware EEG', 'PCB, sensores, mecánico, pilotos, certificación pre-clínica de producto experimental'],
+              ['25–30%', 'PRISMA 5 + live', 'SNN engine, delta mod, STDP, integración LSL/dispositivo, UI edge'],
+              ['15–20%', 'RXos / NPU', 'Nivel 3, kits Akida, USB bare-metal, bancada de potencia'],
+              ['10–15%', 'Equipo & ops', 'Ingeniería, runway, legal de producto y partnerships OEM'],
+              ['5–10%', 'GTM', 'Academic/OEM sales, demos, comunidad open-core'],
+            ].map(([pct, title, text]) => (
+              <article key={title}>
+                <strong>{pct}</strong>
+                <h4>{title}</h4>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* SLIDE 08 — ROADMAP */}
+        <section className="section section-black pitch-slide" id="roadmap">
+          <div className="wrap">
+            <SectionTitle
+              code="08 / ROADMAP"
+              title="12–24 MESES DESPUÉS DEL CLOSE"
+              text="Hitos que un club puede auditorear. Sin silicio inventado."
+            />
+            <div className="rx-roadmap">
+              {[
+                ['01', 'M0–M6', 'Prototipo EEG v0 + PRISMA 3 live path estable; demos reproducibles en labs partner.'],
+                ['02', 'M6–M12', 'PRISMA 5 en dispositivo (delta mod + LIF); telemetría real-time; primeros OEM talks.'],
+                ['03', 'M12–M18', 'RXos Nivel 3 con NPU si hay chip; métricas J/inferencia; pilot hardware batch.'],
+                ['04', 'M18–M24', 'Producto EEG + software empaquetado; revenue Pro/OEM; siguiente ronda con tracción metal.'],
+              ].map(([n, t, text]) => (
+                <article key={n} data-reveal><span>{n}</span><h3>{t}</h3><p>{text}</p></article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 09 — TEAM / WHY */}
+        <section className="section wrap pitch-slide" id="why">
+          <SectionTitle
+            code="09 / WHY US"
+            title="POR QUÉ ESTE EQUIPO · POR QUÉ AHORA"
+            text="Ingeniería full-stack de silicio a señal. Tecnoactivismo con artefactos, no con promesas."
+          />
+          <div className="invest-grid">
+            <article className="invest-card" data-reveal>
+              <Rocket size={28} strokeWidth={1.35} />
+              <h3>FULL STACK PROPIO</h3>
+              <p>SO + motor EEG + path SNN. Casi nadie en deep tech accesible controla las tres capas con papers falsables.</p>
+            </article>
+            <article className="invest-card" data-reveal>
+              <Target size={28} strokeWidth={1.35} />
+              <h3>TIMING</h3>
+              <p>Edge AI y neuromórfico salen del laboratorio. Quien tenga adquisición + engine local define el estándar de BCI de bajo coste.</p>
+            </article>
+            <article className="invest-card" data-reveal>
+              <Leaf size={28} strokeWidth={1.35} />
+              <h3>IMPACTO MEDIBLE</h3>
+              <p>mW, MiB, ms y bench — no slogans. Low-carbon como ingeniería, no como marketing.</p>
+            </article>
+            <article className="invest-card invest-card-dark" data-reveal>
+              <Heart size={28} strokeWidth={1.35} />
+              <h3>MORAL DE TRINCHERA</h3>
+              <p>Robin Hood: OEM paga; estudiantes e investigadores entran. El capital financia libertad de acceso, no solo margen.</p>
+            </article>
+          </div>
+        </section>
+
+        {/* SLIDE 10 — CLOSE */}
+        <section className="statement-section pitch-close">
+          <div className="wrap statement-grid" data-reveal>
+            <div className="statement-mark"><Rocket size={54} strokeWidth={1.2} /></div>
+            <blockquote>
+              “Inviertan en el corte del bloat y en el cable que toca la sien.
+              El software ya respira. El hardware es el siguiente latido.”
+            </blockquote>
+            <div className="statement-meta">PITCH · CLUB ROUND · EEG REAL-TIME · PRISMA 5</div>
+          </div>
+        </section>
+
+        <section className="section wrap contact-section">
+          <SectionTitle
+            code="10 / NEXT STEP"
+            title="AGENDEMOS EL DECK EN VIVO"
+            text="Para clubes de inversores: sesión técnica + financiera. Materiales: site, papers PDF, demo RXos/PRISMA, ask y use of funds."
+          />
+          <div className="hero-actions section-actions">
+            <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
+              roger@rogexlaboratories.com <ArrowUpRight size={15} />
+            </a>
+            <button className="brutal-button" onClick={() => navigate('/investors')}>MEMO INVERSORES</button>
+            <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA 5</button>
+            <button className="brutal-button" onClick={() => navigate('/rx-os')}>RXos</button>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
 function Investors({ navigate }) {
   return (
     <>
@@ -2043,6 +2389,7 @@ function Investors({ navigate }) {
           <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Inversi%C3%B3n%20/%20Partnership%20%E2%80%94%20Knights%20Labs">
             HABLAR CON EL LAB <Send size={15} />
           </a>
+          <button className="brutal-button" onClick={() => navigate('/pitch')}>PITCH DECK</button>
           <button className="brutal-button" onClick={() => navigate('/startup-idea')}>STARTUP IDEA</button>
           <button className="brutal-button" onClick={() => navigate('/architecture')}>ARQUITECTURA</button>
         </div>
@@ -2208,7 +2555,8 @@ function StartupIdea({ navigate }) {
           <span>TRACTION</span>
         </div>
         <div className="hero-actions">
-          <button className="brutal-button primary" onClick={() => navigate('/investors')}>PARA INVERSORES</button>
+          <button className="brutal-button primary" onClick={() => navigate('/pitch')}>PITCH DECK</button>
+          <button className="brutal-button" onClick={() => navigate('/investors')}>PARA INVERSORES</button>
           <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA</button>
           <button className="brutal-button" onClick={() => navigate('/rx-os')}>RXos v4.5</button>
         </div>
@@ -2607,6 +2955,16 @@ const ROUTE_META = {
     imageAlt: 'Knights Labs / RXos for investors',
     url: 'https://www.rogexlaboratories.com/investors',
   },
+  '/pitch': {
+    title: 'Pitch deck — Knights Labs',
+    description: 'Pitch for investor clubs: real-time EEG device powered by PRISMA 5 SNN on RXos v4.5. Hardware raise, use of funds, traction and Robin Hood model.',
+    image: RXOS_OG_IMAGE,
+    imageType: 'image/jpeg',
+    imageWidth: '1600',
+    imageHeight: '1200',
+    imageAlt: 'Knights Labs pitch — EEG real-time + PRISMA 5',
+    url: 'https://www.rogexlaboratories.com/pitch',
+  },
   '/startup-idea': {
     title: 'Startup idea — Knights Labs',
     description: 'Event-driven compute, EEG software and neuromorphic SNN with philanthropic licensing. Problem, solution, model and traction.',
@@ -2653,6 +3011,7 @@ function App() {
   if (path === '/prisma') page = <Prisma navigate={navigate} />;
   if (path === '/rx-os' || path === '/rogexos') page = <RXOS navigate={navigate} />;
   if (path === '/investors') page = <Investors navigate={navigate} />;
+  if (path === '/pitch') page = <Pitch navigate={navigate} />;
   if (path === '/startup-idea') page = <StartupIdea navigate={navigate} />;
   if (path === '/about') page = <About navigate={navigate} />;
 

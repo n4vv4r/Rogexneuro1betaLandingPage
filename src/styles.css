@@ -1241,6 +1241,206 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
   max-width: 48ch;
 }
 
+/* Pitch deck */
+.pitch-hook {
+  border: 1.5px solid var(--ink);
+  padding: clamp(28px, 4vw, 48px);
+  background: var(--paper-2);
+}
+.pitch-hook p {
+  margin: 0;
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 1.55;
+  max-width: 52ch;
+  color: var(--ink);
+}
+.pitch-hook strong { color: var(--accent); }
+.pitch-hook em { font-style: normal; font-weight: 700; }
+
+.pitch-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border: 1.5px solid rgba(255, 254, 248, 0.5);
+}
+.pitch-cards article {
+  padding: clamp(24px, 3vw, 36px);
+  border-right: 1px solid rgba(255, 254, 248, 0.28);
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-height: 220px;
+}
+.pitch-cards article:last-child { border-right: 0; }
+.pitch-cards span {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--acid);
+}
+.pitch-cards h3 {
+  font-family: var(--script);
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  color: var(--paper);
+}
+.pitch-cards p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(255, 254, 248, 0.72);
+}
+
+.pitch-stack {
+  display: grid;
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+.pitch-stack-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--paper);
+  border-bottom: 1.5px solid var(--ink);
+  align-items: start;
+}
+.pitch-stack-item:last-child { border-bottom: 0; }
+.pitch-stack-item svg { color: var(--accent); margin-top: 4px; }
+.pitch-stack-item span {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.pitch-stack-item h3 {
+  margin: 8px 0 12px;
+  font-family: var(--script);
+  font-size: clamp(24px, 2.8vw, 36px);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+.pitch-stack-item p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+.pitch-stack-highlight {
+  background: var(--acid);
+  color: #1c0b3a;
+}
+.pitch-stack-highlight svg,
+.pitch-stack-highlight span { color: #3a1470; }
+.pitch-stack-highlight h3 { color: #1c0b3a; }
+.pitch-stack-highlight p { color: #2a1450; }
+
+.pitch-metrics { margin-top: 0; }
+.section-black .pitch-metrics {
+  border-color: rgba(255, 254, 248, 0.45);
+}
+.section-black .pitch-metrics > div {
+  border-right-color: rgba(255, 254, 248, 0.28);
+}
+.section-black .pitch-metrics strong { color: var(--paper); }
+.section-black .pitch-metrics span { color: rgba(255, 254, 248, 0.65); }
+
+.pitch-ask {
+  display: grid;
+  grid-template-columns: 1.4fr 0.85fr;
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+.pitch-ask-main {
+  background: var(--paper);
+  padding: clamp(28px, 3.5vw, 48px);
+  border-right: 1.5px solid var(--ink);
+}
+.pitch-ask-main h3 {
+  margin: 16px 0 22px;
+  font-family: var(--script);
+  font-size: clamp(28px, 3.5vw, 44px);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+.pitch-ask-side {
+  background: var(--black);
+  color: var(--paper);
+  padding: clamp(28px, 3.5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.pitch-ask-side > div span {
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--acid);
+  margin-bottom: 8px;
+}
+.pitch-ask-side > div strong {
+  font-family: var(--script);
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+.pitch-ask-side .brutal-button { margin-top: auto; align-self: flex-start; }
+
+.pitch-funds {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+.pitch-funds article {
+  background: var(--paper);
+  padding: 20px 16px;
+  border-right: 1.5px solid var(--ink);
+  min-width: 0;
+}
+.pitch-funds article:last-child { border-right: 0; }
+.pitch-funds strong {
+  display: block;
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.pitch-funds h4 {
+  margin: 0 0 10px;
+  font-family: var(--script);
+  font-size: 16px;
+  letter-spacing: -0.03em;
+}
+.pitch-funds p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 1040px) {
+  .pitch-cards,
+  .pitch-funds { grid-template-columns: 1fr; }
+  .pitch-cards article,
+  .pitch-funds article {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 254, 248, 0.28);
+  }
+  .pitch-funds article { border-bottom: 1.5px solid var(--ink); }
+  .pitch-cards article:last-child,
+  .pitch-funds article:last-child { border-bottom: 0; }
+  .pitch-ask { grid-template-columns: 1fr; }
+  .pitch-ask-main { border-right: 0; border-bottom: 1.5px solid var(--ink); }
+}
+
 @media (max-width: 900px) {
   .invest-grid,
   .startup-points,

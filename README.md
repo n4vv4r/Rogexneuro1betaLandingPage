@@ -12,9 +12,10 @@ Sitio oficial: [www.rogexlaboratories.com](https://www.rogexlaboratories.com/)
 | Producto | Estado | Notas |
 |----------|--------|--------|
 | **PRISMA 3.2** | Activo | Software EEG experimental, no clínico |
-| **PRISMA 5** | R&D | Motor SNN / delta mod / STDP sobre rxOS |
-| **rxOS Desktop** | Prototipo + test build | Closed source, bootable x86-64 |
-| **rxOS Neuromorphic Kernel** | Roadmap open source | Event fabric, footprint &lt;64 MB target |
+| **PRISMA 5** | R&D | Motor SNN / path sobre RXos |
+| **RXos v4.5.0 Desktop** | Hardware + QEMU | Closed surface, bootable x86-64 |
+| **RXos neuromorphic fabric** | Niveles 1–2 cerrados | LIF Q16.16, STDP, bench 6/6; Nivel 3 Akida pendiente |
+| **Docs** | Públicos | `/docs/rxos/*.pdf` paper + hoja de ruta 4 niveles |
 
 Lanzamiento de suite proyectado: **diciembre 2026**.
 

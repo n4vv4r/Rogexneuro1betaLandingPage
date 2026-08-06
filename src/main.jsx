@@ -53,9 +53,9 @@ const PRODUCT_SUITE = [
     code: 'RX-01',
     name: 'rxOS Desktop Experience',
     tier: 'CLOSED SOURCE · BOOTABLE x86-64',
-    status: 'PROTOTYPE · PUBLIC TEST BUILD',
-    text: 'Entorno bare-metal de laboratorio: boot verificable, shell, filesystem y superficie gráfica mínima. Base soberana para herramientas científicas locales.',
-    tags: ['x86_64', 'GRUB / Multiboot2', 'C + Rust no_std', 'QEMU'],
+    status: 'v4.5.0 · HARDWARE + QEMU',
+    text: 'Entorno bare-metal de laboratorio (RXos v4.5): boot Multiboot2, shell, RXFS, compositor y tejido de eventos en caminos vivos. Verificado en HP 15-ac195nl y QEMU.',
+    tags: ['x86_64', 'GRUB / Multiboot2', 'Event fabric', 'HP 15 ref'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -64,10 +64,10 @@ const PRODUCT_SUITE = [
     id: 'rxos-kernel',
     code: 'RX-02',
     name: 'rxOS Neuromorphic Kernel',
-    tier: 'OPEN SOURCE · EVENT FABRIC',
-    status: 'RESEARCH ROADMAP · DEC 2026',
-    text: 'Kernel event-driven orientado a spike trains, ring buffers SPSC y plasticidad local. Bajo footprint de memoria y latencia sub-milisegundo como requisitos de diseño.',
-    tags: ['SNN', 'STDP', 'Lock-free rings', 'Low-carbon'],
+    tier: 'OPEN · EVENT FABRIC LIF/STDP',
+    status: 'NIVEL 1–2 CERRADOS · NIVEL 3 BLOQUEADO',
+    text: 'Sustrato neuromórfico verificable sobre von Neumann: eventos 64 B, anillos SPSC, LIF Q16.16, STDP local y bench 6/6. No es silicio Akida — ese chip es el siguiente escalón.',
+    tags: ['LIF Q16.16', 'STDP', 'SPSC rings', 'bench 6/6'],
     href: '/architecture',
     icon: Network,
     tone: 'acid',
@@ -172,35 +172,96 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
 const ARCH_STACK = [
   {
     layer: '01',
-    title: 'DEVICE / DATA',
-    text: 'EEG hardware o datasets (EDF / BIDS). Ingestión LSL para vivo; archivos para offline.',
-    detail: '256 Hz – 1000 Hz · raw samples',
+    title: 'BOOT / x86_64',
+    text: 'GRUB Multiboot2 → long mode, mapa identidad 4 GiB (páginas 2 MiB), GDT 64-bit y kmain(). Sin volver al firmware.',
+    detail: 'NASM · Multiboot2 · PAE + long mode',
   },
   {
     layer: '02',
-    title: 'rxOS HAB + IPC',
-    text: 'Abstracción de hardware y ring buffers SPSC lock-free. Sin bloqueos del pipeline crítico.',
-    detail: 'SPSC · zero-copy intent · deterministic path',
+    title: 'EVENT FABRIC',
+    text: 'rx_event_t de 64 B alineado a línea de caché. Anillos SPSC ISR→pump, mfence, IF=0 en puertas. Sin tick neural periódico.',
+    detail: 'SPSC · 64 B/event · auto-test al boot',
   },
   {
     layer: '03',
-    title: 'DELTA MODULATION',
-    text: 'Señal continua → spike trains asíncronos por umbral adaptativo UP / DOWN.',
-    detail: 'ΔV(t) ≥ +θ → UP · ΔV(t) ≤ −θ → DOWN',
+    title: 'LIF + STDP',
+    text: 'Unidades LIF en Q16.16 (kernel -mno-sse). Fuga perezosa V·τ/(τ+Δt). Plasticidad STDP local por actor.',
+    detail: 'Integer exact · no FPU · codificación temporal',
   },
   {
     layer: '04',
-    title: 'PRISMA CORE / SNN',
-    text: 'Motor event-driven: poblaciones LIF, STDP en tiempo real y error de predicción de espigas.',
-    detail: 'Predictive coding · local homeostasis · tau_m / θ₀',
+    title: 'LIVE OS PATHS',
+    text: 'Teclado/ratón tipados (nunca umbralizados), NIC always-fire, WM umbralizado, lazo: shell como tarea + rx_kernel_event_loop().',
+    detail: 'IRQ1/12 · net actor · WM refresh · power_idle',
   },
   {
     layer: '05',
-    title: 'TELEMETRY / UI',
-    text: 'Streams de eventos hacia frontend liviano. Objetivo: ondas y spikes a 60 FPS sin GIL.',
-    detail: 'Tauri + WebGL/WebGPU · WS / gRPC',
+    title: 'NIVEL 3 · AKIDA (PENDING)',
+    text: 'Delegación a silicio neuromórfico: USB/XHCI, HPET, driver BrainChip Akida AKD1000 y trenes de impulsos. Chip físico aún no disponible en el lab.',
+    detail: 'OBJETIVO · falta NPU + pila USB bare-metal',
   },
 ];
+
+const RXOS_LEVELS = [
+  {
+    level: '01',
+    title: 'NÚCLEO DEL TEJIDO',
+    state: 'CERRADO',
+    tone: 'ok',
+    text: 'Eventos 64 B, SPSC, LIF Q16.16, STDP, red/entrada/WM por el tejido, inversión del lazo. Evidencia: bench 6/6, auto-test PASS, status tasks=2.',
+  },
+  {
+    level: '02',
+    title: 'x86_64 + ENERGÍA',
+    state: 'CERRADO',
+    tone: 'ok',
+    text: 'Scheduler cooperativo real, ACPI C-states, MONITOR/MWAIT/HLT, RAPL con #GP guard, tolerancia a fallos etiquetada como redundancia clásica. Verificado en i7-5500U.',
+  },
+  {
+    level: '03',
+    title: 'DELEGACIÓN NEUROMÓRFICA',
+    state: 'OBJETIVO · BLOQUEADO',
+    tone: 'warn',
+    text: 'USB XHCI, resolución <10 ms (HPET/APIC), driver Akida AKD1000, encode/decode de impulsos y J/inferencia CPU vs NPU. Falta el chip Akida en el laboratorio.',
+  },
+  {
+    level: '04',
+    title: 'SILICIO SIN RELOJ',
+    state: 'HORIZONTE',
+    tone: 'open',
+    text: 'Memristores, cómputo en memoria, sin reloj. Dependencia de la industria de semiconductores — no se comunica como entregado.',
+  },
+];
+
+const RXOS_PAPERS = [
+  {
+    code: 'PAPER / REV 1.0',
+    title: 'RXos: un sustrato neuromórfico verificable sobre hardware von Neumann',
+    text: 'Cómo funciona el código y cómo comprobar — no creer — que el comportamiento neuromórfico es real. Criterio: codificación temporal falsable con bench.',
+    href: '/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf',
+    meta: '6 páginas · HP 15-ac195nl + QEMU',
+  },
+  {
+    code: 'ROADMAP / REV 1.3',
+    title: 'Hoja de ruta neuromórfica — cuatro niveles',
+    text: 'Nivel 1–2 cerrados. Nivel 3 (Akida bare-metal) objetivo. Nivel 4 horizonte industrial. Casillas [x]/[~]/[ ] sin aspiracionalismo.',
+    href: '/docs/rxos/rxos_hoja_de_ruta_4_niveles_rev1.3.pdf',
+    meta: '3 páginas · estado verificado',
+  },
+];
+
+const RXOS_BENCH = [
+  { test: 'temporal: 3 stim, fast', model: '1 spike', kernel: '1 spike', result: 'PASS' },
+  { test: 'temporal: 3 stim, slow', model: '0 spikes', kernel: '0 spikes', result: 'PASS' },
+  { test: 'decay vs V·τ/(τ+Δt)', model: '5/5 exact', kernel: '5/5 exact', result: 'PASS' },
+  { test: 'determinism, 72 steps', model: 'bit-exact', kernel: 'bit-exact', result: 'PASS' },
+  { test: 'refractory lockout', model: '0 then 1', kernel: '0 then 1', result: 'PASS' },
+  { test: 'sparsity: 200 sub-thr', model: '200 absorbed', kernel: '200 absorbed', result: 'PASS' },
+];
+
+const RXOS_HERO_IMAGE = '/rxos/pc_with_rxos_installed.jpg';
+const RXOS_OG_IMAGE = 'https://www.rogexlaboratories.com/rxos/pc_with_rxos_installed.jpg';
+const RXOS_VERSION = 'v4.5.0';
 
 const CTA_AUDIENCES = [
   {
@@ -225,9 +286,9 @@ const CTA_AUDIENCES = [
     id: 'oem',
     icon: Factory,
     title: 'OEM / INTEGRATORS',
-    text: 'Integración en silicio neuromórfico (Akida / Loihi), royalties y arquitectura custom. Hardware-first partnerships.',
+    text: 'Nivel 3 RXos: Akida AKD1000 bare-metal, royalties y arquitectura custom. El lab busca acceso a silicio neuromórfico real.',
     action: 'Contact OEM desk',
-    href: 'mailto:roger@rogexlaboratories.com?subject=OEM%20/%20Hardware%20integration%20%E2%80%94%20Knights%20Labs',
+    href: 'mailto:roger@rogexlaboratories.com?subject=OEM%20/%20Akida%20/%20Hardware%20%E2%80%94%20Knights%20Labs',
     mailSubject: null,
   },
 ];
@@ -303,9 +364,9 @@ const PRISMA_ROADMAP = [
   },
   {
     year: 'H/W',
-    title: 'AKIDA / LOIHI',
-    state: 'HARDWARE TARGET',
-    text: 'Benchmark e integración en procesadores neuromórficos. Camino OEM con arquitectura custom.',
+    title: 'AKIDA AKD1000',
+    state: 'NIVEL 3 · CHIP FALTANTE',
+    text: 'Driver bare-metal + trenes de impulsos sobre RXos. El lab aún no dispone del chip BrainChip para test en silicio real.',
   },
   {
     year: 'L/T',
@@ -322,22 +383,26 @@ const PRISMA_ROADMAP = [
 ];
 
 const RX_IMPLEMENTED = [
-  'Boot x86_64 mediante GRUB / Multiboot2 y entrada a long mode.',
-  'Kernel freestanding en C con vector de arranque NASM y núcleo Rust no_std.',
-  'GDT, IDT, excepciones, IRQ, PIT a 100 Hz, teclado y ratón PS/2.',
-  'Framebuffer 1280×720, escritorio clickable, command bar y mini editor.',
-  'VFS + RXFS, operaciones de archivo y persistencia ATA PIO opt-in.',
-  'Runtime Roxenite .rxc y resolución local de rutas rgx://.',
-  'ML-KEM-768, ChaCha20-Poly1305 y SHA3 con self-tests; todavía sin auditoría.',
+  'RXos v4.5.0: Multiboot2 → long mode, mapa 4 GiB, GDT/IDT, heap y paths vivos.',
+  'Tejido de eventos (Nivel 1 cerrado): rx_event_t 64 B, SPSC lock-free, auto-test al boot.',
+  'LIF Q16.16 con fuga perezosa V·τ/(τ+Δt); sin tick neural; STDP local por actor.',
+  'Entrada IRQ1/IRQ12 tipada (nunca umbralizada); NIC always-fire; WM umbralizado.',
+  'Inversión del lazo: shell como tarea; rx_kernel_event_loop() posee la máquina.',
+  'Nivel 2 cerrado: scheduler cooperativo, ACPI C-states, MONITOR/MWAIT/HLT, RAPL.',
+  'bench 6/6 PASS; ~299 ciclos/evento; ~3 MiB RAM al arrancar; 26+21+net tests.',
+  'Hardware de referencia: HP 15-ac195nl (i7-5500U, 8 GB) — install MBR 0x7F + RXFS.',
+  'Compositor double-buffer + damage tracking; terminal en el WM; power en metal.',
 ];
 
 const RX_LIMITS = [
-  'Sin driver de red: rgx:// resuelve localmente, no existe todavía la mesh RXwired.',
-  'Un solo flujo de kernel; scheduler, procesos, syscalls e aislamiento siguen pendientes.',
-  'Espacio de direcciones plano y ring 0; no es un sistema operativo de producción.',
-  'Arranque BIOS/SeaBIOS; UEFI nativo está en roadmap.',
-  'Kernel neuromórfico SNN: diseño documentado, runtime aún en investigación.',
-  'Criptografía integrada pero no auditada externamente.',
+  'Nivel 3 abierto: falta chip BrainChip Akida AKD1000 en el lab para test en silicio real.',
+  'Sin pila USB/XHCI bare-metal (prerrequisito del NPU USB).',
+  'Resolución temporal del sustrato = 10 ms (PIT 100 Hz); HPET/APIC local pendiente.',
+  'No es hardware neuromórfico: silicio con reloj, actores en serie, von Neumann intacto.',
+  'No masivamente paralelo ni asíncrono a nanosegundos; ring 0 cooperativo monohilo.',
+  'Arranque UEFI nativo aplazado (Legacy/CSM funciona); Wi-Fi y >4 GiB en roadmap.',
+  'Instalar RXos como SO arrancable del disco: pedido para próxima versión.',
+  'Criptografía (si presente) sin auditoría externa; no es SO de producción ni clínico.',
 ];
 
 const PROJECTS = [
@@ -730,9 +795,9 @@ function Home({ navigate }) {
         <div className="hero-tags">
           <span>PRISMA 3.2</span>
           <span>PRISMA 5 SNN</span>
-          <span>rxOS DESKTOP</span>
-          <span>OPEN NEUROMORPHIC KERNEL</span>
-          <span>&lt;64 MB TARGET</span>
+          <span>RXos v4.5.0</span>
+          <span>EVENT FABRIC · BENCH 6/6</span>
+          <span>AKIDA PENDING</span>
         </div>
       </PageHero>
 
@@ -786,7 +851,7 @@ function Home({ navigate }) {
           <SectionTitle
             code="03 / PIPELINE"
             title="DEL SENSOR AL SPIKE"
-            text="Stack de referencia para PRISMA 5 sobre rxOS. Cada capa declara su contrato de datos."
+            text="Stack RXos v4.5: boot → event fabric → LIF/STDP → paths vivos → Akida (Nivel 3 pendiente)."
           />
           <div className="mini-arch" data-reveal>
             {ARCH_STACK.map((item) => (
@@ -958,17 +1023,18 @@ function Architecture({ navigate }) {
     <>
       <PageHero
         index="02"
-        eyebrow="ARCHITECTURE / EVENT-DRIVEN STACK"
-        title={<>FROM RAW EEG<br />TO SPIKE TRAINS.</>}
-        text="Diseño de referencia para PRISMA Core sobre rxOS: ring buffers lock-free, Delta Modulation asíncrona, SNN LIF con STDP y telemetría de eventos hacia un frontend liviano."
-        image="/rxos/boot-banner.png"
+        eyebrow="ARCHITECTURE / RXos v4.5 NEUROMORPHIC"
+        title={<>EVENT FABRIC<br />ON VON NEUMANN.<br />FALSIFIABLE.</>}
+        text="RXos no dibuja neuronas: ejecuta un sustrato de eventos con LIF Q16.16, STDP local y codificación temporal comprobable con bench 6/6. Silicio = x86_64 con reloj. Nivel 3 (Akida) aún sin chip en el lab."
+        image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>SPSC RINGS</span>
-          <span>DELTA MOD</span>
-          <span>LIF / STDP</span>
-          <span>PREDICTIVE CODING</span>
-          <span>TAURI + WEBGL</span>
+          <span>v4.5.0</span>
+          <span>SPSC 64 B</span>
+          <span>LIF Q16.16</span>
+          <span>STDP LOCAL</span>
+          <span>BENCH 6/6</span>
+          <span>AKIDA PENDING</span>
         </div>
       </PageHero>
 
@@ -976,8 +1042,8 @@ function Architecture({ navigate }) {
         <section className="section wrap">
           <SectionTitle
             code="01 / STACK"
-            title="CINCO CAPAS, UN CONTRATO DE DATOS"
-            text="Cada capa reduce ambigüedad: samples → events → spikes → plasticity → UI. Sin GIL en el path crítico."
+            title="DEL BOOT AL NPU (PENDIENTE)"
+            text="Cinco capas del sustrato real en RXos v4.5. La última es objetivo de Nivel 3, no entregable."
           />
           <div className="architecture full-architecture" data-reveal>
             {ARCH_STACK.map((item, index) => (
@@ -994,28 +1060,28 @@ function Architecture({ navigate }) {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="02 / DELTA MODULATION"
-              title="SEÑAL CONTINUA → EVENTOS"
-              text="Conversión asíncrona por umbral dinámico. No es sampling uniforme de spikes: es umbral adaptativo sobre el delta de voltaje."
+              code="02 / LIF DYNAMICS"
+              title="MEMBRANA ENTERA, SIN TICK NEURAL"
+              text="La fuga no se aplica con un bucle periódico: se reconstruye al llegar el siguiente evento. Misma entrada, distinto tiempo → distinto resultado."
             />
             <div className="formula-grid">
               <article className="formula-card" data-reveal>
                 <span>01</span>
-                <h3>ΔV(t)</h3>
-                <code>ΔV(t) = V(t) − V(t_prev)</code>
-                <p>Diferencia local entre muestras consecutivas en el canal.</p>
+                <h3>LAZY DECAY</h3>
+                <code>V(Δt) = V · τ / (τ + Δt)</code>
+                <p>Aproximación racional a la exponencial, exacta en enteros de 64 bits. Kernel compilado -mno-sse.</p>
               </article>
               <article className="formula-card" data-reveal>
                 <span>02</span>
-                <h3>UP EVENT</h3>
-                <code>ΔV(t) ≥ +θ_adp</code>
-                <p>Disparo positivo cuando el incremento supera el umbral adaptativo.</p>
+                <h3>TEMPORAL CODE</h3>
+                <code>3 × 0.35θ · Δt ≈ 0 → spike</code>
+                <p>Tres estímulos que suman 1,05×θ disparan juntos y no hacen nada separados. Criterio falsable del paper.</p>
               </article>
               <article className="formula-card" data-reveal>
                 <span>03</span>
-                <h3>DOWN EVENT</h3>
-                <code>ΔV(t) ≤ −θ_adp</code>
-                <p>Disparo negativo simétrico; codifica flancos de descenso.</p>
+                <h3>COST</h3>
+                <code>~299 cycles / event</code>
+                <p>Medido con RDTSC sobre 20 000 estímulos. RAM al boot ~3 MiB. Sin estado FPU.</p>
               </article>
             </div>
           </div>
@@ -1023,23 +1089,19 @@ function Architecture({ navigate }) {
 
         <section className="section wrap">
           <SectionTitle
-            code="03 / SNN ENGINE"
-            title="PREDICTIVE CODING + STDP"
-            text="Detección de anomalías por error de predicción de espigas en poblaciones LIF. Homeostasis sináptica local con firmas biológicas iniciales."
+            code="03 / FOUR LEVELS"
+            title="HOJA DE RUTA NEUROMÓRFICA"
+            text="Rev 1.3: Niveles 1–2 cerrados. Nivel 3 bloqueado sin Akida. Nivel 4 horizonte industrial."
           />
-          <div className="method-grid arch-method-grid">
-            {[
-              [Zap, 'SPIKE ERROR', 'El residual entre espigas predichas y observadas actúa como señal de anomalía — no como etiqueta clínica.'],
-              [Network, 'STDP ONLINE', 'Plasticidad spike-timing-dependent continua; pesos locales sin batch global en el path en tiempo real.'],
-              [Activity, 'LIF POPULATION', 'Neuronas integrate-and-fire con tau_m y θ₀ como firma biológica inicial configurable.'],
-              [Leaf, 'FOOTPRINT', 'Objetivo de diseño: latencia sub-ms y memoria &lt;64 MB en el runtime crítico del kernel.'],
-              [Radio, 'LSL INGEST', 'Adquisición en vivo 256–1000 Hz con buffers SPSC; offline vía EDF/BIDS en el mismo contrato de eventos.'],
-              [Shield, 'BOUNDARIES', 'Software experimental. No diagnóstico, no lectura de pensamiento, no claims de consciencia.'],
-            ].map(([Icon, title, text]) => (
-              <article className="method-card" key={title} data-reveal>
-                <Icon size={28} strokeWidth={1.4} />
-                <h3>{title}</h3>
-                <p>{text}</p>
+          <div className="levels-grid">
+            {RXOS_LEVELS.map((item, index) => (
+              <article className={`level-card level-${item.tone}`} key={item.level} data-reveal style={{ '--delay': `${index * 70}ms` }}>
+                <div className="level-card-top">
+                  <span>NIVEL {item.level}</span>
+                  <StatusBadge tone={item.tone === 'ok' ? 'ok' : item.tone === 'warn' ? 'warn' : 'open'}>{item.state}</StatusBadge>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </article>
             ))}
           </div>
@@ -1048,40 +1110,44 @@ function Architecture({ navigate }) {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="04 / OPEN VS CLOSED"
-              title="QUÉ SE ABRE Y QUÉ SE LICENCIA"
-              text="Kernel neuromórfico open source. Desktop experience closed. PRISMA en capas Community → Pro → OEM."
+              code="04 / BOUNDARIES"
+              title="QUÉ ES Y QUÉ NO ES"
+              text="Neuromórfico sobre von Neumann: exactitud sin marketing de silicio."
             />
             <div className="open-closed-grid">
               <article data-reveal>
-                <span className="panel-label">OPEN</span>
-                <h3>NEUROMORPHIC KERNEL</h3>
+                <span className="panel-label">RXos SÍ ES</span>
+                <h3>EVENT-DRIVEN · TEMPORAL · EXACT</h3>
                 <ul className="check-list">
-                  <li><CheckCircle size={18} /> Event fabric y runtime SNN de referencia</li>
-                  <li><CheckCircle size={18} /> Especificaciones de ring buffer y delta mod</li>
-                  <li><CheckCircle size={18} /> Builds de inspección y contribución</li>
+                  <li><CheckCircle size={18} /> Sin tick neural; sin trabajo si no hay eventos</li>
+                  <li><CheckCircle size={18} /> Dinámica temporal real (codificación por llegada)</li>
+                  <li><CheckCircle size={18} /> Enteros bit-exact; STDP local; paths vivos del SO</li>
+                  <li><CheckCircle size={18} /> bench predice y mide — 6/6 PASS</li>
                 </ul>
               </article>
               <article data-reveal>
-                <span className="panel-label">LICENSED</span>
-                <h3>DESKTOP · PRO · OEM</h3>
-                <ul className="check-list">
-                  <li><CheckCircle size={18} /> rxOS Desktop Experience (closed)</li>
-                  <li><CheckCircle size={18} /> PRISMA Pro / source commercial</li>
-                  <li><CheckCircle size={18} /> Integración OEM + custom arch</li>
+                <span className="panel-label">RXos NO ES</span>
+                <h3>NO AKIDA · NO ASYNC NS</h3>
+                <ul className="cross-list">
+                  <li>No es hardware neuromórfico (reloj + von Neumann intacto)</li>
+                  <li>No es masivamente paralelo (pump cooperativo en serie)</li>
+                  <li>No es asíncrono a ns — resolución 10 ms (PIT 100 Hz)</li>
+                  <li>Sin chip Akida en lab → Nivel 3 no cerrado</li>
                 </ul>
               </article>
             </div>
             <div className="hero-actions section-actions">
               <button className="brutal-button primary" onClick={() => navigate('/rx-os')}>
-                RXos PUBLIC BUILD <ArrowUpRight size={15} />
+                RXos v4.5 PAGE <ArrowUpRight size={15} />
               </button>
-              <button className="brutal-button" onClick={() => navigate('/suite')}>
-                LICENSE LAYERS
-              </button>
+              <a className="brutal-button" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
+                READ PAPER PDF
+              </a>
             </div>
           </div>
         </section>
+
+        <PapersSection code="05 / DOCS" title="PDFS PÚBLICOS" />
 
         <CtaBand navigate={navigate} />
       </main>
@@ -1401,19 +1467,20 @@ function Prisma({ navigate }) {
 function BootLog() {
   return (
     <div className="rx-window boot-window" data-reveal>
-      <div className="rx-window-head"><span>BOOT / SERIAL</span><span>00:00:02.41</span></div>
+      <div className="rx-window-head"><span>BOOT / SERIAL · RXos v4.5.0</span><span>event fabric</span></div>
       <div className="boot-lines">
         {[
-          ['RXos v4 Foundation', ''],
-          ['Boot stage', 'OK'],
-          ['GDT / IDT', 'OK'],
-          ['Memory / heap', 'OK'],
-          ['Timer / IRQ', 'OK'],
-          ['Keyboard / mouse', 'OK'],
-          ['RXFS self-test', 'OK'],
-          ['Shell / desktop', 'OK'],
-          ['Neuromorphic SNN', 'TODO'],
-          ['Network transport', 'TODO'],
+          ['RXos v4.5.0 neuromorphic', ''],
+          ['Boot Multiboot2 / long mode', 'OK'],
+          ['GDT / IDT / map 4 GiB', 'OK'],
+          ['Event fabric self-test', 'OK'],
+          ['LIF Q16.16 / STDP actors', 'OK'],
+          ['KBD / mouse typed events', 'OK'],
+          ['WM threshold actor', 'OK'],
+          ['Scheduler / power_idle', 'OK'],
+          ['bench 6/6 temporal coding', 'OK'],
+          ['Akida AKD1000 NPU', 'TODO'],
+          ['USB XHCI / HPET <10 ms', 'TODO'],
         ].map(([label, state]) => (
           <div key={label}><span>&gt; {label}</span><strong className={state === 'TODO' ? 'todo' : ''}>{state}</strong></div>
         ))}
@@ -1424,13 +1491,13 @@ function BootLog() {
 
 function ArchitectureDiagram() {
   const layers = [
-    ['UI', 'desktop / command bar / editor'],
-    ['USERLAND', 'shell / Roxenite runtime / rgx:// local'],
-    ['FS + DRIVERS', 'RXFS / ATA PIO / keyboard / mouse / framebuffer'],
-    ['KERNEL', 'C freestanding / IRQ / heap / VFS / IPC'],
-    ['NEURO PATH', 'event fabric / SNN runtime (research)'],
-    ['CRYPTO CORE', 'Rust no_std / ML-KEM / ChaCha20 / SHA3'],
-    ['BOOT', 'NASM / Multiboot2 / x86_64 long mode'],
+    ['UI / WM', 'compositor double-buffer · damage tracking · terminal'],
+    ['TASKS', 'shell as task · sched_spawn/yield · cooperative ABI'],
+    ['EVENT FABRIC', '64 B events · SPSC rings · pump · no neural tick'],
+    ['LIF + STDP', 'Q16.16 membrane · lazy decay · local plasticity'],
+    ['DRIVERS', 'IRQ1/12 · NIC actor · RXFS · AHCI/ATA · framebuffer'],
+    ['POWER', 'MONITOR/MWAIT/HLT · RAPL (#GP-safe) · ACPI C-states'],
+    ['BOOT', 'NASM Multiboot2 · x86_64 long mode · 4 GiB identity map'],
   ];
   return (
     <div className="architecture" data-reveal>
@@ -1445,21 +1512,43 @@ function ArchitectureDiagram() {
   );
 }
 
-const RXOS_HERO_IMAGE = '/rxos/pc_with_rxos_installed.jpg';
-const RXOS_OG_IMAGE = 'https://www.rogexlaboratories.com/rxos/pc_with_rxos_installed.jpg';
+function PapersSection({ code = 'PAPERS', title = 'DOCUMENTACIÓN TÉCNICA', text }) {
+  return (
+    <section className="section wrap papers-section" id="docs">
+      <SectionTitle
+        code={code}
+        title={title}
+        text={text || 'Papers y hojas de ruta verificables. Lectura pública — PDF nativo, sin paywall.'}
+      />
+      <div className="papers-grid">
+        {RXOS_PAPERS.map((paper, index) => (
+          <article className="paper-doc-card" key={paper.href} data-reveal style={{ '--delay': `${index * 70}ms` }}>
+            <span className="panel-label">{paper.code}</span>
+            <h3>{paper.title}</h3>
+            <p>{paper.text}</p>
+            <div className="paper-doc-meta">{paper.meta}</div>
+            <a className="brutal-button primary" href={paper.href} target="_blank" rel="noreferrer">
+              ABRIR PDF <ArrowUpRight size={15} />
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function RXOS({ navigate }) {
   return (
     <>
       <PageHero
         index="04"
-        eyebrow="RX OS / DESKTOP + NEUROMORPHIC KERNEL"
+        eyebrow="RXos v4.5.0 / NEUROMORPHIC SUBSTRATE"
         title={<>A LABORATORY<br />THAT BOOTS.<br />A KERNEL THAT SPIKES.</>}
-        text="rxOS Desktop Experience es la superficie bare-metal closed-source. El Neuromorphic Kernel es la línea open source: event fabric, ring buffers y runtime SNN. El build público actual es un prototipo técnico, no un reemplazo de Linux."
+        text="RXos v4.5 es un SO experimental bare-metal x86_64 con tejido de eventos LIF/STDP verificable (Niveles 1–2 cerrados). No es silicio Akida: el chip neuromórfico falta en el lab y bloquea el Nivel 3. No es un reemplazo de Linux ni un producto de producción."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>NASM</span><span>C FREESTANDING</span><span>RUST NO_STD</span><span>QEMU</span><span>SNN ROADMAP</span>
+          <span>v4.5.0</span><span>LIF Q16.16</span><span>SPSC EVENTS</span><span>BENCH 6/6</span><span>HP 15 REF</span><span>AKIDA PENDING</span>
         </div>
       </PageHero>
 
@@ -1467,64 +1556,77 @@ function RXOS({ navigate }) {
         <section className="section wrap rxos-principal-section">
           <SectionTitle
             code="01 / HARDWARE"
-            title="rxOS ON REAL HARDWARE"
-            text="Imagen principal del sistema instalado en PC. El laboratorio no es solo QEMU: arranca en metal."
+            title="RXos ON REAL METAL"
+            text="Imagen principal: PC con RXos instalado. Referencia documentada: HP 15-ac195nl (i7-5500U, 8 GB) + QEMU."
           />
           <figure className="rxos-principal-shot" data-reveal>
             <img
               src={RXOS_HERO_IMAGE}
-              alt="PC with rxOS installed — bare-metal desktop experience"
+              alt="PC with RXos v4.5 installed — bare-metal neuromorphic substrate"
               width={1600}
               height={1200}
               loading="eager"
               fetchPriority="high"
             />
             <figcaption>
-              <span>PRINCIPAL</span>
+              <span>PRINCIPAL · v4.5.0</span>
               <div>
-                <strong>PC WITH rxOS INSTALLED</strong>
-                <p>Hardware real con rxOS Desktop Experience. Build experimental bare-metal x86-64.</p>
+                <strong>PC WITH RXos INSTALLED</strong>
+                <p>Hardware real. Tejido de eventos en caminos vivos del SO. Experimental, no clínico, no auditado.</p>
               </div>
             </figcaption>
           </figure>
         </section>
 
-        <section className="section wrap">
-          <SectionTitle
-            code="02 / TWO SURFACES"
-            title="DESKTOP CLOSED · KERNEL OPEN"
-            text="Misma base de ingeniería. Contratos de licencia distintos bajo Knights Labs."
-          />
-          <div className="edition-grid">
-            <article className="edition-card" data-reveal>
-              <span>01 / DESKTOP EXPERIENCE</span>
-              <h3>CLOSED SOURCE.<br />BOOTABLE LAB.</h3>
-              <p>Experiencia de escritorio x86-64 para investigación local: shell, RXFS, capturas reales en QEMU y superficie mínima verificable.</p>
-              <div className="tag-row"><span>CLOSED</span><span>x86-64</span><span>PUBLIC TEST BUILD</span></div>
-            </article>
-            <article className="edition-card edition-dark" data-reveal>
-              <span>02 / NEUROMORPHIC KERNEL</span>
-              <h3>OPEN SOURCE.<br />EVENT-DRIVEN.</h3>
-              <p>Kernel orientado a spikes, STDP y telemetría de eventos. Objetivo: latencia sub-ms y footprint &lt;64 MB en el path crítico.</p>
-              <div className="tag-row"><span>OPEN</span><span>SNN</span><span>DEC 2026 TARGET</span></div>
-              <button className="text-link" onClick={() => navigate('/architecture')} style={{ marginTop: 18 }}>
-                READ ARCHITECTURE <ArrowUpRight size={15} />
-              </button>
-            </article>
+        <PapersSection
+          code="02 / DOCS"
+          title="PAPERS Y HOJA DE RUTA"
+          text="Documentos técnicos rev 1.0 / 1.3. Abre el PDF en el navegador o descárgalo."
+        />
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="03 / FOUR LEVELS"
+              title="ESTADO NEUROMÓRFICO REAL"
+              text="Nada marcado OBJETIVO u HORIZONTE se comunica como entregado. Nivel 3 espera silicio Akida."
+            />
+            <div className="levels-grid">
+              {RXOS_LEVELS.map((item, index) => (
+                <article className={`level-card level-${item.tone}`} key={item.level} data-reveal style={{ '--delay': `${index * 70}ms` }}>
+                  <div className="level-card-top">
+                    <span>NIVEL {item.level}</span>
+                    <StatusBadge tone={item.tone === 'ok' ? 'ok' : item.tone === 'warn' ? 'warn' : 'open'}>{item.state}</StatusBadge>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+            <div className="akida-callout" data-reveal>
+              <AlertTriangle size={22} />
+              <div>
+                <strong>FALTA EL CHIP AKIDA</strong>
+                <p>
+                  BrainChip Akida AKD1000 es el candidato documentado para Nivel 3 (delegación bare-metal).
+                  Sin NPU física + pila USB/XHCI + HPET, no hay test de impulsos en silicio neuromórfico real ni cifra J/inferencia CPU vs NPU.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
         <section className="section wrap">
           <SectionTitle
-            code="03 / FOUNDATION"
-            title="RXos v4.1.1"
-            text="La arquitectura documenta cada subsistema como IMPLEMENTED, PARTIAL, STUB o TODO. Esa honestidad forma parte del diseño."
+            code="04 / FOUNDATION"
+            title="RXos v4.5.0 — HECHOS MEDIDOS"
+            text="Cifras del paper técnico rev 1.0. Toda magnitud procede de una ejecución citada."
           />
           <div className="rx-metrics">
-            <div data-reveal><strong>x86_64</strong><span>bare metal</span></div>
-            <div data-reveal><strong>26</strong><span>QEMU smoke assertions</span></div>
-            <div data-reveal><strong>9</strong><span>persistence assertions</span></div>
-            <div data-reveal><strong>RAM + ATA</strong><span>RXFS modes</span></div>
+            <div data-reveal><strong>6/6</strong><span>bench PASS</span></div>
+            <div data-reveal><strong>~299</strong><span>cycles / event</span></div>
+            <div data-reveal><strong>~3 MiB</strong><span>RAM al boot</span></div>
+            <div data-reveal><strong>10 ms</strong><span>PIT tick (sustrato)</span></div>
           </div>
           <BootLog />
         </section>
@@ -1532,37 +1634,88 @@ function RXOS({ navigate }) {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="04 / REAL CAPTURES"
-              title="THE SYSTEM, RUNNING IN QEMU"
-              text="Capturas de RXos v4.1.1 ejecutándose realmente. No son mockups."
+              code="05 / BENCH"
+              title="MODELO CONTRA KERNEL"
+              text="Cada fila predice desde el modelo y contrastar con el binario. Una discrepancia es un fallo."
+            />
+            <div className="bench-table" data-reveal>
+              <div className="bench-row bench-head">
+                <span>TEST</span><span>MODEL</span><span>KERNEL</span><span>RESULT</span>
+              </div>
+              {RXOS_BENCH.map((row) => (
+                <div className="bench-row" key={row.test}>
+                  <span>{row.test}</span>
+                  <span>{row.model}</span>
+                  <span>{row.kernel}</span>
+                  <span><StatusBadge tone="ok">{row.result}</StatusBadge></span>
+                </div>
+              ))}
+            </div>
+            <p className="license-note" style={{ color: 'rgba(255,254,248,.7)', marginTop: 20 }}>
+              Comandos en shell: <code>bench</code> · <code>neuro</code> · <code>status</code> · <code>mem</code> · <code>power 5</code> (solo metal)
+            </p>
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <SectionTitle
+            code="06 / TWO SURFACES"
+            title="DESKTOP + EVENT KERNEL"
+            text="Misma base RXos v4.5. Desktop closed · tejido neuromórfico documentado en papers open."
+          />
+          <div className="edition-grid">
+            <article className="edition-card" data-reveal>
+              <span>01 / DESKTOP EXPERIENCE</span>
+              <h3>CLOSED SOURCE.<br />BOOTABLE LAB.</h3>
+              <p>Superficie de escritorio x86-64: shell, RXFS, compositor, install en metal de referencia. Public test package disponible.</p>
+              <div className="tag-row"><span>CLOSED</span><span>v4.5.0</span><span>HP 15 + QEMU</span></div>
+            </article>
+            <article className="edition-card edition-dark" data-reveal>
+              <span>02 / NEUROMORPHIC FABRIC</span>
+              <h3>VERIFICABLE.<br />NO ES AKIDA.</h3>
+              <p>Event fabric LIF/STDP sobre von Neumann. Niveles 1–2 cerrados. Nivel 3 requiere chip Akida que el lab aún no tiene.</p>
+              <div className="tag-row"><span>OPEN DOCS</span><span>LIF/STDP</span><span>N3 BLOCKED</span></div>
+              <button className="text-link" onClick={() => navigate('/architecture')} style={{ marginTop: 18 }}>
+                READ ARCHITECTURE <ArrowUpRight size={15} />
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="07 / REAL CAPTURES"
+              title="HARDWARE + QEMU"
+              text="Foto principal en metal y capturas de RXos en QEMU. Línea actual: v4.5.0 neuromórfica."
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src={RXOS_HERO_IMAGE} alt="PC with rxOS installed — principal hardware photo" loading="lazy" />
+                <img src={RXOS_HERO_IMAGE} alt="PC with RXos v4.5 installed — principal hardware photo" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 00</span>
-                  <div><strong>PC WITH rxOS INSTALLED</strong><p>Imagen principal de la página: sistema en hardware real, no solo emulación.</p></div>
+                  <div><strong>PC WITH RXos v4.5 INSTALLED</strong><p>Imagen principal: sistema en hardware real. Tejido de eventos en paths vivos.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/boot-banner.png" alt="RXos v4.1.1 real boot banner and first-run pseudonym setup in QEMU" loading="lazy" />
+                <img src="/rxos/boot-banner.png" alt="RXos boot banner and first-run setup in QEMU" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 01</span>
                   <div><strong>VERIFIED BOOT + FIRST-RUN SETUP</strong><p>Cada OK se imprime después de comprobar la etapa correspondiente.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/desktop-home.png" alt="RXos v4.1.1 real clickable desktop home screen in QEMU" loading="lazy" />
+                <img src="/rxos/desktop-home.png" alt="RXos clickable desktop home screen in QEMU" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 02</span>
                   <div><strong>CLICKABLE DESKTOP HOME</strong><p>Navegación lateral, tiles de sistema y rutas rgx:// del runtime actual.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/shell-status.png" alt="RXos v4.1.1 real terminal status view in QEMU" loading="lazy" />
+                <img src="/rxos/shell-status.png" alt="RXos terminal status view in QEMU" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 03</span>
-                  <div><strong>STATUS VIEW: IMPLEMENTED / STUB / TODO</strong><p>La interfaz distingue subsistemas operativos de superficies reservadas.</p></div>
+                  <div><strong>STATUS / EVENT FABRIC</strong><p>Contadores del tejido, tareas y superficies IMPLEMENTED / STUB / TODO.</p></div>
                 </figcaption>
               </figure>
             </div>
@@ -1571,13 +1724,21 @@ function RXOS({ navigate }) {
 
         <section className="section wrap rxos-download-section">
           <SectionTitle
-            code="05 / PUBLIC TEST BUILD"
-            title="DOWNLOAD RXos v4.1.1"
-            text="Paquete oficial para pruebas locales. Incluye la ISO arrancable, README técnico y capturas reales. QEMU es la vía recomendada."
+            code="08 / PUBLIC TEST BUILD"
+            title="DOWNLOAD + DOCS"
+            text="Paquete ISO de prueba (artefacto público) y PDFs técnicos v4.5. QEMU recomendado para evaluación segura."
           />
+          <div className="rxos-docs-row" data-reveal>
+            <a className="brutal-button primary" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
+              PAPER NEUROMÓRFICO PDF <ArrowUpRight size={15} />
+            </a>
+            <a className="brutal-button" href="/docs/rxos/rxos_hoja_de_ruta_4_niveles_rev1.3.pdf" target="_blank" rel="noreferrer">
+              HOJA DE RUTA 4 NIVELES PDF <ArrowUpRight size={15} />
+            </a>
+          </div>
           <div className="rxos-download-layout">
             <article className="download-card" data-reveal>
-              <div className="download-card-top"><span>OFFICIAL ZIP</span><strong>v4.1.1</strong></div>
+              <div className="download-card-top"><span>OFFICIAL ZIP · TEST</span><strong>v4.5 line</strong></div>
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
               <p>Build experimental bare-metal x86_64. No es un sistema de producción, no está auditado y no debe utilizarse para almacenar información importante.</p>
               <dl className="download-facts">
@@ -1633,9 +1794,9 @@ save`}</code></pre>
 
         <section className="section wrap">
           <SectionTitle
-            code="06 / ARCHITECTURE"
-            title="DE BOOT.ASM AL PATH NEUROMÓRFICO"
-            text="Pila actual del Desktop más la capa de investigación SNN."
+            code="09 / ARCHITECTURE"
+            title="DE BOOT.ASM AL TEJIDO LIF"
+            text="Pila RXos v4.5: boot, event fabric, LIF/STDP, drivers vivos y power."
           />
           <ArchitectureDiagram />
         </section>
@@ -1643,18 +1804,18 @@ save`}</code></pre>
         <section className="section rx-state-section">
           <div className="wrap">
             <SectionTitle
-              code="07 / ENGINEERING STATUS"
+              code="10 / ENGINEERING STATUS"
               title="WHAT WORKS — AND WHAT DOES NOT"
-              text="Separación explícita entre implementación verificada y roadmap."
+              text="Separación explícita: Niveles 1–2 cerrados · Nivel 3 bloqueado sin Akida · OS roadmap."
             />
           </div>
           <div className="wrap rx-state-grid">
             <article data-reveal>
-              <div className="state-heading state-ok"><CheckCircle /> IMPLEMENTED</div>
+              <div className="state-heading state-ok"><CheckCircle /> IMPLEMENTED / CLOSED</div>
               <ul>{RX_IMPLEMENTED.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
             <article data-reveal>
-              <div className="state-heading state-todo"><AlertTriangle /> NOT YET</div>
+              <div className="state-heading state-todo"><AlertTriangle /> NOT YET / BLOCKED</div>
               <ul>{RX_LIMITS.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
           </div>
@@ -1663,18 +1824,18 @@ save`}</code></pre>
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="08 / ROADMAP"
-              title="LO QUE CONVIERTE UN PROTOTIPO EN SISTEMA"
-              text="Prioridad: aislamiento, drivers, red y runtime neuromórfico — no efectos visuales."
+              code="11 / NEXT IN ORDER"
+              title="LO SIGUIENTE (PAPER REV 1.3)"
+              text="Orden documentado: disco arrancable → HPET → high-half kernel → USB → Akida."
             />
             <div className="rx-roadmap">
               {[
-                ['01', 'HARDWARE', 'UEFI nativo, storage moderno, más dispositivos de entrada y backend gráfico más robusto.'],
-                ['02', 'ISOLATION', 'Scheduler, procesos, syscalls, separación user/kernel y modelo de permisos.'],
-                ['03', 'NETWORK', 'Driver NIC, transporte RXwired, resolución rgx:// remota y threat model actualizado.'],
-                ['04', 'NEUROMORPHIC', 'Event fabric, delta mod, SNN LIF/STDP y telemetría de spikes en el kernel open.'],
-                ['05', 'TRUST', 'Apps firmadas, actualización reproducible, auditoría criptográfica y cadena de build verificable.'],
-                ['06', 'LAB RUNTIME', 'PRISMA 5 empaquetado como flujo reproducible sobre rxOS.'],
+                ['01', 'DISK BOOT', 'Instalar RXos como SO arrancable del disco (GRUB/kernel en partición 0x7F).'],
+                ['02', 'HPET / APIC', 'Resolución <10 ms del sustrato — prerrequisito de trenes de impulsos útiles.'],
+                ['03', 'HIGH-HALF MAP', 'Kernel en mitad alta + mapa directo; liberar techo de 4 GiB / 8 GB RAM.'],
+                ['04', 'USB XHCI', 'Pila bare-metal: bloqueo grande del Nivel 3 (NPU USB).'],
+                ['05', 'AKIDA AKD1000', 'Driver + encode/decode de impulsos. Requiere el chip físico en el lab.'],
+                ['06', 'J/INFER COMPARE', 'Energía por inferencia: CPU vs NPU, ambas medidas — no datasheet heredado.'],
               ].map(([number, title, text]) => (
                 <article key={number} data-reveal><span>{number}</span><h3>{title}</h3><p>{text}</p></article>
               ))}
@@ -1950,16 +2111,6 @@ const ROUTE_META = {
     imageAlt: 'Knights Labs logo',
     url: 'https://www.rogexlaboratories.com/suite',
   },
-  '/architecture': {
-    title: 'Architecture — Knights Labs',
-    description: 'From raw EEG to spike trains: SPSC rings, delta modulation, LIF/STDP and lightweight telemetry UI.',
-    image: DEFAULT_OG.image,
-    imageType: 'image/png',
-    imageWidth: '1200',
-    imageHeight: '1200',
-    imageAlt: 'Knights Labs logo',
-    url: 'https://www.rogexlaboratories.com/architecture',
-  },
   '/prisma': {
     title: 'PRISMA 3.2 & 5 — Knights Labs',
     description: 'Experimental EEG research software and neuromorphic SNN engine. Non-clinical. Coming-soon public downloads.',
@@ -1971,24 +2122,34 @@ const ROUTE_META = {
     url: 'https://www.rogexlaboratories.com/prisma',
   },
   '/rx-os': {
-    title: 'rxOS Desktop & Kernel — Knights Labs',
-    description: 'Bare-metal x86-64 lab OS: Desktop Experience and open neuromorphic kernel. Real hardware install and public QEMU test build.',
+    title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
+    description: 'Bare-metal x86_64 event fabric: LIF Q16.16, STDP, bench 6/6. Levels 1–2 closed. Akida AKD1000 (Level 3) pending — chip not yet in lab.',
     image: RXOS_OG_IMAGE,
     imageType: 'image/jpeg',
     imageWidth: '1600',
     imageHeight: '1200',
-    imageAlt: 'PC with rxOS installed',
+    imageAlt: 'PC with RXos v4.5 installed',
     url: 'https://www.rogexlaboratories.com/rx-os',
   },
   '/rogexos': {
-    title: 'rxOS Desktop & Kernel — Knights Labs',
-    description: 'Bare-metal x86-64 lab OS: Desktop Experience and open neuromorphic kernel. Real hardware install and public QEMU test build.',
+    title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
+    description: 'Bare-metal x86_64 event fabric: LIF Q16.16, STDP, bench 6/6. Levels 1–2 closed. Akida AKD1000 (Level 3) pending — chip not yet in lab.',
     image: RXOS_OG_IMAGE,
     imageType: 'image/jpeg',
     imageWidth: '1600',
     imageHeight: '1200',
-    imageAlt: 'PC with rxOS installed',
+    imageAlt: 'PC with RXos v4.5 installed',
     url: 'https://www.rogexlaboratories.com/rx-os',
+  },
+  '/architecture': {
+    title: 'Architecture RXos v4.5 — Knights Labs',
+    description: 'Event fabric on von Neumann: 64 B events, SPSC rings, LIF Q16.16, STDP, four-level neuromorphic roadmap. Papers PDF public.',
+    image: RXOS_OG_IMAGE,
+    imageType: 'image/jpeg',
+    imageWidth: '1600',
+    imageHeight: '1200',
+    imageAlt: 'RXos neuromorphic substrate',
+    url: 'https://www.rogexlaboratories.com/architecture',
   },
   '/about': {
     title: 'About — Knights Labs / Rogex',

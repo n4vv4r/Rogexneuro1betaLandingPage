@@ -896,6 +896,152 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 
 .rxos-capture-grid .scientific-capture { border-color: rgba(255,255,255,.55); }
 .rxos-capture-grid .scientific-capture img { image-rendering: auto; object-fit: cover; }
+
+/* Papers / levels / bench / Akida */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+.paper-doc-card {
+  background: var(--paper);
+  padding: clamp(28px, 3.5vw, 44px);
+  border-right: 1.5px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.paper-doc-card:last-child { border-right: 0; }
+.paper-doc-card h3 {
+  font-family: var(--script);
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.paper-doc-card p { font-size: 12px; line-height: 1.7; color: var(--ink-soft); max-width: 48ch; }
+.paper-doc-meta {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.paper-doc-card .brutal-button { align-self: flex-start; margin-top: auto; }
+
+.levels-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border: 1.5px solid currentColor;
+  background: transparent;
+}
+.level-card {
+  padding: clamp(24px, 3vw, 36px);
+  border-right: 1px solid rgba(255,255,255,.3);
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  min-height: 220px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.section:not(.section-black) .levels-grid {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+.section:not(.section-black) .level-card {
+  background: var(--paper);
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  color: var(--ink);
+}
+.level-card:nth-child(2n) { border-right: 0; }
+.level-card:nth-last-child(-n+2) { border-bottom: 0; }
+.level-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.level-card-top > span {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--acid);
+}
+.section:not(.section-black) .level-card-top > span { color: var(--accent); }
+.level-card h3 {
+  font-family: var(--script);
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+.level-card p { font-size: 12px; line-height: 1.7; opacity: 0.85; }
+
+.akida-callout {
+  margin-top: 28px;
+  border: 1.5px solid rgba(255,254,248,.45);
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 16px;
+  align-items: start;
+  background: rgba(230, 74, 50, 0.12);
+}
+.akida-callout svg { color: var(--accent); margin-top: 2px; }
+.akida-callout strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  color: var(--acid);
+}
+.akida-callout p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(255,254,248,.78);
+}
+
+.bench-table {
+  border: 1.5px solid rgba(255,255,255,.5);
+}
+.bench-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 0.7fr;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.25);
+  font-size: 11px;
+  line-height: 1.45;
+  align-items: center;
+}
+.bench-row:last-child { border-bottom: 0; }
+.bench-head {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--acid);
+}
+.rxos-docs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 900px) {
+  .papers-grid,
+  .levels-grid { grid-template-columns: 1fr; }
+  .paper-doc-card { border-right: 0; border-bottom: 1.5px solid var(--ink); }
+  .paper-doc-card:last-child { border-bottom: 0; }
+  .level-card { border-right: 0; }
+  .level-card:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.3); }
+  .level-card:last-child { border-bottom: 0; }
+  .bench-row { grid-template-columns: 1fr; gap: 6px; }
+}
 .rxos-download-section { background: var(--paper-2); }
 .rxos-download-layout {
   display: grid;

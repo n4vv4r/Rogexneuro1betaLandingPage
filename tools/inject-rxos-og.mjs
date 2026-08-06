@@ -21,19 +21,19 @@ let html = readFileSync(indexPath, 'utf8');
 const replacements = [
   [
     /<title>[^<]*<\/title>/,
-    '<title>rxOS Desktop &amp; Kernel — Knights Labs</title>',
+    '<title>RXos v4.5.0 Neuromorphic — Knights Labs</title>',
   ],
   [
     /<meta name="description" content="[^"]*" \/>/,
-    '<meta name="description" content="Bare-metal x86-64 lab OS: Desktop Experience and open neuromorphic kernel. Real hardware install and public QEMU test build." />',
+    '<meta name="description" content="RXos v4.5.0 bare-metal event fabric: LIF Q16.16, STDP, bench 6/6. Levels 1–2 closed. Akida AKD1000 Level 3 pending — chip not yet in lab." />',
   ],
   [
     /<meta property="og:title" content="[^"]*" \/>/,
-    '<meta property="og:title" content="rxOS Desktop &amp; Kernel — Knights Labs" />',
+    '<meta property="og:title" content="RXos v4.5.0 Neuromorphic — Knights Labs" />',
   ],
   [
     /<meta property="og:description" content="[^"]*" \/>/,
-    '<meta property="og:description" content="Bare-metal x86-64 lab OS on real hardware. Desktop Experience + open neuromorphic kernel. Public QEMU test build." />',
+    '<meta property="og:description" content="Neuromorphic substrate on von Neumann. bench 6/6. Papers PDF. Akida silicon still missing in lab." />',
   ],
   [
     /<meta property="og:url" content="[^"]*" \/>/,
@@ -50,11 +50,11 @@ const replacements = [
   ],
   [
     /<meta name="twitter:title" content="[^"]*" \/>/,
-    '<meta name="twitter:title" content="rxOS Desktop &amp; Kernel — Knights Labs" />',
+    '<meta name="twitter:title" content="RXos v4.5.0 Neuromorphic — Knights Labs" />',
   ],
   [
     /<meta name="twitter:description" content="[^"]*" \/>/,
-    '<meta name="twitter:description" content="Bare-metal lab OS on real hardware. Desktop + open neuromorphic kernel." />',
+    '<meta name="twitter:description" content="Event fabric LIF/STDP · bench 6/6 · Akida Level 3 pending." />',
   ],
   [
     /<meta name="twitter:image" content="[^"]*" \/>/,

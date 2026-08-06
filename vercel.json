@@ -1,5 +1,7 @@
 {
   "rewrites": [
+    { "source": "/suite", "destination": "/index.html" },
+    { "source": "/architecture", "destination": "/index.html" },
     { "source": "/prisma", "destination": "/index.html" },
     { "source": "/rx-os", "destination": "/index.html" },
     { "source": "/rogexos", "destination": "/index.html" },

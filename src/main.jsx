@@ -10,7 +10,9 @@ import {
   Code2,
   Cpu,
   Database,
+  Factory,
   FlaskConical,
+  Leaf,
   Link as LinkIcon,
   Mail,
   Menu,
@@ -21,12 +23,15 @@ import {
   Shield,
   Terminal,
   Waves,
+  Zap,
   X,
 } from 'lucide-react';
 import './styles.css';
 
 const NAV_ITEMS = [
   ['/', 'HOME'],
+  ['/suite', 'SUITE'],
+  ['/architecture', 'ARCHITECTURE'],
   ['/prisma', 'PRISMA'],
   ['/rx-os', 'RX OS'],
   ['/about', 'ABOUT'],
@@ -40,55 +45,144 @@ const SOCIALS = [
   { label: 'YouTube', href: 'https://www.youtube.com/@rollitodprimavera', mark: 'YT' },
 ];
 
-const CAMPAIGNS = [
+const PRODUCT_SUITE = [
   {
-    id: 'R-01',
-    title: 'PRISMA 3.2 / MULTI-DATASET',
-    status: 'OPEN · VALIDATION',
-    text: 'Extender la lectura de EEG BIDS, comparar paradigmas y separar resultados transferibles de calibración específica por sujeto.',
-    need: 'Datasets · revisión metodológica · adaptadores',
-    image: '/tutorial/prisma3/05_datasets.png',
-    icon: Brain,
-    internal: '/prisma',
-  },
-  {
-    id: 'R-02',
-    title: 'PRISMA 4 / LIVE EEG',
-    status: 'OPEN · HARDWARE',
-    text: 'Diseñar una demo reproducible con adquisición en vivo, control de artefactos, calidad de señal y calibración explícita.',
-    need: 'OpenBCI · sesiones piloto · instrumentación',
-    image: '/tutorial/prisma3/04_eeg_real.png',
-    icon: Activity,
-    internal: '/prisma',
-  },
-  {
-    id: 'S-01',
-    title: 'RX OS FOUNDATION',
-    status: 'OPEN · SYSTEMS',
-    text: 'Consolidar un sistema experimental bare-metal para herramientas científicas verificables, interfaces mínimas y ejecución soberana.',
-    need: 'Drivers · QEMU · hardware x86_64 · revisión',
-    image: '/rxos/desktop-home.png',
+    id: 'rxos-desktop',
+    code: 'RX-01',
+    name: 'rxOS Desktop Experience',
+    tier: 'CLOSED SOURCE · BOOTABLE x86-64',
+    status: 'PROTOTYPE · PUBLIC TEST BUILD',
+    text: 'Entorno bare-metal de laboratorio: boot verificable, shell, filesystem y superficie gráfica mínima. Base soberana para herramientas científicas locales.',
+    tags: ['x86_64', 'GRUB / Multiboot2', 'C + Rust no_std', 'QEMU'],
+    href: '/rx-os',
     icon: Cpu,
-    internal: '/rx-os',
+    tone: 'dark',
   },
   {
-    id: 'L-01',
-    title: 'WSP / SIGNAL RETURN',
-    status: 'OPEN · PROTOCOL',
-    text: 'Investigar el retorno desde sonido y glifo hacia una estructura simbólica medible, con controles y formatos reproducibles.',
-    need: 'Audio DSP · SVG · lingüística computacional',
-    image: '/wsp-signal.svg',
-    icon: Waves,
+    id: 'rxos-kernel',
+    code: 'RX-02',
+    name: 'rxOS Neuromorphic Kernel',
+    tier: 'OPEN SOURCE · EVENT FABRIC',
+    status: 'RESEARCH ROADMAP · DEC 2026',
+    text: 'Kernel event-driven orientado a spike trains, ring buffers SPSC y plasticidad local. Bajo footprint de memoria y latencia sub-milisegundo como requisitos de diseño.',
+    tags: ['SNN', 'STDP', 'Lock-free rings', 'Low-carbon'],
+    href: '/architecture',
+    icon: Network,
+    tone: 'acid',
   },
   {
-    id: 'D-01',
-    title: 'ROGEX GASLIGHT',
-    status: 'OPEN · DEFENSIVE SECURITY',
-    text: 'Framework defensivo de engaño y observabilidad para analizar automatización ofensiva sin convertirlo en una herramienta de ataque.',
-    need: 'Linux · telemetría · módulos YAML · revisión',
-    image: '/gaslight-defense.svg',
-    icon: Shield,
-    internal: '/about',
+    id: 'prisma3',
+    code: 'P3',
+    name: 'PRISMA 3.2',
+    tier: 'EEG RESEARCH SOFTWARE',
+    status: 'ACTIVE · COMMUNITY / PRO LAYERS',
+    text: 'Pipeline experimental de EEG con Feature Registry, Event Mode, Confound Auditor y Benchmark Matrix. Separa generalización, calibración y personalización.',
+    tags: ['Python 3.10+', 'MNE', 'BIDS', '≈73% raw LOSO'],
+    href: '/prisma',
+    icon: Brain,
+    tone: 'paper',
+  },
+  {
+    id: 'prisma5',
+    code: 'P5',
+    name: 'PRISMA 5',
+    tier: 'NEUROMORPHIC ENGINE',
+    status: 'R&D · ACADEMIC / OEM PATHS',
+    text: 'Motor event-driven sobre SNNs: Delta Modulation asíncrona, Predictive Coding de espigas y STDP continuo. Puente entre MNE y el kernel neuromórfico de rxOS.',
+    tags: ['Delta mod', 'LIF', 'Spike error', 'Akida / Loihi target'],
+    href: '/prisma#prisma5',
+    icon: Zap,
+    tone: 'accent',
+  },
+];
+
+const LICENSE_TIERS = [
+  {
+    product: 'PRISMA 3',
+    rows: [
+      ['Community / Student', 'Open / free', 'Investigación y aprendizaje'],
+      ['Indie / Dev', '€60', 'Desarrolladores independientes'],
+      ['Research Lab / Pro', '€150', 'Laboratorios y uso profesional'],
+    ],
+  },
+  {
+    product: 'PRISMA 5',
+    rows: [
+      ['Academic / Personal', '€150 · binary', 'Uso académico no comercial'],
+      ['Commercial / Lab', '€300 · source', 'Integración y laboratorio'],
+      ['OEM / Hardware', 'Royalty + custom', 'Integradores y silicio'],
+    ],
+  },
+  {
+    product: 'rxOS',
+    rows: [
+      ['Neuromorphic Kernel', 'Open source', 'Event fabric + SNN runtime'],
+      ['Desktop Experience', 'Closed source', 'Bootable lab surface'],
+      ['OEM integration', 'Custom arch', 'Hardware partners'],
+    ],
+  },
+];
+
+const ARCH_STACK = [
+  {
+    layer: '01',
+    title: 'DEVICE / DATA',
+    text: 'EEG hardware o datasets (EDF / BIDS). Ingestión LSL para vivo; archivos para offline.',
+    detail: '256 Hz – 1000 Hz · raw samples',
+  },
+  {
+    layer: '02',
+    title: 'rxOS HAB + IPC',
+    text: 'Abstracción de hardware y ring buffers SPSC lock-free. Sin bloqueos del pipeline crítico.',
+    detail: 'SPSC · zero-copy intent · deterministic path',
+  },
+  {
+    layer: '03',
+    title: 'DELTA MODULATION',
+    text: 'Señal continua → spike trains asíncronos por umbral adaptativo UP / DOWN.',
+    detail: 'ΔV(t) ≥ +θ → UP · ΔV(t) ≤ −θ → DOWN',
+  },
+  {
+    layer: '04',
+    title: 'PRISMA CORE / SNN',
+    text: 'Motor event-driven: poblaciones LIF, STDP en tiempo real y error de predicción de espigas.',
+    detail: 'Predictive coding · local homeostasis · tau_m / θ₀',
+  },
+  {
+    layer: '05',
+    title: 'TELEMETRY / UI',
+    text: 'Streams de eventos hacia frontend liviano. Objetivo: ondas y spikes a 60 FPS sin GIL.',
+    detail: 'Tauri + WebGL/WebGPU · WS / gRPC',
+  },
+];
+
+const CTA_AUDIENCES = [
+  {
+    id: 'developers',
+    icon: Code2,
+    title: 'DEVELOPERS',
+    text: 'Kernel open source, APIs de eventos, runtime Roxenite y builds reproducibles en QEMU. Contribuye drivers, tests y toolchains.',
+    action: 'Open architecture',
+    href: '/architecture',
+    mailSubject: 'Developer collaboration — Knights Labs / rxOS',
+  },
+  {
+    id: 'researchers',
+    icon: Microscope,
+    title: 'RESEARCHERS',
+    text: 'PRISMA 3.2 para pipelines EEG trazables; PRISMA 5 como motor neuromórfico experimental. Sin claims clínicos.',
+    action: 'Explore PRISMA',
+    href: '/prisma',
+    mailSubject: 'Research collaboration — PRISMA / EEG',
+  },
+  {
+    id: 'oem',
+    icon: Factory,
+    title: 'OEM / INTEGRATORS',
+    text: 'Integración en silicio neuromórfico (Akida / Loihi), royalties y arquitectura custom. Hardware-first partnerships.',
+    action: 'Contact OEM desk',
+    href: 'mailto:roger@rogexlaboratories.com?subject=OEM%20/%20Hardware%20integration%20%E2%80%94%20Knights%20Labs',
+    mailSubject: null,
   },
 ];
 
@@ -147,37 +241,37 @@ const PRISMA_ROADMAP = [
     year: 'NOW',
     title: 'PRISMA 3.2',
     state: 'IMPLEMENTED / ACTIVE',
-    text: 'Pipeline Python 3.10+, CLI compatible, análisis espectral y temporal, validación de referencia, informes y arquitectura de feature sets.',
+    text: 'Pipeline Python 3.10+, CLI, features, Event Mode, Confound Auditor, Benchmark Matrix e informes con límites explícitos.',
   },
   {
     year: 'NEXT',
-    title: 'PRISMA 4',
-    state: 'ENGINEERING ROADMAP',
-    text: 'Adquisición EEG en vivo, adaptadores de dispositivos, control de artefactos, calidad de señal, protocolos de calibración y benchmarks externos.',
+    title: 'PRISMA 3 → LIVE PATH',
+    state: 'ENGINEERING',
+    text: 'Adquisición LSL, ring buffers sin bloqueo, control de artefactos y calibración online hacia 60 FPS de telemetría.',
   },
   {
     year: 'R+D',
     title: 'PRISMA 5',
-    state: 'RESEARCH ROADMAP',
-    text: 'Laboratorio multimodal: EEG, tareas, conducta y señales ambientales sincronizadas con trazabilidad completa y controles negativos.',
+    state: 'NEUROMORPHIC CORE',
+    text: 'SNN event-driven, Delta Modulation, Predictive Coding de espigas y STDP continuo acoplado a rxOS.',
+  },
+  {
+    year: 'H/W',
+    title: 'AKIDA / LOIHI',
+    state: 'HARDWARE TARGET',
+    text: 'Benchmark e integración en procesadores neuromórficos. Camino OEM con arquitectura custom.',
   },
   {
     year: 'L/T',
     title: 'ASTRA',
     state: 'LONG-TERM CONCEPT',
-    text: 'Capa experimental de hardware, feedback y protocolos cerrados. Requeriría supervisión ética, validación institucional y límites regulatorios.',
-  },
-  {
-    year: 'L/T',
-    title: 'ARIADNE',
-    state: 'LONG-TERM CONCEPT',
-    text: 'Modelos longitudinales del individuo: estabilidad, cambio, memoria de baseline y comparaciones reproducibles a lo largo del tiempo.',
+    text: 'Capa experimental de hardware, feedback y protocolos cerrados. Requiere ética, validación y límites regulatorios.',
   },
   {
     year: 'L/T',
     title: 'NOOSPHERE',
     state: 'LONG-TERM CONCEPT',
-    text: 'Red federada de investigación para comparar resultados y procedencia entre laboratorios. No implica lectura mental ni conciencia colectiva literal.',
+    text: 'Red federada de investigación entre laboratorios. Comparación de resultados y procedencia — no lectura mental.',
   },
 ];
 
@@ -196,6 +290,7 @@ const RX_LIMITS = [
   'Un solo flujo de kernel; scheduler, procesos, syscalls e aislamiento siguen pendientes.',
   'Espacio de direcciones plano y ring 0; no es un sistema operativo de producción.',
   'Arranque BIOS/SeaBIOS; UEFI nativo está en roadmap.',
+  'Kernel neuromórfico SNN: diseño documentado, runtime aún en investigación.',
   'Criptografía integrada pero no auditada externamente.',
 ];
 
@@ -257,6 +352,7 @@ const SKILLS = [
   'EEG signal processing',
   'BIDS / OpenNeuro',
   'QEMU / bare metal',
+  'SNN / neuromorphic',
   'Defensive security',
   'Git / GitHub',
   'Technical writing',
@@ -273,13 +369,35 @@ function useRoute() {
   }, []);
 
   const navigate = (href) => {
-    if (href === path) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (href.startsWith('mailto:') || href.startsWith('http')) {
+      window.location.href = href;
       return;
     }
+
+    const [base, hash] = href.split('#');
+    const target = base || path;
+
+    if (target === path) {
+      if (hash) {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+
     window.history.pushState({}, '', href);
-    setPath(href);
+    setPath(target);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (hash) {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   };
 
   return [path, navigate];
@@ -334,9 +452,12 @@ function Header({ path, navigate }) {
   return (
     <header className="site-header">
       <div className="nav-shell">
-        <button className="wordmark" onClick={() => navigate('/')} aria-label="Rogex Laboratories home">
-          <span className="wordmark-rx">RX</span>
-          <span>ROGEX LABORATORIES</span>
+        <button className="wordmark" onClick={() => navigate('/')} aria-label="Knights Labs / Rogex Laboratories home">
+          <span className="wordmark-rx">KL</span>
+          <span className="wordmark-stack">
+            <strong>KNIGHTS LABS</strong>
+            <em>ROGEX LABORATORIES</em>
+          </span>
         </button>
 
         <button
@@ -384,7 +505,7 @@ function PageHero({ index, eyebrow, title, text, image, children }) {
           {children}
         </div>
       </div>
-      <div className="hero-caption">ROGEX / INDEPENDENT R&amp;D / 2026</div>
+      <div className="hero-caption">KNIGHTS LABS · ROGEX · NEUROMORPHIC R&amp;D · 2026</div>
     </section>
   );
 }
@@ -403,26 +524,55 @@ function StatusBadge({ children, tone = 'open' }) {
   return <span className={`status-badge status-${tone}`}>{children}</span>;
 }
 
-function CampaignCard({ campaign, navigate, index }) {
-  const Icon = campaign.icon;
+function ProductCard({ product, navigate, index }) {
+  const Icon = product.icon;
   return (
-    <article className={`campaign-card campaign-card-${(index % 3) + 1}`} data-reveal style={{ '--delay': `${index * 70}ms` }}>
-      <div className="campaign-image" style={{ backgroundImage: `url("${campaign.image}")` }}>
-        <span className="campaign-number">{campaign.id}</span>
-        <Icon size={30} strokeWidth={1.4} />
+    <article
+      className={`suite-card suite-card-${product.tone}`}
+      data-reveal
+      style={{ '--delay': `${index * 70}ms` }}
+    >
+      <div className="suite-card-top">
+        <span>{product.code}</span>
+        <Icon size={26} strokeWidth={1.4} />
       </div>
-      <div className="campaign-body">
-        <StatusBadge>{campaign.status}</StatusBadge>
-        <h3>{campaign.title}</h3>
-        <p>{campaign.text}</p>
-        <div className="campaign-need">NEEDED / {campaign.need}</div>
-        {campaign.internal && (
-          <button className="text-link" onClick={() => navigate(campaign.internal)}>
-            READ DOSSIER <ArrowUpRight size={15} />
-          </button>
-        )}
+      <StatusBadge>{product.status}</StatusBadge>
+      <h3>{product.name}</h3>
+      <div className="suite-tier">{product.tier}</div>
+      <p>{product.text}</p>
+      <div className="tag-row">
+        {product.tags.map((tag) => <span key={tag}>{tag}</span>)}
       </div>
+      <button className="text-link" onClick={() => navigate(product.href)}>
+        OPEN DOSSIER <ArrowUpRight size={15} />
+      </button>
     </article>
+  );
+}
+
+function CtaBand({ navigate }) {
+  return (
+    <section className="section section-black cta-band" id="join">
+      <div className="wrap">
+        <SectionTitle
+          code="CTA / JOIN"
+          title="DEVELOPERS. RESEARCHERS. OEM."
+          text="Tres puertas de entrada. El mismo laboratorio. Sin promesas clínicas y con límites explícitos."
+        />
+        <div className="cta-grid">
+          {CTA_AUDIENCES.map(({ id, icon: Icon, title, text, action, href }, index) => (
+            <article className="cta-card" key={id} data-reveal style={{ '--delay': `${index * 80}ms` }}>
+              <Icon size={28} strokeWidth={1.35} />
+              <h3>{title}</h3>
+              <p>{text}</p>
+              <button className="brutal-button primary" onClick={() => navigate(href)}>
+                {action} <ArrowUpRight size={15} />
+              </button>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -431,64 +581,366 @@ function Home({ navigate }) {
     <>
       <PageHero
         index="00"
-        eyebrow="OPEN RESEARCH / CURRENT CAMPAIGNS"
-        title={<>THE LAB IS<br />A WORK IN PROGRESS.</>}
-        text="Rogex Laboratories desarrolla software de investigación, sistemas experimentales y protocolos abiertos a colaboración. Esta portada muestra trabajo activo, no productos ficticios."
+        eyebrow="KNIGHTS LABS · ROGEX LABORATORIES"
+        title={<>LOW-CARBON<br />NEUROTECH.<br />BOOTABLE LAB.</>}
+        text="Rogex Laboratories opera bajo Knights Labs: software EEG reproducible, un kernel neuromórfico de código abierto y una experiencia desktop bare-metal. Lanzamiento de la suite proyectado para diciembre 2026."
         image="/home-campaigns.svg"
       >
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#campaigns">VIEW OPEN CAMPAIGNS</a>
-          <button className="brutal-button" onClick={() => navigate('/about')}>CONTACT THE LAB</button>
+          <button className="brutal-button primary" onClick={() => navigate('/suite')}>VIEW PRODUCT SUITE</button>
+          <button className="brutal-button" onClick={() => navigate('/architecture')}>TECHNICAL ARCHITECTURE</button>
+        </div>
+        <div className="hero-tags">
+          <span>PRISMA 3.2</span>
+          <span>PRISMA 5 SNN</span>
+          <span>rxOS DESKTOP</span>
+          <span>OPEN NEUROMORPHIC KERNEL</span>
+          <span>&lt;64 MB TARGET</span>
         </div>
       </PageHero>
 
       <main>
-        <section className="section wrap" id="campaigns">
+        <section className="section wrap" id="identity">
           <SectionTitle
-            code="01 / OPEN"
-            title="CAMPAÑAS DE INVESTIGACIÓN"
-            text="Cada campaña declara qué existe, qué falta y qué tipo de colaboración tiene sentido. Nada se presenta como acabado cuando todavía está en prueba."
+            code="01 / IDENTITY"
+            title="DE ROGEX AL MARCO KNIGHTS LABS"
+            text="Misma ingeniería, identidad de producto más clara: investigación abierta donde aporta, licencias estratificadas donde sostiene el hardware accesible."
           />
-          <div className="campaign-grid">
-            {CAMPAIGNS.map((campaign, index) => (
-              <CampaignCard campaign={campaign} navigate={navigate} index={index} key={campaign.id} />
-            ))}
+          <div className="identity-grid">
+            <article className="paper-panel" data-reveal>
+              <span className="panel-label">BRAND TRANSITION</span>
+              <h3>ROGEX BUILD.<br />KNIGHTS LABS SHIP.</h3>
+              <p>Rogex Laboratories sigue siendo el laboratorio técnico. Knights Labs es el marco comercial y de producto que agrupa PRISMA, rxOS y el camino OEM hacia silicio neuromórfico.</p>
+              <ul className="check-list compact-list">
+                <li><CheckCircle size={18} /> Evidencia pública y límites no clínicos.</li>
+                <li><CheckCircle size={18} /> Kernel neuromórfico open source.</li>
+                <li><CheckCircle size={18} /> Desktop y capas Pro / OEM con licencias claras.</li>
+              </ul>
+            </article>
+            <article className="black-panel eco-panel" data-reveal>
+              <span className="panel-label">TECHNOACTIVISM</span>
+              <h3>LOW-CARBON COMPUTING.</h3>
+              <p>Arquitectura determinista, latencia sub-milisegundo y footprint de memoria objetivo &lt;64 MB frente a stacks inflados. Menos capas, menos desperdicio, más auditabilidad.</p>
+              <div className="eco-metrics">
+                <div><Leaf size={20} /><strong>LOW-CARBON</strong><span>compute-first design</span></div>
+                <div><Zap size={20} /><strong>&lt;1 ms</strong><span>latency path goal</span></div>
+                <div><Cpu size={20} /><strong>&lt;64 MB</strong><span>memory footprint target</span></div>
+              </div>
+            </article>
           </div>
         </section>
 
-        <section className="statement-section">
-          <div className="wrap statement-grid" data-reveal>
-            <div className="statement-mark"><Microscope size={54} strokeWidth={1.2} /></div>
-            <blockquote>
-              “Ambición sin trazabilidad es ruido. Rogex publica límites, estados de implementación y resultados negativos porque también son parte del trabajo.”
-            </blockquote>
-            <div className="statement-meta">METHOD / EVIDENCE / LIMITS</div>
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="02 / SUITE"
+              title="CUATRO SUPERFICIES, UN PIPELINE"
+              text="De la adquisición EEG al spike train y de vuelta a la telemetría — sin confudir MVP, roadmap y visión."
+            />
+            <div className="suite-grid">
+              {PRODUCT_SUITE.map((product, index) => (
+                <ProductCard product={product} navigate={navigate} index={index} key={product.id} />
+              ))}
+            </div>
           </div>
         </section>
 
         <section className="section wrap">
           <SectionTitle
-            code="02 / MAP"
-            title="DOS LÍNEAS, UN MISMO LABORATORIO"
-            text="PRISMA estudia señales y variabilidad individual. RX OS investiga la infraestructura donde herramientas científicas verificables podrían ejecutarse con menos dependencia externa."
+            code="03 / PIPELINE"
+            title="DEL SENSOR AL SPIKE"
+            text="Stack de referencia para PRISMA 5 sobre rxOS. Cada capa declara su contrato de datos."
           />
-          <div className="two-track">
-            <button className="track-card" onClick={() => navigate('/prisma')} data-reveal>
-              <Brain size={42} strokeWidth={1.3} />
-              <span>TRACK A</span>
-              <h3>EEG / PRISMA</h3>
-              <p>Procesamiento de señal, baselines individuales, evaluación reproducible y límites no clínicos.</p>
-              <ArrowUpRight />
+          <div className="mini-arch" data-reveal>
+            {ARCH_STACK.map((item) => (
+              <div className="mini-arch-layer" key={item.layer}>
+                <span>{item.layer}</span>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+                <code>{item.detail}</code>
+              </div>
+            ))}
+          </div>
+          <div className="hero-actions section-actions">
+            <button className="brutal-button primary" onClick={() => navigate('/architecture')}>
+              FULL ARCHITECTURE <ArrowUpRight size={15} />
             </button>
-            <button className="track-card inverted" onClick={() => navigate('/rx-os')} data-reveal>
-              <Cpu size={42} strokeWidth={1.3} />
-              <span>TRACK B</span>
-              <h3>SYSTEMS / RX OS</h3>
-              <p>Kernel experimental, filesystem, interfaz, runtime local y arquitectura verificable.</p>
-              <ArrowUpRight />
+            <button className="brutal-button" onClick={() => navigate('/rx-os')}>
+              DOWNLOAD RXos TEST BUILD
             </button>
           </div>
         </section>
+
+        <section className="statement-section">
+          <div className="wrap statement-grid" data-reveal>
+            <div className="statement-mark"><Leaf size={54} strokeWidth={1.2} /></div>
+            <blockquote>
+              “Ambición sin trazabilidad es ruido. Knights Labs publica límites, estados de implementación y resultados negativos — porque también son parte del trabajo.”
+            </blockquote>
+            <div className="statement-meta">METHOD · EVIDENCE · LIMITS · LOW-CARBON</div>
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <SectionTitle
+            code="04 / LICENSING"
+            title="CAPAS QUE FINANCIAN ACCESO"
+            text="Precios de referencia para el lanzamiento proyectado en diciembre 2026. Modelo de financiación cruzada: B2B/OEM subsidia investigación independiente y causas de acceso."
+          />
+          <div className="license-grid">
+            {LICENSE_TIERS.map((block, index) => (
+              <article className="license-card" key={block.product} data-reveal style={{ '--delay': `${index * 70}ms` }}>
+                <span className="panel-label">{block.product}</span>
+                <table>
+                  <tbody>
+                    {block.rows.map(([name, price, note]) => (
+                      <tr key={name}>
+                        <th>{name}</th>
+                        <td>{price}</td>
+                        <td>{note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </article>
+            ))}
+          </div>
+          <p className="license-note" data-reveal>
+            Las licencias se confirman al lanzamiento. PRISMA no es un dispositivo médico ni software de diagnóstico.
+          </p>
+        </section>
+
+        <CtaBand navigate={navigate} />
+      </main>
+    </>
+  );
+}
+
+function Suite({ navigate }) {
+  return (
+    <>
+      <PageHero
+        index="01"
+        eyebrow="PRODUCT SUITE / KNIGHTS LABS"
+        title={<>THE STACK,<br />NOT THE HYPE.</>}
+        text="rxOS Desktop, kernel neuromórfico open source, PRISMA 3.2 y PRISMA 5. Cada pieza tiene estado, licencia y público: desarrolladores, investigadores e integradores OEM."
+        image="/rxos-concept.svg"
+      >
+        <div className="hero-actions">
+          <button className="brutal-button primary" onClick={() => navigate('/#join')}>JOIN AS PARTNER</button>
+          <a className="brutal-button" href="mailto:roger@rogexlaboratories.com?subject=Product%20inquiry%20%E2%80%94%20Knights%20Labs">
+            EMAIL THE LAB
+          </a>
+        </div>
+      </PageHero>
+
+      <main>
+        <section className="section wrap">
+          <SectionTitle
+            code="01 / PRODUCTS"
+            title="SUITE COMPLETA"
+            text="Cuatro productos, dos líneas (sistemas + señal) y un objetivo de lanzamiento: diciembre 2026."
+          />
+          <div className="suite-grid suite-grid-page">
+            {PRODUCT_SUITE.map((product, index) => (
+              <ProductCard product={product} navigate={navigate} index={index} key={product.id} />
+            ))}
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="02 / WHO IT'S FOR"
+              title="TRES PERFILES, TRES CONTRATOS"
+              text="El copy no vende milagros. Declara interfaces, artefactos y caminos de colaboración."
+            />
+            <div className="audience-table" data-reveal>
+              <div className="audience-row audience-head">
+                <span>AUDIENCE</span><span>PRIMARY SURFACE</span><span>WHAT YOU GET</span>
+              </div>
+              <div className="audience-row">
+                <span>Developers</span>
+                <span>rxOS Kernel · event APIs</span>
+                <span>Código abierto, QEMU builds, contribución a drivers y runtime</span>
+              </div>
+              <div className="audience-row">
+                <span>Researchers</span>
+                <span>PRISMA 3 / 5</span>
+                <span>Pipelines EEG, métricas con régimen, límites no clínicos</span>
+              </div>
+              <div className="audience-row">
+                <span>OEM / Integrators</span>
+                <span>Custom arch · royalty</span>
+                <span>Integración en silicio neuromórfico y soporte de arquitectura</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <SectionTitle
+            code="03 / PRICING LAYERS"
+            title="REFERENCIA COMERCIAL 2026"
+            text="Estructura pública de capas. Confirmación contractual al release."
+          />
+          <div className="license-grid">
+            {LICENSE_TIERS.map((block, index) => (
+              <article className="license-card" key={block.product} data-reveal style={{ '--delay': `${index * 70}ms` }}>
+                <span className="panel-label">{block.product}</span>
+                <table>
+                  <tbody>
+                    {block.rows.map(([name, price, note]) => (
+                      <tr key={name}>
+                        <th>{name}</th>
+                        <td>{price}</td>
+                        <td>{note}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <CtaBand navigate={navigate} />
+      </main>
+    </>
+  );
+}
+
+function Architecture({ navigate }) {
+  return (
+    <>
+      <PageHero
+        index="02"
+        eyebrow="ARCHITECTURE / EVENT-DRIVEN STACK"
+        title={<>FROM RAW EEG<br />TO SPIKE TRAINS.</>}
+        text="Diseño de referencia para PRISMA Core sobre rxOS: ring buffers lock-free, Delta Modulation asíncrona, SNN LIF con STDP y telemetría de eventos hacia un frontend liviano."
+        image="/rxos/boot-banner.png"
+      >
+        <div className="hero-tags">
+          <span>SPSC RINGS</span>
+          <span>DELTA MOD</span>
+          <span>LIF / STDP</span>
+          <span>PREDICTIVE CODING</span>
+          <span>TAURI + WEBGL</span>
+        </div>
+      </PageHero>
+
+      <main>
+        <section className="section wrap">
+          <SectionTitle
+            code="01 / STACK"
+            title="CINCO CAPAS, UN CONTRATO DE DATOS"
+            text="Cada capa reduce ambigüedad: samples → events → spikes → plasticity → UI. Sin GIL en el path crítico."
+          />
+          <div className="architecture full-architecture" data-reveal>
+            {ARCH_STACK.map((item, index) => (
+              <div className="architecture-layer" key={item.layer}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+                <code className="arch-detail">{item.detail}</code>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="02 / DELTA MODULATION"
+              title="SEÑAL CONTINUA → EVENTOS"
+              text="Conversión asíncrona por umbral dinámico. No es sampling uniforme de spikes: es umbral adaptativo sobre el delta de voltaje."
+            />
+            <div className="formula-grid">
+              <article className="formula-card" data-reveal>
+                <span>01</span>
+                <h3>ΔV(t)</h3>
+                <code>ΔV(t) = V(t) − V(t_prev)</code>
+                <p>Diferencia local entre muestras consecutivas en el canal.</p>
+              </article>
+              <article className="formula-card" data-reveal>
+                <span>02</span>
+                <h3>UP EVENT</h3>
+                <code>ΔV(t) ≥ +θ_adp</code>
+                <p>Disparo positivo cuando el incremento supera el umbral adaptativo.</p>
+              </article>
+              <article className="formula-card" data-reveal>
+                <span>03</span>
+                <h3>DOWN EVENT</h3>
+                <code>ΔV(t) ≤ −θ_adp</code>
+                <p>Disparo negativo simétrico; codifica flancos de descenso.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <SectionTitle
+            code="03 / SNN ENGINE"
+            title="PREDICTIVE CODING + STDP"
+            text="Detección de anomalías por error de predicción de espigas en poblaciones LIF. Homeostasis sináptica local con firmas biológicas iniciales."
+          />
+          <div className="method-grid arch-method-grid">
+            {[
+              [Zap, 'SPIKE ERROR', 'El residual entre espigas predichas y observadas actúa como señal de anomalía — no como etiqueta clínica.'],
+              [Network, 'STDP ONLINE', 'Plasticidad spike-timing-dependent continua; pesos locales sin batch global en el path en tiempo real.'],
+              [Activity, 'LIF POPULATION', 'Neuronas integrate-and-fire con tau_m y θ₀ como firma biológica inicial configurable.'],
+              [Leaf, 'FOOTPRINT', 'Objetivo de diseño: latencia sub-ms y memoria &lt;64 MB en el runtime crítico del kernel.'],
+              [Radio, 'LSL INGEST', 'Adquisición en vivo 256–1000 Hz con buffers SPSC; offline vía EDF/BIDS en el mismo contrato de eventos.'],
+              [Shield, 'BOUNDARIES', 'Software experimental. No diagnóstico, no lectura de pensamiento, no claims de consciencia.'],
+            ].map(([Icon, title, text]) => (
+              <article className="method-card" key={title} data-reveal>
+                <Icon size={28} strokeWidth={1.4} />
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="04 / OPEN VS CLOSED"
+              title="QUÉ SE ABRE Y QUÉ SE LICENCIA"
+              text="Kernel neuromórfico open source. Desktop experience closed. PRISMA en capas Community → Pro → OEM."
+            />
+            <div className="open-closed-grid">
+              <article data-reveal>
+                <span className="panel-label">OPEN</span>
+                <h3>NEUROMORPHIC KERNEL</h3>
+                <ul className="check-list">
+                  <li><CheckCircle size={18} /> Event fabric y runtime SNN de referencia</li>
+                  <li><CheckCircle size={18} /> Especificaciones de ring buffer y delta mod</li>
+                  <li><CheckCircle size={18} /> Builds de inspección y contribución</li>
+                </ul>
+              </article>
+              <article data-reveal>
+                <span className="panel-label">LICENSED</span>
+                <h3>DESKTOP · PRO · OEM</h3>
+                <ul className="check-list">
+                  <li><CheckCircle size={18} /> rxOS Desktop Experience (closed)</li>
+                  <li><CheckCircle size={18} /> PRISMA Pro / source commercial</li>
+                  <li><CheckCircle size={18} /> Integración OEM + custom arch</li>
+                </ul>
+              </article>
+            </div>
+            <div className="hero-actions section-actions">
+              <button className="brutal-button primary" onClick={() => navigate('/rx-os')}>
+                RXos PUBLIC BUILD <ArrowUpRight size={15} />
+              </button>
+              <button className="brutal-button" onClick={() => navigate('/suite')}>
+                LICENSE LAYERS
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <CtaBand navigate={navigate} />
       </main>
     </>
   );
@@ -504,21 +956,28 @@ function EvidenceCard({ item, index }) {
   );
 }
 
-function Prisma() {
+function Prisma({ navigate }) {
+  useEffect(() => {
+    if (window.location.hash === '#prisma5') {
+      const el = document.getElementById('prisma5');
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+    }
+  }, []);
+
   return (
     <>
       <PageHero
-        index="01"
-        eyebrow="PRISMA / EEG RESEARCH SOFTWARE"
-        title={<>MEASURE THE SIGNAL.<br />MODEL THE PERSON.</>}
-        text="PRISMA 3.2 es software experimental para investigar EEG, variabilidad individual y reproducibilidad. No es un dispositivo médico ni afirma leer pensamientos o detectar consciencia."
+        index="03"
+        eyebrow="PRISMA / EEG + NEUROMORPHIC"
+        title={<>MEASURE THE SIGNAL.<br />MODEL THE PERSON.<br />SPIKE THE EVENT.</>}
+        text="PRISMA 3.2 es software experimental de EEG reproducible. PRISMA 5 es el motor neuromórfico event-driven sobre rxOS. Ninguno es un dispositivo médico ni afirma leer pensamientos."
         image="/tutorial/prisma3/04_eeg_real.png"
       >
         <div className="hero-tags">
           <span>PYTHON 3.10+</span>
           <span>MNE</span>
-          <span>NUMPY</span>
-          <span>SCIKIT-LEARN</span>
+          <span>SNN / LIF</span>
+          <span>DELTA MOD</span>
           <span>BIDS / OPENNEURO</span>
         </div>
       </PageHero>
@@ -541,7 +1000,7 @@ function Prisma() {
               <ul className="check-list">
                 <li><CheckCircle size={18} /> Welch PSD, filtros, bandpower, ratios, entropía, Hjorth, RMS y SQI.</li>
                 <li><CheckCircle size={18} /> Baseline personal, traductor individual, modelos ML y reportes.</li>
-                <li><CheckCircle size={18} /> CLI retrocompatible y Feature Registry implementado con siete familias de características.</li>
+                <li><CheckCircle size={18} /> CLI retrocompatible y Feature Registry con siete familias de características.</li>
                 <li><CheckCircle size={18} /> Modo evento con épocas, baseline, rechazo de artefactos y visor de respuestas evocadas.</li>
                 <li><CheckCircle size={18} /> Auditoría de confounding obligatoria antes de ML y Benchmark Matrix con selección estricta.</li>
                 <li><CheckCircle size={18} /> Flujo de descubrimiento para datasets BIDS/OpenNeuro.</li>
@@ -615,11 +1074,51 @@ function Prisma() {
           </div>
         </section>
 
+        <section className="section section-black" id="prisma5">
+          <div className="wrap">
+            <SectionTitle
+              code="04 / PRISMA 5"
+              title="NEUROMORPHIC ENGINE ON rxOS"
+              text="De matrices de features a event streams. PRISMA 5 integra el core SNN con el kernel neuromórfico: delta modulation, predictive coding y STDP continuo."
+            />
+            <div className="prisma5-grid">
+              <article className="prisma5-card" data-reveal>
+                <span>EVENT ENCODING</span>
+                <h3>DELTA MODULATION</h3>
+                <p>Convierte MNE continuous samples en spike trains asíncronos UP/DOWN con umbral adaptativo θ_adp.</p>
+              </article>
+              <article className="prisma5-card" data-reveal>
+                <span>ANOMALY PATH</span>
+                <h3>PREDICTIVE CODING</h3>
+                <p>Error de predicción de espigas en población LIF como señal de anomalía — experimental, no clínica.</p>
+              </article>
+              <article className="prisma5-card" data-reveal>
+                <span>PLASTICITY</span>
+                <h3>STDP + HOMEOSTASIS</h3>
+                <p>Plasticidad local en tiempo real; tau_m y θ₀ como firma biológica inicial del sujeto/sistema.</p>
+              </article>
+              <article className="prisma5-card" data-reveal>
+                <span>HARDWARE</span>
+                <h3>AKIDA / LOIHI</h3>
+                <p>Target de integración y benchmarking en silicio neuromórfico. Camino OEM con royalty + custom arch.</p>
+              </article>
+            </div>
+            <div className="hero-actions section-actions">
+              <button className="brutal-button primary" onClick={() => navigate('/architecture')}>
+                SEE FULL STACK <ArrowUpRight size={15} />
+              </button>
+              <button className="brutal-button" onClick={() => navigate('/suite')}>
+                PRISMA 5 LICENSE LAYERS
+              </button>
+            </div>
+          </div>
+        </section>
+
         <section className="section wrap">
           <SectionTitle
-            code="04 / INTERFACE"
+            code="05 / INTERFACE"
             title="CAPTURAS REALES DE PRISMA 3.2"
-            text="Estas imágenes son capturas auténticas del software en desarrollo. La primera muestra una demostración sintética del Feature Lab; la segunda, el visor experimental de eventos y épocas. No son renders ni mockups promocionales."
+            text="Estas imágenes son capturas auténticas del software en desarrollo. No son renders ni mockups promocionales."
           />
 
           <div className="prisma-capture-grid">
@@ -627,7 +1126,7 @@ function Prisma() {
               <img src="/tutorial/prisma3/04_feature_lab_complete.png" alt="Captura real de PRISMA 3.2 Feature Lab con forma de onda, PSD y vector de características" loading="lazy" />
               <figcaption className="capture-caption">
                 <span>01</span>
-                <div><strong>FEATURE LAB / REAL UI CAPTURE</strong><p>Forma de onda multicanal, densidad espectral de potencia y vector spectral-temporal. La señal mostrada es una demostración sintética no clínica para inspección técnica.</p></div>
+                <div><strong>FEATURE LAB / REAL UI CAPTURE</strong><p>Forma de onda multicanal, densidad espectral de potencia y vector spectral-temporal. Demostración sintética no clínica.</p></div>
               </figcaption>
             </figure>
 
@@ -635,7 +1134,7 @@ function Prisma() {
               <img src="/tutorial/prisma3/05_event_epoch_viewer.png" alt="Captura real del visor de eventos y épocas de PRISMA 3.2" loading="lazy" />
               <figcaption className="capture-caption">
                 <span>02</span>
-                <div><strong>EVENT &amp; EPOCH VIEWER / REAL UI CAPTURE</strong><p>Línea temporal de eventos, épocas válidas, baseline −200–0 ms y respuesta evocada promedio por clase. El visor admite demo sintética reproducible y carga de EEG real con events.tsv.</p></div>
+                <div><strong>EVENT &amp; EPOCH VIEWER / REAL UI CAPTURE</strong><p>Línea temporal de eventos, épocas válidas, baseline −200–0 ms y respuesta evocada promedio por clase.</p></div>
               </figcaption>
             </figure>
           </div>
@@ -660,7 +1159,7 @@ function Prisma() {
         <section className="section research-method">
           <div className="wrap">
             <SectionTitle
-              code="05 / METHOD"
+              code="06 / METHOD"
               title="POR QUÉ ESTO ES INVESTIGACIÓN SERIA"
               text="Serio no significa infalible. Significa que cada afirmación puede rastrearse hasta un protocolo, una partición de datos, una métrica y una limitación."
             />
@@ -683,23 +1182,11 @@ function Prisma() {
           </div>
         </section>
 
-        <section className="section wrap consciousness-section">
-          <div className="consciousness-title" data-reveal>
-            <span>06 / CONSCIOUSNESS</span>
-            <h2>ESTUDIAR CORRELATOS.<br />NO INVENTAR CERTEZAS.</h2>
-          </div>
-          <div className="consciousness-copy" data-reveal>
-            <p className="large-copy">La visión de PRISMA sobre consciencia empieza por preguntas medibles: estabilidad del baseline, transiciones de estado, variación intra-sujeto, incertidumbre y reproducibilidad.</p>
-            <p>No afirma resolver el “problema difícil” de la consciencia. Tampoco convierte una banda EEG en una emoción, diagnóstico o pensamiento. El objetivo es construir mejores instrumentos para estudiar correlatos neurofisiológicos bajo protocolos definidos.</p>
-            <div className="manual-note">OBSERVE → QUANTIFY → COMPARE → REPORT UNCERTAINTY</div>
-          </div>
-        </section>
-
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
               code="07 / ROADMAP"
-              title="DE PRISMA 3.2 A NOOSPHERE"
+              title="DE PRISMA 3.2 AL HARDWARE"
               text="Las etapas futuras son direcciones de investigación, no funcionalidades ya disponibles."
             />
             <div className="roadmap-list">
@@ -722,7 +1209,7 @@ function Prisma() {
           <SectionTitle
             code="08 / EXTRA / ARCHIVE"
             title="PRISMA 1 — VIDEO DEMONSTRATION"
-            text="Material histórico para entender de dónde viene el proyecto. Este vídeo no representa PRISMA 3 ni PRISMA 3.2."
+            text="Material histórico. Este vídeo no representa PRISMA 3 ni PRISMA 5."
           />
           <div className="video-layout">
             <div className="video-frame" data-reveal>
@@ -738,11 +1225,13 @@ function Prisma() {
             <aside className="video-note" data-reveal>
               <span className="panel-label">IMPORTANT VERSION NOTE</span>
               <h3>THIS IS PRISMA 1.<br />NOT PRISMA 3.</h3>
-              <p>El vídeo documenta una versión temprana y sirve como archivo del proceso. PRISMA 3.2 continúa en desarrollo: el material público actual son las capturas reales mostradas arriba y teasers breves publicados en Instagram y TikTok.</p>
+              <p>El vídeo documenta una versión temprana. PRISMA 3.2 continúa en desarrollo; el material público actual son capturas reales y teasers en Instagram y TikTok.</p>
               <a className="archive-video-link" href="https://youtu.be/3Jw7r_unoPg" target="_blank" rel="noreferrer">OPEN ON YOUTUBE <ArrowUpRight size={16} /></a>
             </aside>
           </div>
         </section>
+
+        <CtaBand navigate={navigate} />
       </main>
     </>
   );
@@ -762,38 +1251,11 @@ function BootLog() {
           ['Keyboard / mouse', 'OK'],
           ['RXFS self-test', 'OK'],
           ['Shell / desktop', 'OK'],
+          ['Neuromorphic SNN', 'TODO'],
           ['Network transport', 'TODO'],
         ].map(([label, state]) => (
           <div key={label}><span>&gt; {label}</span><strong className={state === 'TODO' ? 'todo' : ''}>{state}</strong></div>
         ))}
-      </div>
-    </div>
-  );
-}
-
-function DesktopMock() {
-  return (
-    <div className="rx-window desktop-window" data-reveal>
-      <div className="rx-window-head"><span>RX DESKTOP / CONCEPT + IMPLEMENTED SHELL</span><span>1280×720</span></div>
-      <div className="rx-desktop">
-        <aside>
-          <strong>RX</strong>
-          <span className="active">HOME</span>
-          <span>FILES</span>
-          <span>STUDIO</span>
-          <span>PRISMA</span>
-          <span>STATUS</span>
-        </aside>
-        <div className="rx-canvas">
-          <div className="rx-title">WELCOME BACK, RESEARCHER.</div>
-          <div className="rx-tiles">
-            <div><Terminal /><span>TERMINAL</span></div>
-            <div><Database /><span>RXFS</span></div>
-            <div><Code2 /><span>ROXENITE</span></div>
-            <div><Network /><span>RGX:// LOCAL</span></div>
-          </div>
-          <div className="rx-command">&gt; status <span className="cursor-block" /></div>
-        </div>
       </div>
     </div>
   );
@@ -805,6 +1267,7 @@ function ArchitectureDiagram() {
     ['USERLAND', 'shell / Roxenite runtime / rgx:// local'],
     ['FS + DRIVERS', 'RXFS / ATA PIO / keyboard / mouse / framebuffer'],
     ['KERNEL', 'C freestanding / IRQ / heap / VFS / IPC'],
+    ['NEURO PATH', 'event fabric / SNN runtime (research)'],
     ['CRYPTO CORE', 'Rust no_std / ML-KEM / ChaCha20 / SHA3'],
     ['BOOT', 'NASM / Multiboot2 / x86_64 long mode'],
   ];
@@ -821,25 +1284,50 @@ function ArchitectureDiagram() {
   );
 }
 
-function RXOS() {
+function RXOS({ navigate }) {
   return (
     <>
       <PageHero
-        index="02"
-        eyebrow="RX OS / EXPERIMENTAL SYSTEMS"
-        title={<>A LABORATORY<br />THAT BOOTS.</>}
-        text="RX OS es una base bare-metal x86_64 construida para explorar un entorno científico mínimo, verificable y soberano. El sistema actual es un prototipo técnico, no un reemplazo de Linux ni un producto de producción."
+        index="04"
+        eyebrow="RX OS / DESKTOP + NEUROMORPHIC KERNEL"
+        title={<>A LABORATORY<br />THAT BOOTS.<br />A KERNEL THAT SPIKES.</>}
+        text="rxOS Desktop Experience es la superficie bare-metal closed-source. El Neuromorphic Kernel es la línea open source: event fabric, ring buffers y runtime SNN. El build público actual es un prototipo técnico, no un reemplazo de Linux."
         image="/rxos/boot-banner.png"
       >
         <div className="hero-tags">
-          <span>NASM</span><span>C FREESTANDING</span><span>RUST NO_STD</span><span>QEMU</span><span>GRUB / MULTIBOOT2</span>
+          <span>NASM</span><span>C FREESTANDING</span><span>RUST NO_STD</span><span>QEMU</span><span>SNN ROADMAP</span>
         </div>
       </PageHero>
 
       <main>
         <section className="section wrap">
           <SectionTitle
-            code="01 / FOUNDATION"
+            code="01 / TWO SURFACES"
+            title="DESKTOP CLOSED · KERNEL OPEN"
+            text="Misma base de ingeniería. Contratos de licencia distintos bajo Knights Labs."
+          />
+          <div className="edition-grid">
+            <article className="edition-card" data-reveal>
+              <span>01 / DESKTOP EXPERIENCE</span>
+              <h3>CLOSED SOURCE.<br />BOOTABLE LAB.</h3>
+              <p>Experiencia de escritorio x86-64 para investigación local: shell, RXFS, capturas reales en QEMU y superficie mínima verificable.</p>
+              <div className="tag-row"><span>CLOSED</span><span>x86-64</span><span>PUBLIC TEST BUILD</span></div>
+            </article>
+            <article className="edition-card edition-dark" data-reveal>
+              <span>02 / NEUROMORPHIC KERNEL</span>
+              <h3>OPEN SOURCE.<br />EVENT-DRIVEN.</h3>
+              <p>Kernel orientado a spikes, STDP y telemetría de eventos. Objetivo: latencia sub-ms y footprint &lt;64 MB en el path crítico.</p>
+              <div className="tag-row"><span>OPEN</span><span>SNN</span><span>DEC 2026 TARGET</span></div>
+              <button className="text-link" onClick={() => navigate('/architecture')} style={{ marginTop: 18 }}>
+                READ ARCHITECTURE <ArrowUpRight size={15} />
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <SectionTitle
+            code="02 / FOUNDATION"
             title="RXos v4.1.1"
             text="La arquitectura documenta cada subsistema como IMPLEMENTED, PARTIAL, STUB o TODO. Esa honestidad forma parte del diseño."
           />
@@ -855,30 +1343,30 @@ function RXOS() {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="02 / REAL CAPTURES"
+              code="03 / REAL CAPTURES"
               title="THE SYSTEM, RUNNING IN QEMU"
-              text="Estas capturas proceden de RXos v4.1.1 ejecutándose realmente. No son mockups ni renders: muestran el arranque verificado, el escritorio clickable y la vista de estado del sistema."
+              text="Capturas de RXos v4.1.1 ejecutándose realmente. No son mockups."
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
                 <img src="/rxos/boot-banner.png" alt="RXos v4.1.1 real boot banner and first-run pseudonym setup in QEMU" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 01</span>
-                  <div><strong>VERIFIED BOOT + FIRST-RUN SETUP</strong><p>Cada OK se imprime después de comprobar la etapa correspondiente. La pantalla termina en el setup de pseudónimo ligado al UID del hardware virtual.</p></div>
+                  <div><strong>VERIFIED BOOT + FIRST-RUN SETUP</strong><p>Cada OK se imprime después de comprobar la etapa correspondiente.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
                 <img src="/rxos/desktop-home.png" alt="RXos v4.1.1 real clickable desktop home screen in QEMU" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 02</span>
-                  <div><strong>CLICKABLE DESKTOP HOME</strong><p>Navegación lateral, tiles de sistema, cuenta local, editor, ajustes y rutas rgx:// servidas por el runtime actual.</p></div>
+                  <div><strong>CLICKABLE DESKTOP HOME</strong><p>Navegación lateral, tiles de sistema y rutas rgx:// del runtime actual.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
                 <img src="/rxos/shell-status.png" alt="RXos v4.1.1 real terminal status view in QEMU" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 03</span>
-                  <div><strong>STATUS VIEW: IMPLEMENTED / STUB / TODO</strong><p>La propia interfaz distingue subsistemas operativos de superficies reservadas y funciones todavía pendientes.</p></div>
+                  <div><strong>STATUS VIEW: IMPLEMENTED / STUB / TODO</strong><p>La interfaz distingue subsistemas operativos de superficies reservadas.</p></div>
                 </figcaption>
               </figure>
             </div>
@@ -887,9 +1375,9 @@ function RXOS() {
 
         <section className="section wrap rxos-download-section">
           <SectionTitle
-            code="03 / PUBLIC TEST BUILD"
+            code="04 / PUBLIC TEST BUILD"
             title="DOWNLOAD RXos v4.1.1"
-            text="Paquete oficial para pruebas locales. Incluye la ISO arrancable, README técnico y las tres capturas reales. QEMU es la vía recomendada y más segura para evaluarlo."
+            text="Paquete oficial para pruebas locales. Incluye la ISO arrancable, README técnico y capturas reales. QEMU es la vía recomendada."
           />
           <div className="rxos-download-layout">
             <article className="download-card" data-reveal>
@@ -912,7 +1400,7 @@ function RXOS() {
             <article className="qemu-guide" data-reveal>
               <span className="panel-label">QUICKSTART / QEMU</span>
               <h3>RUN WITHOUT INSTALLING RXos ON YOUR MACHINE.</h3>
-              <p>Instala QEMU, descomprime el paquete en una carpeta nueva y arranca la ISO. La opción <code>-serial stdio</code> refleja el log de arranque en tu terminal.</p>
+              <p>Instala QEMU, descomprime el paquete y arranca la ISO. La opción <code>-serial stdio</code> refleja el log de arranque.</p>
               <div className="platform-install">
                 <div><span>macOS</span><code>brew install qemu</code></div>
                 <div><span>Fedora</span><code>sudo dnf install qemu-system-x86-core</code></div>
@@ -944,14 +1432,14 @@ save`}</code></pre>
               </details>
             </article>
           </div>
-          <p className="download-boundary" data-reveal><AlertTriangle size={17} /> Experimental research build. Run it in a virtual machine first. The download is provided for inspection, education and reproducible testing, without warranty.</p>
+          <p className="download-boundary" data-reveal><AlertTriangle size={17} /> Experimental research build. Run it in a virtual machine first. Provided for inspection, education and reproducible testing, without warranty.</p>
         </section>
 
         <section className="section wrap">
           <SectionTitle
-            code="04 / ARCHITECTURE"
-            title="DE BOOT.ASM A LA INTERFAZ"
-            text="Una pila pequeña, legible y separada por capas."
+            code="05 / ARCHITECTURE"
+            title="DE BOOT.ASM AL PATH NEUROMÓRFICO"
+            text="Pila actual del Desktop más la capa de investigación SNN."
           />
           <ArchitectureDiagram />
         </section>
@@ -959,9 +1447,9 @@ save`}</code></pre>
         <section className="section rx-state-section">
           <div className="wrap">
             <SectionTitle
-              code="05 / ENGINEERING STATUS"
+              code="06 / ENGINEERING STATUS"
               title="WHAT WORKS — AND WHAT DOES NOT"
-              text="El release y su README mantienen una separación explícita entre implementación verificada, superficies STUB y roadmap."
+              text="Separación explícita entre implementación verificada y roadmap."
             />
           </div>
           <div className="wrap rx-state-grid">
@@ -976,48 +1464,29 @@ save`}</code></pre>
           </div>
         </section>
 
-        <section className="section wrap">
-          <SectionTitle
-            code="06 / EDITIONS"
-            title="DOS DIRECCIONES DE PRODUCTO"
-            text="Estas ediciones son visión de diseño sobre la misma base técnica; no se presentan como releases terminadas."
-          />
-          <div className="edition-grid">
-            <article className="edition-card" data-reveal>
-              <span>01 / CONSCIENCE</span>
-              <h3>LAB-FIRST.<br />TERMINAL-FIRST.</h3>
-              <p>Edición mínima para investigación, código, Python y trabajo multiterminal. Sin escritorio convencional; acceso explícito a WWW y, en el futuro, RXwired.</p>
-              <div className="tag-row"><span>MINIMAL</span><span>AMNESIC DEFAULT</span><span>RESEARCH</span></div>
-            </article>
-            <article className="edition-card edition-dark" data-reveal>
-              <span>02 / ENTERPRISE</span>
-              <h3>ONE SYSTEM.<br />ONE SURFACE.</h3>
-              <p>Edición gráfica centrada en RXbrowser como aplicación principal, herramientas firmadas y una experiencia consistente sobre hardware controlado.</p>
-              <div className="tag-row"><span>GUI</span><span>RXBROWSER</span><span>SIGNED APPS</span></div>
-            </article>
-          </div>
-        </section>
-
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
               code="07 / ROADMAP"
               title="LO QUE CONVIERTE UN PROTOTIPO EN SISTEMA"
-              text="La prioridad no es añadir efectos visuales. Es construir aislamiento, drivers y verificaciones."
+              text="Prioridad: aislamiento, drivers, red y runtime neuromórfico — no efectos visuales."
             />
             <div className="rx-roadmap">
               {[
                 ['01', 'HARDWARE', 'UEFI nativo, storage moderno, más dispositivos de entrada y backend gráfico más robusto.'],
                 ['02', 'ISOLATION', 'Scheduler, procesos, syscalls, separación user/kernel y modelo de permisos.'],
                 ['03', 'NETWORK', 'Driver NIC, transporte RXwired, resolución rgx:// remota y threat model actualizado.'],
-                ['04', 'TRUST', 'Apps firmadas, actualización reproducible, auditoría criptográfica y cadena de build verificable.'],
-                ['05', 'LAB RUNTIME', 'PRISMA, herramientas de señal y experimentos empaquetados como flujos reproducibles.'],
+                ['04', 'NEUROMORPHIC', 'Event fabric, delta mod, SNN LIF/STDP y telemetría de spikes en el kernel open.'],
+                ['05', 'TRUST', 'Apps firmadas, actualización reproducible, auditoría criptográfica y cadena de build verificable.'],
+                ['06', 'LAB RUNTIME', 'PRISMA 5 empaquetado como flujo reproducible sobre rxOS.'],
               ].map(([number, title, text]) => (
                 <article key={number} data-reveal><span>{number}</span><h3>{title}</h3><p>{text}</p></article>
               ))}
             </div>
           </div>
         </section>
+
+        <CtaBand navigate={navigate} />
       </main>
     </>
   );
@@ -1036,7 +1505,7 @@ function ContactForm() {
 
   const submit = (event) => {
     event.preventDefault();
-    const subject = form.subject || `Contacto desde Rogex Laboratories — ${form.name || 'sin nombre'}`;
+    const subject = form.subject || `Contacto desde Knights Labs / Rogex — ${form.name || 'sin nombre'}`;
     const body = [
       `Nombre: ${form.name || '—'}`,
       `Email: ${form.email || '—'}`,
@@ -1083,15 +1552,15 @@ function ContactForm() {
   );
 }
 
-function About() {
+function About({ navigate }) {
   const projectGroups = useMemo(() => PROJECTS, []);
   return (
     <>
       <PageHero
-        index="03"
-        eyebrow="ABOUT / INDEPENDENT LAB"
-        title={<>BUILT BY HAND.<br />TESTED IN PUBLIC.</>}
-        text="Rogex Laboratories es un laboratorio independiente de software científico y sistemas experimentales fundado por Roger Navarro. El trabajo combina ingeniería, investigación aplicada y documentación técnica."
+        index="05"
+        eyebrow="ABOUT / KNIGHTS LABS"
+        title={<>BUILT BY HAND.<br />SHIPPED AS LAB.<br />OPEN WHERE IT MATTERS.</>}
+        text="Knights Labs es el marco de producto de Rogex Laboratories: neurotecnología de bajo carbono, software EEG reproducible y un kernel neuromórfico abierto. Fundado por Roger Navarro."
         image="/about-workbench.svg"
       />
 
@@ -1100,12 +1569,13 @@ function About() {
           <div className="about-profile" data-reveal>
             <span>FOUNDER / RESEARCH SOFTWARE DEVELOPER</span>
             <h2>ROGER NAVARRO</h2>
-            <p>Desarrollador independiente centrado en EEG, procesamiento de señal, Linux, sistemas bare-metal, herramientas defensivas y productos experimentales. El objetivo de Rogex no es aparentar una gran institución: es convertir trabajo real, documentación y colaboración en una institución con el tiempo.</p>
+            <p>Desarrollador independiente centrado en EEG, procesamiento de señal, sistemas bare-metal, SNNs y herramientas defensivas. El objetivo no es aparentar una gran institución: es convertir trabajo real, documentación y colaboración en una institución con el tiempo.</p>
           </div>
           <div className="about-principles" data-reveal>
             <div><span>01</span><strong>BUILD</strong><p>Prototipos que arrancan, ejecutan y generan resultados inspeccionables.</p></div>
             <div><span>02</span><strong>MEASURE</strong><p>Métricas acompañadas por el régimen experimental y sus límites.</p></div>
-            <div><span>03</span><strong>DOCUMENT</strong><p>Arquitectura, comandos, fallos, resultados negativos y roadmap.</p></div>
+            <div><span>03</span><strong>DOCUMENT</strong><p>Arquitectura, fallos, resultados negativos y roadmap públicos.</p></div>
+            <div><span>04</span><strong>OPEN / LICENSE</strong><p>Kernel neuromórfico open; Pro y OEM financian acceso e investigación.</p></div>
           </div>
         </section>
 
@@ -1114,7 +1584,7 @@ function About() {
             <SectionTitle
               code="01 / SKILLS"
               title="TECHNICAL RANGE"
-              text="Una lista de herramientas utilizadas en proyectos del laboratorio; no sustituye experiencia institucional ni certificaciones que no existan."
+              text="Herramientas usadas en proyectos del laboratorio; no sustituye experiencia institucional ni certificaciones inexistentes."
             />
             <div className="skill-cloud" data-reveal>
               {SKILLS.map((skill, index) => <span style={{ '--i': index }} key={skill}>{skill}</span>)}
@@ -1126,7 +1596,7 @@ function About() {
           <SectionTitle
             code="02 / PROJECTS"
             title="OTHER WORK"
-            text="Proyectos de software que muestran distintas capas del stack. Se describen aquí sin enlaces directos a repositorios."
+            text="Proyectos de software en distintas capas del stack."
           />
           <div className="project-grid">
             {projectGroups.map((project, index) => (
@@ -1145,7 +1615,7 @@ function About() {
             <SectionTitle
               code="03 / VIDEO / DEFENSIVE SECURITY"
               title="ROGEX GASLIGHT — DEMONSTRATION"
-              text="Vídeo técnico del framework experimental de defensa, engaño y observabilidad. Documenta el proyecto como herramienta defensiva; no se presenta como framework ofensivo ni como sistema de explotación."
+              text="Framework experimental de defensa, engaño y observabilidad. No se presenta como herramienta ofensiva."
             />
             <div className="video-layout gaslight-video-layout">
               <div className="video-frame" data-reveal>
@@ -1161,7 +1631,7 @@ function About() {
               <aside className="video-note" data-reveal>
                 <span className="panel-label">PROJECT RECORD / REAL DEMO</span>
                 <h3>DECEPTION AS A DEFENSIVE SENSOR.</h3>
-                <p>Rogex Gaslight explora superficies señuelo, perfiles modulares, eventos y reportes para observar automatización hostil y mejorar la respuesta defensiva. El vídeo muestra una fase concreta del desarrollo y puede quedar desactualizado respecto a builds posteriores.</p>
+                <p>Superficies señuelo, perfiles modulares, eventos y reportes para observar automatización hostil.</p>
                 <div className="tag-row gaslight-video-tags"><span>PYTHON</span><span>LINUX</span><span>YAML</span><span>TELEMETRY</span><span>DEFENSIVE ONLY</span></div>
                 <a className="archive-video-link" href="https://youtu.be/ToIAxNt07y0" target="_blank" rel="noreferrer">OPEN ON YOUTUBE <ArrowUpRight size={16} /></a>
               </aside>
@@ -1169,17 +1639,19 @@ function About() {
           </div>
         </section>
 
+        <CtaBand navigate={navigate} />
+
         <section className="section contact-section" id="contact">
           <div className="wrap">
             <SectionTitle
               code="04 / CONTACT"
               title="WRITE TO THE LAB"
-              text="Colaboración científica, revisión técnica, hardware, trabajo, prensa o propuestas de proyecto."
+              text="Colaboración científica, revisión técnica, hardware OEM, trabajo, prensa o propuestas de proyecto."
             />
             <div className="contact-layout">
               <div className="contact-addresses" data-reveal>
                 <a href="mailto:roger@rogexlaboratories.com">
-                  <span>BUSINESS</span>
+                  <span>BUSINESS / OEM</span>
                   <strong>roger@rogexlaboratories.com</strong>
                   <Mail size={22} />
                 </a>
@@ -1190,7 +1662,7 @@ function About() {
                 </a>
                 <div className="contact-note">
                   <CircleDot size={18} />
-                  <p>Para investigación, incluye dataset, paradigma, formato de archivos y objetivo de evaluación. Para software, incluye entorno, versión y pasos de reproducción.</p>
+                  <p>Para investigación, incluye dataset, paradigma y objetivo de evaluación. Para OEM, hardware target y volumen. Para kernel, entorno y pasos de reproducción.</p>
                 </div>
               </div>
               <ContactForm />
@@ -1207,8 +1679,8 @@ function Footer({ navigate }) {
     <footer className="footer">
       <div className="wrap footer-main">
         <div>
-          <button className="footer-wordmark" onClick={() => navigate('/')}>ROGEX<br />LABORATORIES</button>
-          <p>Independent research software and experimental systems.</p>
+          <button className="footer-wordmark" onClick={() => navigate('/')}>KNIGHTS<br />LABS</button>
+          <p>Rogex Laboratories · low-carbon neurotech, EEG research software and neuromorphic systems.</p>
         </div>
         <div className="footer-nav">
           {NAV_ITEMS.map(([href, label]) => <button key={href} onClick={() => navigate(href)}>{label}</button>)}
@@ -1218,8 +1690,8 @@ function Footer({ navigate }) {
         </div>
       </div>
       <div className="wrap footer-bottom">
-        <span>© 2026 ROGEX LABORATORIES. ALL RIGHTS RESERVED.</span>
-        <span>PRISMA IS EXPERIMENTAL, NON-CLINICAL RESEARCH SOFTWARE.</span>
+        <span>© 2026 KNIGHTS LABS / ROGEX LABORATORIES. ALL RIGHTS RESERVED.</span>
+        <span>PRISMA IS EXPERIMENTAL, NON-CLINICAL RESEARCH SOFTWARE. LAUNCH TARGET DEC 2026.</span>
       </div>
     </footer>
   );
@@ -1241,19 +1713,23 @@ function App() {
 
   useEffect(() => {
     const titles = {
-      '/': 'Rogex Laboratories — Open Research',
-      '/prisma': 'PRISMA 3.2 — Rogex Laboratories',
-      '/rx-os': 'RX OS — Rogex Laboratories',
-      '/about': 'About — Rogex Laboratories',
+      '/': 'Knights Labs — Rogex Laboratories',
+      '/suite': 'Product Suite — Knights Labs',
+      '/architecture': 'Architecture — Knights Labs',
+      '/prisma': 'PRISMA 3.2 & 5 — Knights Labs',
+      '/rx-os': 'rxOS Desktop & Kernel — Knights Labs',
+      '/about': 'About — Knights Labs / Rogex',
     };
-    document.title = titles[path] || 'Rogex Laboratories';
+    document.title = titles[path] || 'Knights Labs';
   }, [path]);
 
   let page = <NotFound navigate={navigate} />;
   if (path === '/') page = <Home navigate={navigate} />;
-  if (path === '/prisma') page = <Prisma />;
-  if (path === '/rx-os' || path === '/rogexos') page = <RXOS />;
-  if (path === '/about') page = <About />;
+  if (path === '/suite') page = <Suite navigate={navigate} />;
+  if (path === '/architecture') page = <Architecture navigate={navigate} />;
+  if (path === '/prisma') page = <Prisma navigate={navigate} />;
+  if (path === '/rx-os' || path === '/rogexos') page = <RXOS navigate={navigate} />;
+  if (path === '/about') page = <About navigate={navigate} />;
 
   return (
     <>

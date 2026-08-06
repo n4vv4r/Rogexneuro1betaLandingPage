@@ -291,6 +291,146 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .section { padding: clamp(90px, 10vw, 150px) 0; border-bottom: 1.5px solid var(--ink); }
 .section-black { background: var(--black); color: var(--white); border-color: var(--paper); }
 
+/* Contrast fix: force light type on dark surfaces (overrides ink-soft rules) */
+.section-black,
+.black-panel,
+.suite-card-dark,
+.suite-card-accent,
+.prisma-product-card-dark,
+.edition-dark,
+.track-card.inverted,
+.cta-band,
+.rx-window,
+.page-hero {
+  color: var(--paper);
+}
+
+.section-black h1,
+.section-black h2,
+.section-black h3,
+.section-black p,
+.section-black li,
+.section-black strong,
+.section-black .section-title h2,
+.section-black .section-title p,
+.section-black .method-card h3,
+.section-black .method-card p,
+.section-black .check-list li,
+.section-black .audience-row,
+.section-black .dataset-row:not(.dataset-head),
+.section-black .roadmap-item h3,
+.section-black .roadmap-year,
+.section-black .roadmap-item p,
+.section-black .architecture-layer,
+.section-black .architecture-layer strong,
+.section-black .architecture-layer p,
+.section-black .arch-detail,
+.section-black .cta-card h3,
+.section-black .cta-card p,
+.section-black .formula-card h3,
+.section-black .formula-card p,
+.section-black .prisma5-card h3,
+.section-black .prisma5-card p,
+.section-black .open-closed-grid h3,
+.section-black .open-closed-grid li,
+.section-black .rx-roadmap h3,
+.section-black .rx-roadmap p,
+.section-black .video-note h3,
+.section-black .video-note p,
+.black-panel h3,
+.black-panel p,
+.black-panel li,
+.suite-card-dark h3,
+.suite-card-dark p,
+.suite-card-dark .suite-tier,
+.suite-card-accent h3,
+.suite-card-accent p,
+.suite-card-accent .suite-tier,
+.prisma-product-card-dark h3,
+.prisma-product-card-dark p,
+.prisma-product-card-dark li,
+.prisma-product-card-dark .prisma-product-version,
+.prisma-product-card-dark .prisma-product-tagline,
+.prisma-product-card-dark .prisma-product-desc,
+.prisma-product-card-dark .prisma-product-note,
+.edition-dark h3,
+.edition-dark p,
+.track-card.inverted h3,
+.track-card.inverted p {
+  color: var(--paper);
+}
+
+.section-black .section-title p,
+.section-black .method-card p,
+.section-black .check-list li,
+.section-black .audience-row,
+.section-black .dataset-row:not(.dataset-head),
+.section-black .roadmap-item p,
+.section-black .architecture-layer p,
+.section-black .cta-card p,
+.section-black .formula-card p,
+.section-black .prisma5-card p,
+.section-black .rx-roadmap p,
+.section-black .video-note p,
+.black-panel .check-list li,
+.black-panel .cross-list li,
+.suite-card-dark p,
+.suite-card-accent p,
+.prisma-product-card-dark .prisma-product-desc,
+.prisma-product-card-dark .prisma-product-features li,
+.prisma-product-card-dark .prisma-product-note,
+.edition-dark p {
+  color: rgba(255, 254, 248, 0.78);
+}
+
+.section-black .section-title > span,
+.section-black .panel-label,
+.section-black .method-card svg,
+.section-black .architecture-layer > span,
+.section-black .roadmap-item div:nth-child(3) span,
+.black-panel .panel-label {
+  color: var(--accent);
+}
+
+.section-black .dataset-head,
+.section-black .dataset-head span {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.section-black .brutal-button:not(:disabled):not(.primary) {
+  color: var(--paper);
+  border-color: rgba(255, 254, 248, 0.65);
+}
+
+.section-black .brutal-button.primary {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* Light cards nested inside dark sections keep dark text */
+.section-black .suite-card-paper,
+.section-black .suite-card-paper h3,
+.section-black .suite-card-paper p,
+.section-black .suite-card-paper .suite-tier,
+.section-black .suite-card-paper .status-badge,
+.section-black .suite-card-acid,
+.section-black .suite-card-acid h3,
+.section-black .suite-card-acid p,
+.section-black .suite-card-acid .suite-tier {
+  color: var(--ink);
+}
+
+.section-black .suite-card-paper p,
+.section-black .suite-card-acid p {
+  color: var(--ink-soft);
+}
+
+.section-black .suite-card-paper .status-badge,
+.section-black .suite-card-acid .status-badge {
+  color: var(--accent);
+}
+
 .section-title {
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr) minmax(260px, 460px);
@@ -306,7 +446,6 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
   letter-spacing: -.065em;
 }
 .section-title p { font-size: 14px; line-height: 1.72; color: var(--ink-soft); padding-top: 8px; }
-.section-black .section-title p { color: rgba(255,255,255,.66); }
 
 [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 600ms ease var(--delay, 0ms), transform 600ms cubic-bezier(.2,.7,.1,1) var(--delay, 0ms); }
 [data-reveal].is-visible { opacity: 1; transform: none; }
@@ -833,6 +972,18 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
   color: rgba(255,255,255,.85);
 }
 .suite-card-acid .status-badge { border-color: var(--ink); }
+.suite-card-dark .text-link,
+.suite-card-accent .text-link,
+.edition-dark .text-link,
+.section-black .text-link {
+  color: var(--paper);
+  border-bottom-color: rgba(255, 254, 248, 0.75);
+}
+.section-black .suite-card-paper .text-link,
+.section-black .suite-card-acid .text-link {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
 
 .mini-arch {
   display: grid;

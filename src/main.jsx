@@ -499,7 +499,13 @@ function Header({ path, navigate }) {
     <header className="site-header">
       <div className="nav-shell">
         <button className="wordmark" onClick={() => navigate('/')} aria-label="Knights Labs / Rogex Laboratories home">
-          <span className="wordmark-rx">KL</span>
+          <img
+            className="wordmark-knights"
+            src="/knightslabs_logo.png"
+            alt="Knights Labs"
+            width={36}
+            height={36}
+          />
           <span className="wordmark-stack">
             <strong>KNIGHTS LABS</strong>
             <em>ROGEX LABORATORIES</em>
@@ -1834,7 +1840,10 @@ function Footer({ navigate }) {
     <footer className="footer">
       <div className="wrap footer-main">
         <div>
-          <button className="footer-wordmark" onClick={() => navigate('/')}>KNIGHTS<br />LABS</button>
+          <button className="footer-brand" onClick={() => navigate('/')} aria-label="Knights Labs home">
+            <img className="footer-knights-logo" src="/knightslabs_logo.png" alt="Knights Labs" width={48} height={48} />
+            <span className="footer-wordmark">KNIGHTS<br />LABS</span>
+          </button>
           <p>Rogex Laboratories · low-carbon neurotech, EEG research software and neuromorphic systems.</p>
         </div>
         <div className="footer-nav">

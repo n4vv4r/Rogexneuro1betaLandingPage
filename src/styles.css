@@ -51,6 +51,7 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 
 .wordmark,
 .footer-wordmark,
+.footer-brand,
 .nav-link,
 .menu-toggle,
 .track-card,
@@ -83,6 +84,16 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
   letter-spacing: -0.08em;
   font-size: 11px;
   font-weight: 800;
+}
+
+.wordmark-knights {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  flex: 0 0 auto;
+  display: block;
 }
 
 .wordmark-stack {
@@ -699,6 +710,27 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 
 .footer { background: var(--black); color: var(--paper); padding: 72px 0 24px; }
 .footer-main { display: grid; grid-template-columns: 1fr auto auto; gap: 50px; align-items: end; padding-bottom: 60px; }
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--paper);
+  padding: 0;
+  text-align: left;
+}
+.footer-knights-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 1.5px solid rgba(255, 254, 248, 0.55);
+  flex: 0 0 auto;
+  display: block;
+  background: var(--black);
+}
 .footer-wordmark { color: var(--paper); text-align: left; font-family: var(--script); font-size: clamp(32px, 4vw, 58px); line-height: .85; letter-spacing: -.07em; }
 .footer-main p { margin-top: 18px; font-size: 10px; color: rgba(255,255,255,.55); }
 .footer-nav { display: grid; gap: 10px; }

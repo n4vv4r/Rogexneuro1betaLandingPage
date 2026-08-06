@@ -4,7 +4,7 @@
   "version": "0.4.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node tools/inject-rxos-og.mjs",
     "preview": "vite preview",
     "dev:vercel": "vercel dev"
   },

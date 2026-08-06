@@ -849,8 +849,53 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 }
 
 /* RXos v4.1.1 real media + public test build */
+.rxos-principal-section { background: var(--paper-2); }
+.rxos-principal-shot {
+  margin: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--black);
+  overflow: hidden;
+}
+.rxos-principal-shot img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: none;
+}
+.rxos-principal-shot figcaption {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  color: var(--paper);
+  border-top: 1px solid rgba(255, 254, 248, 0.28);
+}
+.rxos-principal-shot figcaption > span {
+  flex: 0 0 auto;
+  color: var(--acid);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding-top: 2px;
+}
+.rxos-principal-shot figcaption strong {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.rxos-principal-shot figcaption p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.65;
+  color: rgba(255, 254, 248, 0.72);
+}
+
 .rxos-capture-grid .scientific-capture { border-color: rgba(255,255,255,.55); }
-.rxos-capture-grid .scientific-capture img { image-rendering: auto; }
+.rxos-capture-grid .scientific-capture img { image-rendering: auto; object-fit: cover; }
 .rxos-download-section { background: var(--paper-2); }
 .rxos-download-layout {
   display: grid;

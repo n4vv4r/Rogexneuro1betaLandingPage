@@ -3,8 +3,8 @@
     { "source": "/suite", "destination": "/index.html" },
     { "source": "/architecture", "destination": "/index.html" },
     { "source": "/prisma", "destination": "/index.html" },
-    { "source": "/rx-os", "destination": "/index.html" },
-    { "source": "/rogexos", "destination": "/index.html" },
+    { "source": "/rx-os", "destination": "/rx-os.html" },
+    { "source": "/rogexos", "destination": "/rx-os.html" },
     { "source": "/about", "destination": "/index.html" }
   ],
   "headers": [

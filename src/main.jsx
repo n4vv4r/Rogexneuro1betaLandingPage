@@ -1445,6 +1445,9 @@ function ArchitectureDiagram() {
   );
 }
 
+const RXOS_HERO_IMAGE = '/rxos/pc_with_rxos_installed.jpg';
+const RXOS_OG_IMAGE = 'https://www.rogexlaboratories.com/rxos/pc_with_rxos_installed.jpg';
+
 function RXOS({ navigate }) {
   return (
     <>
@@ -1453,7 +1456,7 @@ function RXOS({ navigate }) {
         eyebrow="RX OS / DESKTOP + NEUROMORPHIC KERNEL"
         title={<>A LABORATORY<br />THAT BOOTS.<br />A KERNEL THAT SPIKES.</>}
         text="rxOS Desktop Experience es la superficie bare-metal closed-source. El Neuromorphic Kernel es la línea open source: event fabric, ring buffers y runtime SNN. El build público actual es un prototipo técnico, no un reemplazo de Linux."
-        image="/rxos/boot-banner.png"
+        image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
           <span>NASM</span><span>C FREESTANDING</span><span>RUST NO_STD</span><span>QEMU</span><span>SNN ROADMAP</span>
@@ -1461,9 +1464,34 @@ function RXOS({ navigate }) {
       </PageHero>
 
       <main>
+        <section className="section wrap rxos-principal-section">
+          <SectionTitle
+            code="01 / HARDWARE"
+            title="rxOS ON REAL HARDWARE"
+            text="Imagen principal del sistema instalado en PC. El laboratorio no es solo QEMU: arranca en metal."
+          />
+          <figure className="rxos-principal-shot" data-reveal>
+            <img
+              src={RXOS_HERO_IMAGE}
+              alt="PC with rxOS installed — bare-metal desktop experience"
+              width={1600}
+              height={1200}
+              loading="eager"
+              fetchPriority="high"
+            />
+            <figcaption>
+              <span>PRINCIPAL</span>
+              <div>
+                <strong>PC WITH rxOS INSTALLED</strong>
+                <p>Hardware real con rxOS Desktop Experience. Build experimental bare-metal x86-64.</p>
+              </div>
+            </figcaption>
+          </figure>
+        </section>
+
         <section className="section wrap">
           <SectionTitle
-            code="01 / TWO SURFACES"
+            code="02 / TWO SURFACES"
             title="DESKTOP CLOSED · KERNEL OPEN"
             text="Misma base de ingeniería. Contratos de licencia distintos bajo Knights Labs."
           />
@@ -1488,7 +1516,7 @@ function RXOS({ navigate }) {
 
         <section className="section wrap">
           <SectionTitle
-            code="02 / FOUNDATION"
+            code="03 / FOUNDATION"
             title="RXos v4.1.1"
             text="La arquitectura documenta cada subsistema como IMPLEMENTED, PARTIAL, STUB o TODO. Esa honestidad forma parte del diseño."
           />
@@ -1504,12 +1532,19 @@ function RXOS({ navigate }) {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="03 / REAL CAPTURES"
+              code="04 / REAL CAPTURES"
               title="THE SYSTEM, RUNNING IN QEMU"
               text="Capturas de RXos v4.1.1 ejecutándose realmente. No son mockups."
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
+                <img src={RXOS_HERO_IMAGE} alt="PC with rxOS installed — principal hardware photo" loading="lazy" />
+                <figcaption className="capture-caption">
+                  <span>REAL / 00</span>
+                  <div><strong>PC WITH rxOS INSTALLED</strong><p>Imagen principal de la página: sistema en hardware real, no solo emulación.</p></div>
+                </figcaption>
+              </figure>
+              <figure className="screenshot scientific-capture" data-reveal>
                 <img src="/rxos/boot-banner.png" alt="RXos v4.1.1 real boot banner and first-run pseudonym setup in QEMU" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 01</span>
@@ -1536,7 +1571,7 @@ function RXOS({ navigate }) {
 
         <section className="section wrap rxos-download-section">
           <SectionTitle
-            code="04 / PUBLIC TEST BUILD"
+            code="05 / PUBLIC TEST BUILD"
             title="DOWNLOAD RXos v4.1.1"
             text="Paquete oficial para pruebas locales. Incluye la ISO arrancable, README técnico y capturas reales. QEMU es la vía recomendada."
           />
@@ -1598,7 +1633,7 @@ save`}</code></pre>
 
         <section className="section wrap">
           <SectionTitle
-            code="05 / ARCHITECTURE"
+            code="06 / ARCHITECTURE"
             title="DE BOOT.ASM AL PATH NEUROMÓRFICO"
             text="Pila actual del Desktop más la capa de investigación SNN."
           />
@@ -1608,7 +1643,7 @@ save`}</code></pre>
         <section className="section rx-state-section">
           <div className="wrap">
             <SectionTitle
-              code="06 / ENGINEERING STATUS"
+              code="07 / ENGINEERING STATUS"
               title="WHAT WORKS — AND WHAT DOES NOT"
               text="Separación explícita entre implementación verificada y roadmap."
             />
@@ -1628,7 +1663,7 @@ save`}</code></pre>
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="07 / ROADMAP"
+              code="08 / ROADMAP"
               title="LO QUE CONVIERTE UN PROTOTIPO EN SISTEMA"
               text="Prioridad: aislamiento, drivers, red y runtime neuromórfico — no efectos visuales."
             />
@@ -1871,20 +1906,127 @@ function NotFound({ navigate }) {
   );
 }
 
+function setMetaTag(attr, key, value) {
+  if (!value) return;
+  let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', value);
+}
+
+function setCanonical(url) {
+  let el = document.head.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement('link');
+    el.setAttribute('rel', 'canonical');
+    document.head.appendChild(el);
+  }
+  el.setAttribute('href', url);
+}
+
+const DEFAULT_OG = {
+  title: 'Knights Labs — Rogex Laboratories',
+  description: 'Low-carbon neurotech suite: PRISMA 3/5, rxOS Desktop and open neuromorphic kernel for developers, researchers and OEM integrators.',
+  image: 'https://www.rogexlaboratories.com/knightslabs_logo.png',
+  imageType: 'image/png',
+  imageWidth: '1200',
+  imageHeight: '1200',
+  imageAlt: 'Knights Labs logo',
+  url: 'https://www.rogexlaboratories.com/',
+};
+
+const ROUTE_META = {
+  '/': { ...DEFAULT_OG },
+  '/suite': {
+    title: 'Product Suite — Knights Labs',
+    description: 'rxOS Desktop, neuromorphic kernel, PRISMA 3 and PRISMA 5. Licensing layers for developers, researchers and OEM.',
+    image: DEFAULT_OG.image,
+    imageType: 'image/png',
+    imageWidth: '1200',
+    imageHeight: '1200',
+    imageAlt: 'Knights Labs logo',
+    url: 'https://www.rogexlaboratories.com/suite',
+  },
+  '/architecture': {
+    title: 'Architecture — Knights Labs',
+    description: 'From raw EEG to spike trains: SPSC rings, delta modulation, LIF/STDP and lightweight telemetry UI.',
+    image: DEFAULT_OG.image,
+    imageType: 'image/png',
+    imageWidth: '1200',
+    imageHeight: '1200',
+    imageAlt: 'Knights Labs logo',
+    url: 'https://www.rogexlaboratories.com/architecture',
+  },
+  '/prisma': {
+    title: 'PRISMA 3.2 & 5 — Knights Labs',
+    description: 'Experimental EEG research software and neuromorphic SNN engine. Non-clinical. Coming-soon public downloads.',
+    image: 'https://www.rogexlaboratories.com/rogexlaboratories_logo.png',
+    imageType: 'image/png',
+    imageWidth: '1080',
+    imageHeight: '1080',
+    imageAlt: 'Rogex Laboratories logo',
+    url: 'https://www.rogexlaboratories.com/prisma',
+  },
+  '/rx-os': {
+    title: 'rxOS Desktop & Kernel — Knights Labs',
+    description: 'Bare-metal x86-64 lab OS: Desktop Experience and open neuromorphic kernel. Real hardware install and public QEMU test build.',
+    image: RXOS_OG_IMAGE,
+    imageType: 'image/jpeg',
+    imageWidth: '1600',
+    imageHeight: '1200',
+    imageAlt: 'PC with rxOS installed',
+    url: 'https://www.rogexlaboratories.com/rx-os',
+  },
+  '/rogexos': {
+    title: 'rxOS Desktop & Kernel — Knights Labs',
+    description: 'Bare-metal x86-64 lab OS: Desktop Experience and open neuromorphic kernel. Real hardware install and public QEMU test build.',
+    image: RXOS_OG_IMAGE,
+    imageType: 'image/jpeg',
+    imageWidth: '1600',
+    imageHeight: '1200',
+    imageAlt: 'PC with rxOS installed',
+    url: 'https://www.rogexlaboratories.com/rx-os',
+  },
+  '/about': {
+    title: 'About — Knights Labs / Rogex',
+    description: 'Independent lab for low-carbon neurotech, EEG software and bare-metal systems. Contact developers, researchers and OEM.',
+    image: DEFAULT_OG.image,
+    imageType: 'image/png',
+    imageWidth: '1200',
+    imageHeight: '1200',
+    imageAlt: 'Knights Labs logo',
+    url: 'https://www.rogexlaboratories.com/about',
+  },
+};
+
 function App() {
   const [path, navigate] = useRoute();
   useReveal();
 
   useEffect(() => {
-    const titles = {
-      '/': 'Knights Labs — Rogex Laboratories',
-      '/suite': 'Product Suite — Knights Labs',
-      '/architecture': 'Architecture — Knights Labs',
-      '/prisma': 'PRISMA 3.2 & 5 — Knights Labs',
-      '/rx-os': 'rxOS Desktop & Kernel — Knights Labs',
-      '/about': 'About — Knights Labs / Rogex',
-    };
-    document.title = titles[path] || 'Knights Labs';
+    const meta = ROUTE_META[path] || DEFAULT_OG;
+    document.title = meta.title;
+    setCanonical(meta.url);
+
+    setMetaTag('name', 'description', meta.description);
+    setMetaTag('property', 'og:type', 'website');
+    setMetaTag('property', 'og:site_name', 'Knights Labs / Rogex Laboratories');
+    setMetaTag('property', 'og:title', meta.title);
+    setMetaTag('property', 'og:description', meta.description);
+    setMetaTag('property', 'og:url', meta.url);
+    setMetaTag('property', 'og:image', meta.image);
+    setMetaTag('property', 'og:image:type', meta.imageType);
+    setMetaTag('property', 'og:image:width', meta.imageWidth);
+    setMetaTag('property', 'og:image:height', meta.imageHeight);
+    setMetaTag('property', 'og:image:alt', meta.imageAlt);
+    setMetaTag('name', 'twitter:card', 'summary_large_image');
+    setMetaTag('name', 'twitter:title', meta.title);
+    setMetaTag('name', 'twitter:description', meta.description);
+    setMetaTag('name', 'twitter:image', meta.image);
+    setMetaTag('name', 'twitter:image:alt', meta.imageAlt);
   }, [path]);
 
   let page = <NotFound navigate={navigate} />;

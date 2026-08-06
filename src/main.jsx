@@ -488,40 +488,18 @@ const RX_LIMITS = [
 
 const PROJECTS = [
   {
-    name: 'ROGEX WSP',
+    name: 'RGX WSP',
     type: 'SYMBOLIC PROTOCOL',
     text: 'Protocolo experimental información + emoción con salidas en texto, JSON, binario, sonido y glifos.',
     stack: ['Python 3.10+', 'stdlib', 'CLI', 'JSON', 'WAV', 'SVG', 'unittest'],
+    public: false,
   },
   {
-    name: 'ROGEX GASLIGHT',
+    name: 'RGX GASLIGHT',
     type: 'DEFENSIVE SECURITY',
     text: 'Framework defensivo orientado a engaño, telemetría y perfiles modulares para estudiar automatización ofensiva.',
     stack: ['Python', 'Linux', 'YAML', 'CLI', 'HTML reports', 'event intelligence'],
-  },
-  {
-    name: 'NOOLITH',
-    type: 'COGNITIVE MOBILE APP',
-    text: 'Aplicación móvil experimental de ejercicios cognitivos, progreso y entrenamiento breve.',
-    stack: ['Flutter', 'Dart', 'Mobile UI', 'Cross-platform'],
-  },
-  {
-    name: 'LITEBAG',
-    type: 'DESKTOP WALLET DEMO',
-    text: 'Demo de billetera Litecoin de escritorio con interfaz nativa para Linux.',
-    stack: ['Rust', 'GTK4', 'SQLite', 'BlockCypher API', 'Linux'],
-  },
-  {
-    name: 'PHPINS',
-    type: 'SOCIAL WEB DEMO',
-    text: 'Red visual tipo pinboard construida sin framework, con usuarios, publicaciones, comentarios y likes.',
-    stack: ['PHP', 'MySQL', 'HTML5', 'CSS3', 'SQL'],
-  },
-  {
-    name: 'REDUX.TS / KUREI',
-    type: 'DISCORD BOT',
-    text: 'Bot de Discord con comandos slash y por prefijo, utilidades de servidor y recordatorios.',
-    stack: ['TypeScript', 'Node.js', 'Discord.js', 'Yarn', 'dotenv'],
+    public: false,
   },
 ];
 
@@ -530,13 +508,9 @@ const SKILLS = [
   'Rust',
   'C',
   'x86_64 ASM',
-  'TypeScript',
   'React',
   'Vite',
   'Node.js',
-  'PHP',
-  'SQL',
-  'Flutter / Dart',
   'Linux / Fedora',
   'MNE-Python',
   'NumPy',
@@ -546,6 +520,7 @@ const SKILLS = [
   'QEMU / bare metal',
   'SNN / neuromorphic',
   'Defensive security',
+  'YAML / CLI tooling',
   'Git / GitHub',
   'Technical writing',
   'Reproducible research',
@@ -2738,7 +2713,7 @@ function About({ navigate }) {
             <SectionTitle
               code="01 / SKILLS"
               title="TECHNICAL RANGE"
-              text="Herramientas usadas en proyectos del laboratorio; no sustituye experiencia institucional ni certificaciones inexistentes."
+              text="Stack real del laboratorio: bare-metal y neuromórfica (C/Rust/ASM), EEG reproducible (Python/MNE) y front del sitio (React/Vite). No sustituye experiencia institucional ni certificaciones inexistentes."
             />
             <div className="skill-cloud" data-reveal>
               {SKILLS.map((skill, index) => <span style={{ '--i': index }} key={skill}>{skill}</span>)}
@@ -2749,8 +2724,8 @@ function About({ navigate }) {
         <section className="section wrap">
           <SectionTitle
             code="02 / PROJECTS"
-            title="OTHER WORK"
-            text="Proyectos de software en distintas capas del stack."
+            title="PERSONAL WORK"
+            text="RGX WSP y RGX GASLIGHT son proyectos personales de Roger Navarro. No son públicos: no forman parte de la startup ni de las marcas Rogex Laboratories o Knights Labs."
           />
           <div className="project-grid">
             {projectGroups.map((project, index) => (
@@ -2758,6 +2733,9 @@ function About({ navigate }) {
                 <div className="project-top"><span>{String(index + 1).padStart(2, '0')}</span><span>{project.type}</span></div>
                 <h3>{project.name}</h3>
                 <p>{project.text}</p>
+                {!project.public && (
+                  <p className="project-private-note">No público · proyecto personal, fuera de Rogex Laboratories / Knights Labs.</p>
+                )}
                 <div className="stack-tags">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
               </article>
             ))}
@@ -2768,14 +2746,14 @@ function About({ navigate }) {
           <div className="wrap">
             <SectionTitle
               code="03 / VIDEO / DEFENSIVE SECURITY"
-              title="ROGEX GASLIGHT — DEMONSTRATION"
+              title="RGX GASLIGHT — DEMONSTRATION"
               text="Framework experimental de defensa, engaño y observabilidad. No se presenta como herramienta ofensiva."
             />
             <div className="video-layout gaslight-video-layout">
               <div className="video-frame" data-reveal>
                 <iframe
                   src="https://www.youtube-nocookie.com/embed/ToIAxNt07y0?rel=0"
-                  title="Rogex Gaslight defensive security demonstration"
+                  title="RGX Gaslight defensive security demonstration"
                   loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"

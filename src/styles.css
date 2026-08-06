@@ -501,9 +501,16 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 
 .current-grid { margin-top: 22px; display: grid; grid-template-columns: 1.1fr .9fr; }
 .paper-panel, .black-panel { min-height: 510px; padding: clamp(28px, 4vw, 54px); border: 1.5px solid var(--ink); }
+.paper-panel { background: var(--paper); color: var(--ink); }
 .black-panel { background: var(--ink); color: var(--paper); border-left: 0; }
 .panel-label { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
 .paper-panel h3, .black-panel h3 { margin-top: 42px; font-family: var(--script); font-size: clamp(30px, 4vw, 56px); line-height: .96; letter-spacing: -.06em; }
+.paper-panel p,
+.paper-panel li { color: var(--ink-soft); }
+.black-panel p,
+.black-panel li { color: rgba(255, 254, 248, 0.78); }
+.black-panel .eco-metrics strong { color: var(--paper); }
+.black-panel .eco-metrics span { color: rgba(255, 254, 248, 0.62); }
 .check-list, .cross-list { list-style: none; padding: 0; margin: 46px 0 0; display: grid; gap: 17px; }
 .check-list li { display: grid; grid-template-columns: 22px 1fr; gap: 11px; font-size: 12px; line-height: 1.6; }
 .check-list svg { color: var(--accent); }

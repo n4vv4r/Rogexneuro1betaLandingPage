@@ -1090,6 +1090,155 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
   }
 }
 
+/* Investors + Startup idea */
+.invest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+.invest-card {
+  background: var(--paper);
+  padding: clamp(26px, 3.2vw, 40px);
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 240px;
+}
+.invest-card:nth-child(2n) { border-right: 0; }
+.invest-card:nth-last-child(-n+2) { border-bottom: 0; }
+.invest-card-dark {
+  background: var(--black);
+  color: var(--paper);
+}
+.invest-card svg { color: var(--accent); }
+.invest-card-dark svg { color: var(--acid); }
+.invest-card h3 {
+  font-family: var(--script);
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+.invest-card p {
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  max-width: 48ch;
+}
+.invest-card-dark p { color: rgba(255, 254, 248, 0.75); }
+
+.thesis-strip {
+  border: 1.5px solid rgba(255, 254, 248, 0.45);
+  padding: clamp(28px, 4vw, 48px);
+  background: rgba(214, 255, 63, 0.06);
+}
+.thesis-strip blockquote {
+  font-family: var(--script);
+  font-size: clamp(22px, 3.2vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  margin: 0;
+  max-width: 28ch;
+}
+.thesis-meta {
+  margin-top: 28px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--acid);
+}
+
+.license-card-on-dark {
+  background: var(--paper) !important;
+  color: var(--ink);
+}
+
+.invest-metrics {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1.5px solid var(--ink);
+}
+.invest-metrics > div {
+  padding: 22px 18px;
+  border-right: 1.5px solid var(--ink);
+  display: grid;
+  gap: 8px;
+}
+.invest-metrics > div:last-child { border-right: 0; }
+.invest-metrics strong {
+  font-family: var(--script);
+  font-size: clamp(28px, 3.2vw, 44px);
+  letter-spacing: -0.05em;
+}
+.invest-metrics span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.startup-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+}
+.startup-points article {
+  background: var(--paper);
+  padding: clamp(24px, 3vw, 36px);
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  display: grid;
+  gap: 12px;
+  min-height: 200px;
+}
+.startup-points article:nth-child(2n) { border-right: 0; }
+.startup-points article:nth-last-child(-n+2) { border-bottom: 0; }
+.startup-points span {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.startup-points h3 {
+  font-family: var(--script);
+  font-size: clamp(22px, 2.5vw, 34px);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+.startup-points p {
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  max-width: 48ch;
+}
+
+@media (max-width: 900px) {
+  .invest-grid,
+  .startup-points,
+  .invest-metrics { grid-template-columns: 1fr; }
+  .invest-card,
+  .startup-points article {
+    border-right: 0;
+  }
+  .invest-card:nth-last-child(-n+2),
+  .startup-points article:nth-last-child(-n+2) {
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .invest-card:last-child,
+  .startup-points article:last-child { border-bottom: 0; }
+  .invest-metrics > div {
+    border-right: 0;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .invest-metrics > div:last-child { border-bottom: 0; }
+}
+
 @media (max-width: 900px) {
   .papers-grid,
   .levels-grid { grid-template-columns: 1fr; }

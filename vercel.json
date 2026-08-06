@@ -5,6 +5,8 @@
     { "source": "/prisma", "destination": "/index.html" },
     { "source": "/rx-os", "destination": "/rx-os.html" },
     { "source": "/rogexos", "destination": "/rx-os.html" },
+    { "source": "/investors", "destination": "/index.html" },
+    { "source": "/startup-idea", "destination": "/index.html" },
     { "source": "/about", "destination": "/index.html" }
   ],
   "headers": [

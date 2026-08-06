@@ -13,6 +13,7 @@ import {
   Download,
   Factory,
   FlaskConical,
+  Heart,
   Leaf,
   Link as LinkIcon,
   Lock,
@@ -36,6 +37,8 @@ const NAV_ITEMS = [
   ['/architecture', 'ARCHITECTURE'],
   ['/prisma', 'PRISMA'],
   ['/rx-os', 'RX OS'],
+  ['/investors', 'INVESTORS'],
+  ['/startup-idea', 'STARTUP'],
   ['/about', 'ABOUT'],
 ];
 
@@ -78,7 +81,7 @@ const PRODUCT_SUITE = [
     name: 'PRISMA 3',
     tier: 'POSIX / SIMD · HIGH PERFORMANCE EEG',
     status: 'ACTIVE · OPEN-CORE PATH',
-    text: 'Motor de alto rendimiento frente al software monolítico tipo NeuroREC: zero-copy SPSC, DSP SIMD, ICA en vivo, geometría Riemanniana y normalización por sujeto. Objetivo <64 MB en stack rxOS.',
+    text: 'Motor de alto rendimiento frente a software EEG comercial pesado: zero-copy SPSC, DSP SIMD, ICA en vivo, geometría Riemanniana y normalización por sujeto. Objetivo <64 MB en stack rxOS.',
     tags: ['Zero-copy', 'SIMD FFT', 'ICA RT', '73.3%→91% personal'],
     href: '/prisma#prisma3',
     icon: Brain,
@@ -134,7 +137,7 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
     version: 'High-Performance POSIX / SIMD',
     status: 'IN DEVELOPMENT',
     badge: 'Próximamente / Coming Soon',
-    tagline: 'Alternativa moderna a software monolítico Windows: pipeline EEG multiplataforma, zero-copy, SIMD y firma biológica por sujeto — no una caja negra de 4 GB.',
+    tagline: 'Alternativa moderna a software EEG comercial pesado: pipeline multiplataforma, zero-copy, SIMD y firma biológica por sujeto — no una caja negra de varios GB.',
     description:
       'Prisma 3 reescribe el camino de la señal: buffers SPSC lock-free en C/Rust, FFT/filtros vectorizados (AVX2/NEON), ICA en tiempo real y geometría Riemanniana en espacio tangente. Evidencia actual: ~73.3% raw LOSO → ~91% personalizado. Experimental, no clínico.',
     features: [
@@ -169,46 +172,47 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
   },
 ];
 
-const PRISMA_VS_NEUROREC = [
+/** Comparativa de clase arquitectónica — sin nombrar competidores concretos */
+const PRISMA_VS_LEGACY = [
   {
     criterion: 'Arquitectura',
-    neurorec: 'Monolítica / Windows Von Neumann',
+    others: 'Monolítica / OS comercial pesado',
     p3: 'POSIX nativo / SIMD vectorial',
     p5: 'SNN event-driven sobre RXos',
   },
   {
     criterion: 'Entrada',
-    neurorec: 'Muestreo por ventanas / batch',
+    others: 'Muestreo por ventanas / batch',
     p3: 'Zero-copy vectorial · SPSC rings',
     p5: 'Spike streams (Delta Modulation)',
   },
   {
     criterion: 'Ritmos',
-    neurorec: 'FFT / power spectrum',
+    others: 'FFT / power spectrum clásico',
     p3: 'FFT acelerada SIMD',
     p5: 'Resonancia de poblaciones LIF',
   },
   {
     criterion: 'Artefactos',
-    neurorec: 'Manual / filtros estáticos',
+    others: 'Manual / filtros estáticos',
     p3: 'ICA / wavelet en tiempo real',
     p5: 'Inhibición de espigas (STDP)',
   },
   {
     criterion: 'Latencia',
-    neurorec: '~100–500 ms / ventana',
+    others: '~100–500 ms / ventana (típico)',
     p3: '~5–10 ms objetivo',
     p5: '<1 ms por evento',
   },
   {
     criterion: 'Hardware',
-    neurorec: 'Win10 · Quad-core · ≥4 GB RAM',
-    p3: 'x86_64 / ARM64 · ≥128 MB (objetivo <64 MB en rxOS)',
+    others: 'PC potentes · varios GB de RAM',
+    p3: 'x86_64 / ARM64 · objetivo <64 MB en rxOS',
     p5: 'MCU / FPGA / coprocesador SNN / Akida',
   },
   {
     criterion: 'Energía',
-    neurorec: 'Alto (CPU continua)',
+    others: 'Alto (CPU continua / idle waste)',
     p3: 'Medio-bajo (SIMD + idle controlado)',
     p5: 'Ultra-bajo (mW, wake-on-event)',
   },
@@ -1270,7 +1274,7 @@ function Prisma({ navigate }) {
           <a className="brutal-button primary" href="#prisma-downloads">VER MÓDULOS</a>
           <a className="brutal-button" href="#prisma3">PRISMA 3</a>
           <a className="brutal-button" href="#prisma5">PRISMA 5</a>
-          <a className="brutal-button" href="#compare">VS NEUROREC</a>
+          <a className="brutal-button" href="#compare">VS OTROS SOFTWARES</a>
         </div>
       </PageHero>
 
@@ -1327,27 +1331,27 @@ function Prisma({ navigate }) {
           <div className="wrap">
             <SectionTitle
               code="03 / COMPARE"
-              title="NEUROREC VS PRISMA 3 VS PRISMA 5"
-              text="Misma clase de problema (EEG de investigación). Categorías distintas de arquitectura. Cifras de latencia/footprint son objetivos de diseño o tipologías de mercado — no un ensayo clínico."
+              title="OTROS SOFTWARES VS PRISMA 3 VS PRISMA 5"
+              text="Comparación de clases de arquitectura, no un ataque a marcas concretas. Cifras de latencia/footprint son objetivos de diseño o tipologías de mercado — no un ensayo clínico."
             />
             <div className="compare-table" data-reveal>
               <div className="compare-row compare-head">
                 <span>CRITERIO</span>
-                <span>NEUROREC (CLASE)</span>
+                <span>OTROS SOFTWARES (CLASE)</span>
                 <span>PRISMA 3</span>
                 <span>PRISMA 5</span>
               </div>
-              {PRISMA_VS_NEUROREC.map((row) => (
+              {PRISMA_VS_LEGACY.map((row) => (
                 <div className="compare-row" key={row.criterion}>
                   <span>{row.criterion}</span>
-                  <span>{row.neurorec}</span>
+                  <span>{row.others}</span>
                   <span>{row.p3}</span>
                   <span>{row.p5}</span>
                 </div>
               ))}
             </div>
             <p className="license-note" style={{ color: 'rgba(255,254,248,.72)', marginTop: 18 }}>
-              Software comercial típico de la vieja escuela: monólito Windows, ≥4 GB RAM, FFT por ventanas, UI pesada.
+              Muchas herramientas EEG de escritorio tradicionales son monólitos atados a un SO comercial, con varios GB de RAM, FFT por ventanas y UI pesada.
               PRISMA apunta a latencia sub-ventana, footprint objetivo &lt;64 MB en rxOS y (en P5) wake-on-event en mW.
             </p>
           </div>
@@ -2018,12 +2022,335 @@ function ContactForm() {
   );
 }
 
+function Investors({ navigate }) {
+  return (
+    <>
+      <PageHero
+        index="06"
+        eyebrow="PARA INVERSORES · TECNOACTIVISMO"
+        title={<>NO FINANCIAMOS<br />EL DESPILFARRO.<br />FINANCIAMOS EL CORTE.</>}
+        text="Knights Labs no es una promesa de unicornio en la nube. Es ingeniería de bajo carbono, software EEG trazable y un kernel neuromórfico verificable — con un modelo Robin Hood que hace pagar a quien puede y abre camino a quien investiga."
+        image={RXOS_HERO_IMAGE}
+      >
+        <div className="hero-tags">
+          <span>ROBIN HOOD</span>
+          <span>RXos v4.5</span>
+          <span>PRISMA 3 / 5</span>
+          <span>BENCH 6/6</span>
+          <span>DEC 2026 TARGET</span>
+        </div>
+        <div className="hero-actions">
+          <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Inversi%C3%B3n%20/%20Partnership%20%E2%80%94%20Knights%20Labs">
+            HABLAR CON EL LAB <Send size={15} />
+          </a>
+          <button className="brutal-button" onClick={() => navigate('/startup-idea')}>STARTUP IDEA</button>
+          <button className="brutal-button" onClick={() => navigate('/architecture')}>ARQUITECTURA</button>
+        </div>
+      </PageHero>
+
+      <main>
+        <section className="section wrap">
+          <SectionTitle
+            code="01 / WHY NOW"
+            title="LA CRISIS ES EL PRODUCTO DE OTROS"
+            text="La industria aceptó software cada vez más pesado, nubes opacas y EEG de caja negra. Nosotros construimos lo contrario: eventos, eficiencia y libertad de inspección."
+          />
+          <div className="invest-grid">
+            <article className="invest-card" data-reveal>
+              <Leaf size={28} strokeWidth={1.35} />
+              <h3>LOW-CARBON IS NOT A SLIDE</h3>
+              <p>
+                RXos mide energía con RAPL en metal, se duerme con MONITOR/MWAIT cuando no hay eventos y publica un sustrato con ~3 MiB al boot y bench 6/6.
+                No pedimos fe: pedimos <code>bench</code>, <code>power</code> y papers PDF.
+              </p>
+            </article>
+            <article className="invest-card" data-reveal>
+              <Brain size={28} strokeWidth={1.35} />
+              <h3>CADA CEREBRO ES ÚNICO</h3>
+              <p>
+                PRISMA demuestra que la firma personal importa: 73.3% raw LOSO frente a 91.0% personalizado en la referencia EC/EO.
+                La variabilidad no es ruido de marketing — es el núcleo del producto.
+              </p>
+            </article>
+            <article className="invest-card" data-reveal>
+              <Zap size={28} strokeWidth={1.35} />
+              <h3>CATEGORÍA, NO INCREMENTO</h3>
+              <p>
+                PRISMA 3 ataca el stack pesado (zero-copy, SIMD, ICA). PRISMA 5 cambia de paradigma: spikes, STDP, &lt;1 ms por evento sobre el event fabric de RXos.
+                Frente a “otros softwares” monolíticos, esto es otra liga de arquitectura.
+              </p>
+            </article>
+            <article className="invest-card invest-card-dark" data-reveal>
+              <Shield size={28} strokeWidth={1.35} />
+              <h3>HONESTIDAD COMO ACTIVO</h3>
+              <p>
+                Nivel 3 (Akida) está bloqueado porque falta el chip. Los resultados negativos se publican. No hay claims clínicos.
+                Un inversor serio prefiere un lab que diga “aún no” a uno que invente milagros.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="02 / THESIS"
+              title="TECNOACTIVISMO CON P&L"
+              text="El modelo no es maximizar licencias opacas. Es financiar el bien público con capas B2B/OEM."
+            />
+            <div className="thesis-strip" data-reveal>
+              <blockquote>
+                “No picamos código para encajar en la industria. Picamos código para demostrar que otro modelo de tecnología es posible.
+                La ingeniería es la trinchera. La eficiencia es la palabra.”
+              </blockquote>
+              <div className="thesis-meta">KNIGHTS LABS · ROBIN HOOD · OPEN WHERE IT MATTERS</div>
+            </div>
+            <div className="license-grid" style={{ marginTop: 36 }}>
+              {LICENSE_TIERS.map((block, index) => (
+                <article className="license-card license-card-on-dark" key={block.product} data-reveal style={{ '--delay': `${index * 70}ms` }}>
+                  <span className="panel-label">{block.product}</span>
+                  <table>
+                    <tbody>
+                      {block.rows.map(([name, price, note]) => (
+                        <tr key={name}>
+                          <th>{name}</th>
+                          <td>{price}</td>
+                          <td>{note}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </article>
+              ))}
+            </div>
+            <p className="license-note" style={{ color: 'rgba(255,254,248,.72)', marginTop: 18 }}>
+              Community y papers open impulsan adopción. Indie/Pro/OEM financian hardware de desarrollo (kits, NPU) y el fondo de acceso.
+              Precios de referencia — confirmación al lanzamiento proyectado (Dic 2026).
+            </p>
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <SectionTitle
+            code="03 / STACK"
+            title="EN QUÉ SE INVIERTE, CONCRETAMENTE"
+            text="Cuatro superficies reales. Estado medible. Roadmap sin fantasía de silicio inexistente."
+          />
+          <div className="suite-grid">
+            {PRODUCT_SUITE.map((product, index) => (
+              <ProductCard product={product} navigate={navigate} index={index} key={product.id} />
+            ))}
+          </div>
+          <div className="invest-metrics" data-reveal>
+            <div><strong>6/6</strong><span>bench PASS · codificación temporal</span></div>
+            <div><strong>~299</strong><span>ciclos / evento (RXos)</span></div>
+            <div><strong>~3 MiB</strong><span>RAM al boot del kernel</span></div>
+            <div><strong>&lt;64 MB</strong><span>footprint objetivo PRISMA@rxOS</span></div>
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="04 / RISK & EDGE"
+              title="RIESGOS QUE NOMBRAMOS"
+              text="Transparencia total: lo que puede fallar y por qué igual vale la pena."
+            />
+            <div className="two-track" style={{ border: '1.5px solid rgba(255,255,254,.45)' }}>
+              <article className="track-card inverted" data-reveal style={{ border: 0 }}>
+                <span>RISKS</span>
+                <h3>LO QUE PUEDE DOLER</h3>
+                <p>Mercado EEG conservador; chip Akida aún no en el lab; UEFI/disco boot y USB bare-metal son proyectos enteros; no somos un SO de producción ni un producto clínico.</p>
+              </article>
+              <article className="track-card" data-reveal style={{ border: 0, background: 'var(--acid)', color: 'var(--ink)' }}>
+                <span>EDGE</span>
+                <h3>LO QUE NADIE MÁS JUNTA</h3>
+                <p>Kernel event-driven propio + papers falsables + PRISMA personalizado + precios accesibles + narrativa low-carbon creíble. Deep tech con moral de trinchera, no de slide deck.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="section wrap contact-section" id="invest-contact">
+          <SectionTitle
+            code="05 / NEXT"
+            title="SI ESTO RESUENA"
+            text="Buscamos partners que entiendan ingeniería filantrópica: capital paciente, hardware NPU y redes de labs/OEM — no pressure por diluir el rigor."
+          />
+          <div className="hero-actions section-actions">
+            <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Inversi%C3%B3n%20/%20Partnership%20%E2%80%94%20Knights%20Labs">
+              roger@rogexlaboratories.com <ArrowUpRight size={15} />
+            </a>
+            <button className="brutal-button" onClick={() => navigate('/startup-idea')}>LEER STARTUP IDEA</button>
+            <button className="brutal-button" onClick={() => navigate('/suite')}>VER SUITE</button>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+function StartupIdea({ navigate }) {
+  return (
+    <>
+      <PageHero
+        index="07"
+        eyebrow="STARTUP IDEA · KNIGHTS LABS"
+        title={<>CÓMPUTO POR EVENTOS.<br />EFICIENCIA.<br />LIBERTAD.</>}
+        text="Una startup de neurotecnología low-carbon: sustituir software EEG inflado y nubes opacas por un stack bare-metal + SNN + licenciamiento Robin Hood. Manifiesto híbrido — divulgación humana y rigor técnico en la misma trinchera."
+        image="/home-campaigns.svg"
+      >
+        <div className="hero-tags">
+          <span>PROBLEM</span>
+          <span>SOLUTION</span>
+          <span>WHY US</span>
+          <span>MODEL</span>
+          <span>TRACTION</span>
+        </div>
+        <div className="hero-actions">
+          <button className="brutal-button primary" onClick={() => navigate('/investors')}>PARA INVERSORES</button>
+          <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA</button>
+          <button className="brutal-button" onClick={() => navigate('/rx-os')}>RXos v4.5</button>
+        </div>
+      </PageHero>
+
+      <main>
+        <section className="section wrap">
+          <SectionTitle
+            code="01 / PROBLEM"
+            title="CÓMPUTO EXTRACTIVO + EEG OPACO"
+            text="Dos fallas del mismo sistema: software que engorda para vender hardware y nubes, y herramientas neurofisiológicas pesadas que tratan a cada persona como un promedio."
+          />
+          <div className="startup-points">
+            {[
+              ['SOFTWARE INFLATION', 'Leyes de Wirth/Parkinson: lo mismo que hace una década exige máquinas 10× más potentes. El polling y las capas muertas queman vatios en silencio.'],
+              ['LA ILUSIÓN DE LA NUBE', 'Data centers e IA ya superan ~460 TWh y pueden acercarse a ~1.000 TWh (orden de magnitud IEA / Japón). “La nube” no es limpia: es hormigón, agua y red.'],
+              ['CEREBRO PROMEDIO', 'El modelo genérico falla donde la persona importa. PRISMA mide 73.3% LOSO vs 91.0% personalizado: la firma biológica es el producto.'],
+              ['HERRAMIENTAS PESADAS', 'Otros softwares EEG de escritorio suelen exigir varios GB de RAM, SO comercial y latencias de cientos de ms por ventana. El acceso se vuelve de élite.'],
+            ].map(([title, text], index) => (
+              <article key={title} data-reveal style={{ '--delay': `${index * 60}ms` }}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="02 / SOLUTION"
+              title="TRES CAPAS, UNA MISIÓN"
+              text="No un app más. Un stack: sistema, motor de señal y motor de espigas."
+            />
+            <div className="levels-grid">
+              <article className="level-card level-ok" data-reveal>
+                <div className="level-card-top"><span>LAYER A</span><StatusBadge tone="ok">RXos v4.5</StatusBadge></div>
+                <h3>BARE-METAL EVENT OS</h3>
+                <p>Tejido de eventos LIF/STDP verificable, power_idle, papers públicos. Niveles 1–2 cerrados. Akida = Nivel 3 pendiente de silicio.</p>
+              </article>
+              <article className="level-card level-ok" data-reveal>
+                <div className="level-card-top"><span>LAYER B</span><StatusBadge tone="ok">PRISMA 3</StatusBadge></div>
+                <h3>HIGH-PERF EEG</h3>
+                <p>Zero-copy, SIMD, ICA, Riemann, trazabilidad LOSO/calibración/personal. Alternativa ligera a monólitos comerciales.</p>
+              </article>
+              <article className="level-card level-warn" data-reveal>
+                <div className="level-card-top"><span>LAYER C</span><StatusBadge tone="warn">PRISMA 5</StatusBadge></div>
+                <h3>SNN ENGINE</h3>
+                <p>Delta mod → spikes, predictive coding, STDP, resonancia de ritmos, &lt;1 ms/evento. Camino a edge neuromórfico.</p>
+              </article>
+              <article className="level-card level-open" data-reveal>
+                <div className="level-card-top"><span>LAYER D</span><StatusBadge>ROBIN HOOD</StatusBadge></div>
+                <h3>LICENCIAS CON ALMA</h3>
+                <p>Community gratis. Indie/Pro asequibles. OEM/royalties financian kits, labs independientes y causas de acceso.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <SectionTitle
+            code="03 / WHY THIS STARTUP"
+            title="POR QUÉ AHORA · POR QUÉ NOSOTROS"
+            text="Deep tech con artefactos ya arrancando: ISO, bench, papers, capturas en metal y una marca que no miente."
+          />
+          <div className="method-grid">
+            {[
+              [Terminal, 'ARTEFACTO REAL', 'RXos arranca en QEMU y en HP 15 de referencia. No es un mockup de SO.'],
+              [FlaskConical, 'FALSABLE', 'bench 6/6 predice y mide. Si una fila falla, se publica — no se esconde.'],
+              [Leaf, 'NARRATIVA VERDAD', 'Low-carbon atado a RAPL, idle y footprint — no a greenwashing de slide.'],
+              [Factory, 'OEM PATH', 'Integradores de hardware y royalty: el capital B2B subsidia el open research.'],
+              [Microscope, 'CIENCIA PRIMERO', 'Límites no clínicos explícitos. Confianza de labs y revisores.'],
+              [Heart, 'EMOCIÓN + RIGOR', 'El manifiesto híbrido: capa humana para activistas y capa técnica para ingenieros.'],
+            ].map(([Icon, title, text], index) => (
+              <article className="method-card" key={title} data-reveal style={{ '--delay': `${index * 50}ms` }}>
+                <Icon size={28} strokeWidth={1.4} />
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="04 / MODEL"
+              title="CÓMO SE GANA SIN VENDER EL ALMA"
+              text="Open-core + capas Pro/OEM. Volumen en la base. Valor en integración y silicio."
+            />
+            <div className="audience-table" data-reveal>
+              <div className="audience-row audience-head">
+                <span>PALANCA</span><span>QUÉ SE VENDE</span><span>A QUIÉN</span>
+              </div>
+              <div className="audience-row">
+                <span>Community</span>
+                <span>PRISMA 3 open / papers RXos</span>
+                <span>Estudiantes, makers, labs del Sur global</span>
+              </div>
+              <div className="audience-row">
+                <span>Indie / Pro</span>
+                <span>Licencias €49–€399 (referencia)</span>
+                <span>Devs BCI, universidades, pymes neurotech</span>
+              </div>
+              <div className="audience-row">
+                <span>OEM</span>
+                <span>Motor + custom arch + royalty</span>
+                <span>Fabricantes de headsets / NPU partners</span>
+              </div>
+              <div className="audience-row">
+                <span>Desktop</span>
+                <span>rxOS Desktop closed</span>
+                <span>Labs que quieren superficie soberana</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="statement-section">
+          <div className="wrap statement-grid" data-reveal>
+            <div className="statement-mark"><Leaf size={54} strokeWidth={1.2} /></div>
+            <blockquote>
+              “La piedra y la montaña: un commit a la vez, sin aplauso fácil.
+              Si el código no arranca, no es manifiesto — es literatura.”
+            </blockquote>
+            <div className="statement-meta">BUILD · MEASURE · OPEN · RESIST</div>
+          </div>
+        </section>
+
+        <CtaBand navigate={navigate} />
+      </main>
+    </>
+  );
+}
+
 function About({ navigate }) {
   const projectGroups = useMemo(() => PROJECTS, []);
   return (
     <>
       <PageHero
-        index="05"
+        index="08"
         eyebrow="ABOUT / KNIGHTS LABS"
         title={<>BUILT BY HAND.<br />SHIPPED AS LAB.<br />OPEN WHERE IT MATTERS.</>}
         text="Knights Labs es el marco de producto de Rogex Laboratories: neurotecnología de bajo carbono, software EEG reproducible y un kernel neuromórfico abierto. Fundado por Roger Navarro."
@@ -2270,6 +2597,26 @@ const ROUTE_META = {
     imageAlt: 'Knights Labs logo',
     url: 'https://www.rogexlaboratories.com/about',
   },
+  '/investors': {
+    title: 'Para inversores — Knights Labs',
+    description: 'Tecnoactivismo con P&L: RXos v4.5, PRISMA 3/5, Robin Hood licensing, low-carbon compute and honest deep-tech risks.',
+    image: RXOS_OG_IMAGE,
+    imageType: 'image/jpeg',
+    imageWidth: '1600',
+    imageHeight: '1200',
+    imageAlt: 'Knights Labs / RXos for investors',
+    url: 'https://www.rogexlaboratories.com/investors',
+  },
+  '/startup-idea': {
+    title: 'Startup idea — Knights Labs',
+    description: 'Event-driven compute, EEG software and neuromorphic SNN with philanthropic licensing. Problem, solution, model and traction.',
+    image: DEFAULT_OG.image,
+    imageType: 'image/png',
+    imageWidth: '1200',
+    imageHeight: '1200',
+    imageAlt: 'Knights Labs startup idea',
+    url: 'https://www.rogexlaboratories.com/startup-idea',
+  },
 };
 
 function App() {
@@ -2305,6 +2652,8 @@ function App() {
   if (path === '/architecture') page = <Architecture navigate={navigate} />;
   if (path === '/prisma') page = <Prisma navigate={navigate} />;
   if (path === '/rx-os' || path === '/rogexos') page = <RXOS navigate={navigate} />;
+  if (path === '/investors') page = <Investors navigate={navigate} />;
+  if (path === '/startup-idea') page = <StartupIdea navigate={navigate} />;
   if (path === '/about') page = <About navigate={navigate} />;
 
   return (

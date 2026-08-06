@@ -340,7 +340,7 @@ const CTA_AUDIENCES = [
     title: 'OEM / INTEGRATORS',
     text: 'Nivel 3 RXos: Akida AKD1000 bare-metal, royalties y arquitectura custom. El lab busca acceso a silicio neuromórfico real.',
     action: 'Contact OEM desk',
-    href: 'mailto:roger@rogexlaboratories.com?subject=OEM%20/%20Akida%20/%20Hardware%20%E2%80%94%20Knights%20Labs',
+    href: 'mailto:knightsys@proton.me?subject=OEM%20/%20Akida%20/%20Hardware%20%E2%80%94%20Knights%20Labs',
     mailSubject: null,
   },
 ];
@@ -1009,7 +1009,7 @@ function Suite({ navigate }) {
       >
         <div className="hero-actions">
           <button className="brutal-button primary" onClick={() => navigate('/#join')}>JOIN AS PARTNER</button>
-          <a className="brutal-button" href="mailto:roger@rogexlaboratories.com?subject=Product%20inquiry%20%E2%80%94%20Knights%20Labs">
+          <a className="brutal-button" href="mailto:knightsys@proton.me?subject=Product%20inquiry%20%E2%80%94%20Knights%20Labs">
             EMAIL THE LAB
           </a>
         </div>
@@ -1967,7 +1967,7 @@ save`}</code></pre>
 
 function ContactForm() {
   const [form, setForm] = useState({
-    recipient: 'roger@rogexlaboratories.com',
+    recipient: 'knightsys@proton.me',
     name: '',
     email: '',
     subject: '',
@@ -1994,7 +1994,7 @@ function ContactForm() {
         <label>
           DESTINATION
           <select name="recipient" value={form.recipient} onChange={update}>
-            <option value="roger@rogexlaboratories.com">Business — roger@rogexlaboratories.com</option>
+            <option value="knightsys@proton.me">Knights Labs — knightsys@proton.me</option>
             <option value="rogynavarro@gmail.com">Personal — rogynavarro@gmail.com</option>
           </select>
         </label>
@@ -2044,7 +2044,7 @@ function Pitch({ navigate }) {
           <span>ROBIN HOOD</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
+          <a className="brutal-button primary" href="mailto:knightsys@proton.me?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
             SOLICITAR DECK / CALL <Send size={15} />
           </a>
           <button className="brutal-button" onClick={() => navigate('/investors')}>PARA INVERSORES</button>
@@ -2262,7 +2262,7 @@ function Pitch({ navigate }) {
                 <span>NO BUSCAMOS</span>
                 <strong>HYPE CLÍNICO<br />NI GROWTH FAKE</strong>
               </div>
-              <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
+              <a className="brutal-button primary" href="mailto:knightsys@proton.me?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
                 CONTACTAR <ArrowUpRight size={15} />
               </a>
             </div>
@@ -2355,8 +2355,8 @@ function Pitch({ navigate }) {
             text="Para clubes de inversores: sesión técnica + financiera. Materiales: site, papers PDF, demo RXos/PRISMA, ask y use of funds."
           />
           <div className="hero-actions section-actions">
-            <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
-              roger@rogexlaboratories.com <ArrowUpRight size={15} />
+            <a className="brutal-button primary" href="mailto:knightsys@proton.me?subject=Pitch%20/%20Club%20de%20inversores%20%E2%80%94%20Knights%20Labs">
+              knightsys@proton.me <ArrowUpRight size={15} />
             </a>
             <button className="brutal-button" onClick={() => navigate('/investors')}>MEMO INVERSORES</button>
             <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA 5</button>
@@ -2386,7 +2386,7 @@ function Investors({ navigate }) {
           <span>DEC 2026 TARGET</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Inversi%C3%B3n%20/%20Partnership%20%E2%80%94%20Knights%20Labs">
+          <a className="brutal-button primary" href="mailto:knightsys@proton.me?subject=Inversi%C3%B3n%20/%20Partnership%20%E2%80%94%20Knights%20Labs">
             HABLAR CON EL LAB <Send size={15} />
           </a>
           <button className="brutal-button" onClick={() => navigate('/pitch')}>PITCH DECK</button>
@@ -2525,8 +2525,8 @@ function Investors({ navigate }) {
             text="Buscamos partners que entiendan ingeniería filantrópica: capital paciente, hardware NPU y redes de labs/OEM — no pressure por diluir el rigor."
           />
           <div className="hero-actions section-actions">
-            <a className="brutal-button primary" href="mailto:roger@rogexlaboratories.com?subject=Inversi%C3%B3n%20/%20Partnership%20%E2%80%94%20Knights%20Labs">
-              roger@rogexlaboratories.com <ArrowUpRight size={15} />
+            <a className="brutal-button primary" href="mailto:knightsys@proton.me?subject=Inversi%C3%B3n%20/%20Partnership%20%E2%80%94%20Knights%20Labs">
+              knightsys@proton.me <ArrowUpRight size={15} />
             </a>
             <button className="brutal-button" onClick={() => navigate('/startup-idea')}>LEER STARTUP IDEA</button>
             <button className="brutal-button" onClick={() => navigate('/suite')}>VER SUITE</button>
@@ -2791,9 +2791,9 @@ function About({ navigate }) {
             />
             <div className="contact-layout">
               <div className="contact-addresses" data-reveal>
-                <a href="mailto:roger@rogexlaboratories.com">
-                  <span>BUSINESS / OEM</span>
-                  <strong>roger@rogexlaboratories.com</strong>
+                <a href="mailto:knightsys@proton.me">
+                  <span>KNIGHTS LABS / OEM</span>
+                  <strong>knightsys@proton.me</strong>
                   <Mail size={22} />
                 </a>
                 <a href="mailto:rogynavarro@gmail.com">

@@ -48,7 +48,7 @@ Con `npm run dev`, las funciones serverless de Vercel no corren. Usa `vercel dev
 
 ## Contacto
 
-roger@rogexlaboratories.com
+knightsys@proton.me
 
 ## Nota científica
 

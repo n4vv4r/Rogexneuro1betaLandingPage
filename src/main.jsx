@@ -149,9 +149,9 @@ const PRODUCT_SUITE = [
     code: 'P5',
     name: 'PRISMA 5',
     tier: 'EVENT-DRIVEN SNN · BCI <1 ms',
-    status: 'SOFTWARE MODE · IN ENGINE 0.1',
-    text: 'Spike trains por Delta Modulation, LIF AVX2, STDP, predictive coding. Núcleo SNN software ya empaquetado en PRISMA Engine 0.1.0. Target Akida cuando haya silicio.',
-    tags: ['Delta mod', 'LIF/STDP', 'Predictive coding', '<1 ms event'],
+    status: 'ROADMAP · NO DESCARGA PÚBLICA',
+    text: 'Producto SNN event-driven (Δ-mod, LIF, STDP, predictive coding, resonancia). Kernels de investigación viven en PRISMA Engine; el producto PRISMA 5 aún no se publica como descarga.',
+    tags: ['Delta mod', 'LIF/STDP', 'Predictive coding', 'Roadmap'],
     href: '/prisma#prisma5',
     icon: Zap,
     tone: 'accent',
@@ -185,29 +185,30 @@ const LICENSE_TIERS = [
   },
 ];
 
-/** Fichas de producto PRISMA — Engine 0.1.0 ya tiene binario público Linux */
+/** Fichas de producto PRISMA — solo Engine es descargable; P5 = roadmap (sin descarga pública) */
 const PRISMA_DOWNLOAD_PRODUCTS = [
   {
     id: 'prisma3',
-    code: 'P3',
+    code: 'P3 / ENG',
     name: 'PRISMA Engine',
-    version: '0.1.0 · Native Rust · x86_64',
-    status: 'TECH PREVIEW · LINUX',
+    version: '0.1.0 · Native Rust · Win · macOS · Linux',
+    status: 'TECH PREVIEW · DESCARGABLE',
     badge: null,
     available: true,
     downloadHref: DOWNLOAD_CATALOG.prismaEngine.windowsSetup,
-    downloadLabel: 'Windows Setup.exe',
+    downloadLabel: 'Descargar Engine (Setup.exe)',
     secondaryHref: '/downloads',
     secondaryLabel: 'Linux · macOS · checksums',
+    docsHref: '/docs/prisma/PRISMA_ENGINE_TECHNICAL.md',
     tagline:
-      'Runtime nativo ultra-baja latencia: zero-copy SPSC, Delta Modulation, LIF AVX2, STDP, predictive coding y GUI egui. Sustituye Streamlit/Python en el path crítico.',
+      'Runtime nativo ultra-baja latencia: zero-copy SPSC, Delta Modulation, kernels LIF/STDP de investigación, predictive coding y GUI egui. Sustituye Streamlit/Python en el path crítico.',
     description:
-      'PRISMA Engine 0.1.0 empaqueta el hot path en Rust puro (<1 ms/evento medido en µs). Incluye emulador SNN SIMD y hook HAL Akida AKD1000. Evidencia de investigación del stack EEG: ~73.3% raw LOSO → ~91% personalizado. Experimental, no clínico.',
+      'PRISMA Engine 0.1.0 es el único binario público del stack nativo. Hot path en Rust (latencia medida en µs). Incluye emulador SNN SIMD y HAL Akida stub como laboratorio — no es el producto PRISMA 5. Experimental, no clínico.',
     features: [
       'SPSC lock-free zero-copy · sin alloc en hot path',
       'Delta Modulation con θ_adp adaptativo (CPU idle si |ΔV| < θ)',
-      'LIF SNN AVX2/FMA · media ≈ 2 µs/sample en Ryzen 5',
-      'GUI nativa egui · footprint objetivo < 64 MB · HAL Akida stub',
+      'Kernels LIF AVX2 + STDP + PC (I+D; base futura de P5)',
+      'GUI egui · instaladores Win/macOS/Linux · footprint objetivo < 64 MB',
     ],
     tone: 'paper',
     icon: Brain,
@@ -216,23 +217,24 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
     id: 'prisma5',
     code: 'P5',
     name: 'PRISMA 5 SNN',
-    version: 'Software mode · in Engine 0.1.0',
-    status: 'CORE SHIPPED · SILICON PENDING',
-    badge: null,
-    available: true,
-    downloadHref: DOWNLOAD_CATALOG.prismaEngine.macosDmg,
-    downloadLabel: 'macOS DMG (SNN core)',
-    secondaryHref: '/downloads#win-mac',
-    secondaryLabel: 'Windows · Linux · checksums',
+    version: 'Producto event-driven · sin release público',
+    status: 'ROADMAP · NO DISPONIBLE',
+    badge: 'Sin descarga pública',
+    available: false,
+    downloadHref: null,
+    downloadLabel: 'Descargar PRISMA 5 SNN',
+    secondaryHref: '/docs/prisma/PRISMA_5_ROADMAP.md',
+    secondaryLabel: 'Hoja de ruta y finalidades',
+    docsHref: '/docs/prisma/PRISMA_5_SNN_TECHNICAL.md',
     tagline:
-      'El núcleo event-driven ya corre en software: spikes por Δ-mod, LIF, STDP e error de predicción. Silicio Akida = siguiente escalón, no prerequisito.',
+      'Producto SNN de ultra baja latencia (spikes, STDP, predictive coding, resonancia de ritmos, path RXos/Akida). Aún no hay instalador ni release de producto.',
     description:
-      'PRISMA 5 codifica microvoltios → spikes, filtra artefactos con STDP y detecta anomalías por predictive coding. El mismo binario de PRISMA Engine expone este path (`--backend simd`). PCIe/SPI AKD1000 está stubbeado para el driver real.',
+      'PRISMA 5 no se descarga todavía. Los kernels del Engine son I+D compartida, no un rebranding de P5. Cuando se cumplan los gates de la hoja de ruta (P5-γ), se publicará un artefacto versionado PRISMA-5-… separado del Engine.',
     features: [
-      'ΔV(t)=V(t)−V(t_prev) → spike UP/DOWN si |ΔV|≥θ_adp',
-      'Predictive coding: anomalía = spike-error, no solo espectro',
-      'STDP + inhibición local como soft-gate de artefactos',
-      'HAL neuromórfico intercambiable · target MCU/FPGA/Akida',
+      'Δ-mod → spike trains y path &lt;1 ms (objetivo de producto)',
+      'Graph SNN configurable, LSL live, UI lab (fases α–β)',
+      'Resonancia δ/θ/α/β y benchmarks honestos de artefactos',
+      'HAL → RXos / MCU / FPGA / Akida cuando haya silicio',
     ],
     tone: 'dark',
     icon: Zap,
@@ -499,32 +501,32 @@ const PRISMA_ROADMAP = [
   {
     year: 'NOW',
     title: 'PRISMA ENGINE 0.1.0',
-    state: 'SHIPPED · LINUX PREVIEW',
-    text: 'Runtime nativo Rust en /downloads: SPSC, Δ-mod, LIF AVX2, STDP, predictive coding, GUI egui, HAL Akida stub. Hot path sin alloc · media ≈ 2 µs/sample.',
+    state: 'SHIPPED · WIN/MAC/LINUX',
+    text: 'Runtime nativo en /downloads: SPSC, Δ-mod, kernels LIF/STDP/PC, GUI egui, HAL stub. Setup.exe + DMG + tar.gz. No es el producto P5.',
   },
   {
-    year: 'NEXT',
-    title: 'WIN · MAC PACKAGES',
-    state: 'PACKAGING',
-    text: 'Instaladores .exe (Inno/NSIS) y .dmg firmables a partir de los scripts de packaging ya incluidos en el tarball 0.1.0.',
+    year: 'α',
+    title: 'PRISMA 5 LAB CORE',
+    state: 'ROADMAP · INTERNO',
+    text: 'Graph SNN configurable, LSL live, subject profile, UI lab mínima, export de sesión. Sin descarga pública de P5.',
   },
   {
-    year: 'R+D',
-    title: 'PRISMA 5 FULL PRODUCT',
-    state: 'NEUROMORPHIC PRODUCT',
-    text: 'Producto SNN completo sobre el núcleo del Engine: UI de laboratorio, LSL en vivo, resonancia de ritmos y binding a event fabric RXos v4.5.',
+    year: 'β',
+    title: 'RESONANCE & ARTIFACTS',
+    state: 'ROADMAP',
+    text: 'Ritmos por resonancia, suite de artefactos, benchmark matrix en dominio spikes, evidencia honesta pre-marketing.',
   },
   {
-    year: 'H/W',
-    title: 'AKIDA AKD1000',
-    state: 'NIVEL 3 · CHIP FALTANTE',
-    text: 'Driver PCIe/SPI real sobre el HAL ya definido. El lab aún no dispone del chip BrainChip para silicio real.',
+    year: 'γ',
+    title: 'P5 TECH PREVIEW PÚBLICA',
+    state: 'GATE DE DESCARGA',
+    text: 'Primer artefacto versionado PRISMA-5-… (no rebrand del Engine). Solo entonces se habilita el botón de descarga P5 en la web.',
   },
   {
-    year: 'L/T',
-    title: 'ASTRA / NOOSPHERE',
-    state: 'LONG-TERM CONCEPT',
-    text: 'Hardware de feedback, protocolos cerrados y red federada de labs. Ética, validación y límites regulatorios obligatorios.',
+    year: '1.0 / H/W',
+    title: 'RESEARCH RELEASE · AKIDA',
+    state: 'PRODUCTO + SILICIO',
+    text: 'API estable, RXos binding, calibración UX, OEM hooks. Driver Akida real cuando el lab tenga chip.',
   },
 ];
 
@@ -928,12 +930,31 @@ function PrismaProductCard({ product, index, navigate }) {
             navigate={navigate}
           />
         ) : (
-          <DownloadSoonButton label={product.downloadLabel} badge={product.badge || 'Coming Soon'} />
+          <div className="download-ready">
+            <DownloadSoonButton label={product.downloadLabel} badge={product.badge || 'Coming Soon'} />
+            {product.secondaryHref && (
+              <a className="brutal-button" href={product.secondaryHref} target="_blank" rel="noreferrer">
+                {product.secondaryLabel || 'Roadmap'}
+                <ArrowUpRight size={14} />
+              </a>
+            )}
+            {product.docsHref && (
+              <a className="brutal-button" href={product.docsHref} target="_blank" rel="noreferrer">
+                Docs técnicas
+                <ArrowUpRight size={14} />
+              </a>
+            )}
+          </div>
+        )}
+        {available && product.docsHref && (
+          <p className="prisma-product-note">
+            <a href={product.docsHref} target="_blank" rel="noreferrer">Documentación técnica del Engine →</a>
+          </p>
         )}
         <p className="prisma-product-note">
           {available
             ? 'Tech preview pública · software experimental, no clínico · verifica SHA-256'
-            : 'Release de distribución pública pendiente · software experimental, no clínico'}
+            : 'Sin instalador público de PRISMA 5 · ver hoja de ruta · experimental, no clínico'}
         </p>
       </footer>
     </article>
@@ -1513,8 +1534,8 @@ function Prisma({ navigate }) {
       <main>
         <PrismaDownloadSection
           code="01 / DOWNLOAD"
-          title="PRISMA ENGINE 0.1.0 · PRISMA 5 CORE"
-          text="Tech preview multiplataforma: Setup.exe (Windows), DMG (macOS arm64), tar.gz (Linux). Hot path nativo sin Streamlit. Experimental — no clínico."
+          title="PRISMA ENGINE 0.1.0 · PRISMA 5 (ROADMAP)"
+          text="Descarga pública: solo PRISMA Engine (Win/macOS/Linux). PRISMA 5 SNN no tiene instalador público todavía — ver docs y hoja de ruta. Experimental — no clínico."
           navigate={navigate}
         />
 
@@ -1634,7 +1655,7 @@ function Prisma({ navigate }) {
             <SectionTitle
               code="05 / PRISMA 5 ARCHITECTURE"
               title="EVENT-DRIVEN NEUROMORPHIC ENGINE"
-              text="El cerebro no corre FFT cada 512 ms. PRISMA 5 solo gasta ciclos cuando hay eventos. Sobre el tejido de RXos v4.5."
+              text="Visión de producto (no release). El cerebro no corre FFT cada 512 ms: P5 solo gasta ciclos cuando hay eventos. Kernels de I+D en Engine ≠ producto descargable P5."
             />
             <div className="formula-grid" style={{ marginBottom: 28 }}>
               <article className="formula-card" data-reveal>
@@ -1668,24 +1689,50 @@ function Prisma({ navigate }) {
             <div className="akida-callout" data-reveal style={{ marginTop: 28 }}>
               <AlertTriangle size={22} />
               <div>
-                <strong>SILICIO NEUROMÓRFICO PENDIENTE</strong>
+                <strong>PRODUCTO P5 NO DESCARGABLE · SILICIO PENDIENTE</strong>
                 <p>
-                  PRISMA 5 se diseña para MCU/FPGA y, en Nivel 3 de RXos, para BrainChip Akida AKD1000.
-                  El laboratorio aún no dispone del chip: no hay benchmarks J/inferencia NPU vs CPU en metal neuromórfico real.
+                  No hay instalador “PRISMA 5 SNN” en /downloads. El Engine publica kernels de laboratorio.
+                  P5 se diseña para MCU/FPGA y, en Nivel 3 de RXos, Akida AKD1000 — el lab aún no tiene el chip.
+                  Fases α→β→γ y gates: ver hoja de ruta.
                 </p>
               </div>
             </div>
             <div className="hero-actions section-actions">
-              <a className="brutal-button primary" href={DOWNLOAD_CATALOG.prismaEngine.tarball} download>
-                DESCARGAR ENGINE (SNN CORE) <Download size={15} />
+              <a className="brutal-button primary" href="/docs/prisma/PRISMA_5_ROADMAP.md" target="_blank" rel="noreferrer">
+                HOJA DE RUTA P5 <ArrowUpRight size={15} />
+              </a>
+              <a className="brutal-button" href="/docs/prisma/PRISMA_5_SNN_TECHNICAL.md" target="_blank" rel="noreferrer">
+                DOCS TÉCNICAS P5
+              </a>
+              <a className="brutal-button" href="/docs/prisma/PRISMA_ENGINE_TECHNICAL.md" target="_blank" rel="noreferrer">
+                DOCS ENGINE
               </a>
               <button className="brutal-button" onClick={() => navigate('/downloads')}>
-                CHECKSUMS / README
-              </button>
-              <button className="brutal-button" onClick={() => navigate('/architecture')}>
-                RXos EVENT FABRIC <ArrowUpRight size={15} />
+                DESCARGAR ENGINE (NO P5)
               </button>
             </div>
+          </div>
+        </section>
+
+        <section className="section wrap" id="prisma-docs">
+          <SectionTitle
+            code="05b / DOCUMENTACIÓN"
+            title="DOCS TÉCNICAS PÚBLICAS"
+            text="Arquitectura del Engine, visión SNN de PRISMA 5 y hoja de ruta con finalidades y gates de release."
+          />
+          <div className="rxos-docs-row" data-reveal>
+            <a className="brutal-button primary" href="/docs/prisma/PRISMA_ENGINE_TECHNICAL.md" target="_blank" rel="noreferrer">
+              PRISMA ENGINE TÉCNICO <ArrowUpRight size={15} />
+            </a>
+            <a className="brutal-button" href="/docs/prisma/PRISMA_5_SNN_TECHNICAL.md" target="_blank" rel="noreferrer">
+              PRISMA 5 SNN TÉCNICO <ArrowUpRight size={15} />
+            </a>
+            <a className="brutal-button" href="/docs/prisma/PRISMA_5_ROADMAP.md" target="_blank" rel="noreferrer">
+              HOJA DE RUTA P5 <ArrowUpRight size={15} />
+            </a>
+            <a className="brutal-button" href="/docs/prisma/README.md" target="_blank" rel="noreferrer">
+              ÍNDICE DOCS
+            </a>
           </div>
         </section>
 
@@ -3375,40 +3422,39 @@ qemu-system-x86_64 \\
           <div className="wrap">
             <SectionTitle
               code="03 / STATUS"
-              title="SHIPPED · NEXT"
-              text="Installers 0.1.0 ya publicados. Siguiente: notarización Apple, firma Authenticode Windows e Intel universal binary."
+              title="ENGINE SHIPPED · P5 ROADMAP"
+              text="Installers del Engine 0.1.0 publicados. PRISMA 5 SNN no se descarga: ver docs. Firma Authenticode / notarización Apple en siguientes builds del Engine."
             />
             <div className="prisma5-grid">
               <article className="prisma5-card" data-reveal>
-                <span className="prisma5-card-icon"><Terminal size={22} /> WIN</span>
-                <h3>NSIS Setup.exe</h3>
+                <span className="prisma5-card-icon"><Terminal size={22} /> ENGINE</span>
+                <h3>Descargable</h3>
                 <p>
-                  Publicado: <code>PRISMA-Engine-0.1.0-Setup.exe</code>. Próximo: firma Authenticode
-                  y actualizador silencioso.
+                  Setup.exe · DMG · tar.gz de <strong>PRISMA Engine</strong> en /downloads.
+                  Docs: <code>/docs/prisma/PRISMA_ENGINE_TECHNICAL.md</code>.
                 </p>
               </article>
               <article className="prisma5-card" data-reveal>
-                <span className="prisma5-card-icon"><Cpu size={22} /> MAC</span>
-                <h3>DMG arm64</h3>
+                <span className="prisma5-card-icon"><Zap size={22} /> P5 SNN</span>
+                <h3>Sin descarga</h3>
                 <p>
-                  Publicado: <code>PRISMA-Engine-0.1.0.dmg</code> (UDZO, ad-hoc). Próximo: Developer ID
-                  + notarización y build x86_64 universal.
+                  Producto en hoja de ruta (α→β→γ). No hay botón de descarga de PRISMA 5.
+                  Docs + roadmap en <code>/docs/prisma/</code>.
                 </p>
               </article>
               <article className="prisma5-card" data-reveal>
-                <span className="prisma5-card-icon"><Zap size={22} /> AKIDA</span>
-                <h3>HAL stub ready</h3>
+                <span className="prisma5-card-icon"><Cpu size={22} /> AKIDA</span>
+                <h3>HAL stub</h3>
                 <p>
-                  Backend <code>akida</code> documentado. Driver PCIe/SPI real cuando el lab tenga AKD1000.
-                  Hoy: <code>PRISMA_AKIDA_SIM=1</code>.
+                  Backend <code>akida</code> documentado. Driver real cuando haya AKD1000.
+                  Sim: <code>PRISMA_AKIDA_SIM=1</code>.
                 </p>
               </article>
               <article className="prisma5-card" data-reveal>
                 <span className="prisma5-card-icon"><Shield size={22} /> BOUNDARY</span>
                 <h3>No clínico</h3>
                 <p>
-                  Todos los artefactos son de investigación. No diagnostican, no tratan, no predicen
-                  enfermedad. Licenciamiento comercial Robin Hood se anunciará aparte.
+                  Investigación experimental. No diagnostica ni trata. No reetiquetar el Engine como P5.
                 </p>
               </article>
             </div>

@@ -34,6 +34,24 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://www.rogexlaboratories.com/docs/prisma/PRISMA_ENGINE_TECHNICAL.md</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/prisma/PRISMA_5_SNN_TECHNICAL.md</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/prisma/PRISMA_5_ROADMAP.md</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.rogexlaboratories.com/downloads/prisma-engine-0.1.0-x86_64-linux.tar.gz</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>

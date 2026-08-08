@@ -1,0 +1,8 @@
+6a71141d1a781de3be363979934338b3c710afe97fe9fc968756d07f4b0c11b3  PRISMA-Engine-0.1.0-Setup.exe
+1e84b0fcd02381c3ac9348cd179d2c8e4046d8d1e139f0bcb2be6d8be5ce4fa5  PRISMA-Engine-0.1.0-windows-x86_64-portable.zip
+dc4965e476af6a542a7cf6f820eeb719b15dc102baa76e1cb062f5b1ba22b5ef  prisma-engine-0.1.0-x86_64.exe
+36bbec781c88ebae35ef32a1f7f8e2107aaffac150a91a408477d49c8ac9b362  PRISMA-Engine-0.1.0.dmg
+43130f85798fb56faf8d528e197668c5ae39437c6ca933b0bfe5da9f84c817a0  PRISMA-Engine-0.1.0-macos.zip
+1365568e3637350e5ed6889180dae6ac4cebeef2de2b4ebb23a443b51c5629b0  prisma-engine-0.1.0-macos
+decc3d055383c325fc6c65dd959bf5b86d56b34d5b0eb7c147d738d42b1cfa55  prisma-engine-0.1.0-x86_64-linux.tar.gz
+7dc81ac42620b37c5ac0657ab2297d5773f371ffee7c466742168e9242131293  prisma-engine-0.1.0-x86_64-linux

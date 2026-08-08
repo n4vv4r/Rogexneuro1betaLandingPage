@@ -56,20 +56,34 @@ const DOWNLOAD_CATALOG = {
     id: 'prisma-engine',
     name: 'PRISMA Engine',
     version: '0.1.0',
-    platform: 'Linux x86_64',
+    platform: 'Linux · Windows · macOS',
     status: 'TECH PREVIEW',
     released: '2026-08-08',
-    size: '≈ 3.9 MB (tar.gz) · 8.6 MB binary',
+    size: 'Setup 1.7 MB · DMG 1.9 MB · Linux tar 3.9 MB',
     meanLatency: '≈ 2 µs / sample',
     maxLatency: '≈ 80 µs',
+    // Linux
     tarball: '/downloads/prisma-engine-0.1.0-x86_64-linux.tar.gz',
     binary: '/downloads/prisma-engine-0.1.0-x86_64-linux',
     sha256File: '/downloads/prisma-engine-0.1.0-x86_64-linux.tar.gz.sha256',
+    // Windows NSIS installer
+    windowsSetup: '/downloads/PRISMA-Engine-0.1.0-Setup.exe',
+    windowsPortable: '/downloads/PRISMA-Engine-0.1.0-windows-x86_64-portable.zip',
+    windowsExe: '/downloads/prisma-engine-0.1.0-x86_64.exe',
+    windowsSetupSha256:
+      '6a71141d1a781de3be363979934338b3c710afe97fe9fc968756d07f4b0c11b3',
+    // macOS UDZO DMG (arm64 Apple Silicon)
+    macosDmg: '/downloads/PRISMA-Engine-0.1.0.dmg',
+    macosZip: '/downloads/PRISMA-Engine-0.1.0-macos.zip',
+    macosBin: '/downloads/prisma-engine-0.1.0-macos',
+    macosDmgSha256:
+      '36bbec781c88ebae35ef32a1f7f8e2107aaffac150a91a408477d49c8ac9b362',
     readme: '/downloads/PRISMA-Engine-0.1.0-README.md',
+    checksumsAll: '/downloads/PRISMA-Engine-0.1.0-SHA256SUMS.txt',
     sha256:
       'decc3d055383c325fc6c65dd959bf5b86d56b34d5b0eb7c147d738d42b1cfa55',
     summary:
-      'Runtime nativo Rust: SPSC zero-copy, Delta Modulation, LIF AVX2, STDP, predictive coding, HAL Akida stub y GUI egui. Sin Streamlit/Python en el hot path.',
+      'Runtime nativo Rust: SPSC zero-copy, Delta Modulation, LIF AVX2, STDP, predictive coding, HAL Akida stub y GUI egui. Instaladores Windows (NSIS) y macOS (.dmg) publicados.',
   },
   rxos: {
     id: 'rxos',
@@ -181,10 +195,10 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
     status: 'TECH PREVIEW · LINUX',
     badge: null,
     available: true,
-    downloadHref: DOWNLOAD_CATALOG.prismaEngine.tarball,
-    downloadLabel: 'Descargar PRISMA Engine 0.1.0',
+    downloadHref: DOWNLOAD_CATALOG.prismaEngine.windowsSetup,
+    downloadLabel: 'Windows Setup.exe',
     secondaryHref: '/downloads',
-    secondaryLabel: 'Página de descargas',
+    secondaryLabel: 'Linux · macOS · checksums',
     tagline:
       'Runtime nativo ultra-baja latencia: zero-copy SPSC, Delta Modulation, LIF AVX2, STDP, predictive coding y GUI egui. Sustituye Streamlit/Python en el path crítico.',
     description:
@@ -206,10 +220,10 @@ const PRISMA_DOWNLOAD_PRODUCTS = [
     status: 'CORE SHIPPED · SILICON PENDING',
     badge: null,
     available: true,
-    downloadHref: DOWNLOAD_CATALOG.prismaEngine.tarball,
-    downloadLabel: 'Probar núcleo SNN (Engine)',
-    secondaryHref: '/downloads#prisma-engine',
-    secondaryLabel: 'Checksums & README',
+    downloadHref: DOWNLOAD_CATALOG.prismaEngine.macosDmg,
+    downloadLabel: 'macOS DMG (SNN core)',
+    secondaryHref: '/downloads#win-mac',
+    secondaryLabel: 'Windows · Linux · checksums',
     tagline:
       'El núcleo event-driven ya corre en software: spikes por Δ-mod, LIF, STDP e error de predicción. Silicio Akida = siguiente escalón, no prerequisito.',
     description:
@@ -3003,12 +3017,14 @@ function Downloads({ navigate }) {
       >
         <div className="hero-tags">
           <span>PRISMA ENGINE 0.1.0</span>
+          <span>WINDOWS SETUP.EXE</span>
+          <span>MACOS DMG</span>
           <span>LINUX x86_64</span>
-          <span>RXos TEST ZIP</span>
           <span>SHA-256</span>
         </div>
         <div className="hero-actions">
           <a className="brutal-button primary" href="#prisma-engine">PRISMA ENGINE</a>
+          <a className="brutal-button" href="#win-mac">WIN · MAC</a>
           <a className="brutal-button" href="#rxos-build">RXos ZIP</a>
           <button className="brutal-button" type="button" onClick={() => navigate('/prisma')}>
             DOSSIER PRISMA
@@ -3021,12 +3037,12 @@ function Downloads({ navigate }) {
           <SectionTitle
             code="01 / PRISMA ENGINE"
             title="NATIVE NEUROMORPHIC RUNTIME 0.1.0"
-            text="Rust · zero-allocation hot path · LIF AVX2 · Delta Modulation · STDP · predictive coding · egui GUI. Sustituto nativo del stack Python/Streamlit en el camino crítico."
+            text="Rust · zero-allocation hot path · LIF AVX2 · Delta Modulation · STDP · predictive coding · egui GUI. Instaladores nativos Windows (NSIS) y macOS (.dmg UDZO) + tarball Linux."
           />
           <div className="rxos-download-layout">
             <article className="download-card" data-reveal>
               <div className="download-card-top">
-                <span>OFFICIAL TARBALL · TECH PREVIEW</span>
+                <span>CROSS-PLATFORM · TECH PREVIEW</span>
                 <strong>v{pe.version}</strong>
               </div>
               <h3>RUN IT.<br />BENCH IT.<br />BREAK NOTHING.</h3>
@@ -3036,20 +3052,24 @@ function Downloads({ navigate }) {
                 <div><dt>SIZE</dt><dd>{pe.size}</dd></div>
                 <div><dt>HOT PATH</dt><dd>mean {pe.meanLatency} · max {pe.maxLatency}</dd></div>
                 <div><dt>RELEASED</dt><dd>{pe.released}</dd></div>
-                <div><dt>SHA-256</dt><dd><code>{pe.sha256}</code></dd></div>
+                <div><dt>WIN SHA-256</dt><dd><code>{pe.windowsSetupSha256}</code></dd></div>
+                <div><dt>DMG SHA-256</dt><dd><code>{pe.macosDmgSha256}</code></dd></div>
               </dl>
               <div className="download-actions">
-                <a className="brutal-button primary" href={pe.tarball} download>
-                  DOWNLOAD TAR.GZ <ArrowUpRight size={16} />
+                <a className="brutal-button primary" href={pe.windowsSetup} download>
+                  WINDOWS SETUP.EXE <ArrowUpRight size={16} />
                 </a>
-                <a className="brutal-button" href={pe.binary} download>
-                  BINARY ONLY
+                <a className="brutal-button primary" href={pe.macosDmg} download>
+                  MACOS DMG <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={pe.tarball} download>
+                  LINUX TAR.GZ
                 </a>
                 <a className="brutal-button" href={pe.readme} target="_blank" rel="noreferrer">
                   README <ArrowUpRight size={16} />
                 </a>
-                <a className="checksum-link" href={pe.sha256File} download>
-                  DOWNLOAD CHECKSUM
+                <a className="checksum-link" href={pe.checksumsAll} download>
+                  ALL SHA-256 SUMS
                 </a>
               </div>
             </article>
@@ -3096,6 +3116,77 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
             <AlertTriangle size={17} /> Experimental research software. Not a medical device.
             No diagnosis, treatment or disease prediction. Provided without warranty for inspection,
             education and reproducible low-latency engineering.
+          </p>
+        </section>
+
+        <section className="section wrap rxos-download-section" id="win-mac">
+          <SectionTitle
+            code="01b / WINDOWS · MACOS"
+            title="INSTALLERS"
+            text="NSIS Setup.exe (Windows x86_64) y DMG UDZO (macOS arm64 Apple Silicon, ad-hoc codesign). Portable zip / .app zip también disponibles."
+          />
+          <div className="rxos-download-layout">
+            <article className="download-card" data-reveal>
+              <div className="download-card-top">
+                <span>WINDOWS · NSIS</span>
+                <strong>Setup.exe</strong>
+              </div>
+              <h3>INSTALL.<br />START MENU.<br />UNINSTALL.</h3>
+              <p>
+                Instalador NSIS per-user (<code>%LOCALAPPDATA%\PRISMA Engine</code>), acceso directo
+                en el menú Inicio y desinstalador. Binario MSVC x86_64 con GUI egui.
+              </p>
+              <dl className="download-facts">
+                <div><dt>INSTALLER</dt><dd>PRISMA-Engine-0.1.0-Setup.exe (~1.7 MB)</dd></div>
+                <div><dt>PORTABLE</dt><dd>zip + raw .exe</dd></div>
+                <div><dt>ARCH</dt><dd>x86_64 (Windows 10+)</dd></div>
+                <div><dt>SHA-256</dt><dd><code>{pe.windowsSetupSha256}</code></dd></div>
+              </dl>
+              <div className="download-actions">
+                <a className="brutal-button primary" href={pe.windowsSetup} download>
+                  DOWNLOAD SETUP.EXE <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={pe.windowsPortable} download>
+                  PORTABLE ZIP
+                </a>
+                <a className="brutal-button" href={pe.windowsExe} download>
+                  RAW .EXE
+                </a>
+              </div>
+            </article>
+
+            <article className="download-card" data-reveal style={{ background: 'var(--paper)', borderRight: 0 }}>
+              <div className="download-card-top">
+                <span>MACOS · DMG UDZO</span>
+                <strong>arm64</strong>
+              </div>
+              <h3>DRAG TO<br />APPLICATIONS.</h3>
+              <p>
+                Imagen de disco UDZO con <code>PRISMA Engine.app</code>, enlace a Applications y
+                ad-hoc codesign. Compilado en macos-latest (Apple Silicon). Intel Mac: usa el zip o compila desde fuente.
+              </p>
+              <dl className="download-facts">
+                <div><dt>DMG</dt><dd>PRISMA-Engine-0.1.0.dmg (~1.9 MB)</dd></div>
+                <div><dt>APP ZIP</dt><dd>PRISMA-Engine-0.1.0-macos.zip</dd></div>
+                <div><dt>ARCH</dt><dd>arm64 (Apple Silicon)</dd></div>
+                <div><dt>SHA-256</dt><dd><code>{pe.macosDmgSha256}</code></dd></div>
+              </dl>
+              <div className="download-actions">
+                <a className="brutal-button primary" href={pe.macosDmg} download>
+                  DOWNLOAD DMG <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={pe.macosZip} download>
+                  APP ZIP
+                </a>
+                <a className="brutal-button" href={pe.macosBin} download>
+                  RAW BINARY
+                </a>
+              </div>
+            </article>
+          </div>
+          <p className="download-boundary" data-reveal>
+            <AlertTriangle size={17} /> macOS puede avisar de desarrollador no identificado (ad-hoc sign).
+            Clic derecho → Abrir la primera vez, o: <code>xattr -dr com.apple.quarantine &quot;PRISMA Engine.app&quot;</code>
           </p>
         </section>
 
@@ -3164,25 +3255,25 @@ qemu-system-x86_64 \\
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="03 / ROADMAP PACKAGES"
-              title="WINDOWS · MACOS · OEM"
-              text="Los instaladores firmados de escritorio se generan desde los scripts incluidos en el tarball del Engine (Inno Setup / NSIS / create_dmg.sh)."
+              code="03 / STATUS"
+              title="SHIPPED · NEXT"
+              text="Installers 0.1.0 ya publicados. Siguiente: notarización Apple, firma Authenticode Windows e Intel universal binary."
             />
             <div className="prisma5-grid">
               <article className="prisma5-card" data-reveal>
                 <span className="prisma5-card-icon"><Terminal size={22} /> WIN</span>
-                <h3>Inno Setup / NSIS</h3>
+                <h3>NSIS Setup.exe</h3>
                 <p>
-                  <code>packaging/windows/prisma.iss</code> y <code>prisma.nsi</code> dentro del tarball.
-                  Requiere cross-compile <code>x86_64-pc-windows-gnu</code> o runner MSVC.
+                  Publicado: <code>PRISMA-Engine-0.1.0-Setup.exe</code>. Próximo: firma Authenticode
+                  y actualizador silencioso.
                 </p>
               </article>
               <article className="prisma5-card" data-reveal>
                 <span className="prisma5-card-icon"><Cpu size={22} /> MAC</span>
-                <h3>DMG + codesign</h3>
+                <h3>DMG arm64</h3>
                 <p>
-                  <code>packaging/macos/create_dmg.sh</code> en host Darwin. Ad-hoc sign listo;
-                  notarización con Apple Developer ID opcional.
+                  Publicado: <code>PRISMA-Engine-0.1.0.dmg</code> (UDZO, ad-hoc). Próximo: Developer ID
+                  + notarización y build x86_64 universal.
                 </p>
               </article>
               <article className="prisma5-card" data-reveal>

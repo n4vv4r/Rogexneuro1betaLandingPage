@@ -317,7 +317,10 @@ const RXOS_BENCH = [
 ];
 
 const RXOS_HERO_IMAGE = '/rxos/pc_with_rxos_installed.jpg';
-const RXOS_OG_IMAGE = 'https://www.rogexlaboratories.com/rxos/pc_with_rxos_installed.jpg';
+const SITE = 'https://www.rogexlaboratories.com';
+const NP_SITE = 'https://newspaper.rogexlaboratories.com';
+const ogCard = (slug) => `${SITE}/og/${slug}.png`;
+const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
 const RXOS_VERSION = 'v4.5.0';
 
 const CTA_AUDIENCES = [
@@ -2997,12 +3000,10 @@ const DEFAULT_OG = {
   title: 'Knights Labs — Rogex Laboratories',
   description:
     'Knights Labs (Rogex Laboratories): neurotech low-carbon — PRISMA 3.2 EEG, PRISMA 5 SNN y RXos v4.5.0 event fabric (bench 6/6). Para developers, research y OEM.',
-  image: 'https://www.rogexlaboratories.com/knightslabs_logo.png',
-  imageType: 'image/png',
-  imageWidth: '1200',
-  imageHeight: '1200',
-  imageAlt: 'Knights Labs logo',
-  url: 'https://www.rogexlaboratories.com/',
+  image: ogCard('home'),
+  ...OG_DIM,
+  imageAlt: 'Knights Labs — low-carbon neurotech',
+  url: `${SITE}/`,
 };
 
 const ROUTE_META = {
@@ -3011,100 +3012,91 @@ const ROUTE_META = {
     title: 'Product Suite — Knights Labs',
     description:
       'Suite de producto: rxOS Desktop, kernel neuromórfico, PRISMA 3 y PRISMA 5. Licencias para developers, research y OEM.',
-    image: DEFAULT_OG.image,
-    imageType: 'image/png',
-    imageWidth: '1200',
-    imageHeight: '1200',
-    imageAlt: 'Knights Labs logo',
-    url: 'https://www.rogexlaboratories.com/suite',
+    image: ogCard('suite'),
+    ...OG_DIM,
+    imageAlt: 'Knights Labs product suite',
+    url: `${SITE}/suite`,
   },
   '/prisma': {
     title: 'PRISMA 3.2 & 5 — Knights Labs',
     description:
       'PRISMA 3.2 software EEG experimental y PRISMA 5 motor SNN. No clínico. Descargas públicas en camino.',
-    image: 'https://www.rogexlaboratories.com/rogexlaboratories_logo.png',
-    imageType: 'image/png',
-    imageWidth: '1080',
-    imageHeight: '1080',
-    imageAlt: 'Rogex Laboratories logo',
-    url: 'https://www.rogexlaboratories.com/prisma',
+    image: ogCard('prisma'),
+    ...OG_DIM,
+    imageAlt: 'PRISMA 3.2 and PRISMA 5',
+    url: `${SITE}/prisma`,
   },
   '/rx-os': {
     title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
     description:
       'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.',
-    image: RXOS_OG_IMAGE,
-    imageType: 'image/jpeg',
-    imageWidth: '1600',
-    imageHeight: '1200',
-    imageAlt: 'PC with RXos v4.5 installed',
-    url: 'https://www.rogexlaboratories.com/rx-os',
+    image: ogCard('rx-os'),
+    ...OG_DIM,
+    imageAlt: 'RXos v4.5 neuromorphic bare-metal OS',
+    url: `${SITE}/rx-os`,
   },
   '/rogexos': {
     title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
     description:
       'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.',
-    image: RXOS_OG_IMAGE,
-    imageType: 'image/jpeg',
-    imageWidth: '1600',
-    imageHeight: '1200',
-    imageAlt: 'PC with RXos v4.5 installed',
-    url: 'https://www.rogexlaboratories.com/rx-os',
+    image: ogCard('rx-os'),
+    ...OG_DIM,
+    imageAlt: 'RXos v4.5 neuromorphic bare-metal OS',
+    url: `${SITE}/rx-os`,
   },
   '/architecture': {
     title: 'Architecture RXos v4.5 — Knights Labs',
     description:
       'Arquitectura RXos: event fabric en von Neumann, anillos SPSC, LIF/STDP y roadmap neuromórfico en 4 niveles. Papers PDF públicos.',
-    image: RXOS_OG_IMAGE,
-    imageType: 'image/jpeg',
-    imageWidth: '1600',
-    imageHeight: '1200',
-    imageAlt: 'RXos neuromorphic substrate',
-    url: 'https://www.rogexlaboratories.com/architecture',
+    image: ogCard('architecture'),
+    ...OG_DIM,
+    imageAlt: 'RXos architecture — sensor to spike',
+    url: `${SITE}/architecture`,
   },
   '/about': {
     title: 'About — Knights Labs / Rogex',
     description:
       'Lab independiente de neurotech low-carbon, software EEG y sistemas bare-metal. Contacto para developers, research y OEM.',
-    image: DEFAULT_OG.image,
-    imageType: 'image/png',
-    imageWidth: '1200',
-    imageHeight: '1200',
-    imageAlt: 'Knights Labs logo',
-    url: 'https://www.rogexlaboratories.com/about',
+    image: ogCard('about'),
+    ...OG_DIM,
+    imageAlt: 'About Knights Labs',
+    url: `${SITE}/about`,
   },
   '/investors': {
     title: 'Para inversores — Knights Labs',
     description:
       'Tecnoactivismo con P&L: RXos v4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
-    image: RXOS_OG_IMAGE,
-    imageType: 'image/jpeg',
-    imageWidth: '1600',
-    imageHeight: '1200',
-    imageAlt: 'Knights Labs / RXos for investors',
-    url: 'https://www.rogexlaboratories.com/investors',
+    image: ogCard('investors'),
+    ...OG_DIM,
+    imageAlt: 'Knights Labs for investors',
+    url: `${SITE}/investors`,
   },
   '/pitch': {
     title: 'Pre-Seed Pitch 150k€ — Knights Labs',
     description:
       'Pitch pre-seed DeepTech: 150.000 € para PRISMA + RXos hasta lanzamiento dic. 2026. Tracción, use of funds y GTM developer-first.',
-    image: RXOS_OG_IMAGE,
-    imageType: 'image/jpeg',
-    imageWidth: '1600',
-    imageHeight: '1200',
-    imageAlt: 'Knights Labs Pre-Seed pitch deck',
-    url: 'https://www.rogexlaboratories.com/pitch',
+    image: ogCard('pitch'),
+    ...OG_DIM,
+    imageAlt: 'Knights Labs pre-seed pitch 150k€',
+    url: `${SITE}/pitch`,
   },
   '/startup-idea': {
     title: 'Startup idea — Knights Labs',
     description:
       'Idea de startup: compute event-driven, software EEG y SNN neuromórfico con licensing filantrópico. Problema, solución y tracción.',
-    image: DEFAULT_OG.image,
-    imageType: 'image/png',
-    imageWidth: '1200',
-    imageHeight: '1200',
+    image: ogCard('startup-idea'),
+    ...OG_DIM,
     imageAlt: 'Knights Labs startup idea',
-    url: 'https://www.rogexlaboratories.com/startup-idea',
+    url: `${SITE}/startup-idea`,
+  },
+  '/newspaper': {
+    title: 'Rogex Newspaper — avances del lab',
+    description:
+      'Despachos sobre PRISMA, RXos y neurotech low-carbon. Suscríbete por correo o RSS. Experimental, no clínico.',
+    image: ogCard('newspaper'),
+    ...OG_DIM,
+    imageAlt: 'Rogex Newspaper — email and RSS advances',
+    url: `${SITE}/newspaper`,
   },
 };
 

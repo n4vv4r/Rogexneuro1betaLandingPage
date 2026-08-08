@@ -4,6 +4,47 @@ import './newspaper.css';
 
 const NEWSPAPER_HOST = 'newspaper.rogexlaboratories.com';
 const LAB_URL = 'https://www.rogexlaboratories.com';
+const NP_SITE = 'https://newspaper.rogexlaboratories.com';
+const OG_NEWSPAPER = `${LAB_URL}/og/newspaper.png`;
+const OG_ARTICLE = `${LAB_URL}/og/newspaper-article.png`;
+
+function setMeta(attr, key, value) {
+  if (!value) return;
+  let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', value);
+}
+
+function applyNewspaperOg({ title, description, url, image, imageAlt }) {
+  document.title = title;
+  setMeta('name', 'description', description);
+  setMeta('property', 'og:type', 'website');
+  setMeta('property', 'og:site_name', 'Rogex Newspaper');
+  setMeta('property', 'og:title', title);
+  setMeta('property', 'og:description', description);
+  setMeta('property', 'og:url', url);
+  setMeta('property', 'og:image', image);
+  setMeta('property', 'og:image:type', 'image/png');
+  setMeta('property', 'og:image:width', '1200');
+  setMeta('property', 'og:image:height', '630');
+  setMeta('property', 'og:image:alt', imageAlt);
+  setMeta('name', 'twitter:card', 'summary_large_image');
+  setMeta('name', 'twitter:title', title);
+  setMeta('name', 'twitter:description', description);
+  setMeta('name', 'twitter:image', image);
+  setMeta('name', 'twitter:image:alt', imageAlt);
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonical);
+  }
+  canonical.setAttribute('href', url);
+}
 
 function isNewspaperHost() {
   if (typeof window === 'undefined') return false;
@@ -341,10 +382,16 @@ function ArticleView({ slug, navigate }) {
 
   useEffect(() => {
     if (!article) return;
-    document.title = `${article.title} — Rogex Newspaper`;
-    const desc = article.summary || '';
-    let meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', desc);
+    const url = isNewspaperHost()
+      ? `${NP_SITE}/${article.slug}`
+      : `${LAB_URL}/newspaper/${article.slug}`;
+    applyNewspaperOg({
+      title: `${article.title} — Rogex Newspaper`,
+      description: article.summary || article.title,
+      url,
+      image: OG_ARTICLE,
+      imageAlt: article.title,
+    });
   }, [article]);
 
   if (loading) {
@@ -404,11 +451,10 @@ export default function NewspaperApp() {
   useEffect(() => {
     document.documentElement.classList.add('np-root');
     document.body.classList.add('np-body');
-    document.title = 'Rogex Newspaper — avances del lab';
 
     const feedHref = isNewspaperHost()
-      ? 'https://newspaper.rogexlaboratories.com/feed.xml'
-      : 'https://www.rogexlaboratories.com/newspaper/feed.xml';
+      ? `${NP_SITE}/feed.xml`
+      : `${LAB_URL}/newspaper/feed.xml`;
     let feed = document.head.querySelector('link[rel="alternate"][type="application/rss+xml"]');
     if (!feed) {
       feed = document.createElement('link');
@@ -419,24 +465,24 @@ export default function NewspaperApp() {
     }
     feed.setAttribute('href', feedHref);
 
-    let canonical = document.head.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute(
-      'href',
-      isNewspaperHost()
-        ? 'https://newspaper.rogexlaboratories.com/'
-        : 'https://www.rogexlaboratories.com/newspaper',
-    );
-
     return () => {
       document.documentElement.classList.remove('np-root');
       document.body.classList.remove('np-body');
     };
   }, []);
+
+  useEffect(() => {
+    // Home OG when not viewing an article (article view sets its own)
+    if (route.view === 'article' && route.slug) return;
+    applyNewspaperOg({
+      title: 'Rogex Newspaper — avances del lab',
+      description:
+        'Despachos sobre PRISMA, RXos y neurotech low-carbon. Suscríbete por correo o RSS. Experimental, no clínico.',
+      url: isNewspaperHost() ? `${NP_SITE}/` : `${LAB_URL}/newspaper`,
+      image: OG_NEWSPAPER,
+      imageAlt: 'Rogex Newspaper — email and RSS advances',
+    });
+  }, [route.view, route.slug]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

@@ -3,20 +3,20 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "newspaper.rogexlaboratories.com" }],
-      "destination": "/index.html"
+      "destination": "/newspaper.html"
     },
-    { "source": "/newspaper", "destination": "/index.html" },
-    { "source": "/newspaper/", "destination": "/index.html" },
-    { "source": "/newspaper/:slug", "destination": "/index.html" },
-    { "source": "/suite", "destination": "/index.html" },
-    { "source": "/architecture", "destination": "/index.html" },
-    { "source": "/prisma", "destination": "/index.html" },
+    { "source": "/newspaper", "destination": "/newspaper-path.html" },
+    { "source": "/newspaper/", "destination": "/newspaper-path.html" },
+    { "source": "/newspaper/:slug", "destination": "/newspaper-path.html" },
+    { "source": "/suite", "destination": "/suite.html" },
+    { "source": "/architecture", "destination": "/architecture.html" },
+    { "source": "/prisma", "destination": "/prisma.html" },
     { "source": "/rx-os", "destination": "/rx-os.html" },
     { "source": "/rogexos", "destination": "/rx-os.html" },
-    { "source": "/investors", "destination": "/index.html" },
-    { "source": "/pitch", "destination": "/index.html" },
-    { "source": "/startup-idea", "destination": "/index.html" },
-    { "source": "/about", "destination": "/index.html" }
+    { "source": "/investors", "destination": "/investors.html" },
+    { "source": "/pitch", "destination": "/pitch.html" },
+    { "source": "/startup-idea", "destination": "/startup-idea.html" },
+    { "source": "/about", "destination": "/about.html" }
   ],
   "headers": [
     {
@@ -30,6 +30,12 @@
       "source": "/downloads/RXos-v4.1.1.zip.sha256",
       "headers": [
         { "key": "Content-Disposition", "value": "attachment; filename=RXos-v4.1.1.zip.sha256" }
+      ]
+    },
+    {
+      "source": "/og/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {

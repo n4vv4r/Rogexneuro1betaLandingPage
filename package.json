@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.4.0",
   "scripts": {
-    "dev": "node tools/build-newspaper.mjs && vite",
-    "build": "node tools/build-newspaper.mjs && vite build && node tools/inject-rxos-og.mjs",
+    "dev": "node tools/generate-og-images.mjs && node tools/build-newspaper.mjs && vite",
+    "build": "node tools/generate-og-images.mjs && node tools/build-newspaper.mjs && vite build && node tools/inject-route-og.mjs",
+    "build:og": "node tools/generate-og-images.mjs",
     "build:newspaper": "node tools/build-newspaper.mjs",
     "newspaper:broadcast": "node tools/newspaper-broadcast.mjs",
     "preview": "vite preview",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "6.0.3",
+    "sharp": "^0.35.3",
     "vite": "8.1.4"
   }
 }

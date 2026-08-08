@@ -24,7 +24,10 @@ Lanzamiento de suite proyectado: **diciembre 2026**.
 - Vite
 - React 19
 - lucide-react
-- Vercel serverless (`/api/x-posts`, `/api/chat`)
+- Vercel serverless (`/api/x-posts`, `/api/chat`, `/api/newspaper/*`)
+- Open Graph cards (`public/og/*.png`, 1200×630) via `npm run build:og`
+
+Cada ruta pública tiene HTML estático post-build (`suite.html`, `newspaper.html`, …) con `og:image` correcto para crawlers.
 
 ## Rutas
 

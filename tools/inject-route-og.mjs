@@ -52,12 +52,21 @@ const ROUTES = [
   },
   {
     out: 'prisma.html',
-    title: 'PRISMA 3.2 & 5 — Knights Labs',
+    title: 'PRISMA Engine 0.1 & SNN — Knights Labs',
     description:
-      'PRISMA 3.2 software EEG experimental y PRISMA 5 motor SNN. No clínico. Descargas públicas en camino.',
+      'PRISMA Engine 0.1.0 nativo (Rust·AVX2): SPSC, Δ-mod, LIF/STDP. Tech preview Linux en /downloads. No clínico.',
     url: `${SITE}/prisma`,
     image: OG('prisma'),
-    imageAlt: 'PRISMA 3.2 and PRISMA 5',
+    imageAlt: 'PRISMA Engine and PRISMA 5 SNN',
+  },
+  {
+    out: 'downloads.html',
+    title: 'Downloads — PRISMA Engine & RXos — Knights Labs',
+    description:
+      'Descargas públicas: PRISMA Engine 0.1.0 Linux x86_64 (tar.gz + SHA-256) y RXos test ZIP. Software experimental, no clínico.',
+    url: `${SITE}/downloads`,
+    image: OG('prisma'),
+    imageAlt: 'Knights Labs public downloads — PRISMA Engine and RXos',
   },
   {
     out: 'rx-os.html',

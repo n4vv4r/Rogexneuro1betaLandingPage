@@ -41,6 +41,7 @@ const NAV_ITEMS = [
   ['/suite', 'SUITE'],
   ['/architecture', 'ARCHITECTURE'],
   ['/prisma', 'PRISMA'],
+  ['/downloads', 'DOWNLOADS'],
   ['/rx-os', 'RX OS'],
   ['/investors', 'INVESTORS'],
   ['/pitch', 'PITCH'],
@@ -48,6 +49,40 @@ const NAV_ITEMS = [
   ['/about', 'ABOUT'],
   ['https://newspaper.rogexlaboratories.com', 'NEWSPAPER'],
 ];
+
+/** Public download catalog (served from /public/downloads) */
+const DOWNLOAD_CATALOG = {
+  prismaEngine: {
+    id: 'prisma-engine',
+    name: 'PRISMA Engine',
+    version: '0.1.0',
+    platform: 'Linux x86_64',
+    status: 'TECH PREVIEW',
+    released: '2026-08-08',
+    size: '≈ 3.9 MB (tar.gz) · 8.6 MB binary',
+    meanLatency: '≈ 2 µs / sample',
+    maxLatency: '≈ 80 µs',
+    tarball: '/downloads/prisma-engine-0.1.0-x86_64-linux.tar.gz',
+    binary: '/downloads/prisma-engine-0.1.0-x86_64-linux',
+    sha256File: '/downloads/prisma-engine-0.1.0-x86_64-linux.tar.gz.sha256',
+    readme: '/downloads/PRISMA-Engine-0.1.0-README.md',
+    sha256:
+      'decc3d055383c325fc6c65dd959bf5b86d56b34d5b0eb7c147d738d42b1cfa55',
+    summary:
+      'Runtime nativo Rust: SPSC zero-copy, Delta Modulation, LIF AVX2, STDP, predictive coding, HAL Akida stub y GUI egui. Sin Streamlit/Python en el hot path.',
+  },
+  rxos: {
+    id: 'rxos',
+    name: 'RXos',
+    version: 'v4.1.1 test line',
+    platform: 'x86_64 ISO (QEMU / bare-metal)',
+    status: 'PUBLIC TEST BUILD',
+    zip: '/downloads/RXos-v4.1.1.zip',
+    readme: '/downloads/RXos-v4.1.1-README.md',
+    sha256File: '/downloads/RXos-v4.1.1.zip.sha256',
+    sha256: 'a275d6b1783d439625e0bcc7395535a085bd87a2ba4db6ff88a8b402de8745af',
+  },
+};
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com/rogexlaboratories', mark: 'IG' },
@@ -88,9 +123,9 @@ const PRODUCT_SUITE = [
     code: 'P3',
     name: 'PRISMA 3',
     tier: 'POSIX / SIMD · HIGH PERFORMANCE EEG',
-    status: 'ACTIVE · OPEN-CORE PATH',
-    text: 'Motor de alto rendimiento frente a software EEG comercial pesado: zero-copy SPSC, DSP SIMD, ICA en vivo, geometría Riemanniana y normalización por sujeto. Objetivo <64 MB en stack rxOS.',
-    tags: ['Zero-copy', 'SIMD FFT', 'ICA RT', '73.3%→91% personal'],
+    status: 'ENGINE 0.1 · LINUX PREVIEW',
+    text: 'Motor de alto rendimiento frente a software EEG comercial pesado: zero-copy SPSC, path nativo Rust, DSP SIMD y normalización por sujeto. Binario público en /downloads (tech preview).',
+    tags: ['Zero-copy', 'SIMD AVX2', 'Native Rust', '73.3%→91% personal'],
     href: '/prisma#prisma3',
     icon: Brain,
     tone: 'paper',
@@ -100,8 +135,8 @@ const PRODUCT_SUITE = [
     code: 'P5',
     name: 'PRISMA 5',
     tier: 'EVENT-DRIVEN SNN · BCI <1 ms',
-    status: 'R&D · NEUROMORPHIC ENGINE',
-    text: 'Abandona ventanas/FFT: spike trains por Delta Modulation, LIF, STDP, predictive coding y resonancia de ritmos. Corre sobre el event fabric de RXos v4.5. Target Akida cuando haya silicio.',
+    status: 'SOFTWARE MODE · IN ENGINE 0.1',
+    text: 'Spike trains por Delta Modulation, LIF AVX2, STDP, predictive coding. Núcleo SNN software ya empaquetado en PRISMA Engine 0.1.0. Target Akida cuando haya silicio.',
     tags: ['Delta mod', 'LIF/STDP', 'Predictive coding', '<1 ms event'],
     href: '/prisma#prisma5',
     icon: Zap,
@@ -136,45 +171,55 @@ const LICENSE_TIERS = [
   },
 ];
 
-/** Fichas de producto con descarga "coming soon" — Prisma 3 y Prisma 5 */
+/** Fichas de producto PRISMA — Engine 0.1.0 ya tiene binario público Linux */
 const PRISMA_DOWNLOAD_PRODUCTS = [
   {
     id: 'prisma3',
     code: 'P3',
-    name: 'Prisma 3',
-    version: 'High-Performance POSIX / SIMD',
-    status: 'IN DEVELOPMENT',
-    badge: 'Próximamente / Coming Soon',
-    tagline: 'Alternativa moderna a software EEG comercial pesado: pipeline multiplataforma, zero-copy, SIMD y firma biológica por sujeto — no una caja negra de varios GB.',
+    name: 'PRISMA Engine',
+    version: '0.1.0 · Native Rust · x86_64',
+    status: 'TECH PREVIEW · LINUX',
+    badge: null,
+    available: true,
+    downloadHref: DOWNLOAD_CATALOG.prismaEngine.tarball,
+    downloadLabel: 'Descargar PRISMA Engine 0.1.0',
+    secondaryHref: '/downloads',
+    secondaryLabel: 'Página de descargas',
+    tagline:
+      'Runtime nativo ultra-baja latencia: zero-copy SPSC, Delta Modulation, LIF AVX2, STDP, predictive coding y GUI egui. Sustituye Streamlit/Python en el path crítico.',
     description:
-      'Prisma 3 reescribe el camino de la señal: buffers SPSC lock-free en C/Rust, FFT/filtros vectorizados (AVX2/NEON), ICA en tiempo real y geometría Riemanniana en espacio tangente. Evidencia actual: ~73.3% raw LOSO → ~91% personalizado. Experimental, no clínico.',
+      'PRISMA Engine 0.1.0 empaqueta el hot path en Rust puro (<1 ms/evento medido en µs). Incluye emulador SNN SIMD y hook HAL Akida AKD1000. Evidencia de investigación del stack EEG: ~73.3% raw LOSO → ~91% personalizado. Experimental, no clínico.',
     features: [
-      'Zero-copy SPSC + streaming multicanal sin alloc en hot path',
-      'DSP SIMD (IIR/FIR + FFT) · latencia de ventana ~5–10 ms objetivo',
-      'ICA / wavelet en vivo para artefactos oculares y EMG',
-      'Normalización por sujeto + Riemann covariance · footprint objetivo <64 MB en rxOS',
+      'SPSC lock-free zero-copy · sin alloc en hot path',
+      'Delta Modulation con θ_adp adaptativo (CPU idle si |ΔV| < θ)',
+      'LIF SNN AVX2/FMA · media ≈ 2 µs/sample en Ryzen 5',
+      'GUI nativa egui · footprint objetivo < 64 MB · HAL Akida stub',
     ],
-    downloadLabel: 'Descargar Prisma 3',
     tone: 'paper',
     icon: Brain,
   },
   {
     id: 'prisma5',
     code: 'P5',
-    name: 'Prisma 5',
-    version: 'Neuromorphic Event Engine',
-    status: 'IN DEVELOPMENT',
-    badge: 'Aún no disponible',
-    tagline: 'Motor SNN event-driven: el EEG deja de ser bloques FFT y pasa a ser trenes de espigas. Latencia de evento <1 ms · idle en mW sobre RXos.',
+    name: 'PRISMA 5 SNN',
+    version: 'Software mode · in Engine 0.1.0',
+    status: 'CORE SHIPPED · SILICON PENDING',
+    badge: null,
+    available: true,
+    downloadHref: DOWNLOAD_CATALOG.prismaEngine.tarball,
+    downloadLabel: 'Probar núcleo SNN (Engine)',
+    secondaryHref: '/downloads#prisma-engine',
+    secondaryLabel: 'Checksums & README',
+    tagline:
+      'El núcleo event-driven ya corre en software: spikes por Δ-mod, LIF, STDP e error de predicción. Silicio Akida = siguiente escalón, no prerequisito.',
     description:
-      'Prisma 5 codifica microvoltios → spikes (Delta Modulation), filtra artefactos con STDP, detecta ritmos por resonancia de poblaciones LIF y anomalías por error de predicción de espigas. Puente hacia silicio Akida cuando el lab disponga del chip.',
+      'PRISMA 5 codifica microvoltios → spikes, filtra artefactos con STDP y detecta anomalías por predictive coding. El mismo binario de PRISMA Engine expone este path (`--backend simd`). PCIe/SPI AKD1000 está stubbeado para el driver real.',
     features: [
       'ΔV(t)=V(t)−V(t_prev) → spike UP/DOWN si |ΔV|≥θ_adp',
-      'Predictive coding LIF: anomalía = spike-error, no solo espectro',
-      'STDP + homeostasis local (τ_m, θ₀) como firma biológica inicial',
-      'Ritmos δ/θ/α/β por resonancia (sin windowing FFT) · target MCU/FPGA/Akida',
+      'Predictive coding: anomalía = spike-error, no solo espectro',
+      'STDP + inhibición local como soft-gate de artefactos',
+      'HAL neuromórfico intercambiable · target MCU/FPGA/Akida',
     ],
-    downloadLabel: 'Descargar Prisma 5',
     tone: 'dark',
     icon: Zap,
   },
@@ -438,34 +483,34 @@ const PRISMA_ROADMAP = [
     text: 'Pipeline Python/MNE, Feature Registry, Event Mode, Confound Auditor, Benchmark Matrix. Evidencia 73.3%→91% personalizado en referencia EC/EO.',
   },
   {
+    year: 'NOW',
+    title: 'PRISMA ENGINE 0.1.0',
+    state: 'SHIPPED · LINUX PREVIEW',
+    text: 'Runtime nativo Rust en /downloads: SPSC, Δ-mod, LIF AVX2, STDP, predictive coding, GUI egui, HAL Akida stub. Hot path sin alloc · media ≈ 2 µs/sample.',
+  },
+  {
     year: 'NEXT',
-    title: 'PRISMA 3 PERF ENGINE',
-    state: 'ENGINEERING',
-    text: 'Zero-copy SPSC, SIMD DSP, ICA en vivo, UI ligera y path LSL hacia footprint &lt;64 MB sobre rxOS.',
+    title: 'WIN · MAC PACKAGES',
+    state: 'PACKAGING',
+    text: 'Instaladores .exe (Inno/NSIS) y .dmg firmables a partir de los scripts de packaging ya incluidos en el tarball 0.1.0.',
   },
   {
     year: 'R+D',
-    title: 'PRISMA 5 SNN',
-    state: 'NEUROMORPHIC CORE',
-    text: 'Delta mod, LIF, STDP, predictive coding y resonancia de ritmos. Event fabric RXos v4.5.',
+    title: 'PRISMA 5 FULL PRODUCT',
+    state: 'NEUROMORPHIC PRODUCT',
+    text: 'Producto SNN completo sobre el núcleo del Engine: UI de laboratorio, LSL en vivo, resonancia de ritmos y binding a event fabric RXos v4.5.',
   },
   {
     year: 'H/W',
     title: 'AKIDA AKD1000',
     state: 'NIVEL 3 · CHIP FALTANTE',
-    text: 'Delegación bare-metal de spikes al NPU. El lab aún no dispone del chip BrainChip para silicio real.',
+    text: 'Driver PCIe/SPI real sobre el HAL ya definido. El lab aún no dispone del chip BrainChip para silicio real.',
   },
   {
     year: 'L/T',
-    title: 'ASTRA',
+    title: 'ASTRA / NOOSPHERE',
     state: 'LONG-TERM CONCEPT',
-    text: 'Capa experimental de hardware, feedback y protocolos cerrados. Requiere ética, validación y límites regulatorios.',
-  },
-  {
-    year: 'L/T',
-    title: 'NOOSPHERE',
-    state: 'LONG-TERM CONCEPT',
-    text: 'Red federada de investigación entre laboratorios. Comparación de resultados y procedencia — no lectura mental.',
+    text: 'Hardware de feedback, protocolos cerrados y red federada de labs. Ética, validación y límites regulatorios obligatorios.',
   },
 ];
 
@@ -724,8 +769,26 @@ function DownloadSoonButton({ label, badge = 'Coming Soon' }) {
   );
 }
 
+function DownloadReadyActions({ label, href, secondaryHref, secondaryLabel }) {
+  return (
+    <div className="download-soon download-ready">
+      <a className="brutal-button primary" href={href} download>
+        <Download size={16} strokeWidth={2} />
+        {label}
+        <ArrowUpRight size={14} strokeWidth={2} />
+      </a>
+      {secondaryHref && (
+        <a className="brutal-button" href={secondaryHref}>
+          {secondaryLabel || 'Más info'}
+        </a>
+      )}
+    </div>
+  );
+}
+
 function PrismaProductCard({ product, index }) {
   const Icon = product.icon;
+  const available = Boolean(product.available && product.downloadHref);
   return (
     <article
       id={product.id}
@@ -736,7 +799,9 @@ function PrismaProductCard({ product, index }) {
       <header className="prisma-product-head">
         <div className="prisma-product-codes">
           <span className="prisma-product-code">{product.code}</span>
-          <StatusBadge tone={product.tone === 'dark' ? 'warn' : 'open'}>{product.status}</StatusBadge>
+          <StatusBadge tone={available ? 'ok' : product.tone === 'dark' ? 'warn' : 'open'}>
+            {product.status}
+          </StatusBadge>
         </div>
         <Icon size={32} strokeWidth={1.35} aria-hidden="true" />
       </header>
@@ -762,22 +827,36 @@ function PrismaProductCard({ product, index }) {
       </div>
 
       <footer className="prisma-product-footer">
-        <DownloadSoonButton label={product.downloadLabel} badge={product.badge} />
+        {available ? (
+          <DownloadReadyActions
+            label={product.downloadLabel}
+            href={product.downloadHref}
+            secondaryHref={product.secondaryHref}
+            secondaryLabel={product.secondaryLabel}
+          />
+        ) : (
+          <DownloadSoonButton label={product.downloadLabel} badge={product.badge || 'Coming Soon'} />
+        )}
         <p className="prisma-product-note">
-          Release de distribución pública pendiente · software experimental, no clínico
+          {available
+            ? 'Tech preview pública · software experimental, no clínico · verifica SHA-256'
+            : 'Release de distribución pública pendiente · software experimental, no clínico'}
         </p>
       </footer>
     </article>
   );
 }
 
-function PrismaDownloadSection({ code = '00 / MODULES', title = 'PRISMA 3 Y PRISMA 5', text }) {
+function PrismaDownloadSection({ code = '00 / MODULES', title = 'PRISMA ENGINE · PRISMA 5', text }) {
   return (
     <section className="section wrap prisma-download-section" id="prisma-downloads">
       <SectionTitle
         code={code}
         title={title}
-        text={text || 'Fichas de producto con descarga pública. Los binarios aún no están publicados: los botones permanecen deshabilitados hasta el release.'}
+        text={
+          text
+          || 'Binario nativo Linux x86_64 publicado. Win/macOS: scripts de packaging en el tarball. Experimental — no clínico.'
+        }
       />
       <div className="prisma-product-grid">
         {PRISMA_DOWNLOAD_PRODUCTS.map((product, index) => (
@@ -914,15 +993,16 @@ function Home({ navigate }) {
         image="/home-campaigns.svg"
       >
         <div className="hero-actions">
-          <button className="brutal-button primary" onClick={() => navigate('/suite')}>VIEW PRODUCT SUITE</button>
-          <button className="brutal-button" onClick={() => navigate('/architecture')}>TECHNICAL ARCHITECTURE</button>
+          <button className="brutal-button primary" onClick={() => navigate('/downloads')}>DOWNLOADS</button>
+          <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA ENGINE</button>
+          <button className="brutal-button" onClick={() => navigate('/suite')}>PRODUCT SUITE</button>
         </div>
         <div className="hero-tags">
-          <span>PRISMA 3.2</span>
-          <span>PRISMA 5 SNN</span>
+          <span>PRISMA ENGINE 0.1</span>
+          <span>≈2 µs HOT PATH</span>
+          <span>PRISMA 5 SNN CORE</span>
           <span>RXos v4.5.0</span>
           <span>EVENT FABRIC · BENCH 6/6</span>
-          <span>AKIDA PENDING</span>
         </div>
       </PageHero>
 
@@ -1322,9 +1402,12 @@ function Prisma({ navigate }) {
           <span>&lt;1 ms EVENT</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#prisma-downloads">VER MÓDULOS</a>
-          <a className="brutal-button" href="#prisma3">PRISMA 3</a>
-          <a className="brutal-button" href="#prisma5">PRISMA 5</a>
+          <a className="brutal-button primary" href="#prisma-downloads">DESCARGAR ENGINE</a>
+          <button className="brutal-button" type="button" onClick={() => navigate('/downloads')}>
+            TODAS LAS DESCARGAS
+          </button>
+          <a className="brutal-button" href="#prisma3">PRISMA ENGINE</a>
+          <a className="brutal-button" href="#prisma5">PRISMA 5 SNN</a>
           <a className="brutal-button" href="#compare">VS OTROS SOFTWARES</a>
         </div>
       </PageHero>
@@ -1332,8 +1415,8 @@ function Prisma({ navigate }) {
       <main>
         <PrismaDownloadSection
           code="01 / DOWNLOAD"
-          title="PRISMA 3 · PRISMA 5"
-          text="Arquitecturas en desarrollo. Precios accesibles (Robin Hood): community gratis; Pro/OEM financian el ecosistema. Descarga pública aún no publicada."
+          title="PRISMA ENGINE 0.1.0 · PRISMA 5 CORE"
+          text="Tech preview Linux x86_64 publicada. Hot path nativo (Rust · AVX2) sin Streamlit. Precios Robin Hood cuando haya release comercial; este build es de inspección e investigación."
         />
 
         <section className="section wrap">
@@ -1360,7 +1443,7 @@ function Prisma({ navigate }) {
                 <li><CheckCircle size={18} /> Baseline personal, Feature Registry (7 familias), Event Mode y visor de épocas.</li>
                 <li><CheckCircle size={18} /> Confound Auditor + Benchmark Matrix (strict vs ceiling etiquetados).</li>
                 <li><CheckCircle size={18} /> BIDS/OpenNeuro discovery · CLI Python 3.10+ · tests documentados.</li>
-                <li><CheckCircle size={18} /> Camino en curso: zero-copy SPSC, SIMD y ICA en vivo (motor de alto rendimiento).</li>
+                <li><CheckCircle size={18} /> <strong>PRISMA Engine 0.1.0 nativo</strong> (Rust): SPSC, Δ-mod, LIF AVX2, STDP, PC, GUI egui — en /downloads.</li>
               </ul>
             </article>
 
@@ -1492,15 +1575,15 @@ function Prisma({ navigate }) {
               </div>
             </div>
             <div className="hero-actions section-actions">
-              <button className="brutal-button primary" onClick={() => navigate('/architecture')}>
+              <a className="brutal-button primary" href={DOWNLOAD_CATALOG.prismaEngine.tarball} download>
+                DESCARGAR ENGINE (SNN CORE) <Download size={15} />
+              </a>
+              <button className="brutal-button" onClick={() => navigate('/downloads')}>
+                CHECKSUMS / README
+              </button>
+              <button className="brutal-button" onClick={() => navigate('/architecture')}>
                 RXos EVENT FABRIC <ArrowUpRight size={15} />
               </button>
-              <button className="brutal-button" onClick={() => navigate('/suite')}>
-                LICENSE LAYERS
-              </button>
-              <a className="brutal-button" href="#prisma5">
-                FICHA DE DESCARGA <ArrowUpRight size={15} />
-              </a>
             </div>
           </div>
         </section>
@@ -2905,6 +2988,229 @@ function Footer({ navigate }) {
   );
 }
 
+function Downloads({ navigate }) {
+  const pe = DOWNLOAD_CATALOG.prismaEngine;
+  const rx = DOWNLOAD_CATALOG.rxos;
+
+  return (
+    <>
+      <PageHero
+        index="DL"
+        eyebrow="PUBLIC ARTIFACTS · TECH PREVIEW"
+        title={<>DOWNLOADS.<br />VERIFY.<br />RUN.</>}
+        text="Binarios y paquetes de inspección pública. Software experimental — no clínico, sin garantía. Verifica siempre el SHA-256 antes de ejecutar."
+        image="/tutorial/prisma3/00_terminal_streamlit_run.png"
+      >
+        <div className="hero-tags">
+          <span>PRISMA ENGINE 0.1.0</span>
+          <span>LINUX x86_64</span>
+          <span>RXos TEST ZIP</span>
+          <span>SHA-256</span>
+        </div>
+        <div className="hero-actions">
+          <a className="brutal-button primary" href="#prisma-engine">PRISMA ENGINE</a>
+          <a className="brutal-button" href="#rxos-build">RXos ZIP</a>
+          <button className="brutal-button" type="button" onClick={() => navigate('/prisma')}>
+            DOSSIER PRISMA
+          </button>
+        </div>
+      </PageHero>
+
+      <main>
+        <section className="section wrap rxos-download-section" id="prisma-engine">
+          <SectionTitle
+            code="01 / PRISMA ENGINE"
+            title="NATIVE NEUROMORPHIC RUNTIME 0.1.0"
+            text="Rust · zero-allocation hot path · LIF AVX2 · Delta Modulation · STDP · predictive coding · egui GUI. Sustituto nativo del stack Python/Streamlit en el camino crítico."
+          />
+          <div className="rxos-download-layout">
+            <article className="download-card" data-reveal>
+              <div className="download-card-top">
+                <span>OFFICIAL TARBALL · TECH PREVIEW</span>
+                <strong>v{pe.version}</strong>
+              </div>
+              <h3>RUN IT.<br />BENCH IT.<br />BREAK NOTHING.</h3>
+              <p>{pe.summary}</p>
+              <dl className="download-facts">
+                <div><dt>PLATFORM</dt><dd>{pe.platform}</dd></div>
+                <div><dt>SIZE</dt><dd>{pe.size}</dd></div>
+                <div><dt>HOT PATH</dt><dd>mean {pe.meanLatency} · max {pe.maxLatency}</dd></div>
+                <div><dt>RELEASED</dt><dd>{pe.released}</dd></div>
+                <div><dt>SHA-256</dt><dd><code>{pe.sha256}</code></dd></div>
+              </dl>
+              <div className="download-actions">
+                <a className="brutal-button primary" href={pe.tarball} download>
+                  DOWNLOAD TAR.GZ <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={pe.binary} download>
+                  BINARY ONLY
+                </a>
+                <a className="brutal-button" href={pe.readme} target="_blank" rel="noreferrer">
+                  README <ArrowUpRight size={16} />
+                </a>
+                <a className="checksum-link" href={pe.sha256File} download>
+                  DOWNLOAD CHECKSUM
+                </a>
+              </div>
+            </article>
+
+            <article className="qemu-guide" data-reveal>
+              <span className="panel-label">QUICKSTART / LINUX</span>
+              <h3>VERIFY · EXTRACT · BENCH.</h3>
+              <p>
+                Requiere glibc reciente en x86_64. GUI egui necesita un display (X11/Wayland).
+                Para CI o headless usa <code>--headless</code>.
+              </p>
+              <pre><code>{`sha256sum -c prisma-engine-0.1.0-x86_64-linux.tar.gz.sha256
+tar -xzf prisma-engine-0.1.0-x86_64-linux.tar.gz
+cd prisma-engine-0.1.0
+chmod +x ./prisma-engine
+
+# Latency bench (no GUI)
+./prisma-engine --headless --bench-samples 20000
+
+# Native GUI + synthetic EEG
+./prisma-engine
+
+# Akida HAL stub (passthrough sim)
+PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
+              <div className="qemu-commands">
+                <span>USEFUL FLAGS</span>
+                <code>--channels 8</code>
+                <code>--sample-rate 250</code>
+                <code>--neurons 256</code>
+                <code>--mode alpha</code>
+                <code>--backend simd</code>
+              </div>
+              <div className="hero-actions" style={{ marginTop: 22 }}>
+                <button className="brutal-button" type="button" onClick={() => navigate('/prisma')}>
+                  PRISMA ARCHITECTURE <ArrowUpRight size={15} />
+                </button>
+                <button className="brutal-button" type="button" onClick={() => navigate('/architecture')}>
+                  RXos FABRIC
+                </button>
+              </div>
+            </article>
+          </div>
+          <p className="download-boundary" data-reveal>
+            <AlertTriangle size={17} /> Experimental research software. Not a medical device.
+            No diagnosis, treatment or disease prediction. Provided without warranty for inspection,
+            education and reproducible low-latency engineering.
+          </p>
+        </section>
+
+        <section className="section wrap rxos-download-section" id="rxos-build">
+          <SectionTitle
+            code="02 / RXos"
+            title="PUBLIC TEST BUILD"
+            text="ISO bare-metal experimental. QEMU recomendado. No uses RXos para datos importantes."
+          />
+          <div className="rxos-docs-row" data-reveal>
+            <a className="brutal-button primary" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
+              PAPER NEUROMÓRFICO PDF <ArrowUpRight size={15} />
+            </a>
+            <a className="brutal-button" href="/docs/rxos/rxos_hoja_de_ruta_4_niveles_rev1.3.pdf" target="_blank" rel="noreferrer">
+              HOJA DE RUTA 4 NIVELES PDF <ArrowUpRight size={15} />
+            </a>
+          </div>
+          <div className="rxos-download-layout">
+            <article className="download-card" data-reveal>
+              <div className="download-card-top">
+                <span>OFFICIAL ZIP · TEST</span>
+                <strong>{rx.version}</strong>
+              </div>
+              <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
+              <p>
+                Build experimental bare-metal x86_64. No es un sistema de producción, no está auditado
+                y no debe utilizarse para almacenar información importante.
+              </p>
+              <dl className="download-facts">
+                <div><dt>CONTENTS</dt><dd>ISO + README + screenshots</dd></div>
+                <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
+                <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
+                <div><dt>SHA-256</dt><dd><code>{rx.sha256}</code></dd></div>
+              </dl>
+              <div className="download-actions">
+                <a className="brutal-button primary" href={rx.zip} download>
+                  DOWNLOAD OFFICIAL ZIP <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={rx.readme} target="_blank" rel="noreferrer">
+                  READ INCLUDED GUIDE <ArrowUpRight size={16} />
+                </a>
+                <a className="checksum-link" href={rx.sha256File} download>
+                  DOWNLOAD CHECKSUM
+                </a>
+              </div>
+            </article>
+
+            <article className="qemu-guide" data-reveal>
+              <span className="panel-label">QUICKSTART / QEMU</span>
+              <h3>RUN WITHOUT INSTALLING RXos ON YOUR MACHINE.</h3>
+              <pre><code>{`mkdir rxos-v4.1.1 && cd rxos-v4.1.1
+unzip ../RXos-v4.1.1.zip
+
+qemu-system-x86_64 \\
+  -machine q35 \\
+  -m 512M \\
+  -cdrom RXos-v4-foundation.iso \\
+  -serial stdio`}</code></pre>
+              <button className="brutal-button" type="button" onClick={() => navigate('/rx-os')} style={{ marginTop: 18 }}>
+                FULL RXos PAGE <ArrowUpRight size={15} />
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <section className="section section-black">
+          <div className="wrap">
+            <SectionTitle
+              code="03 / ROADMAP PACKAGES"
+              title="WINDOWS · MACOS · OEM"
+              text="Los instaladores firmados de escritorio se generan desde los scripts incluidos en el tarball del Engine (Inno Setup / NSIS / create_dmg.sh)."
+            />
+            <div className="prisma5-grid">
+              <article className="prisma5-card" data-reveal>
+                <span className="prisma5-card-icon"><Terminal size={22} /> WIN</span>
+                <h3>Inno Setup / NSIS</h3>
+                <p>
+                  <code>packaging/windows/prisma.iss</code> y <code>prisma.nsi</code> dentro del tarball.
+                  Requiere cross-compile <code>x86_64-pc-windows-gnu</code> o runner MSVC.
+                </p>
+              </article>
+              <article className="prisma5-card" data-reveal>
+                <span className="prisma5-card-icon"><Cpu size={22} /> MAC</span>
+                <h3>DMG + codesign</h3>
+                <p>
+                  <code>packaging/macos/create_dmg.sh</code> en host Darwin. Ad-hoc sign listo;
+                  notarización con Apple Developer ID opcional.
+                </p>
+              </article>
+              <article className="prisma5-card" data-reveal>
+                <span className="prisma5-card-icon"><Zap size={22} /> AKIDA</span>
+                <h3>HAL stub ready</h3>
+                <p>
+                  Backend <code>akida</code> documentado. Driver PCIe/SPI real cuando el lab tenga AKD1000.
+                  Hoy: <code>PRISMA_AKIDA_SIM=1</code>.
+                </p>
+              </article>
+              <article className="prisma5-card" data-reveal>
+                <span className="prisma5-card-icon"><Shield size={22} /> BOUNDARY</span>
+                <h3>No clínico</h3>
+                <p>
+                  Todos los artefactos son de investigación. No diagnostican, no tratan, no predicen
+                  enfermedad. Licenciamiento comercial Robin Hood se anunciará aparte.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <CtaBand navigate={navigate} />
+      </main>
+    </>
+  );
+}
+
 function NotFound({ navigate }) {
   return (
     <main className="not-found">
@@ -3018,13 +3324,22 @@ const ROUTE_META = {
     url: `${SITE}/suite`,
   },
   '/prisma': {
-    title: 'PRISMA 3.2 & 5 — Knights Labs',
+    title: 'PRISMA Engine 0.1 & SNN — Knights Labs',
     description:
-      'PRISMA 3.2 software EEG experimental y PRISMA 5 motor SNN. No clínico. Descargas públicas en camino.',
+      'PRISMA Engine 0.1.0 nativo (Rust·AVX2): SPSC, Δ-mod, LIF/STDP. Tech preview Linux en /downloads. No clínico.',
     image: ogCard('prisma'),
     ...OG_DIM,
-    imageAlt: 'PRISMA 3.2 and PRISMA 5',
+    imageAlt: 'PRISMA Engine and PRISMA 5 SNN',
     url: `${SITE}/prisma`,
+  },
+  '/downloads': {
+    title: 'Downloads — PRISMA Engine & RXos — Knights Labs',
+    description:
+      'Descargas públicas: PRISMA Engine 0.1.0 Linux x86_64 (tar.gz + SHA-256) y RXos test ZIP. Software experimental, no clínico.',
+    image: ogCard('prisma'),
+    ...OG_DIM,
+    imageAlt: 'Knights Labs public downloads',
+    url: `${SITE}/downloads`,
   },
   '/rx-os': {
     title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
@@ -3151,6 +3466,7 @@ function App() {
   if (path === '/suite') page = <Suite navigate={navigate} />;
   if (path === '/architecture') page = <Architecture navigate={navigate} />;
   if (path === '/prisma') page = <Prisma navigate={navigate} />;
+  if (path === '/downloads') page = <Downloads navigate={navigate} />;
   if (path === '/rx-os' || path === '/rogexos') page = <RXOS navigate={navigate} />;
   if (path === '/investors') page = <Investors navigate={navigate} />;
   if (path === '/pitch') page = <Pitch navigate={navigate} />;

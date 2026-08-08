@@ -2483,6 +2483,30 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
   gap: 12px;
 }
 
+.download-ready {
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.download-ready .brutal-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.download-ready .brutal-button.primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+.prisma-product-card-dark .download-ready .brutal-button.primary {
+  background: var(--acid);
+  color: var(--ink);
+}
+.prisma-product-card-dark .download-ready .brutal-button:not(.primary) {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: var(--paper);
+}
+
 .download-soon {
   display: flex;
   flex-wrap: wrap;

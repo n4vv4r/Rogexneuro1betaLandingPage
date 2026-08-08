@@ -200,10 +200,10 @@ const CARDS = [
   {
     file: 'prisma.png',
     svg: labCard({
-      kicker: 'PRISMA 3.2 & PRISMA 5',
-      title: 'EEG research software + SNN path.',
-      subtitle: 'Experimental · non-clinical · open-core path for labs',
-      badge: 'EEG · SNN',
+      kicker: 'PRISMA ENGINE 0.1 · SNN',
+      title: 'Native Rust EEG/BCI runtime.',
+      subtitle: 'SPSC · Δ-mod · LIF AVX2 · STDP · Linux tech preview',
+      badge: 'DOWNLOAD LIVE',
       accent: LAB.accent,
     }),
   },

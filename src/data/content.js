@@ -13,21 +13,21 @@ const productData = {
   es: [
     {
       id: 'prisma3',
-      name: 'PRISMA 3',
-      eyebrow: 'MVP real · EEG',
-      title: 'Decodificación EEG normalizada por sujeto.',
-      text: 'PRISMA 3 es software experimental de investigación EEG. Importa EEG real, extrae features, construye baselines personales, evalúa modelos y genera reportes reproducibles.',
-      status: 'Implementado / release técnico',
-      facts: ['OpenNeuro DS007358', '28 sujetos', '3304 ventanas', '84.2% LOSO normalizado']
+      name: 'PRISMA 3 / Engine',
+      eyebrow: 'MVP real · nativo 0.1',
+      title: 'Decodificación EEG normalizada por sujeto + runtime nativo.',
+      text: 'PRISMA 3 es software experimental de investigación EEG. PRISMA Engine 0.1.0 añade el hot path nativo Rust (SPSC, Δ-mod, LIF AVX2) descargable en Linux. Importa EEG real, baselines personales y reportes reproducibles.',
+      status: 'Engine 0.1 tech preview + pipeline research',
+      facts: ['Engine 0.1 Linux', '≈2 µs/sample', 'OpenNeuro DS007358', '73.3%→91% personal']
     },
     {
       id: 'prisma4',
-      name: 'PRISMA 4',
+      name: 'PRISMA 4 / 5',
       eyebrow: 'Siguiente fase',
-      title: 'EEG en vivo, artefactos y calibración.',
-      text: 'PRISMA 4 debe centrarse en ingestión en vivo, control de artefactos, benchmarks mayores, calibración por usuario y revisión externa.',
-      status: 'Roadmap',
-      facts: ['live EEG', 'artefactos', 'calibración', 'datasets mayores']
+      title: 'EEG en vivo, SNN y calibración.',
+      text: 'El núcleo SNN ya va en PRISMA Engine (software mode). PRISMA 4/5 completan ingestión en vivo, UI de lab, calibración por usuario, packaging Win/macOS y silicio Akida.',
+      status: 'Core shipped · producto en roadmap',
+      facts: ['SNN en Engine', 'live EEG', 'Win/macOS', 'Akida HAL']
     },
     {
       id: 'rogexos',
@@ -51,21 +51,21 @@ const productData = {
   en: [
     {
       id: 'prisma3',
-      name: 'PRISMA 3',
-      eyebrow: 'Real MVP · EEG',
-      title: 'Subject-normalized EEG decoding.',
-      text: 'PRISMA 3 is experimental EEG research software. It imports real EEG, extracts features, builds personal baselines, evaluates models and generates reproducible reports.',
-      status: 'Implemented / technical release',
-      facts: ['OpenNeuro DS007358', '28 subjects', '3304 windows', '84.2% normalized LOSO']
+      name: 'PRISMA 3 / Engine',
+      eyebrow: 'Real MVP · native 0.1',
+      title: 'Subject-normalized EEG decoding + native runtime.',
+      text: 'PRISMA 3 is experimental EEG research software. PRISMA Engine 0.1.0 ships a native Rust hot path (SPSC, Δ-mod, LIF AVX2) as a Linux tech preview. Real EEG import, personal baselines and reproducible reports.',
+      status: 'Engine 0.1 tech preview + research pipeline',
+      facts: ['Engine 0.1 Linux', '≈2 µs/sample', 'OpenNeuro DS007358', '73.3%→91% personal']
     },
     {
       id: 'prisma4',
-      name: 'PRISMA 4',
+      name: 'PRISMA 4 / 5',
       eyebrow: 'Next phase',
-      title: 'Live EEG, artifacts and calibration.',
-      text: 'PRISMA 4 should focus on live ingestion, stronger artifact handling, larger benchmarks, user calibration and external review.',
-      status: 'Roadmap',
-      facts: ['live EEG', 'artifacts', 'calibration', 'larger datasets']
+      title: 'Live EEG, SNN and calibration.',
+      text: 'The SNN core already ships inside PRISMA Engine (software mode). PRISMA 4/5 complete live ingestion, lab UI, user calibration, Win/macOS packages and Akida silicon.',
+      status: 'Core shipped · product roadmap',
+      facts: ['SNN in Engine', 'live EEG', 'Win/macOS', 'Akida HAL']
     },
     {
       id: 'rogexos',

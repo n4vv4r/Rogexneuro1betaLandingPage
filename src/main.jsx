@@ -783,24 +783,102 @@ function DownloadSoonButton({ label, badge = 'Coming Soon' }) {
   );
 }
 
-function DownloadReadyActions({ label, href, secondaryHref, secondaryLabel }) {
+function shortHash(hex, n = 16) {
+  if (!hex) return '';
+  return hex.length > n ? `${hex.slice(0, n)}…` : hex;
+}
+
+function DownloadReadyActions({ label, href, secondaryHref, secondaryLabel, navigate }) {
+  const secondaryIsRoute = secondaryHref && secondaryHref.startsWith('/') && !secondaryHref.startsWith('/downloads/');
   return (
-    <div className="download-soon download-ready">
+    <div className="download-ready">
       <a className="brutal-button primary" href={href} download>
         <Download size={16} strokeWidth={2} />
         {label}
         <ArrowUpRight size={14} strokeWidth={2} />
       </a>
-      {secondaryHref && (
+      {secondaryHref && secondaryIsRoute && navigate ? (
+        <button type="button" className="brutal-button" onClick={() => navigate(secondaryHref)}>
+          {secondaryLabel || 'Más info'}
+        </button>
+      ) : secondaryHref ? (
         <a className="brutal-button" href={secondaryHref}>
           {secondaryLabel || 'Más info'}
         </a>
-      )}
+      ) : null}
     </div>
   );
 }
 
-function PrismaProductCard({ product, index }) {
+const PRISMA_ENGINE_SHOTS = [
+  {
+    src: '/screenshots/prisma-engine/gui_01_main.png',
+    code: 'LIVE / 01',
+    title: 'Multichannel waveform · 8 ch',
+    text: 'GUI nativa egui: 8 canales en vivo, backend simd-snn-x86_64, hot-path en µs.',
+    featured: true,
+  },
+  {
+    src: '/screenshots/prisma-engine/gui_02_waveforms.png',
+    code: 'LIVE / 02',
+    title: 'Spike activity · Δ-mod',
+    text: 'Formas de onda + contadores Δ-spikes / SNN spikes en tiempo real.',
+  },
+  {
+    src: '/screenshots/prisma-engine/gui_03_live.png',
+    code: 'LIVE / 03',
+    title: 'Controls + telemetry',
+    text: 'Gain, spectrum, frames, idle-friendly pipeline. 60+ FPS en captura.',
+  },
+  {
+    src: '/screenshots/prisma-engine/detail_waveforms.png',
+    code: 'DETAIL',
+    title: 'Waveform close-up',
+    text: 'Señal sintética mixed (alpha/beta + blink) codificada hacia spikes.',
+  },
+  {
+    src: '/screenshots/prisma-engine/detail_raster.png',
+    code: 'RASTER',
+    title: 'Spike raster',
+    text: 'Eventos UP/DOWN por canal tras Delta Modulation adaptativa.',
+  },
+  {
+    src: '/screenshots/prisma-engine/bench_terminal.png',
+    code: 'BENCH',
+    title: 'Headless latency bench',
+    text: 'Media ≈ 2 µs/sample · max ≪ 1 ms · zero-alloc hot path.',
+  },
+];
+
+function ProductShotGallery({
+  code = 'SHOTS / PRODUCT',
+  title = 'CAPTURAS REALES DEL MOTOR',
+  text = 'Pantallas auténticas de PRISMA Engine 0.1.0 en Linux x86_64 (egui). No son mockups.',
+  shots = PRISMA_ENGINE_SHOTS,
+}) {
+  return (
+    <section className="section wrap" id="product-shots">
+      <SectionTitle code={code} title={title} text={text} />
+      <div className="product-shot-grid" data-reveal>
+        {shots.map((shot) => (
+          <figure
+            className={shot.featured ? 'product-shot product-shot-featured' : 'product-shot'}
+            key={shot.src}
+          >
+            <img src={shot.src} alt={shot.title} loading="lazy" decoding="async" />
+            <figcaption>
+              <span>{shot.code}</span>
+              <strong>{shot.title}</strong>
+              <p>{shot.text}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PrismaProductCard({ product, index, navigate }) {
   const Icon = product.icon;
   const available = Boolean(product.available && product.downloadHref);
   return (
@@ -847,6 +925,7 @@ function PrismaProductCard({ product, index }) {
             href={product.downloadHref}
             secondaryHref={product.secondaryHref}
             secondaryLabel={product.secondaryLabel}
+            navigate={navigate}
           />
         ) : (
           <DownloadSoonButton label={product.downloadLabel} badge={product.badge || 'Coming Soon'} />
@@ -861,7 +940,12 @@ function PrismaProductCard({ product, index }) {
   );
 }
 
-function PrismaDownloadSection({ code = '00 / MODULES', title = 'PRISMA ENGINE · PRISMA 5', text }) {
+function PrismaDownloadSection({
+  code = '00 / MODULES',
+  title = 'PRISMA ENGINE · PRISMA 5',
+  text,
+  navigate,
+}) {
   return (
     <section className="section wrap prisma-download-section" id="prisma-downloads">
       <SectionTitle
@@ -869,12 +953,12 @@ function PrismaDownloadSection({ code = '00 / MODULES', title = 'PRISMA ENGINE �
         title={title}
         text={
           text
-          || 'Binario nativo Linux x86_64 publicado. Win/macOS: scripts de packaging en el tarball. Experimental — no clínico.'
+          || 'Installers Windows/macOS/Linux publicados. Experimental — no clínico.'
         }
       />
       <div className="prisma-product-grid">
         {PRISMA_DOWNLOAD_PRODUCTS.map((product, index) => (
-          <PrismaProductCard product={product} index={index} key={product.id} />
+          <PrismaProductCard product={product} index={index} key={product.id} navigate={navigate} />
         ))}
       </div>
     </section>
@@ -1009,14 +1093,15 @@ function Home({ navigate }) {
         <div className="hero-actions">
           <button className="brutal-button primary" onClick={() => navigate('/downloads')}>DOWNLOADS</button>
           <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA ENGINE</button>
+          <button className="brutal-button" onClick={() => navigate('/prisma#product-shots')}>SCREENSHOTS</button>
           <button className="brutal-button" onClick={() => navigate('/suite')}>PRODUCT SUITE</button>
         </div>
         <div className="hero-tags">
           <span>PRISMA ENGINE 0.1</span>
+          <span>WIN · MAC · LINUX</span>
           <span>≈2 µs HOT PATH</span>
-          <span>PRISMA 5 SNN CORE</span>
+          <span>REAL GUI SHOTS</span>
           <span>RXos v4.5.0</span>
-          <span>EVENT FABRIC · BENCH 6/6</span>
         </div>
       </PageHero>
 
@@ -1402,26 +1487,25 @@ function Prisma({ navigate }) {
     <>
       <PageHero
         index="03"
-        eyebrow="PRISMA 3 · HIGH-PERF · PRISMA 5 · SNN"
+        eyebrow="PRISMA ENGINE 0.1 · HIGH-PERF · SNN"
         title={<>MEASURE THE SIGNAL.<br />MODEL THE PERSON.<br />SPIKE THE EVENT.</>}
-        text="PRISMA 3 es el motor POSIX/SIMD de EEG (alternativa ligera al software comercial pesado). PRISMA 5 es el engine neuromórfico event-driven sobre RXos. Ninguno es dispositivo médico ni lee pensamientos."
-        image="/tutorial/prisma3/04_eeg_real.png"
+        text="PRISMA Engine es el runtime nativo Rust (SPSC, Δ-mod, LIF AVX2, STDP). PRISMA 5 es el path SNN event-driven. Capturas reales abajo. Ninguno es dispositivo médico ni lee pensamientos."
+        image="/screenshots/prisma-engine/hero_gui.jpg"
       >
         <div className="hero-tags">
           <span>ZERO-COPY SPSC</span>
-          <span>SIMD FFT</span>
-          <span>ICA RT</span>
+          <span>LIF AVX2</span>
           <span>DELTA MOD</span>
-          <span>LIF / STDP</span>
-          <span>&lt;1 ms EVENT</span>
+          <span>STDP</span>
+          <span>≈2 µs HOT PATH</span>
+          <span>WIN · MAC · LINUX</span>
         </div>
         <div className="hero-actions">
           <a className="brutal-button primary" href="#prisma-downloads">DESCARGAR ENGINE</a>
           <button className="brutal-button" type="button" onClick={() => navigate('/downloads')}>
             TODAS LAS DESCARGAS
           </button>
-          <a className="brutal-button" href="#prisma3">PRISMA ENGINE</a>
-          <a className="brutal-button" href="#prisma5">PRISMA 5 SNN</a>
+          <a className="brutal-button" href="#product-shots">SCREENSHOTS</a>
           <a className="brutal-button" href="#compare">VS OTROS SOFTWARES</a>
         </div>
       </PageHero>
@@ -1430,8 +1514,11 @@ function Prisma({ navigate }) {
         <PrismaDownloadSection
           code="01 / DOWNLOAD"
           title="PRISMA ENGINE 0.1.0 · PRISMA 5 CORE"
-          text="Tech preview Linux x86_64 publicada. Hot path nativo (Rust · AVX2) sin Streamlit. Precios Robin Hood cuando haya release comercial; este build es de inspección e investigación."
+          text="Tech preview multiplataforma: Setup.exe (Windows), DMG (macOS arm64), tar.gz (Linux). Hot path nativo sin Streamlit. Experimental — no clínico."
+          navigate={navigate}
         />
+
+        <ProductShotGallery />
 
         <section className="section wrap">
           <SectionTitle
@@ -3006,6 +3093,17 @@ function Downloads({ navigate }) {
   const pe = DOWNLOAD_CATALOG.prismaEngine;
   const rx = DOWNLOAD_CATALOG.rxos;
 
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return undefined;
+    const el = document.getElementById(hash);
+    if (el) {
+      const timer = setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, []);
+
   return (
     <>
       <PageHero
@@ -3013,7 +3111,7 @@ function Downloads({ navigate }) {
         eyebrow="PUBLIC ARTIFACTS · TECH PREVIEW"
         title={<>DOWNLOADS.<br />VERIFY.<br />RUN.</>}
         text="Binarios y paquetes de inspección pública. Software experimental — no clínico, sin garantía. Verifica siempre el SHA-256 antes de ejecutar."
-        image="/tutorial/prisma3/00_terminal_streamlit_run.png"
+        image="/screenshots/prisma-engine/hero_gui.jpg"
       >
         <div className="hero-tags">
           <span>PRISMA ENGINE 0.1.0</span>
@@ -3052,14 +3150,20 @@ function Downloads({ navigate }) {
                 <div><dt>SIZE</dt><dd>{pe.size}</dd></div>
                 <div><dt>HOT PATH</dt><dd>mean {pe.meanLatency} · max {pe.maxLatency}</dd></div>
                 <div><dt>RELEASED</dt><dd>{pe.released}</dd></div>
-                <div><dt>WIN SHA-256</dt><dd><code>{pe.windowsSetupSha256}</code></dd></div>
-                <div><dt>DMG SHA-256</dt><dd><code>{pe.macosDmgSha256}</code></dd></div>
+                <div>
+                  <dt>WIN SHA-256</dt>
+                  <dd><code title={pe.windowsSetupSha256}>{shortHash(pe.windowsSetupSha256, 20)}</code></dd>
+                </div>
+                <div>
+                  <dt>DMG SHA-256</dt>
+                  <dd><code title={pe.macosDmgSha256}>{shortHash(pe.macosDmgSha256, 20)}</code></dd>
+                </div>
               </dl>
               <div className="download-actions">
                 <a className="brutal-button primary" href={pe.windowsSetup} download>
                   WINDOWS SETUP.EXE <ArrowUpRight size={16} />
                 </a>
-                <a className="brutal-button primary" href={pe.macosDmg} download>
+                <a className="brutal-button" href={pe.macosDmg} download>
                   MACOS DMG <ArrowUpRight size={16} />
                 </a>
                 <a className="brutal-button" href={pe.tarball} download>
@@ -3119,6 +3223,12 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
           </p>
         </section>
 
+        <ProductShotGallery
+          code="01a / PRODUCT SHOTS"
+          title="PRISMA ENGINE EN PANTALLA"
+          text="Capturas reales del binario nativo Linux (egui). Waveforms, spikes y telemetría en vivo — no mockups."
+        />
+
         <section className="section wrap rxos-download-section" id="win-mac">
           <SectionTitle
             code="01b / WINDOWS · MACOS"
@@ -3140,7 +3250,10 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 <div><dt>INSTALLER</dt><dd>PRISMA-Engine-0.1.0-Setup.exe (~1.7 MB)</dd></div>
                 <div><dt>PORTABLE</dt><dd>zip + raw .exe</dd></div>
                 <div><dt>ARCH</dt><dd>x86_64 (Windows 10+)</dd></div>
-                <div><dt>SHA-256</dt><dd><code>{pe.windowsSetupSha256}</code></dd></div>
+                <div>
+                  <dt>SHA-256</dt>
+                  <dd><code title={pe.windowsSetupSha256}>{shortHash(pe.windowsSetupSha256, 20)}</code></dd>
+                </div>
               </dl>
               <div className="download-actions">
                 <a className="brutal-button primary" href={pe.windowsSetup} download>
@@ -3155,7 +3268,7 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
               </div>
             </article>
 
-            <article className="download-card" data-reveal style={{ background: 'var(--paper)', borderRight: 0 }}>
+            <article className="download-card paper" data-reveal>
               <div className="download-card-top">
                 <span>MACOS · DMG UDZO</span>
                 <strong>arm64</strong>
@@ -3169,7 +3282,10 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 <div><dt>DMG</dt><dd>PRISMA-Engine-0.1.0.dmg (~1.9 MB)</dd></div>
                 <div><dt>APP ZIP</dt><dd>PRISMA-Engine-0.1.0-macos.zip</dd></div>
                 <div><dt>ARCH</dt><dd>arm64 (Apple Silicon)</dd></div>
-                <div><dt>SHA-256</dt><dd><code>{pe.macosDmgSha256}</code></dd></div>
+                <div>
+                  <dt>SHA-256</dt>
+                  <dd><code title={pe.macosDmgSha256}>{shortHash(pe.macosDmgSha256, 20)}</code></dd>
+                </div>
               </dl>
               <div className="download-actions">
                 <a className="brutal-button primary" href={pe.macosDmg} download>
@@ -3219,7 +3335,10 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 <div><dt>CONTENTS</dt><dd>ISO + README + screenshots</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
-                <div><dt>SHA-256</dt><dd><code>{rx.sha256}</code></dd></div>
+                <div>
+                  <dt>SHA-256</dt>
+                  <dd><code title={rx.sha256}>{shortHash(rx.sha256, 20)}</code></dd>
+                </div>
               </dl>
               <div className="download-actions">
                 <a className="brutal-button primary" href={rx.zip} download>

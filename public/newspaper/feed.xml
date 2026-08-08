@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Rogex Newspaper</title>
+    <link>https://newspaper.rogexlaboratories.com/</link>
+    <description>Avances de Knights Labs / Rogex Laboratories: PRISMA, RXos y neurotech low-carbon. Experimental, no clínico.</description>
+    <language>es</language>
+    <lastBuildDate>Sat, 08 Aug 2026 12:31:27 GMT</lastBuildDate>
+    <atom:link href="https://newspaper.rogexlaboratories.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://www.rogexlaboratories.com/rogexlaboratories_logo.png</url>
+      <title>Rogex Newspaper</title>
+      <link>https://newspaper.rogexlaboratories.com/</link>
+    </image>
+    <item>
+      <title>Rogex Newspaper — primer despacho</title>
+      <link>https://newspaper.rogexlaboratories.com/2026-08-08-inaugural</link>
+      <guid isPermaLink="true">https://newspaper.rogexlaboratories.com/2026-08-08-inaugural</guid>
+      <pubDate>Sat, 08 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Abrimos el canal de avances del lab: PRISMA, RXos y el camino neuromórfico, en texto corto y sin hype clínico.</description>
+      <author>Roger Navarro / Knights Labs</author>
+      <category>lab</category>
+      <category>newspaper</category>
+      <category>rxos</category>
+      <category>prisma</category>
+      <content:encoded><![CDATA[<h2>Bienvenido al despacho</h2>
+<p><strong>Rogex Newspaper</strong> es el canal de avances de Knights Labs / Rogex Laboratories. Aquí publicamos notas técnicas, hitos de RXos y PRISMA, y el estado real del lab — con límites explícitos y sin pretender ser un dispositivo médico.</p>
+<h3>Qué puedes esperar</h3>
+<ul><li><strong>Avances de producto</strong> (PRISMA 3/5, RXos desktop y event fabric)</li><li><strong>Notas de arquitectura</strong> cuando algo se cierra o se bloquea</li><li><strong>Documentación y releases</strong> cuando hay algo descargable o legible</li></ul>
+<h3>Cómo seguirlo</h3>
+<ol><li><strong>Email</strong> — deja tu correo en la portada; cada artículo nuevo se envía al publicarse.</li><li><strong>RSS</strong> — suscríbete al feed en cualquier lector (<code>/feed.xml</code>).</li></ol>
+<h3>Método</h3>
+<p>Trabajo de laboratorio independiente: medimos, documentamos y publicamos también lo que no sale. Si escribes por OEM, research o prensa, el canal de contacto sigue siendo el del lab principal.</p>
+<p>— <em>Rogex Laboratories · low-carbon neurotech</em></p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>

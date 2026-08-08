@@ -34,6 +34,7 @@ import {
   X,
 } from 'lucide-react';
 import './styles.css';
+import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx';
 
 const NAV_ITEMS = [
   ['/', 'HOME'],
@@ -45,12 +46,14 @@ const NAV_ITEMS = [
   ['/pitch', 'PITCH'],
   ['/startup-idea', 'STARTUP'],
   ['/about', 'ABOUT'],
+  ['https://newspaper.rogexlaboratories.com', 'NEWSPAPER'],
 ];
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com/rogexlaboratories', mark: 'IG' },
   { label: 'GitHub', href: 'https://github.com/n4vv4r', mark: 'GH' },
   { label: 'X', href: 'https://x.com/rogexlabs', mark: 'X' },
+  { label: 'Newspaper', href: 'https://newspaper.rogexlaboratories.com', mark: 'NP' },
   { label: 'Linktree', href: 'https://linktr.ee/rogynavy', icon: LinkIcon },
   { label: 'YouTube', href: 'https://www.youtube.com/@rollitodprimavera', mark: 'YT' },
 ];
@@ -834,6 +837,69 @@ function CtaBand({ navigate }) {
   );
 }
 
+/** Sección estilizada como knightscomputer.club (CRT / terminal verde), deliberadamente distinta del resto del lab. */
+function KccFindUsSection() {
+  return (
+    <section className="kcc-find-section" id="kcc" aria-labelledby="kcc-find-title">
+      <div className="kcc-find-scanlines" aria-hidden />
+      <div className="kcc-find-vignette" aria-hidden />
+      <div className="wrap kcc-find-inner" data-reveal>
+        <div className="kcc-find-panel">
+          <div className="kcc-find-header">
+            <span className="kcc-find-live" aria-hidden>
+              <span className="kcc-find-pulse" />
+              NODE ONLINE
+            </span>
+            <span className="kcc-find-path">desk@lobby:~$ open kcc</span>
+          </div>
+
+          <pre className="kcc-find-ascii" aria-hidden>{` ██╗  ██╗ ██████╗ ██████╗
+ ██║ ██╔╝██╔════╝██╔════╝
+ █████╔╝ ██║     ██║     
+ ██╔═██╗ ██║     ██║     
+ ██║  ██╗╚██████╗╚██████╗
+ ╚═╝  ╚═╝ ╚═════╝ ╚═════╝`}</pre>
+
+          <p className="kcc-find-eyebrow">COMUNIDAD · NODO UNDERGROUND</p>
+          <h2 className="kcc-find-title" id="kcc-find-title">
+            Encuéntranos en <span className="kcc-find-glow">KCC</span>
+          </h2>
+          <p className="kcc-find-text">
+            <strong>knightscomputer.club</strong> es el nodo tecnoactivista del lab: foro, lobby,
+            paste y debate sin vigilancia. RXos, PRISMA y computación libre — misma tribu, otra
+            estética.
+          </p>
+
+          <div className="kcc-find-actions">
+            <a
+              className="kcc-btn"
+              href="https://www.knightscomputer.club"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ENTRAR AL LOBBY
+              <ArrowUpRight size={16} strokeWidth={2.2} aria-hidden />
+            </a>
+            <a
+              className="kcc-btn kcc-btn-secondary"
+              href="https://www.knightscomputer.club/forum"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              IR AL FORO
+            </a>
+          </div>
+
+          <p className="kcc-find-prompt">
+            <span className="kcc-find-cmd">kcc@node:~$</span> soft jazz · no ads · no surveil
+            <span className="kcc-find-cursor" aria-hidden />
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Home({ navigate }) {
   return (
     <>
@@ -967,6 +1033,8 @@ function Home({ navigate }) {
             Las licencias se confirman al lanzamiento. PRISMA no es un dispositivo médico ni software de diagnóstico.
           </p>
         </section>
+
+        <KccFindUsSection />
 
         <CtaBand navigate={navigate} />
       </main>
@@ -2773,6 +2841,8 @@ function About({ navigate }) {
 
         <CtaBand navigate={navigate} />
 
+        <KccFindUsSection />
+
         <section className="section contact-section" id="contact">
           <div className="wrap">
             <SectionTitle
@@ -3041,8 +3111,11 @@ const ROUTE_META = {
 function App() {
   const [path, navigate] = useRoute();
   useReveal();
+  const newspaperMode = shouldMountNewspaper(path);
 
   useEffect(() => {
+    if (newspaperMode) return;
+
     const meta = ROUTE_META[path] || DEFAULT_OG;
     document.title = meta.title;
     setCanonical(meta.url);
@@ -3074,7 +3147,12 @@ function App() {
     setMetaTag('name', 'twitter:description', meta.description);
     setMetaTag('name', 'twitter:image', meta.image);
     setMetaTag('name', 'twitter:image:alt', meta.imageAlt);
-  }, [path]);
+  }, [path, newspaperMode]);
+
+  // newspaper.rogexlaboratories.com or /newspaper on main domain
+  if (newspaperMode) {
+    return <NewspaperApp />;
+  }
 
   let page = <NotFound navigate={navigate} />;
   if (path === '/') page = <Home navigate={navigate} />;

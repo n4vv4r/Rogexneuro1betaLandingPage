@@ -1,5 +1,13 @@
 {
   "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "newspaper.rogexlaboratories.com" }],
+      "destination": "/index.html"
+    },
+    { "source": "/newspaper", "destination": "/index.html" },
+    { "source": "/newspaper/", "destination": "/index.html" },
+    { "source": "/newspaper/:slug", "destination": "/index.html" },
     { "source": "/suite", "destination": "/index.html" },
     { "source": "/architecture", "destination": "/index.html" },
     { "source": "/prisma", "destination": "/index.html" },
@@ -22,6 +30,20 @@
       "source": "/downloads/RXos-v4.1.1.zip.sha256",
       "headers": [
         { "key": "Content-Disposition", "value": "attachment; filename=RXos-v4.1.1.zip.sha256" }
+      ]
+    },
+    {
+      "source": "/newspaper/feed.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=300" }
+      ]
+    },
+    {
+      "source": "/feed.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=300" }
       ]
     }
   ]

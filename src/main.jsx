@@ -120,9 +120,9 @@ const PRODUCT_SUITE = [
     code: 'RX-01',
     name: 'rxOS Desktop Experience',
     tier: 'OPEN CORE · BOOTABLE x86-64',
-    status: 'v5.5 · HARDWARE + QEMU',
-    text: 'Escritorio bare-metal real (RXos v5.5): wallpaper, taskbar con reloj, ventanas Aero, RXFS, lock screen, teclado ES/US/Mac y canal de paquetes .rxc. Verificado en HP 15-ac195nl y QEMU.',
-    tags: ['x86_64', 'Desktop v5.5', 'Taskbar clock', 'rx app'],
+    status: 'v6.5 · HARDWARE + QEMU',
+    text: 'Escritorio bare-metal real (rxOS 6.5): instalador LIVE, wallpaper, taskbar con reloj, ventanas Aero, RXFS, lock screen, teclado ES/US/Mac y canal de paquetes .rxc. Verificado en HP 15-ac195nl y QEMU.',
+    tags: ['x86_64', 'Desktop 6.5', 'LIVE installer', 'rx app'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -389,8 +389,21 @@ const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
 const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
-const RXOS_VERSION = 'v6.0.0';
-const RXOS_VERSION_LABEL = 'rxOS 6 (RX OS 6)';
+const RXOS_VERSION = 'v6.5.0';
+const RXOS_VERSION_LABEL = 'rxOS 6.5 (RX OS 6.5)';
+
+const RXOS_INSTALL_SHOTS = [
+  { src: '/rxos/install/01-language.jpg', tag: '01', title: 'LANGUAGE', text: 'English or Español. The keyboard layout follows the language.' },
+  { src: '/rxos/install/02-locale.jpg', tag: '02', title: 'LOCALE', text: 'en_US, en_GB, es_ES, es_MX, es_AR, es_CO.' },
+  { src: '/rxos/install/03-timezone.jpg', tag: '03', title: 'TIME ZONE', text: 'Madrid, Canarias, London, Mexico City, Buenos Aires…' },
+  { src: '/rxos/install/04-clock.jpg', tag: '04', title: 'REAL CLOCK', text: 'Set the time you see on your phone. Written to the CMOS RTC.' },
+  { src: '/rxos/install/05-account.jpg', tag: '05', title: 'ACCOUNT', text: 'Username and password chosen here unlock the installed disk.' },
+  { src: '/rxos/install/06-disk.jpg', tag: '06', title: 'DISK', text: 'Internal AHCI / virtio / IDE. Erases the chosen disk.' },
+  { src: '/rxos/install/07-installing.jpg', tag: '07', title: 'WRITE', text: 'MBR bootloader + kernel + RXFS. After this the USB can come out.' },
+  { src: '/rxos/install/08-complete.jpg', tag: '08', title: 'DONE', text: 'Remove the stick and reboot. The next boot is from the disk.' },
+  { src: '/rxos/install/09-lock.jpg', tag: '09', title: 'LOCK', text: 'Wallpaper + glass login. Same account as the LIVE wizard.' },
+  { src: '/rxos/install/10-desktop.jpg', tag: '10', title: 'DESKTOP', text: 'Installed session: icons, Start, taskbar clock. No USB.' },
+];
 
 const CTA_AUDIENCES = [
   {
@@ -1169,15 +1182,16 @@ function Home({ navigate }) {
     <>
       <PageHero
         index="00"
+        className="rxos-hero"
         eyebrow="KNIGHTS LABS · ROGEX LABORATORIES"
         title={<>LOW-CARBON<br />NEUROTECH.<br />BOOTABLE LAB.</>}
         text="Rogex Laboratories opera bajo Knights Labs: software EEG reproducible, un kernel neuromórfico de código abierto y una experiencia desktop bare-metal. Lanzamiento de la suite proyectado para diciembre 2026."
-        image="/home-campaigns.svg"
+        image={RXOS_HERO_IMAGE}
       >
         <div className="hero-actions">
           <button className="brutal-button primary" onClick={() => navigate('/downloads')}>DOWNLOADS</button>
           <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA ENGINE</button>
-          <button className="brutal-button" onClick={() => navigate('/prisma#product-shots')}>SCREENSHOTS</button>
+          <button className="brutal-button" onClick={() => navigate('/rx-os')}>rxOS 6.5</button>
           <button className="brutal-button" onClick={() => navigate('/suite')}>PRODUCT SUITE</button>
         </div>
         <div className="hero-tags">
@@ -1185,7 +1199,7 @@ function Home({ navigate }) {
           <span>WIN · MAC · LINUX</span>
           <span>≈2 µs HOT PATH</span>
           <span>REAL GUI SHOTS</span>
-          <span>RXos v5.5</span>
+          <span>rxOS 6.5</span>
         </div>
       </PageHero>
 
@@ -2007,7 +2021,7 @@ function RXOS({ navigate }) {
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v6.0.0</span><span>DESKTOP</span><span>L2 CHAT</span><span>WWW OPT-IN</span><span>rx app</span><span>GPLv3</span>
+          <span>v6.5.0</span><span>LIVE INSTALLER</span><span>DISK BOOT</span><span>L2 CHAT</span><span>WWW OPT-IN</span><span>GPLv3</span>
         </div>
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
           <button type="button" className="brutal-button primary" onClick={() => navigate('/rx-os/packages')}>
@@ -2023,7 +2037,7 @@ function RXOS({ navigate }) {
           <SectionTitle
             code="01 / DESKTOP"
             title="rxOS 6 DESKTOP — CAPTURA REAL"
-            text="Captura QEMU del escritorio Aero: wallpaper, iconos, taskbar. Referencia de lab: HP 15-ac195nl + QEMU."
+            text="Captura QEMU de rxOS 6.5 instalado en disco: wallpaper empaquetado, iconos, taskbar y reloj. Misma sesión que sale del LIVE installer."
           />
           <figure className="rxos-principal-shot" data-reveal>
             <img
@@ -2187,16 +2201,35 @@ function RXOS({ navigate }) {
           </p>
         </section>
 
+        <section className="section wrap" id="rxos-install">
+          <SectionTitle
+            code="07 / LIVE INSTALLER"
+            title="DEL USB AL DISCO — CAPTURAS REALES"
+            text="La ISO metal es el instalador. Idioma, locale, zona horaria, reloj CMOS, cuenta y disco. El siguiente arranque ya no necesita el USB."
+          />
+          <div className="screenshot-grid rxos-capture-grid">
+            {RXOS_INSTALL_SHOTS.map((shot) => (
+              <figure className="screenshot scientific-capture" data-reveal key={shot.src}>
+                <img src={shot.src} alt={`${shot.title} — rxOS 6.5 installer`} loading="lazy" />
+                <figcaption className="capture-caption">
+                  <span>INSTALL / {shot.tag}</span>
+                  <div><strong>{shot.title}</strong><p>{shot.text}</p></div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+
         <section className="section section-black" id="rxos-captures">
           <div className="wrap">
             <SectionTitle
-              code="07 / REAL CAPTURES"
-              title="DESKTOP v5.5 — HARDWARE + QEMU"
-              text="Capturas actuales del escritorio Aero (wallpaper, taskbar, terminal, explorer). Se eliminaron las capturas antiguas del UI tipo browser v4."
+              code="08 / REAL CAPTURES"
+              title="DESKTOP 6.5 — QEMU"
+              text="Capturas del escritorio Aero (wallpaper empaquetado, taskbar, terminal, explorer) más el flujo LIVE."
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src="/rxos/desktop-home.jpg" alt="RXos v5.5 desktop home with wallpaper and taskbar" loading="lazy" />
+                <img src="/rxos/desktop-home.jpg" alt="rxOS 6.5 desktop home after disk install" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 01</span>
                   <div><strong>DESKTOP HOME</strong><p>Wallpaper, iconos laterales, taskbar Start y bandeja de estado.</p></div>
@@ -2236,7 +2269,7 @@ function RXOS({ navigate }) {
 
         <section className="section wrap rxos-download-section">
           <SectionTitle
-            code="08 / DOWNLOAD + PACKAGES"
+            code="09 / DOWNLOAD + PACKAGES"
             title="BUILD PÚBLICO + CANAL .rxc"
             text="ZIP de prueba histórico en /downloads y canal vivo de paquetes en /rx-os/packages. QEMU recomendado."
           />
@@ -2255,7 +2288,7 @@ function RXOS({ navigate }) {
             <article className="download-card" data-reveal>
               <div className="download-card-top"><span>OFFICIAL ZIP · TEST</span><strong>{RXOS_VERSION} line</strong></div>
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
-              <p>Build experimental bare-metal x86_64. No es producción, no está auditado y no debe usarse para datos importantes. El ZIP público en el sitio es la línea de test publicada; el desarrollo activo es v5.5 en el repo.</p>
+              <p>Build experimental bare-metal x86_64. No es producción, no está auditado y no debe usarse para datos importantes. El ZIP público en el sitio es la línea de test publicada; el desarrollo activo es rxOS 6.5 en el repo.</p>
               <dl className="download-facts">
                 <div><dt>CONTENTS</dt><dd>ISO + README + screenshots</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>

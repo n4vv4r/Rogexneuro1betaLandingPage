@@ -50,6 +50,8 @@ Canal del package manager del SO (`rx app add <name>`):
 | https://www.rogexlaboratories.com/rx-os/packages/ | UI catálogo + admin |
 | https://www.rogexlaboratories.com/rx-os/packages/INDEX.json | Índice |
 | https://www.rogexlaboratories.com/rx-os/packages/hellopkg.rxc | Ejemplo de payload |
+| https://www.rogexlaboratories.com/rx-os/updates/INDEX.json | Canal `rx update` |
+| https://www.rogexlaboratories.com/rx-os/updates/6.0.1.rxpatch | Primer parche (wallpaper solar) |
 
 **Admin (Vercel):** `RXOS_PACKAGES_ADMIN_SECRET` + Upstash Redis (mismas vars que Newspaper).  
 **Seed en git:** `node tools/sync-rxos-packages.mjs add file.rxc` · `del <name>` · `index`.

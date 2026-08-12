@@ -70,21 +70,21 @@ const ROUTES = [
   },
   {
     out: 'rx-os.html',
-    title: 'RXos v5.5 Desktop Experience — Knights Labs',
+    title: 'rxOS 6 (RX OS 6) — Knights Labs',
     description:
-      'RXos v5.5 Desktop Experience: bare-metal x86_64, taskbar clock, RXFS, paquetes .rxc, LIF/STDP bench 6/6. Akida Level 3 pendiente.',
+      'rxOS 6 bare-metal x86_64: desktop real, L2 chat, WWW opt-in, paquetes .rxc. Capturas QEMU reales.',
     url: `${SITE}/rx-os`,
     image: OG('rx-os'),
-    imageAlt: 'RXos v5.5 Desktop Experience bare-metal OS',
+    imageAlt: 'rxOS 6 desktop — real QEMU capture',
   },
   {
     out: 'rx-os-packages.html',
-    title: 'RXos packages (.rxc) — Knights Labs',
+    title: 'rxOS packages (.rxc) — Knights Labs',
     description:
-      'Canal oficial de paquetes RXos: .rxc descargables, INDEX.json y admin para subir/borrar. rx app add <name>.',
+      'Canal de paquetes RXos: lista de .rxc publicados y tutorial rx app add. Descarga directa.',
     url: `${SITE}/rx-os/packages`,
     image: OG('rx-os'),
-    imageAlt: 'RXos package channel .rxc',
+    imageAlt: 'rxOS package channel .rxc',
   },
   {
     out: 'investors.html',

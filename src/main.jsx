@@ -389,8 +389,8 @@ const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
 const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
-const RXOS_VERSION = 'v5.5';
-const RXOS_VERSION_LABEL = 'v5.5 Desktop Experience';
+const RXOS_VERSION = 'v6.0.0';
+const RXOS_VERSION_LABEL = 'rxOS 6 (RX OS 6)';
 
 const CTA_AUDIENCES = [
   {
@@ -794,9 +794,9 @@ function Header({ path, navigate }) {
   );
 }
 
-function PageHero({ index, eyebrow, title, text, image, children }) {
+function PageHero({ index, eyebrow, title, text, image, children, className = '' }) {
   return (
-    <section className="page-hero" style={{ '--hero-image': `url("${image}")` }}>
+    <section className={`page-hero ${className}`.trim()} style={{ '--hero-image': `url("${image}")` }}>
       <div className="page-hero-media" aria-hidden="true" />
       <div className="page-hero-grain" aria-hidden="true" />
       <div className="page-hero-content wrap">
@@ -2000,13 +2000,14 @@ function RXOS({ navigate }) {
     <>
       <PageHero
         index="04"
-        eyebrow={`RXos ${RXOS_VERSION_LABEL} / NEUROMORPHIC LAB OS`}
+        className="rxos-hero"
+        eyebrow={`${RXOS_VERSION_LABEL} / DESKTOP + L2 + WWW`}
         title={<>A LABORATORY<br />THAT BOOTS.<br />A DESKTOP THAT WORKS.</>}
-        text="RXos v5.5 Desktop Experience es un SO experimental bare-metal x86_64: escritorio real (taskbar, reloj, ventanas), tejido de eventos LIF/STDP verificable (Niveles 1–2) y canal de paquetes .rxc. No es silicio Akida. No es un reemplazo de Linux ni un producto de producción."
+        text="rxOS 6 es un SO experimental bare-metal x86_64: escritorio real (taskbar, reloj, ventanas), tejido LIF/STDP, L2 chat/ping y WWW opcional. Canal de paquetes .rxc. No es silicio Akida ni un reemplazo de Linux."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v5.5</span><span>DESKTOP</span><span>TASKBAR CLOCK</span><span>LIF/STDP</span><span>rx app</span><span>GPLv3</span><span>AKIDA PENDING</span>
+          <span>v6.0.0</span><span>DESKTOP</span><span>L2 CHAT</span><span>WWW OPT-IN</span><span>rx app</span><span>GPLv3</span>
         </div>
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
           <button type="button" className="brutal-button primary" onClick={() => navigate('/rx-os/packages')}>
@@ -2021,13 +2022,13 @@ function RXOS({ navigate }) {
         <section className="section wrap rxos-principal-section">
           <SectionTitle
             code="01 / DESKTOP"
-            title="RXos v5.5 DESKTOP EXPERIENCE"
-            text="Captura actual del escritorio: wallpaper, iconos, taskbar y bandeja. Referencia de lab: HP 15-ac195nl + QEMU."
+            title="rxOS 6 DESKTOP — CAPTURA REAL"
+            text="Captura QEMU del escritorio Aero: wallpaper, iconos, taskbar. Referencia de lab: HP 15-ac195nl + QEMU."
           />
           <figure className="rxos-principal-shot" data-reveal>
             <img
               src={RXOS_HERO_IMAGE}
-              alt="RXos v5.5 desktop home — wallpaper, icons and taskbar"
+              alt="rxOS 6 desktop home — wallpaper, icons and taskbar"
               width={1360}
               height={768}
               loading="eager"
@@ -3706,30 +3707,30 @@ const ROUTE_META = {
     url: `${SITE}/downloads`,
   },
   '/rx-os': {
-    title: 'RXos v5.5 Desktop Experience — Knights Labs',
+    title: 'rxOS 6 (RX OS 6) — Knights Labs',
     description:
-      'RXos v5.5 Desktop Experience: bare-metal x86_64, taskbar clock, RXFS, paquetes .rxc, LIF/STDP bench 6/6. Akida Level 3 pendiente.',
+      'rxOS 6 bare-metal x86_64: desktop, taskbar clock, L2 chat, WWW opt-in, paquetes .rxc. Bench 6/6. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'RXos v5.5 Desktop Experience bare-metal OS',
+    imageAlt: 'rxOS 6 desktop — real QEMU capture',
     url: `${SITE}/rx-os`,
   },
   '/rx-os/packages': {
-    title: 'RXos packages (.rxc) — Knights Labs',
+    title: 'rxOS packages (.rxc) — Knights Labs',
     description:
-      'Canal oficial de paquetes RXos: .rxc descargables, INDEX.json y admin para subir/borrar. rx app add <name>.',
+      'Canal de paquetes RXos: lista de .rxc publicados y tutorial rx app add. Descarga directa.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'RXos package channel .rxc',
+    imageAlt: 'rxOS package channel .rxc',
     url: `${SITE}/rx-os/packages`,
   },
   '/rogexos': {
-    title: 'RXos v5.5 Desktop Experience — Knights Labs',
+    title: 'rxOS 6 (RX OS 6) — Knights Labs',
     description:
-      'RXos v5.5 Desktop Experience: bare-metal x86_64, taskbar clock, RXFS, paquetes .rxc, LIF/STDP bench 6/6. Akida Level 3 pendiente.',
+      'rxOS 6 bare-metal x86_64: desktop, taskbar clock, L2 chat, WWW opt-in, paquetes .rxc. Bench 6/6. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'RXos v5.5 Desktop Experience bare-metal OS',
+    imageAlt: 'rxOS 6 desktop — real QEMU capture',
     url: `${SITE}/rx-os`,
   },
   '/architecture': {
@@ -3845,9 +3846,8 @@ function App() {
     page = (
       <PackagesPage
         navigate={navigate}
-        PageHero={PageHero}
+        PageHero={(props) => <PageHero {...props} className="rxos-hero" />}
         SectionTitle={SectionTitle}
-        StatusBadge={StatusBadge}
       />
     );
   } else if (path === '/rx-os' || path === '/rogexos') {

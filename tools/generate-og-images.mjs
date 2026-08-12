@@ -209,14 +209,12 @@ const CARDS = [
   },
   {
     file: 'rx-os.png',
-    svg: labCard({
-      kicker: 'RXos v4.5.0',
-      title: 'Neuromorphic OS. Bare metal.',
-      subtitle: 'Event fabric · bench 6/6 · HP 15 + QEMU · Akida pending',
-      badge: 'BOOTABLE x86-64',
-      accent: LAB.acid,
-      variant: 'dark',
-    }),
+    // Real QEMU desktop capture + brand overlay (not a generic SVG card).
+    fromShot: 'public/rxos/desktop-home.jpg',
+    kicker: 'rxOS 6 · RX OS 6.0.0',
+    title: 'A laboratory that boots.',
+    subtitle: 'Desktop · L2 chat · packages · optional WWW',
+    badge: 'REAL CAPTURE',
   },
   {
     file: 'investors.png',
@@ -278,14 +276,55 @@ const CARDS = [
   },
 ];
 
+async function shotCard({ fromShot, kicker, title, subtitle, badge }) {
+  const shotPath = path.join(ROOT, fromShot);
+  const base = await sharp(shotPath)
+    .resize(W, H, { fit: 'cover', position: 'centre' })
+    .modulate({ brightness: 0.72, saturation: 0.9 })
+    .toBuffer();
+
+  const overlay = `
+<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0b0b0a" stop-opacity="0.92"/>
+      <stop offset="55%" stop-color="#0b0b0a" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#0b0b0a" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <rect width="${W}" height="${H}" fill="url(#g)"/>
+  <rect x="0" y="0" width="10" height="${H}" fill="${LAB.acid}"/>
+  <text x="72" y="120" fill="${LAB.acid}" font-family="ui-monospace, Menlo, monospace" font-size="18" font-weight="700" letter-spacing="3">${esc(kicker)}</text>
+  <text x="72" y="220" fill="${LAB.white}" font-family="ui-monospace, Menlo, monospace" font-size="56" font-weight="800" letter-spacing="-1.5">${esc(title)}</text>
+  <text x="72" y="280" fill="rgba(255,254,248,0.78)" font-family="ui-monospace, Menlo, monospace" font-size="22" font-weight="500">${esc(subtitle)}</text>
+  ${
+    badge
+      ? `<rect x="72" y="520" width="${18 + badge.length * 12}" height="40" fill="${LAB.acid}"/>
+  <text x="88" y="546" fill="${LAB.ink}" font-family="ui-monospace, Menlo, monospace" font-size="16" font-weight="800" letter-spacing="1">${esc(badge)}</text>`
+      : ''
+  }
+  <text x="72" y="590" fill="rgba(255,254,248,0.5)" font-family="ui-monospace, Menlo, monospace" font-size="16">rogexlaboratories.com/rx-os</text>
+</svg>`;
+
+  return sharp(base)
+    .composite([{ input: Buffer.from(overlay), top: 0, left: 0 }])
+    .png()
+    .toBuffer();
+}
+
 async function main() {
   await fs.mkdir(OUT, { recursive: true });
   for (const card of CARDS) {
-    const png = await sharp(Buffer.from(card.svg)).png().toBuffer();
+    let png;
+    if (card.fromShot) {
+      png = await shotCard(card);
+    } else {
+      png = await sharp(Buffer.from(card.svg)).png().toBuffer();
+    }
     const dest = path.join(OUT, card.file);
     await fs.writeFile(dest, png);
     const meta = await sharp(png).metadata();
-    console.log(`[og] ${card.file}  ${meta.width}×${meta.height}`);
+    console.log(`[og] ${card.file}  ${meta.width}×${meta.height}${card.fromShot ? '  (shot)' : ''}`);
   }
   console.log(`[og] wrote ${CARDS.length} images → public/og/`);
 }

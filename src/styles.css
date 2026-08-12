@@ -1425,17 +1425,19 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .rxos-principal-shot {
   margin: 0;
   border: 1.5px solid var(--ink);
-  background: var(--black);
+  background: #050505;
   overflow: hidden;
 }
+/* Full 16:9 desktop capture (1360×768) — no crop on any side */
 .rxos-principal-shot img {
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  aspect-ratio: 1360 / 768;
+  object-fit: contain;
   object-position: center;
   display: block;
   filter: none;
+  background: #050505;
 }
 .rxos-principal-shot figcaption {
   display: flex;
@@ -1466,8 +1468,16 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
   color: rgba(255, 254, 248, 0.72);
 }
 
-.rxos-capture-grid .scientific-capture { border-color: rgba(255,255,255,.55); }
-.rxos-capture-grid .scientific-capture img { image-rendering: auto; object-fit: cover; }
+.rxos-capture-grid .scientific-capture { border-color: rgba(255,255,255,.55); background: #050505; }
+.rxos-capture-grid .scientific-capture img {
+  image-rendering: auto;
+  object-fit: contain;
+  aspect-ratio: 1360 / 768;
+  background: #050505;
+}
+.rxos-capture-grid .scientific-capture.featured {
+  grid-column: 1 / -1;
+}
 
 /* Papers / levels / bench / Akida */
 .papers-grid {

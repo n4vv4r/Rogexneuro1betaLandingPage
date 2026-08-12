@@ -2048,7 +2048,7 @@ function RXOS({ navigate }) {
           <div className="wrap">
             <SectionTitle
               code="02 / INFOGRAPHIC"
-              title="QUÉ ES RXos v5.5 — DE UN VISTAZO"
+              title="QUÉ ES rxOS 6 — DE UN VISTAZO"
               text="Marketing honesto: lo que tienes hoy, por qué importa, y lo que viene sin venderlo como hecho."
             />
             <div className="rx-info-pillars">

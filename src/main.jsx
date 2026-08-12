@@ -384,7 +384,7 @@ const RXOS_BENCH = [
   { test: 'sparsity: 200 sub-thr', model: '200 absorbed', kernel: '200 absorbed', result: 'PASS' },
 ];
 
-const RXOS_HERO_IMAGE = '/rxos/pc_with_rxos_installed.jpg';
+const RXOS_HERO_IMAGE = '/rxos/desktop-home.jpg';
 const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
@@ -2020,24 +2020,24 @@ function RXOS({ navigate }) {
       <main>
         <section className="section wrap rxos-principal-section">
           <SectionTitle
-            code="01 / HARDWARE"
-            title="RXos ON REAL METAL"
-            text="Imagen principal: PC con RXos instalado. Referencia documentada: HP 15-ac195nl (i7-5500U, 8 GB) + QEMU."
+            code="01 / DESKTOP"
+            title="RXos v5.5 DESKTOP EXPERIENCE"
+            text="Captura actual del escritorio: wallpaper, iconos, taskbar y bandeja. Referencia de lab: HP 15-ac195nl + QEMU."
           />
           <figure className="rxos-principal-shot" data-reveal>
             <img
               src={RXOS_HERO_IMAGE}
-              alt="PC with RXos v5.5 installed — bare-metal desktop experience"
-              width={1600}
-              height={1200}
+              alt="RXos v5.5 desktop home — wallpaper, icons and taskbar"
+              width={1360}
+              height={768}
               loading="eager"
               fetchPriority="high"
             />
             <figcaption>
               <span>PRINCIPAL · {RXOS_VERSION}</span>
               <div>
-                <strong>PC WITH RXos INSTALLED</strong>
-                <p>Hardware real. Desktop + event fabric en caminos vivos. Experimental, no clínico, no auditado.</p>
+                <strong>DESKTOP HOME</strong>
+                <p>Escritorio bare-metal en vivo. Experimental, no clínico, no auditado.</p>
               </div>
             </figcaption>
           </figure>
@@ -2195,13 +2195,6 @@ function RXOS({ navigate }) {
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src={RXOS_HERO_IMAGE} alt="PC with RXos installed — principal hardware photo" loading="lazy" />
-                <figcaption className="capture-caption">
-                  <span>REAL / 00</span>
-                  <div><strong>PC WITH RXos INSTALLED</strong><p>Hardware real. Línea actual: Desktop Experience v5.5.</p></div>
-                </figcaption>
-              </figure>
-              <figure className="screenshot scientific-capture" data-reveal>
                 <img src="/rxos/desktop-home.jpg" alt="RXos v5.5 desktop home with wallpaper and taskbar" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 01</span>

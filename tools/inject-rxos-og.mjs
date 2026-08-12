@@ -22,7 +22,7 @@ const RXOS_TITLE = 'RXos v4.5.0 Neuromorphic — Knights Labs';
 const RXOS_DESC =
   'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.';
 const RXOS_URL = 'https://www.rogexlaboratories.com/rx-os';
-const RXOS_IMG = 'https://www.rogexlaboratories.com/rxos/pc_with_rxos_installed.jpg';
+const RXOS_IMG = 'https://www.rogexlaboratories.com/rxos/desktop-home.jpg';
 
 const replacements = [
   [

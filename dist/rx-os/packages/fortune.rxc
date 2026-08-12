@@ -1,0 +1,5 @@
+app "fortune"
+page home:
+  title "fortune"
+  text "Today: the vault is small but the ideas are large."
+  text "— Rogex Laboratories"

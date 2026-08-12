@@ -13,8 +13,9 @@ Sitio oficial: [www.rogexlaboratories.com](https://www.rogexlaboratories.com/)
 |----------|--------|--------|
 | **PRISMA 3.2** | Activo | Software EEG experimental, no clínico |
 | **PRISMA 5** | R&D | Motor SNN / path sobre RXos |
-| **RXos v4.5.0 Desktop** | Hardware + QEMU | Closed surface, bootable x86-64 |
+| **RXos v5.5 Desktop Experience** | Hardware + QEMU | Escritorio bare-metal, reloj, paquetes .rxc |
 | **RXos neuromorphic fabric** | Niveles 1–2 cerrados | LIF Q16.16, STDP, bench 6/6; Nivel 3 Akida pendiente |
+| **RXos packages** | Canal vivo | `/rx-os/packages` — INDEX + `.rxc` + admin |
 | **Docs** | Públicos | `/docs/rxos/*.pdf` paper + hoja de ruta 4 niveles |
 
 Lanzamiento de suite proyectado: **diciembre 2026**.
@@ -35,9 +36,23 @@ Cada ruta pública tiene HTML estático post-build (`suite.html`, `newspaper.htm
 - `/suite` — productos y capas de licencia
 - `/architecture` — stack técnico EEG → spikes
 - `/prisma` — PRISMA 3.2 + sección PRISMA 5
-- `/rx-os` — Desktop + kernel + download v4.1.1
+- `/rx-os` — Desktop Experience v5.5 + kernel + download + infographic
+- `/rx-os/packages` — canal de paquetes `.rxc` (INDEX + admin upload/delete)
 - `/about` — lab, contacto, CTAs
 - `/newspaper` — Rogex Newspaper (también en subdominio)
+
+## RXos packages
+
+Canal del package manager del SO (`rx app add <name>`):
+
+| URL | Uso |
+|-----|-----|
+| https://www.rogexlaboratories.com/rx-os/packages/ | UI catálogo + admin |
+| https://www.rogexlaboratories.com/rx-os/packages/INDEX.json | Índice |
+| https://www.rogexlaboratories.com/rx-os/packages/hellopkg.rxc | Ejemplo de payload |
+
+**Admin (Vercel):** `RXOS_PACKAGES_ADMIN_SECRET` + Upstash Redis (mismas vars que Newspaper).  
+**Seed en git:** `node tools/sync-rxos-packages.mjs add file.rxc` · `del <name>` · `index`.
 
 ## Rogex Newspaper
 

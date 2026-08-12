@@ -70,12 +70,21 @@ const ROUTES = [
   },
   {
     out: 'rx-os.html',
-    title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
+    title: 'RXos v5.5 Desktop Experience — Knights Labs',
     description:
-      'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.',
+      'RXos v5.5 Desktop Experience: bare-metal x86_64, taskbar clock, RXFS, paquetes .rxc, LIF/STDP bench 6/6. Akida Level 3 pendiente.',
     url: `${SITE}/rx-os`,
     image: OG('rx-os'),
-    imageAlt: 'RXos v4.5 neuromorphic bare-metal OS',
+    imageAlt: 'RXos v5.5 Desktop Experience bare-metal OS',
+  },
+  {
+    out: 'rx-os-packages.html',
+    title: 'RXos packages (.rxc) — Knights Labs',
+    description:
+      'Canal oficial de paquetes RXos: .rxc descargables, INDEX.json y admin para subir/borrar. rx app add <name>.',
+    url: `${SITE}/rx-os/packages`,
+    image: OG('rx-os'),
+    imageAlt: 'RXos package channel .rxc',
   },
   {
     out: 'investors.html',

@@ -32,9 +32,15 @@ import {
   Waves,
   Zap,
   X,
+  Clock,
+  Package,
+  Keyboard,
+  HardDrive,
+  LayoutGrid,
 } from 'lucide-react';
 import './styles.css';
 import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx';
+import PackagesPage from './rxos/PackagesPage.jsx';
 
 const NAV_ITEMS = [
   ['/', 'HOME'],
@@ -88,13 +94,14 @@ const DOWNLOAD_CATALOG = {
   rxos: {
     id: 'rxos',
     name: 'RXos',
-    version: 'v4.1.1 test line',
+    version: 'v5.5 Desktop Experience',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'PUBLIC TEST BUILD',
+    status: 'DESKTOP EXPERIENCE',
     zip: '/downloads/RXos-v4.1.1.zip',
     readme: '/downloads/RXos-v4.1.1-README.md',
     sha256File: '/downloads/RXos-v4.1.1.zip.sha256',
     sha256: 'a275d6b1783d439625e0bcc7395535a085bd87a2ba4db6ff88a8b402de8745af',
+    packages: '/rx-os/packages/',
   },
 };
 
@@ -112,10 +119,10 @@ const PRODUCT_SUITE = [
     id: 'rxos-desktop',
     code: 'RX-01',
     name: 'rxOS Desktop Experience',
-    tier: 'CLOSED SOURCE · BOOTABLE x86-64',
-    status: 'v4.5.0 · HARDWARE + QEMU',
-    text: 'Entorno bare-metal de laboratorio (RXos v4.5): boot Multiboot2, shell, RXFS, compositor y tejido de eventos en caminos vivos. Verificado en HP 15-ac195nl y QEMU.',
-    tags: ['x86_64', 'GRUB / Multiboot2', 'Event fabric', 'HP 15 ref'],
+    tier: 'OPEN CORE · BOOTABLE x86-64',
+    status: 'v5.5 · HARDWARE + QEMU',
+    text: 'Escritorio bare-metal real (RXos v5.5): wallpaper, taskbar con reloj, ventanas Aero, RXFS, lock screen, teclado ES/US/Mac y canal de paquetes .rxc. Verificado en HP 15-ac195nl y QEMU.',
+    tags: ['x86_64', 'Desktop v5.5', 'Taskbar clock', 'rx app'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -179,7 +186,7 @@ const LICENSE_TIERS = [
     product: 'rxOS',
     rows: [
       ['Event fabric docs', 'Open papers', 'Paper + hoja de ruta 4 niveles'],
-      ['Desktop Experience', 'Closed source', 'Bootable lab surface v4.5'],
+      ['Desktop Experience', 'GPLv3 source', 'Bootable lab surface v5.5'],
       ['OEM / Akida path', 'Custom arch', 'Nivel 3 bare-metal NPU'],
     ],
   },
@@ -382,7 +389,8 @@ const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
 const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
-const RXOS_VERSION = 'v4.5.0';
+const RXOS_VERSION = 'v5.5';
+const RXOS_VERSION_LABEL = 'v5.5 Desktop Experience';
 
 const CTA_AUDIENCES = [
   {
@@ -531,27 +539,77 @@ const PRISMA_ROADMAP = [
 ];
 
 const RX_IMPLEMENTED = [
-  'RXos v4.5.0: Multiboot2 → long mode, mapa 4 GiB, GDT/IDT, heap y paths vivos.',
-  'Tejido de eventos (Nivel 1 cerrado): rx_event_t 64 B, SPSC lock-free, auto-test al boot.',
-  'LIF Q16.16 con fuga perezosa V·τ/(τ+Δt); sin tick neural; STDP local por actor.',
-  'Entrada IRQ1/IRQ12 tipada (nunca umbralizada); NIC always-fire; WM umbralizado.',
-  'Inversión del lazo: shell como tarea; rx_kernel_event_loop() posee la máquina.',
-  'Nivel 2 cerrado: scheduler cooperativo, ACPI C-states, MONITOR/MWAIT/HLT, RAPL.',
-  'bench 6/6 PASS; ~299 ciclos/evento; ~3 MiB RAM al arrancar; 26+21+net tests.',
-  'Hardware de referencia: HP 15-ac195nl (i7-5500U, 8 GB) — install MBR 0x7F + RXFS.',
-  'Compositor double-buffer + damage tracking; terminal en el WM; power en metal.',
+  'RXos v5.5 Desktop Experience: Multiboot2 → long mode, desktop con wallpaper, taskbar y Start.',
+  'Reloj de pared: CMOS RTC + PIT; reloj vivo en la bandeja; prompt [HH:MM:SS]; comando date.',
+  'Lock screen + registro inicial (password con SHA3 en el perfil de usuario).',
+  'Teclado ES Windows QWERTY (AltGr completo), US y Mac QWERTY (kbd es|us|mac).',
+  'Package manager Portage-style: rx app add/del/list/search — canal /rx-os/packages.',
+  'Terminal Aero: fondo negro, texto blanco, acentos de color; RXFS con paths absolutos/cwd.',
+  'Tejido de eventos (Nivel 1): rx_event_t 64 B, SPSC lock-free, auto-test al boot.',
+  'LIF Q16.16 + STDP local; bench 6/6 PASS; ~299 ciclos/evento; ~3 MiB RAM al boot.',
+  'Nivel 2: scheduler cooperativo, ACPI C-states, MONITOR/MWAIT/HLT, RAPL en metal.',
+  'Hardware de referencia: HP 15-ac195nl + QEMU; install MBR 0x7F + RXFS; smoke 26/26.',
 ];
 
 const RX_LIMITS = [
   'Nivel 3 abierto: falta chip BrainChip Akida AKD1000 en el lab para test en silicio real.',
+  'Sin pila TCP/IP/TLS en el kernel: el canal de paquetes usa mirror local verificado por ahora.',
   'Sin pila USB/XHCI bare-metal (prerrequisito del NPU USB).',
   'Resolución temporal del sustrato = 10 ms (PIT 100 Hz); HPET/APIC local pendiente.',
   'No es hardware neuromórfico: silicio con reloj, actores en serie, von Neumann intacto.',
-  'No masivamente paralelo ni asíncrono a nanosegundos; ring 0 cooperativo monohilo.',
   'Arranque UEFI nativo aplazado (Legacy/CSM funciona); Wi-Fi y >4 GiB en roadmap.',
-  'Instalar RXos como SO arrancable del disco: pedido para próxima versión.',
-  'Criptografía (si presente) sin auditoría externa; no es SO de producción ni clínico.',
+  'Instalar RXos como SO arrancable del disco: en la hoja de ruta, no cerrado al 100%.',
+  'Criptografía sin auditoría externa; experimental, no producción ni clínico.',
 ];
+
+const RXOS_INFOGRAPHIC = {
+  pillars: [
+    {
+      icon: LayoutGrid,
+      title: 'DESKTOP REAL',
+      text: 'Wallpaper, iconos, taskbar, Start, ventanas Aero arrastrables. No es un mockup: arranca en QEMU y en metal.',
+    },
+    {
+      icon: Clock,
+      title: 'RELOJ Y TIMESTAMPS',
+      text: 'RTC + PIT, reloj en la bandeja, prompt con hora, date / uptime. Timestamps de verdad en el lab.',
+    },
+    {
+      icon: Package,
+      title: 'PAQUETES .rxc',
+      text: 'Canal público en /rx-os/packages. rx app add instala en /bin. Estilo Portage, sin mentir sobre HTTPS aún.',
+    },
+    {
+      icon: Network,
+      title: 'EVENT FABRIC',
+      text: 'Eventos 64 B, anillos SPSC, LIF Q16.16, STDP. Bench 6/6. Papers PDF abiertos. Akida = Nivel 3 pendiente.',
+    },
+    {
+      icon: Keyboard,
+      title: 'TECLADO + LOCK',
+      text: 'ES con AltGr, US y Mac. Registro de usuario y lock screen con password hasheado (SHA3).',
+    },
+    {
+      icon: HardDrive,
+      title: 'RXFS + VAULT',
+      text: 'Filesystem propio, paths absolutos y cwd, explorer gráfico, persistencia en disco de referencia.',
+    },
+  ],
+  advantages: [
+    ['Bare-metal de verdad', 'No es una distro Linux recortada: kernel propio en C + NASM + Rust no_std.'],
+    ['Medible', 'bench, power, mem, status y logs de boot imprimen hechos — no marketing vacío.'],
+    ['Ligero', '~3 MiB al arrancar. Escritorio usable sin stack web ni container runtime.'],
+    ['Canal de apps', 'Paquetes .rxc publicados en la web del lab; admin puede subir/borrar en el hub.'],
+    ['GPLv3', 'Código abierto: editar, redistribuir; derivados siguen siendo GPL.'],
+    ['Honesto', 'Se declara qué falta: TCP/HTTPS, UEFI nativo, Akida, USB XHCI.'],
+  ],
+  future: [
+    ['HTTPS en el SO', 'Cliente TCP/TLS para rx app add contra este canal en vivo.'],
+    ['www mode', 'Internet por comandos (www get) sin navegador completo — L2 ya existe.'],
+    ['Disco arrancable', 'Instalación GRUB/kernel en partición 0x7F como SO del disco.'],
+    ['HPET / USB / Akida', 'Sub-ms, XHCI y NPU real cuando el lab tenga el chip.'],
+  ],
+};
 
 const PROJECTS = [
   {
@@ -711,15 +769,20 @@ function Header({ path, navigate }) {
 
         <div className={menuOpen ? 'nav-drawer is-open' : 'nav-drawer'}>
           <nav className="main-nav" aria-label="Main navigation">
-            {NAV_ITEMS.map(([href, label]) => (
-              <button
-                key={href}
-                className={path === href ? 'nav-link is-active' : 'nav-link'}
-                onClick={() => navigate(href)}
-              >
-                {label}
-              </button>
-            ))}
+            {NAV_ITEMS.map(([href, label]) => {
+              const active =
+                path === href ||
+                (href === '/rx-os' && (path === '/rx-os' || path.startsWith('/rx-os/')));
+              return (
+                <button
+                  key={href}
+                  className={active ? 'nav-link is-active' : 'nav-link'}
+                  onClick={() => navigate(href)}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </nav>
 
           <div className="social-nav" aria-label="Social links">
@@ -1122,7 +1185,7 @@ function Home({ navigate }) {
           <span>WIN · MAC · LINUX</span>
           <span>≈2 µs HOT PATH</span>
           <span>REAL GUI SHOTS</span>
-          <span>RXos v4.5.0</span>
+          <span>RXos v5.5</span>
         </div>
       </PageHero>
 
@@ -1176,7 +1239,7 @@ function Home({ navigate }) {
           <SectionTitle
             code="03 / PIPELINE"
             title="DEL SENSOR AL SPIKE"
-            text="Stack RXos v4.5: boot → event fabric → LIF/STDP → paths vivos → Akida (Nivel 3 pendiente)."
+            text="Stack RXos v5.5: desktop → event fabric → LIF/STDP → packages → Akida (Nivel 3 pendiente)."
           />
           <div className="mini-arch" data-reveal>
             {ARCH_STACK.map((item) => (
@@ -1350,13 +1413,13 @@ function Architecture({ navigate }) {
     <>
       <PageHero
         index="02"
-        eyebrow="ARCHITECTURE / RXos v4.5 NEUROMORPHIC"
+        eyebrow="ARCHITECTURE / RXos v5.5 NEUROMORPHIC"
         title={<>EVENT FABRIC<br />ON VON NEUMANN.<br />FALSIFIABLE.</>}
         text="RXos no dibuja neuronas: ejecuta un sustrato de eventos con LIF Q16.16, STDP local y codificación temporal comprobable con bench 6/6. Silicio = x86_64 con reloj. Nivel 3 (Akida) aún sin chip en el lab."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v4.5.0</span>
+          <span>v5.5</span>
           <span>SPSC 64 B</span>
           <span>LIF Q16.16</span>
           <span>STDP LOCAL</span>
@@ -1465,7 +1528,7 @@ function Architecture({ navigate }) {
             </div>
             <div className="hero-actions section-actions">
               <button className="brutal-button primary" onClick={() => navigate('/rx-os')}>
-                RXos v4.5 PAGE <ArrowUpRight size={15} />
+                RXos v5.5 PAGE <ArrowUpRight size={15} />
               </button>
               <a className="brutal-button" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
                 READ PAPER PDF
@@ -1937,13 +2000,20 @@ function RXOS({ navigate }) {
     <>
       <PageHero
         index="04"
-        eyebrow="RXos v4.5.0 / NEUROMORPHIC SUBSTRATE"
-        title={<>A LABORATORY<br />THAT BOOTS.<br />A KERNEL THAT SPIKES.</>}
-        text="RXos v4.5 es un SO experimental bare-metal x86_64 con tejido de eventos LIF/STDP verificable (Niveles 1–2 cerrados). No es silicio Akida: el chip neuromórfico falta en el lab y bloquea el Nivel 3. No es un reemplazo de Linux ni un producto de producción."
+        eyebrow={`RXos ${RXOS_VERSION_LABEL} / NEUROMORPHIC LAB OS`}
+        title={<>A LABORATORY<br />THAT BOOTS.<br />A DESKTOP THAT WORKS.</>}
+        text="RXos v5.5 Desktop Experience es un SO experimental bare-metal x86_64: escritorio real (taskbar, reloj, ventanas), tejido de eventos LIF/STDP verificable (Niveles 1–2) y canal de paquetes .rxc. No es silicio Akida. No es un reemplazo de Linux ni un producto de producción."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v4.5.0</span><span>LIF Q16.16</span><span>SPSC EVENTS</span><span>BENCH 6/6</span><span>HP 15 REF</span><span>AKIDA PENDING</span>
+          <span>v5.5</span><span>DESKTOP</span><span>TASKBAR CLOCK</span><span>LIF/STDP</span><span>rx app</span><span>GPLv3</span><span>AKIDA PENDING</span>
+        </div>
+        <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
+          <button type="button" className="brutal-button primary" onClick={() => navigate('/rx-os/packages')}>
+            PACKAGE CHANNEL <Package size={15} />
+          </button>
+          <a className="brutal-button" href="#rxos-infographic">INFOGRAPHIC</a>
+          <a className="brutal-button" href="#rxos-captures">SCREENSHOTS</a>
         </div>
       </PageHero>
 
@@ -1957,36 +2027,100 @@ function RXOS({ navigate }) {
           <figure className="rxos-principal-shot" data-reveal>
             <img
               src={RXOS_HERO_IMAGE}
-              alt="PC with RXos v4.5 installed — bare-metal neuromorphic substrate"
+              alt="PC with RXos v5.5 installed — bare-metal desktop experience"
               width={1600}
               height={1200}
               loading="eager"
               fetchPriority="high"
             />
             <figcaption>
-              <span>PRINCIPAL · v4.5.0</span>
+              <span>PRINCIPAL · {RXOS_VERSION}</span>
               <div>
                 <strong>PC WITH RXos INSTALLED</strong>
-                <p>Hardware real. Tejido de eventos en caminos vivos del SO. Experimental, no clínico, no auditado.</p>
+                <p>Hardware real. Desktop + event fabric en caminos vivos. Experimental, no clínico, no auditado.</p>
               </div>
             </figcaption>
           </figure>
         </section>
 
+        <section className="section section-black" id="rxos-infographic">
+          <div className="wrap">
+            <SectionTitle
+              code="02 / INFOGRAPHIC"
+              title="QUÉ ES RXos v5.5 — DE UN VISTAZO"
+              text="Marketing honesto: lo que tienes hoy, por qué importa, y lo que viene sin venderlo como hecho."
+            />
+            <div className="rx-info-pillars">
+              {RXOS_INFOGRAPHIC.pillars.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <article className="rx-info-pillar" key={item.title} data-reveal style={{ '--delay': `${index * 50}ms` }}>
+                    <div className="rx-info-pillar-icon"><Icon size={22} strokeWidth={1.8} /></div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="rx-info-split">
+              <article className="rx-info-panel" data-reveal>
+                <span className="panel-label">VENTAJAS REALES</span>
+                <h3>Por qué alguien lo arranca</h3>
+                <ul className="rx-info-list">
+                  {RXOS_INFOGRAPHIC.advantages.map(([title, text]) => (
+                    <li key={title}>
+                      <strong>{title}</strong>
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+              <article className="rx-info-panel rx-info-panel-dark" data-reveal>
+                <span className="panel-label">ROADMAP — NO ENTREGADO AÚN</span>
+                <h3>Futuro sin maquillaje</h3>
+                <ol className="rx-info-future">
+                  {RXOS_INFOGRAPHIC.future.map(([title, text], i) => (
+                    <li key={title}>
+                      <span>{String(i + 1).padStart(2, '0')}</span>
+                      <div>
+                        <strong>{title}</strong>
+                        <p>{text}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+                <button type="button" className="brutal-button primary" onClick={() => navigate('/rx-os/packages')} style={{ marginTop: 20 }}>
+                  VER PAQUETES .rxc <ArrowUpRight size={15} />
+                </button>
+              </article>
+            </div>
+
+            <div className="rx-info-strip" data-reveal>
+              <div><strong>{RXOS_VERSION}</strong><span>Desktop Experience</span></div>
+              <div><strong>6/6</strong><span>bench PASS</span></div>
+              <div><strong>~3 MiB</strong><span>RAM al boot</span></div>
+              <div><strong>26/26</strong><span>smoke tests</span></div>
+              <div><strong>GPLv3</strong><span>open source</span></div>
+              <div><strong>N3</strong><span>Akida pendiente</span></div>
+            </div>
+          </div>
+        </section>
+
         <PapersSection
-          code="02 / DOCS"
+          code="03 / DOCS"
           title="PAPERS Y HOJA DE RUTA"
           text="Documentos técnicos rev 1.0 / 1.3. Abre el PDF en el navegador o descárgalo."
         />
 
-        <section className="section section-black">
-          <div className="wrap">
+        <section className="section wrap">
+          <div className="wrap" style={{ padding: 0 }}>
             <SectionTitle
-              code="03 / FOUR LEVELS"
+              code="04 / FOUR LEVELS"
               title="ESTADO NEUROMÓRFICO REAL"
               text="Nada marcado OBJETIVO u HORIZONTE se comunica como entregado. Nivel 3 espera silicio Akida."
             />
-            <div className="levels-grid">
+            <div className="levels-grid levels-grid-ink">
               {RXOS_LEVELS.map((item, index) => (
                 <article className={`level-card level-${item.tone}`} key={item.level} data-reveal style={{ '--delay': `${index * 70}ms` }}>
                   <div className="level-card-top">
@@ -1998,7 +2132,7 @@ function RXOS({ navigate }) {
                 </article>
               ))}
             </div>
-            <div className="akida-callout" data-reveal>
+            <div className="akida-callout akida-callout-ink" data-reveal>
               <AlertTriangle size={22} />
               <div>
                 <strong>FALTA EL CHIP AKIDA</strong>
@@ -2011,106 +2145,95 @@ function RXOS({ navigate }) {
           </div>
         </section>
 
-        <section className="section wrap">
-          <SectionTitle
-            code="04 / FOUNDATION"
-            title="RXos v4.5.0 — HECHOS MEDIDOS"
-            text="Cifras del paper técnico rev 1.0. Toda magnitud procede de una ejecución citada."
-          />
-          <div className="rx-metrics">
-            <div data-reveal><strong>6/6</strong><span>bench PASS</span></div>
-            <div data-reveal><strong>~299</strong><span>cycles / event</span></div>
-            <div data-reveal><strong>~3 MiB</strong><span>RAM al boot</span></div>
-            <div data-reveal><strong>10 ms</strong><span>PIT tick (sustrato)</span></div>
-          </div>
-          <BootLog />
-        </section>
-
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="05 / BENCH"
-              title="MODELO CONTRA KERNEL"
-              text="Cada fila predice desde el modelo y contrastar con el binario. Una discrepancia es un fallo."
+              code="05 / FOUNDATION"
+              title={`${RXOS_VERSION_LABEL} — HECHOS MEDIDOS`}
+              text="Cifras del paper técnico rev 1.0 + línea desktop v5.5. Toda magnitud procede de una ejecución citada."
             />
-            <div className="bench-table" data-reveal>
-              <div className="bench-row bench-head">
-                <span>TEST</span><span>MODEL</span><span>KERNEL</span><span>RESULT</span>
-              </div>
-              {RXOS_BENCH.map((row) => (
-                <div className="bench-row" key={row.test}>
-                  <span>{row.test}</span>
-                  <span>{row.model}</span>
-                  <span>{row.kernel}</span>
-                  <span><StatusBadge tone="ok">{row.result}</StatusBadge></span>
-                </div>
-              ))}
+            <div className="rx-metrics">
+              <div data-reveal><strong>6/6</strong><span>bench PASS</span></div>
+              <div data-reveal><strong>~299</strong><span>cycles / event</span></div>
+              <div data-reveal><strong>~3 MiB</strong><span>RAM al boot</span></div>
+              <div data-reveal><strong>HH:MM:SS</strong><span>taskbar clock</span></div>
             </div>
-            <p className="license-note" style={{ color: 'rgba(255,254,248,.7)', marginTop: 20 }}>
-              Comandos en shell: <code>bench</code> · <code>neuro</code> · <code>status</code> · <code>mem</code> · <code>power 5</code> (solo metal)
-            </p>
+            <BootLog />
           </div>
         </section>
 
         <section className="section wrap">
           <SectionTitle
-            code="06 / TWO SURFACES"
-            title="DESKTOP + EVENT KERNEL"
-            text="Misma base RXos v4.5. Desktop closed · tejido neuromórfico documentado en papers open."
+            code="06 / BENCH"
+            title="MODELO CONTRA KERNEL"
+            text="Cada fila predice desde el modelo y se contrasta con el binario. Una discrepancia es un fallo."
           />
-          <div className="edition-grid">
-            <article className="edition-card" data-reveal>
-              <span>01 / DESKTOP EXPERIENCE</span>
-              <h3>CLOSED SOURCE.<br />BOOTABLE LAB.</h3>
-              <p>Superficie de escritorio x86-64: shell, RXFS, compositor, install en metal de referencia. Public test package disponible.</p>
-              <div className="tag-row"><span>CLOSED</span><span>v4.5.0</span><span>HP 15 + QEMU</span></div>
-            </article>
-            <article className="edition-card edition-dark" data-reveal>
-              <span>02 / NEUROMORPHIC FABRIC</span>
-              <h3>VERIFICABLE.<br />NO ES AKIDA.</h3>
-              <p>Event fabric LIF/STDP sobre von Neumann. Niveles 1–2 cerrados. Nivel 3 requiere chip Akida que el lab aún no tiene.</p>
-              <div className="tag-row"><span>OPEN DOCS</span><span>LIF/STDP</span><span>N3 BLOCKED</span></div>
-              <button className="text-link" onClick={() => navigate('/architecture')} style={{ marginTop: 18 }}>
-                READ ARCHITECTURE <ArrowUpRight size={15} />
-              </button>
-            </article>
+          <div className="bench-table bench-table-light" data-reveal>
+            <div className="bench-row bench-head">
+              <span>TEST</span><span>MODEL</span><span>KERNEL</span><span>RESULT</span>
+            </div>
+            {RXOS_BENCH.map((row) => (
+              <div className="bench-row" key={row.test}>
+                <span>{row.test}</span>
+                <span>{row.model}</span>
+                <span>{row.kernel}</span>
+                <span><StatusBadge tone="ok">{row.result}</StatusBadge></span>
+              </div>
+            ))}
           </div>
+          <p className="license-note" style={{ marginTop: 20 }}>
+            Comandos: <code>bench</code> · <code>neuro</code> · <code>status</code> · <code>date</code> · <code>rx app search</code> · <code>power 5</code> (metal)
+          </p>
         </section>
 
-        <section className="section section-black">
+        <section className="section section-black" id="rxos-captures">
           <div className="wrap">
             <SectionTitle
               code="07 / REAL CAPTURES"
-              title="HARDWARE + QEMU"
-              text="Foto principal en metal y capturas de RXos en QEMU. Línea actual: v4.5.0 neuromórfica."
+              title="DESKTOP v5.5 — HARDWARE + QEMU"
+              text="Capturas actuales del escritorio Aero (wallpaper, taskbar, terminal, explorer). Se eliminaron las capturas antiguas del UI tipo browser v4."
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src={RXOS_HERO_IMAGE} alt="PC with RXos v4.5 installed — principal hardware photo" loading="lazy" />
+                <img src={RXOS_HERO_IMAGE} alt="PC with RXos installed — principal hardware photo" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 00</span>
-                  <div><strong>PC WITH RXos v4.5 INSTALLED</strong><p>Imagen principal: sistema en hardware real. Tejido de eventos en paths vivos.</p></div>
+                  <div><strong>PC WITH RXos INSTALLED</strong><p>Hardware real. Línea actual: Desktop Experience v5.5.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/boot-banner.png" alt="RXos boot banner and first-run setup in QEMU" loading="lazy" />
+                <img src="/rxos/desktop-home.jpg" alt="RXos v5.5 desktop home with wallpaper and taskbar" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 01</span>
-                  <div><strong>VERIFIED BOOT + FIRST-RUN SETUP</strong><p>Cada OK se imprime después de comprobar la etapa correspondiente.</p></div>
+                  <div><strong>DESKTOP HOME</strong><p>Wallpaper, iconos laterales, taskbar Start y bandeja de estado.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/desktop-home.png" alt="RXos clickable desktop home screen in QEMU" loading="lazy" />
+                <img src="/rxos/terminal.jpg" alt="RXos Aero terminal window on desktop" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 02</span>
-                  <div><strong>CLICKABLE DESKTOP HOME</strong><p>Navegación lateral, tiles de sistema y rutas rgx:// del runtime actual.</p></div>
+                  <div><strong>TERMINAL + SHELL</strong><p>Ventana Aero, help del vault, prompt de usuario en el escritorio.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/shell-status.png" alt="RXos terminal status view in QEMU" loading="lazy" />
+                <img src="/rxos/file-explorer.jpg" alt="RXos file explorer browsing RXFS vault" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 03</span>
-                  <div><strong>STATUS / EVENT FABRIC</strong><p>Contadores del tejido, tareas y superficies IMPLEMENTED / STUB / TODO.</p></div>
+                  <div><strong>FILE EXPLORER</strong><p>Explorador del vault RXFS: /bin, /home, .rxc y preview.</p></div>
+                </figcaption>
+              </figure>
+              <figure className="screenshot scientific-capture" data-reveal>
+                <img src="/rxos/start-menu.jpg" alt="RXos Start menu on desktop" loading="lazy" />
+                <figcaption className="capture-caption">
+                  <span>REAL / 04</span>
+                  <div><strong>START MENU</strong><p>Menú Start del escritorio v5.5 (apps y apagado).</p></div>
+                </figcaption>
+              </figure>
+              <figure className="screenshot scientific-capture" data-reveal>
+                <img src="/rxos/boot-banner.png" alt="RXos verified boot log and first-run setup" loading="lazy" />
+                <figcaption className="capture-caption">
+                  <span>REAL / 05</span>
+                  <div><strong>VERIFIED BOOT</strong><p>Log de arranque con self-tests y first-run setup.</p></div>
                 </figcaption>
               </figure>
             </div>
@@ -2119,9 +2242,9 @@ function RXOS({ navigate }) {
 
         <section className="section wrap rxos-download-section">
           <SectionTitle
-            code="08 / PUBLIC TEST BUILD"
-            title="DOWNLOAD + DOCS"
-            text="Paquete ISO de prueba (artefacto público) y PDFs técnicos v4.5. QEMU recomendado para evaluación segura."
+            code="08 / DOWNLOAD + PACKAGES"
+            title="BUILD PÚBLICO + CANAL .rxc"
+            text="ZIP de prueba histórico en /downloads y canal vivo de paquetes en /rx-os/packages. QEMU recomendado."
           />
           <div className="rxos-docs-row" data-reveal>
             <a className="brutal-button primary" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
@@ -2130,16 +2253,20 @@ function RXOS({ navigate }) {
             <a className="brutal-button" href="/docs/rxos/rxos_hoja_de_ruta_4_niveles_rev1.3.pdf" target="_blank" rel="noreferrer">
               HOJA DE RUTA 4 NIVELES PDF <ArrowUpRight size={15} />
             </a>
+            <button type="button" className="brutal-button" onClick={() => navigate('/rx-os/packages')}>
+              PACKAGE CHANNEL <Package size={15} />
+            </button>
           </div>
           <div className="rxos-download-layout">
             <article className="download-card" data-reveal>
-              <div className="download-card-top"><span>OFFICIAL ZIP · TEST</span><strong>v4.5 line</strong></div>
+              <div className="download-card-top"><span>OFFICIAL ZIP · TEST</span><strong>{RXOS_VERSION} line</strong></div>
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
-              <p>Build experimental bare-metal x86_64. No es un sistema de producción, no está auditado y no debe utilizarse para almacenar información importante.</p>
+              <p>Build experimental bare-metal x86_64. No es producción, no está auditado y no debe usarse para datos importantes. El ZIP público en el sitio es la línea de test publicada; el desarrollo activo es v5.5 en el repo.</p>
               <dl className="download-facts">
                 <div><dt>CONTENTS</dt><dd>ISO + README + screenshots</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
+                <div><dt>PACKAGES</dt><dd><a href="/rx-os/packages/">/rx-os/packages</a></dd></div>
                 <div><dt>SHA-256</dt><dd><code>a275d6b1783d439625e0bcc7395535a085bd87a2ba4db6ff88a8b402de8745af</code></dd></div>
               </dl>
               <div className="download-actions">
@@ -2158,7 +2285,7 @@ function RXOS({ navigate }) {
                 <div><span>Fedora</span><code>sudo dnf install qemu-system-x86-core</code></div>
                 <div><span>Debian / Ubuntu</span><code>sudo apt install qemu-system-x86</code></div>
               </div>
-              <pre><code>{`mkdir rxos-v4.1.1 && cd rxos-v4.1.1
+              <pre><code>{`mkdir rxos-lab && cd rxos-lab
 unzip ../RXos-v4.1.1.zip
 
 qemu-system-x86_64 \\
@@ -2168,20 +2295,8 @@ qemu-system-x86_64 \\
   -serial stdio`}</code></pre>
               <div className="qemu-commands">
                 <span>TRY INSIDE RXos</span>
-                <code>help</code><code>status</code><code>ls</code><code>write hola.txt hola</code><code>cat hola.txt</code><code>go rgx://hello</code><code>devices</code><code>uptime</code>
+                <code>help</code><code>date</code><code>status</code><code>rx app search</code><code>rx app add hellopkg</code><code>ls</code><code>go rgx://hello</code>
               </div>
-              <details>
-                <summary>OPTIONAL ATA PERSISTENCE IN QEMU</summary>
-                <pre><code>{`qemu-img create -f raw rxos-disk.img 512K
-qemu-system-x86_64 -machine pc -m 512M \\
-  -cdrom RXos-v4-foundation.iso \\
-  -drive file=rxos-disk.img,format=raw,if=ide \\
-  -serial stdio
-
-# Inside RXos:
-format hda yes
-save`}</code></pre>
-              </details>
             </article>
           </div>
           <p className="download-boundary" data-reveal><AlertTriangle size={17} /> Experimental research build. Run it in a virtual machine first. Provided for inspection, education and reproducible testing, without warranty.</p>
@@ -2191,7 +2306,7 @@ save`}</code></pre>
           <SectionTitle
             code="09 / ARCHITECTURE"
             title="DE BOOT.ASM AL TEJIDO LIF"
-            text="Pila RXos v4.5: boot, event fabric, LIF/STDP, drivers vivos y power."
+            text="Pila RXos: boot, desktop, event fabric, LIF/STDP, drivers vivos y power."
           />
           <ArchitectureDiagram />
         </section>
@@ -2201,7 +2316,7 @@ save`}</code></pre>
             <SectionTitle
               code="10 / ENGINEERING STATUS"
               title="WHAT WORKS — AND WHAT DOES NOT"
-              text="Separación explícita: Niveles 1–2 cerrados · Nivel 3 bloqueado sin Akida · OS roadmap."
+              text="Separación explícita: desktop v5.5 + Niveles 1–2 cerrados · Nivel 3 bloqueado sin Akida · red HTTPS pendiente."
             />
           </div>
           <div className="wrap rx-state-grid">
@@ -2220,14 +2335,14 @@ save`}</code></pre>
           <div className="wrap">
             <SectionTitle
               code="11 / NEXT IN ORDER"
-              title="LO SIGUIENTE (PAPER REV 1.3)"
-              text="Orden documentado: disco arrancable → HPET → high-half kernel → USB → Akida."
+              title="LO SIGUIENTE"
+              text="Orden: red útil en el SO → disco arrancable → HPET → USB → Akida."
             />
             <div className="rx-roadmap">
               {[
-                ['01', 'DISK BOOT', 'Instalar RXos como SO arrancable del disco (GRUB/kernel en partición 0x7F).'],
-                ['02', 'HPET / APIC', 'Resolución <10 ms del sustrato — prerrequisito de trenes de impulsos útiles.'],
-                ['03', 'HIGH-HALF MAP', 'Kernel en mitad alta + mapa directo; liberar techo de 4 GiB / 8 GB RAM.'],
+                ['01', 'HTTPS / www mode', 'Cliente TCP/TLS + rx app add en vivo + www get sin browser completo.'],
+                ['02', 'DISK BOOT', 'Instalar RXos como SO arrancable del disco (GRUB/kernel en partición 0x7F).'],
+                ['03', 'HPET / APIC', 'Resolución <10 ms del sustrato — prerrequisito de trenes de impulsos útiles.'],
                 ['04', 'USB XHCI', 'Pila bare-metal: bloqueo grande del Nivel 3 (NPU USB).'],
                 ['05', 'AKIDA AKD1000', 'Driver + encode/decode de impulsos. Requiere el chip físico en el lab.'],
                 ['06', 'J/INFER COMPARE', 'Energía por inferencia: CPU vs NPU, ambas medidas — no datasheet heredado.'],
@@ -2848,7 +2963,7 @@ function StartupIdea({ navigate }) {
           <button className="brutal-button primary" onClick={() => navigate('/pitch')}>PITCH DECK</button>
           <button className="brutal-button" onClick={() => navigate('/investors')}>PARA INVERSORES</button>
           <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA</button>
-          <button className="brutal-button" onClick={() => navigate('/rx-os')}>RXos v4.5</button>
+          <button className="brutal-button" onClick={() => navigate('/rx-os')}>RXos v5.5</button>
         </div>
       </PageHero>
 
@@ -3598,27 +3713,36 @@ const ROUTE_META = {
     url: `${SITE}/downloads`,
   },
   '/rx-os': {
-    title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
+    title: 'RXos v5.5 Desktop Experience — Knights Labs',
     description:
-      'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.',
+      'RXos v5.5 Desktop Experience: bare-metal x86_64, taskbar clock, RXFS, paquetes .rxc, LIF/STDP bench 6/6. Akida Level 3 pendiente.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'RXos v4.5 neuromorphic bare-metal OS',
+    imageAlt: 'RXos v5.5 Desktop Experience bare-metal OS',
     url: `${SITE}/rx-os`,
   },
-  '/rogexos': {
-    title: 'RXos v4.5.0 Neuromorphic — Knights Labs',
+  '/rx-os/packages': {
+    title: 'RXos packages (.rxc) — Knights Labs',
     description:
-      'RXos v4.5.0 event fabric bare-metal x86_64: LIF Q16.16, STDP, bench 6/6. Niveles 1–2 cerrados. Akida Level 3 pendiente.',
+      'Canal oficial de paquetes RXos: .rxc descargables, INDEX.json y admin para subir/borrar. rx app add <name>.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'RXos v4.5 neuromorphic bare-metal OS',
+    imageAlt: 'RXos package channel .rxc',
+    url: `${SITE}/rx-os/packages`,
+  },
+  '/rogexos': {
+    title: 'RXos v5.5 Desktop Experience — Knights Labs',
+    description:
+      'RXos v5.5 Desktop Experience: bare-metal x86_64, taskbar clock, RXFS, paquetes .rxc, LIF/STDP bench 6/6. Akida Level 3 pendiente.',
+    image: ogCard('rx-os'),
+    ...OG_DIM,
+    imageAlt: 'RXos v5.5 Desktop Experience bare-metal OS',
     url: `${SITE}/rx-os`,
   },
   '/architecture': {
-    title: 'Architecture RXos v4.5 — Knights Labs',
+    title: 'Architecture RXos v5.5 — Knights Labs',
     description:
-      'Arquitectura RXos: event fabric en von Neumann, anillos SPSC, LIF/STDP y roadmap neuromórfico en 4 niveles. Papers PDF públicos.',
+      'Arquitectura RXos: desktop, event fabric en von Neumann, anillos SPSC, LIF/STDP y roadmap en 4 niveles. Papers PDF públicos.',
     image: ogCard('architecture'),
     ...OG_DIM,
     imageAlt: 'RXos architecture — sensor to spike',
@@ -3679,7 +3803,8 @@ function App() {
   useEffect(() => {
     if (newspaperMode) return;
 
-    const meta = ROUTE_META[path] || DEFAULT_OG;
+    const metaPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+    const meta = ROUTE_META[metaPath] || DEFAULT_OG;
     document.title = meta.title;
     setCanonical(meta.url);
     setJsonLd(meta);
@@ -3723,7 +3848,18 @@ function App() {
   if (path === '/architecture') page = <Architecture navigate={navigate} />;
   if (path === '/prisma') page = <Prisma navigate={navigate} />;
   if (path === '/downloads') page = <Downloads navigate={navigate} />;
-  if (path === '/rx-os' || path === '/rogexos') page = <RXOS navigate={navigate} />;
+  if (path === '/rx-os/packages' || path === '/rx-os/packages/') {
+    page = (
+      <PackagesPage
+        navigate={navigate}
+        PageHero={PageHero}
+        SectionTitle={SectionTitle}
+        StatusBadge={StatusBadge}
+      />
+    );
+  } else if (path === '/rx-os' || path === '/rogexos') {
+    page = <RXOS navigate={navigate} />;
+  }
   if (path === '/investors') page = <Investors navigate={navigate} />;
   if (path === '/pitch') page = <Pitch navigate={navigate} />;
   if (path === '/startup-idea') page = <StartupIdea navigate={navigate} />;

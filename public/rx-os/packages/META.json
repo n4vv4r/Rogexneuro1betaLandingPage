@@ -1,0 +1,22 @@
+{
+  "echo": {
+    "version": "1.0.0",
+    "desc": "echo args / demo command package",
+    "cmd": "echo"
+  },
+  "fortune": {
+    "version": "1.0.0",
+    "desc": "one-line fortune app",
+    "cmd": "fortune"
+  },
+  "hellopkg": {
+    "version": "1.0.1",
+    "desc": "hello from the package channel",
+    "cmd": "hellopkg"
+  },
+  "tree-view": {
+    "version": "1.0.0",
+    "desc": "tree companion Roxenite page",
+    "cmd": "tree-view"
+  }
+}

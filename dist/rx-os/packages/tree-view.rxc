@@ -1,0 +1,5 @@
+app "tree-view"
+page home:
+  title "tree-view"
+  text "Use the shell command `tree` for a live vault listing."
+  text "This package is a Roxenite companion page."

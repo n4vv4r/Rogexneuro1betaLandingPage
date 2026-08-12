@@ -13,6 +13,13 @@
     { "source": "/prisma", "destination": "/prisma.html" },
     { "source": "/downloads", "destination": "/downloads.html" },
     { "source": "/rx-os", "destination": "/rx-os.html" },
+    { "source": "/rx-os/", "destination": "/rx-os.html" },
+    { "source": "/rx-os/packages", "destination": "/rx-os-packages.html" },
+    { "source": "/rx-os/packages/", "destination": "/rx-os-packages.html" },
+    {
+      "source": "/rx-os/packages/:name.rxc",
+      "destination": "/api/rxos/packages/serve?name=:name.rxc"
+    },
     { "source": "/rogexos", "destination": "/rx-os.html" },
     { "source": "/investors", "destination": "/investors.html" },
     { "source": "/pitch", "destination": "/pitch.html" },

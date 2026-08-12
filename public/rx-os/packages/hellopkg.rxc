@@ -1,0 +1,9 @@
+app "hellopkg"
+state n is 0
+page home:
+  title "hellopkg (from channel)"
+  text "Downloaded from the RXos package channel."
+  text "Channel: https://www.rogexlaboratories.com/rx-os/packages"
+  value n
+  button "wave":
+    add 1 to n

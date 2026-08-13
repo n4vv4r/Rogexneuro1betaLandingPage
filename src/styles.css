@@ -3871,6 +3871,18 @@ html[data-theme='dark'] .home-lede .hero-tags span { color: var(--ink); }
 /* ── Docs viewer ── */
 .docs-cat { margin-bottom: 36px; }
 .docs-cat-title { font-size: 12px; letter-spacing: .14em; margin-bottom: 12px; }
+.doc-tag {
+  display: inline-block;
+  width: fit-content;
+  padding: 3px 8px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fffef8;
+  background: var(--tag, var(--accent));
+  border: 1.5px solid var(--tag, var(--accent));
+}
 .docs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

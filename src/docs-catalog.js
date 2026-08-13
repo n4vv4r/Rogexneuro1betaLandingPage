@@ -1,12 +1,13 @@
 /** Public markdown + PDF catalog for the in-site viewer. */
 export const DOC_CATEGORIES = [
-  { id: 'tutorial', label: 'Tutorial' },
-  { id: 'demo', label: 'Demostración' },
-  { id: 'bench', label: 'Benchmarks' },
-  { id: 'theory', label: 'Teoría' },
-  { id: 'research', label: 'Investigación' },
-  { id: 'impl', label: 'Implementación' },
-  { id: 'prisma', label: 'PRISMA' },
+  { id: 'tutorial', label: 'Tutorial', color: '#c43c24' },
+  { id: 'demo', label: 'Demostración', color: '#2a7a4b' },
+  { id: 'bench', label: 'Benchmarks', color: '#b58900' },
+  { id: 'theory', label: 'Teoría', color: '#3d5a99' },
+  { id: 'research', label: 'Investigación', color: '#7a3d8c' },
+  { id: 'impl', label: 'Implementación', color: '#1a6b7a' },
+  { id: 'wsp', label: 'RogexWSP', color: '#c45c14' },
+  { id: 'prisma', label: 'PRISMA', color: '#8b3a4a' },
 ];
 
 export const DOCS = [
@@ -144,7 +145,46 @@ export const DOCS = [
     path: '/docs/prisma/PRISMA_5_ROADMAP.md',
     blurb: 'Fases α → 1.0 y gates de release.',
   },
+  {
+    id: 'wsp-readme',
+    title: 'RogexWSP — protocolo',
+    category: 'wsp',
+    path: '/docs/wsp/README.md',
+    blurb: 'Un núcleo de significado, muchas máscaras. Repo navywakura/RogexWSP.',
+  },
+  {
+    id: 'wsp-philosophy',
+    title: 'RogexWSP — filosofía',
+    category: 'wsp',
+    path: '/docs/wsp/PHILOSOPHY.md',
+    blurb: 'I+E→S. La palabra es solo una máscara.',
+  },
+  {
+    id: 'wsp-spec',
+    title: 'RogexWSP — SPEC v0.1',
+    category: 'wsp',
+    path: '/docs/wsp/SPEC.md',
+    blurb: '32 átomos, 6 ejes, JSON y binario normativo.',
+  },
+  {
+    id: 'wsp-binary',
+    title: 'RogexWSP — formato binario',
+    category: 'wsp',
+    path: '/docs/wsp/BINARY_FORMAT.md',
+    blurb: 'Magic WSP, flags, átomos 5-bit, emoción i8.',
+  },
+  {
+    id: 'wsp-snippets',
+    title: 'RogexWSP — snippets',
+    category: 'wsp',
+    path: '/docs/wsp/SNIPPETS.md',
+    blurb: 'primitives, Emotion, Symbol, encode/decode. Código real.',
+  },
 ];
+
+export function catById(id) {
+  return DOC_CATEGORIES.find((c) => c.id === id) || null;
+}
 
 export function docById(id) {
   return DOCS.find((d) => d.id === id) || null;

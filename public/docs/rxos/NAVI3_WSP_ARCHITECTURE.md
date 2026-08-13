@@ -69,7 +69,7 @@ NAVI 2 (`NAVI2W01`, V=256) sigue en la ISO para RAG/legado. El chat usa NAVI-3 s
 - BMP de captura sigue siendo 48×27 (RXFS 4 KiB/fichero).
 - Cero FPU, cero backprop in-kernel, RAG ≠ retrain.
 
-## Demo canónica
+## Demo canónica (QEMU real)
 
 ```
 Usuario:  estoy solo y necesito ayuda
@@ -77,5 +77,13 @@ S_in:     YO → SER → SOLEDAD @AHORA | E[V-60 A-40 B-50]
 S_out:    YO → DESEAR → CONEXION @AHORA | E[V+50 A+30 B+40]
 Máscara:  Procesando estado... Buscando canal de conexion. | YO -> DESEAR -> CONEXION ...
 ```
+
+![NAVI-3 WSP chat en QEMU](/rxos/monad/10-navi3-wsp-chat.png)
+
+*Tecla `v`, `/demo` + `hola navi`. Pesos `NAVI3W01` 474560 B (module2). Captura QEMU, no un mockup.*
+
+![Boot: NAVI3-WSP weights bound](/rxos/monad/01-boot.png)
+
+*Log de arranque: `NAVI3-WSP weights: 474560 B (module2)`.*
 
 En el chat: `/demo`. Luego F12. Shell: `navi3 bench`.

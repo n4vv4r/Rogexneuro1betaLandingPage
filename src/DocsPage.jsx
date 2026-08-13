@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { DOC_CATEGORIES, DOCS, docById } from './docs-catalog.js';
+import { DOC_CATEGORIES, DOCS, docById, catById } from './docs-catalog.js';
 import { renderMarkdown } from './markdown.jsx';
 
 export function parseDocsPath(path) {
@@ -48,11 +48,11 @@ export default function DocsPage({ path, navigate, PageHero, SectionTitle }) {
               if (!items.length) return null;
               return (
                 <div key={cat.id} className="docs-cat">
-                  <h3 className="docs-cat-title">{cat.label}</h3>
+                  <h3 className="docs-cat-title" style={{ color: cat.color }}>{cat.label}</h3>
                   <div className="docs-grid">
                     {items.map((d) => (
                       <article key={d.id} className="docs-card" data-reveal>
-                        <span className="panel-label">{d.category}</span>
+                        <span className="doc-tag" style={{ '--tag': cat.color }}>{cat.label}</span>
                         <h3>{d.title}</h3>
                         <p>{d.blurb}</p>
                         <button
@@ -115,7 +115,7 @@ function DocArticle({ doc, navigate }) {
           if (!items.length) return null;
           return (
             <div key={cat.id}>
-              <span className="docs-side-cat">{cat.label}</span>
+              <span className="docs-side-cat" style={{ color: cat.color }}>{cat.label}</span>
               {items.map((d) => (
                 <button
                   key={d.id}
@@ -132,7 +132,9 @@ function DocArticle({ doc, navigate }) {
       </aside>
       <article className="docs-article">
         <header className="docs-article-head">
-          <span className="kicker">{doc.category}</span>
+          <span className="doc-tag" style={{ '--tag': (catById(doc.category) || {}).color || 'var(--accent)' }}>
+            {(catById(doc.category) || {}).label || doc.category}
+          </span>
           <h1>{doc.title}</h1>
           <p>{doc.blurb}</p>
           <a className="checksum-link" href={doc.path} target="_blank" rel="noreferrer">

@@ -1,22 +1,23 @@
-# Tutorial — rxOS 7 MONAD
+# Tutorial — rxOS 8 DESKTOP
 
 **Autor:** r. navarro  
-**ISO:** `rxOS-7.0.0-vm.iso` / `rxOS-7.0.0-metal.iso`  
+**ISO:** `rxOS-8.0.0-vm.iso` / `rxOS-8.0.0-metal.iso`  
 **Eslogan:** *An AI that consumes less than your calculator app*
 
-Este texto enseña a **arrancar, hablar con NAVI 2 y medir**. No es un LLM. No hay archivos en el chat. Experimental, sin garantía.
+Este texto enseña a **arrancar, hablar con NAVI-4.5 y medir**. No es un LLM. No hay archivos en el chat. Experimental, sin garantía.
 
 ---
 
 ## 1. Qué es esto
 
-rxOS 7 MONAD es un unikernel x86_64 bare-metal. Lleva:
+rxOS 8 DESKTOP es un unikernel x86_64 bare-metal. Lleva:
 
 | Capa | Qué hace | Dónde |
 | --- | --- | --- |
 | L1 Q₆ | 64 neuronas LIF, 1-bit 48/48, hop 2-bit | `navi` / boot self-test |
 | L2 HDC | Memoria asociativa 1024-bit, 66 352 B | `navi l2` |
-| L3 | RWKV ternario, pesos en `navi2_weights.bin` | tecla `v`, `navi2` |
+| L3 + WSP | transductor S→S′, paquetes de 16 B | tecla `v`, `navi3` |
+| NAVI-4.5 | operador `G_rxos` sobre la Terminal | `/prove` |
 | Desktop | Aero, RXFS, WWW opt-in | instalador LIVE |
 
 El eslogan se afirma de **la capa NAVI**, no de toda la ISO.
@@ -25,12 +26,12 @@ El eslogan se afirma de **la capa NAVI**, no de toda la ISO.
 
 ## 2. Bajar la imagen correcta
 
-Release: [v7.0.0 en RXos-Packages](https://github.com/knightslabs/RXos-Packages/releases/tag/v7.0.0)
+Release: [v8.0.0 en RXos-Packages](https://github.com/knightslabs/RXos-Packages/releases/tag/v8.0.0)
 
 | Archivo | Uso |
 | --- | --- |
-| `rxOS-7.0.0-vm.iso` | QEMU / VirtualBox |
-| `rxOS-7.0.0-metal.iso` | USB en un PC real (BIOS / Legacy) |
+| `rxOS-8.0.0-vm.iso` | QEMU / VirtualBox |
+| `rxOS-8.0.0-metal.iso` | USB en un PC real (BIOS / Legacy) |
 
 No flashees la ISO VM a un pendrive. Comprueba SHA-256 (`SHA256SUMS.txt`).
 
@@ -50,7 +51,7 @@ sudo apt install qemu-system-x86
 
 qemu-system-x86_64 \
   -machine q35 -m 512M \
-  -cdrom rxOS-7.0.0-vm.iso \
+  -cdrom rxOS-8.0.0-vm.iso \
   -netdev user,id=net0 -device virtio-net-pci,netdev=net0 \
   -serial stdio
 ```
@@ -62,6 +63,7 @@ En el log de arranque debe aparecer:
 ```
 [rxos] NAVI Q6 self-test (cube + 1-bit + hop): PASS
 [rxos] NAVI2 weights: 491584 B (module2)
+[rxos] NAVI3-WSP weights: 474560 B (module2)
 ```
 
 Si no ves `module2`, el `.bin` no cargó. La ISO oficial sí lo incluye.
@@ -73,7 +75,7 @@ Si no ves `module2`, el `.bin` no cargó. La ISO oficial sí lo incluye.
 1. Registro (usuario + contraseña) si es LIVE.
 2. Escritorio Aero: iconos, taskbar, reloj.
 3. Tecla **`t`** — terminal.
-4. Tecla **`v`** — **NAVI 2 Chat** (burbujas, barra, ENVIAR).
+4. Tecla **`v`** — **NAVI-4.5** (WSP + máscara ES + `G_rxos`). `/prove` es el tour. `/demo` prueba SOLEDAD.
 5. `F12` o `capture` — miniatura en `/screenshots`.
 
 Comandos útiles:
@@ -91,22 +93,18 @@ www on
 
 ---
 
-## 5. Cómo chatear con NAVI 2
+## 5. Cómo chatear con NAVI-4.5 (WSP)
 
-Solo **texto plano**. Sin archivos, sin imágenes.
+El chat habla **paquetes WSP**. El castellano es máscara. Ver [`NAVI3_WSP_ARCHITECTURE.md`](NAVI3_WSP_ARCHITECTURE.md).
 
 | Dónde | Cómo |
 | --- | --- |
 | GUI | tecla `v` · escribe · Enter o ENVIAR |
-| Shell | `navi2 chat` luego `navi2 tu mensaje` |
-| Un turno con memoria | `navi2 + sigue el hilo` |
-| Borrar S | `navi2 .` o `/clear` en el chat |
+| Demo | `/demo` → «estoy solo y necesito ayuda» |
+| Shell | `navi3 chat` luego `navi3 tu mensaje` (`navi2` es alias) |
+| Borrar S | `navi3 .` o `/clear` |
 
-Atajos en la ventana:
-
-- `/www` — activa la pila de red
-- `/fetch http://…` — RAG (texto HTTP → HDC L2)
-- `/bench` — ciclos `rdtsc` por token
+Atajos: `/bench` (rdtsc/paquete), `/fetch`, `/www`, F12 captura.
 - `/help` — aviso
 
 Lee el aviso: [USER_NOTICE.md](USER_NOTICE.md).

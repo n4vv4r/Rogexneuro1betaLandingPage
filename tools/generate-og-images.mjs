@@ -169,9 +169,9 @@ const CARDS = [
     file: 'home.png',
     svg: labCard({
       kicker: 'KNIGHTS LABS · ROGEX LABORATORIES',
-      title: 'Low-carbon neurotech. Bootable lab.',
-      subtitle: 'PRISMA 5 SNN · rxOS 7 MONAD · NAVI 2',
-      badge: 'SUITE 2026',
+      title: '16 bytes. The OS is the demo.',
+      subtitle: 'rxOS 8 DESKTOP · NAVI-4.5 · WSP · Q₆',
+      badge: 'v8.0.0',
       accent: LAB.accent,
     }),
   },
@@ -180,7 +180,7 @@ const CARDS = [
     svg: labCard({
       kicker: 'PRODUCT SUITE',
       title: 'The stack, not the hype.',
-      subtitle: 'rxOS Desktop · neuromorphic kernel · PRISMA 3 & 5',
+      subtitle: 'rxOS 8 DESKTOP · NAVI-4.5 · PRISMA Engine',
       badge: '4 PRODUCTS',
       accent: LAB.acid,
       variant: 'dark',
@@ -191,8 +191,8 @@ const CARDS = [
     svg: labCard({
       kicker: 'ARCHITECTURE',
       title: 'From sensor to spike.',
-      subtitle: 'Event fabric · SPSC rings · LIF Q16.16 · STDP · 4-level roadmap',
-      badge: 'RXos v4.5',
+      subtitle: 'Event fabric · Q₆ · WSP 16 B · NAVI-4.5 · 4-level roadmap',
+      badge: 'rxOS 8',
       accent: LAB.accent,
       variant: 'dark',
     }),
@@ -210,10 +210,10 @@ const CARDS = [
   {
     file: 'rx-os.png',
     // Real QEMU desktop capture + brand overlay (not a generic SVG card).
-    fromShot: 'public/rxos/monad/03-desktop.png',
-    kicker: 'rxOS 7 MONAD',
-    title: 'A laboratory that boots.',
-    subtitle: 'NAVI 2 · module2 weights · RAG · e1000',
+    fromShot: 'public/rxos/monad/12-desktop.png',
+    kicker: 'rxOS 8 DESKTOP',
+    title: 'THE OS IS THE DEMO.',
+    subtitle: 'NAVI-4.5 · WSP 16 B · /prove · Q₆ 48/48',
     badge: 'REAL CAPTURE',
   },
   {

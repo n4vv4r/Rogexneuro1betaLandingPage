@@ -1,6 +1,6 @@
 # Cómo comprobar tú mismo que NAVI no come gigas
 
-Eslogan de **rxOS 7 MONAD**: *An AI that consumes less than your calculator app*.
+Eslogan de **rxOS 8 DESKTOP** (capa NAVI): *An AI that consumes less than your calculator app*.
 
 Eso es una tesis, no un hecho de producto. Aquí está cómo falsearla en tu máquina, sin creerse un README.
 

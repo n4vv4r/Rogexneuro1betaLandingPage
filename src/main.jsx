@@ -39,6 +39,7 @@ import {
   LayoutGrid,
   BookOpen,
   ChevronDown,
+  Hexagon,
 } from 'lucide-react';
 import './styles.css';
 import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx';
@@ -63,7 +64,9 @@ const NAV_MENUS = [
     label: 'DOCS',
     items: [
       ['/docs', 'INDEX'],
-      ['/docs/tutorial-monad', 'TUTORIAL MONAD'],
+      ['/docs/rxos8', 'rxOS 8'],
+      ['/docs/navi45', 'NAVI 4.5'],
+      ['/docs/tutorial-monad', 'TUTORIAL'],
       ['/docs/demostracion', 'DEMO + BENCH'],
       ['/docs/rfc-q6-campana', 'RFC Q6 CAMPAÑA'],
       ['/architecture', 'ARCHITECTURE'],
@@ -229,7 +232,7 @@ const LICENSE_TIERS = [
     product: 'rxOS',
     rows: [
       ['Event fabric docs', 'Open papers', 'Paper + hoja de ruta 4 niveles'],
-      ['Desktop Experience', 'GPLv3 source', 'Bootable lab surface v5.5'],
+      ['Desktop Experience', 'GPLv3 source', 'Bootable lab surface v8.0'],
       ['OEM / Akida path', 'Custom arch', 'Nivel 3 bare-metal NPU'],
     ],
   },
@@ -341,32 +344,38 @@ const ARCH_STACK = [
   {
     layer: '01',
     title: 'BOOT / x86_64',
-    text: 'GRUB Multiboot2 → long mode, mapa identidad 4 GiB (páginas 2 MiB), GDT 64-bit y kmain(). Sin volver al firmware.',
-    detail: 'NASM · Multiboot2 · PAE + long mode',
+    text: 'GRUB Multiboot2 → long mode, mapa 4 GiB, kmain(). Un unikernel: no hay userspace Linux debajo.',
+    detail: 'NASM · Multiboot2 · -mno-sse',
   },
   {
     layer: '02',
     title: 'EVENT FABRIC',
-    text: 'rx_event_t de 64 B alineado a línea de caché. Anillos SPSC ISR→pump, mfence, IF=0 en puertas. Sin tick neural periódico.',
+    text: 'Eventos de 64 B, anillos SPSC ISR→pump. Sin tick neural. Si no pasa nada, HLT.',
     detail: 'SPSC · 64 B/event · auto-test al boot',
   },
   {
     layer: '03',
-    title: 'LIF + STDP',
-    text: 'Unidades LIF en Q16.16 (kernel -mno-sse). Fuga perezosa V·τ/(τ+Δt). Plasticidad STDP local por actor.',
-    detail: 'Integer exact · no FPU · codificación temporal',
+    title: 'LIF + Q₆',
+    text: 'Membrana Q16.16 y hipercubo Q₆ (64 neuronas, codebook [6,3,3]). 1-bit 48/48. Entero, 0% FPU.',
+    detail: 'Q16.16 · Hamming · hop gated 120/120',
   },
   {
     layer: '04',
-    title: 'LIVE OS PATHS',
-    text: 'Teclado/ratón tipados (nunca umbralizados), NIC always-fire, WM umbralizado, lazo: shell como tarea + rx_kernel_event_loop().',
-    detail: 'IRQ1/12 · net actor · WM refresh · power_idle',
+    title: 'WSP + NAVI-4.5',
+    text: 'Paquete de 16 B (I+E+ext). NAVI clasifica y G_rxos ejecuta comandos blancos. /prove es el test.',
+    detail: 'wsp_packet_t · heap W = 0 · lista blanca',
   },
   {
     layer: '05',
-    title: 'NIVEL 3 · AKIDA (PENDING)',
-    text: 'Delegación a silicio neuromórfico: USB/XHCI, HPET, driver BrainChip Akida AKD1000 y trenes de impulsos. Chip físico aún no disponible en el lab.',
-    detail: 'OBJETIVO · falta NPU + pila USB bare-metal',
+    title: 'DESKTOP AERO',
+    text: 'WM, Terminal, Monitor, Neuro, chat NAVI. La app en reposo no pinta: el LIF no recibe estímulo.',
+    detail: 'tecla v · t · y · /prove',
+  },
+  {
+    layer: '06',
+    title: 'NIVEL 3 · AKIDA',
+    text: 'Delegación a NPU real. Sin chip en el lab: bloqueado. No se vende como hecho.',
+    detail: 'OBJETIVO · falta AKD1000 + XHCI',
   },
 ];
 
@@ -595,7 +604,7 @@ const PRISMA_ROADMAP = [
 ];
 
 const RX_IMPLEMENTED = [
-  'RXos v5.5 Desktop Experience: Multiboot2 → long mode, desktop con wallpaper, taskbar y Start.',
+  'rxOS 8 DESKTOP: Multiboot2 → long mode, Aero, NAVI-4.5 operador, /prove.',
   'Reloj de pared: CMOS RTC + PIT; reloj vivo en la bandeja; prompt [HH:MM:SS]; comando date.',
   'Lock screen + registro inicial (password con SHA3 en el perfil de usuario).',
   'Teclado ES Windows QWERTY (AltGr completo), US y Mac QWERTY (kbd es|us|mac).',
@@ -609,7 +618,7 @@ const RX_IMPLEMENTED = [
 
 const RX_LIMITS = [
   'Nivel 3 abierto: falta chip BrainChip Akida AKD1000 en el lab para test en silicio real.',
-  'Sin pila TCP/IP/TLS en el kernel: el canal de paquetes usa mirror local verificado por ahora.',
+  'TLS de cuerpo HTTPS aún no baja (hoy: ClientHello + ServerHello). HTTP/RSS y DHCP sí existen.',
   'Sin pila USB/XHCI bare-metal (prerrequisito del NPU USB).',
   'Resolución temporal del sustrato = 10 ms (PIT 100 Hz); HPET/APIC local pendiente.',
   'No es hardware neuromórfico: silicio con reloj, actores en serie, von Neumann intacto.',
@@ -622,50 +631,130 @@ const RXOS_INFOGRAPHIC = {
   pillars: [
     {
       icon: LayoutGrid,
-      title: 'DESKTOP REAL',
-      text: 'Wallpaper, iconos, taskbar, Start, ventanas Aero arrastrables. No es un mockup: arranca en QEMU y en metal.',
+      title: 'DESKTOP QUE ARRANCA',
+      text: 'Aero, iconos, taskbar, Start. Captura QEMU del 13 ago 2026 — no un render de Figma.',
     },
     {
-      icon: Clock,
-      title: 'RELOJ Y TIMESTAMPS',
-      text: 'RTC + PIT, reloj en la bandeja, prompt con hora, date / uptime. Timestamps de verdad en el lab.',
+      icon: Brain,
+      title: 'NAVI-4.5 OPERADOR',
+      text: 'No charla de recetas. Ejecuta status y navi3 bench. /prove es el anuncio y el test.',
     },
     {
-      icon: Package,
-      title: 'PAQUETES .rxc',
-      text: 'Canal público en /rx-os/packages. rx app add instala en /bin. Estilo Portage, sin mentir sobre HTTPS aún.',
+      icon: Radio,
+      title: 'WSP = 16 BYTES',
+      text: 'Toda “idea” del motor cabe en una postal binaria: 4 átomos + 6 ejes E + 5 B de ext.',
+    },
+    {
+      icon: Hexagon,
+      title: 'Q₆ HIPERCUBO',
+      text: '64 neuronas, 192 aristas, codebook [6,3,3]. Un bit de ruido: 48/48 recuperado.',
     },
     {
       icon: Network,
       title: 'EVENT FABRIC',
-      text: 'Eventos 64 B, anillos SPSC, LIF Q16.16, STDP. Bench 6/6. Papers PDF abiertos. Akida = Nivel 3 pendiente.',
+      text: '64 B por evento, LIF entero, sin tick neural. Ventana quieta = 0 ciclos de paint.',
     },
     {
-      icon: Keyboard,
-      title: 'TECLADO + LOCK',
-      text: 'ES con AltGr, US y Mac. Registro de usuario y lock screen con password hasheado (SHA3).',
-    },
-    {
-      icon: HardDrive,
-      title: 'RXFS + VAULT',
-      text: 'Filesystem propio, paths absolutos y cwd, explorer gráfico, persistencia en disco de referencia.',
+      icon: Terminal,
+      title: 'MISMA SHELL',
+      text: 'G_rxos llama a commands_dispatch(). Lo que ves en el chat es lo que imprime la Terminal.',
     },
   ],
   advantages: [
-    ['Bare-metal de verdad', 'No es una distro Linux recortada: kernel propio en C + NASM + Rust no_std.'],
-    ['Medible', 'bench, power, mem, status y logs de boot imprimen hechos — no marketing vacío.'],
-    ['Ligero', '~3 MiB al arrancar. Escritorio usable sin stack web ni container runtime.'],
-    ['Canal de apps', 'Paquetes .rxc publicados en la web del lab; admin puede subir/borrar en el hub.'],
-    ['GPLv3', 'Código abierto: editar, redistribuir; derivados siguen siendo GPL.'],
-    ['Honesto', 'Se declara qué falta: TCP/HTTPS, UEFI nativo, Akida, USB XHCI.'],
+    ['Más pequeño que la calculadora', 'La capa Q₆ mide menos RSS que una app de escritorio típica (15–40 MiB). El eslogan se afirma de ESA capa.'],
+    ['16 B vs un tuit', 'Un pensamiento WSP es más corto que la palabra “ok” en UTF-8. ChatGPT mueve gigabytes.'],
+    ['El OS es el bench', '/prove imprime heap navi3 0 y el status del kernel. No hay vídeo de stock.'],
+    ['0% FPU en el motor', 'Kernel -mno-sse. Enteros Q16.16 y ternarios {-1,0,1}.'],
+    ['GPLv3 + SHA-256', 'Código abierto. Cada ISO del release lleva checksum publicado.'],
+    ['Dice que no sabe', 'Si no hay esquema o no está en la lista blanca: DESCONOCIDO. Eso es una feature.'],
   ],
   future: [
-    ['HTTPS en el SO', 'Cliente TCP/TLS para rx app add contra este canal en vivo.'],
-    ['www mode', 'Internet por comandos (www get) sin navegador completo — L2 ya existe.'],
-    ['Disco arrancable', 'Instalación GRUB/kernel en partición 0x7F como SO del disco.'],
-    ['HPET / USB / Akida', 'Sub-ms, XHCI y NPU real cuando el lab tenga el chip.'],
+    ['Edición Server', 'Mismo núcleo, AERO=0. Headless. Otro día — no está en esta ISO.'],
+    ['TLS de verdad', 'Hoy: ClientHello + ServerHello. El body HTTPS aún no baja. HTTP RSS sí.'],
+    ['Packs + HDC fallback', 'Si el n-grama falla, acercar a un dominio. No está cerrado en 8.0.0.'],
+    ['Akida / USB / HPET', 'Nivel 3 del roadmap. Sin chip en el lab = no hay cifra J/inferencia.'],
   ],
 };
+
+const IMPACT_COMPARE = [
+  { criterion: 'Unidad de pensamiento', them: 'Token (sílaba a ciegas)', us: 'Paquete WSP de 16 bytes' },
+  { criterion: 'Dónde vive', them: 'API + GPU en un datacenter', us: 'El propio kernel, heap W = 0' },
+  { criterion: 'Si no sabe', them: 'Inventa con seguridad', us: 'DESCONOCIDO o lista blanca' },
+  { criterion: 'Cómo se demuestra', them: 'Un screenshot de chat', us: '/prove + rdtsc + status' },
+  { criterion: 'Sistema operativo', them: 'Linux/Windows de cientos de MB', us: 'Unikernel ~3 MiB al boot' },
+  { criterion: 'FPU', them: 'Obligatoria', us: 'Prohibida en el motor (-mno-sse)' },
+];
+
+const ECO_COMPARE = [
+  { criterion: 'Un pensamiento', them: 'Tokens en un cluster de GPUs', us: '16 bytes WSP · entero · sin red' },
+  { criterion: 'Pesos del modelo', them: '7B–405B params · 14–800+ GiB', us: '474 560 B + 66 KiB HDC' },
+  { criterion: 'RAM al arrancar', them: 'Windows / Linux desktop: 1–8 GiB', us: '~3 MiB (paper rev 1.0)' },
+  { criterion: 'Reposo', them: 'Datacenter siempre encendido', us: 'HLT. Sin evento = 0 paint' },
+  { criterion: 'Entrenar', them: 'MWh–GWh en un campus', us: 'Host train_wsp.py. El kernel no backpropaga' },
+  { criterion: 'Julios / inferencia', them: 'Cifra de marketing de nube', us: 'Sin J inventado. Nivel 3 (Akida) lo medirá' },
+];
+
+const WSP_FIELDS = [
+  ['src rel dst time', '4 átomos · sujeto, verbo, objeto, cuando'],
+  ['E[6]', 'V A D C U B · valencia, arousal, dominio, certeza, urgencia, vínculo'],
+  ['flags', 'L2, RULE, VETO'],
+  ['ext[5]', 'dominio, generador, estilo, slot, seq'],
+];
+
+const VERSION_HISTORY = [
+  { ver: '4.x', title: 'Foundation', state: 'HISTORIA', text: 'Boot, RXFS, persistencia, primer escritorio clicable.' },
+  { ver: '6.0', title: 'Desktop + WWW', state: 'HISTORIA', text: 'Aero, ISO dual, HTTP GET opt-in.' },
+  { ver: '6.5', title: 'NICs', state: 'HISTORIA', text: 'virtio, e1000, r8169, rtl8139. ISO anterior en releases.' },
+  { ver: '7.0', title: 'MONAD / NAVI-3', state: 'HISTORIA', text: 'SNN in-kernel, WSP 16 B, chat tecla v. Sustituida por 8.' },
+  { ver: '8.0', title: 'DESKTOP / NAVI-4.5', state: 'ACTUAL', text: 'Operador G_rxos, /prove, discurso, capturas 11–17.' },
+];
+
+const HIT_NUMBERS = [
+  { n: '16 B', l: 'un pensamiento WSP' },
+  { n: '0', l: 'heap del modelo' },
+  { n: '48/48', l: 'Q₆ recupera 1 bit' },
+  { n: '~3 MiB', l: 'RAM al boot' },
+  { n: '6/6', l: 'LIF bench' },
+  { n: '/prove', l: 'el anuncio es el test' },
+];
+
+const EXPLAIN_CHAPTERS = [
+  {
+    code: '01 · rxOS 8',
+    slogan: 'EL SO ES LA DEMO',
+    analog: 'Windows pesa cientos de megas y te pide una cuenta. rxOS arranca, pinta Aero y te deja pulsar /prove. El anuncio es el binario.',
+    text: 'Unikernel x86_64 (C + NASM + Rust no_std). Escritorio Aero, Terminal, Explorer y NAVI-4.5 en el mismo binario. ISO VM + metal. No es Linux recortado.',
+    facts: ['~3 MiB al boot', 'Aero real · QEMU 13 ago', 'GPLv3 · SHA-256', 'No es producción'],
+  },
+  {
+    code: '02 · NAVI 4.5',
+    slogan: 'NO ES UN LORO. ES UN TABLERO DE RELÉS.',
+    analog: 'Un LLM ha leído internet y apuesta la siguiente sílaba. NAVI clasifica la intención, elige un generador y, si pides el sistema, lo ejecuta.',
+    text: 'Operador in-OS. G_talk, G_logic, G_poetic, G_news, G_code y G_rxos (lista blanca sobre la misma commands_dispatch que la Terminal). Si no hay esquema: DESCONOCIDO.',
+    facts: ['heap navi3 = 0', '474 560 B de pesos', 'un comando por turno', '/prove = bench + status'],
+  },
+  {
+    code: '03 · WSP',
+    slogan: 'UN PENSAMIENTO QUE CABE EN UN SMS DE 1999',
+    analog: 'ChatGPT mueve un hangar de tokens. WSP es un telegrama: sujeto, verbo, objeto, cuándo — y seis ejes de emoción. El castellano es la carátula.',
+    text: 'RogexWSP v0.5: 16 bytes exactos (_Static_assert). 32 átomos + E[V A D C U B] + flags + ext{domain, generator, style, slot, seq}. Una idea, muchas máscaras.',
+    facts: ['src rel dst time', 'E · VAD CUB', '32 átomos · 5 bit', 'ext nombra el generador'],
+  },
+  {
+    code: '04 · Q₆',
+    slogan: '64 HABITACIONES. UN BIT DE RUIDO. 48/48.',
+    analog: 'Imagina 64 habitaciones. Cada pasillo cambia un solo interruptor. El código [6,3,3] marca 8 puertas correctas. Te equivocas en un bit: 48 de 48 veces vuelves a casa.',
+    text: 'Hipercubo de 6 bits, 192 aristas, LIF entero, 0% FPU. Hipótesis abierta (RFC-2026-08-Q6), no geometría sagrada. Medido: 48/48 en 1-bit; hop Hamming 120/120.',
+    facts: ['64 neuronas LIF', '192 aristas', 'codebook [6,3,3]', 'hop 120/120'],
+  },
+  {
+    code: '05 · CARBONO',
+    slogan: 'SI NO HAY EVENTO, NO HAY VATIO.',
+    analog: 'Un LLM enciende un hangar de GPUs para apostar una sílaba. Un pensamiento WSP son 16 bytes y sumas enteras en el mismo binario que pinta el escritorio. El portátil ya estaba encendido. No se alquila un campus.',
+    text: 'Impacto ecológico medible por órdenes de magnitud, no por un kWh inventado. Pesos: 475 KiB frente a decenas de gigabytes. RAM al boot: ~3 MiB. Reposo: HLT, 0 paint. Julios/inferencia: no los publicamos — RAPL en QEMU miente. Nivel 3 (Akida) será la primera cifra J real.',
+    facts: ['475 KiB de pesos', '~3 MiB RAM', 'HLT si no hay evento', 'sin cifra J falsa'],
+  },
+];
 
 const PROJECTS = [
   {
@@ -934,6 +1023,71 @@ function SectionTitle({ code, title, text }) {
       <span>{code}</span>
       <h2>{title}</h2>
       {text && <p>{text}</p>}
+    </div>
+  );
+}
+
+function HitNumbers({ items = HIT_NUMBERS }) {
+  return (
+    <div className="hit-numbers" data-reveal>
+      {items.map((item) => (
+        <div key={item.l}>
+          <strong>{item.n}</strong>
+          <span>{item.l}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ExplainChapters({ chapters = EXPLAIN_CHAPTERS }) {
+  return (
+    <div className="explain-grid">
+      {chapters.map((ch) => (
+        <article className="explain-card" key={ch.code} data-reveal>
+          <span className="panel-label">{ch.code}</span>
+          <h3>{ch.slogan}</h3>
+          <p className="explain-analog">{ch.analog}</p>
+          <p>{ch.text}</p>
+          <ul>
+            {ch.facts.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function EcoImpact() {
+  return (
+    <div className="eco-hit" data-reveal>
+      <div className="eco-hit-lede">
+        <Leaf size={28} strokeWidth={1.4} />
+        <div>
+          <span className="panel-label">IMPACTO ECOLÓGICO · ÓRDENES, NO TEATRO</span>
+          <h3>Un hangar de tokens vs un sello de correos.</h3>
+          <p>
+            No publicamos un kWh de marketing. Publicamos tamaños, reposo y un límite:
+            RAPL en QEMU no es honesto, así que <em>no hay cifra J/inferencia</em> hasta Akida.
+            Lo que sí es cierto: 16 bytes no necesitan un reactor, y si no hay evento no hay paint.
+          </p>
+        </div>
+      </div>
+      <div className="impact-compare">
+        <div className="impact-compare-head">
+          <span>IA DE CAMPUS</span>
+          <span>rxOS 8 / NAVI-4.5</span>
+        </div>
+        {ECO_COMPARE.map((row) => (
+          <div className="impact-compare-row" key={row.criterion}>
+            <strong>{row.criterion}</strong>
+            <span>{row.them}</span>
+            <span>{row.us}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1228,7 +1382,7 @@ function KccFindUsSection() {
             Canal del lab
           </h2>
           <p className="kcc-find-text">
-            Foro y lobby de Knights Labs. MONAD, PRISMA, computación libre.
+            Foro y lobby de Knights Labs. rxOS 8, NAVI-4.5, PRISMA, computación libre.
             Sin anuncios de terceros. Sin vigilancia de producto.
           </p>
 
@@ -1262,16 +1416,41 @@ function Home({ navigate }) {
     <>
       <Slideshow onNavigate={navigate} />
       <section className="home-lede wrap">
-        <span className="kicker">KNIGHTS LABS · ROGEX</span>
+        <span className="kicker">KNIGHTS LABS · ROGEX · AGOSTO 2026</span>
         <p>
-          Software EEG reproducible, kernel neuromórfico abierto y un SO que arranca.
-          Capturas reales arriba: rxOS 8 DESKTOP, NAVI-4.5 /prove, PRISMA Engine. Nada de mockups.
+          Un pensamiento de <strong>16 bytes</strong>. Un escritorio de <strong>~3 MiB</strong>.
+          Un operador que, si no sabe, dice <strong>DESCONOCIDO</strong>.
+          Arriba no hay renders: es QEMU. Abajo, las cuatro piezas que hay que entender.
         </p>
         <div className="hero-tags">
+          <span>rxOS 8 DESKTOP</span>
+          <span>NAVI-4.5 · WSP 16 B</span>
+          <span>Q₆ 48/48 · /prove</span>
           <span>PRISMA ENGINE 0.1</span>
-          <span>rxOS 7 MONAD</span>
-          <span>NAVI-3 · WSP 16 B</span>
-          <span>virtio · e1000</span>
+        </div>
+      </section>
+
+      <section className="section section-black" id="the-hit">
+        <div className="wrap">
+          <SectionTitle
+            code="00 / THE HIT"
+            title="UN PENSAMIENTO QUE CABE EN UN SMS DE 1999"
+            text="ChatGPT mueve un hangar. NAVI cabe en un sello de correos. Arranca la ISO, pulsa v, escribe /prove — o estás leyendo publicidad."
+          />
+          <HitNumbers />
+          <ExplainChapters />
+          <EcoImpact />
+          <div className="hero-actions section-actions">
+            <button className="brutal-button primary" onClick={() => navigate('/rx-os#rxos-infographic')}>
+              INFOGRAFÍA COMPLETA <ArrowUpRight size={15} />
+            </button>
+            <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">
+              DESCARGAR rxOS 8
+            </a>
+            <button className="brutal-button" onClick={() => navigate('/docs/navi45')}>
+              AVISO NAVI-4.5
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1295,12 +1474,15 @@ function Home({ navigate }) {
             </article>
             <article className="black-panel eco-panel" data-reveal>
               <span className="panel-label">TECHNOACTIVISM</span>
-              <h3>LOW-CARBON COMPUTING.</h3>
-              <p>Arquitectura determinista, latencia sub-milisegundo y footprint de memoria objetivo &lt;64 MB frente a stacks inflados. Menos capas, menos desperdicio, más auditabilidad.</p>
+              <h3>SI NO HAY EVENTO, NO HAY VATIO.</h3>
+              <p>
+                Un pensamiento WSP cabe en un SMS de 1999. Los pesos de NAVI pesan menos que una foto.
+                El escritorio arranca en ~3 MiB. Reposo = HLT. No alquilamos un cluster para una sílaba.
+              </p>
               <div className="eco-metrics">
-                <div><Leaf size={20} /><strong>LOW-CARBON</strong><span>compute-first design</span></div>
-                <div><Zap size={20} /><strong>&lt;1 ms</strong><span>latency path goal</span></div>
-                <div><Cpu size={20} /><strong>&lt;64 MB</strong><span>memory footprint target</span></div>
+                <div><Leaf size={20} /><strong>16 B</strong><span>un pensamiento, no un hangar</span></div>
+                <div><Zap size={20} /><strong>475 KiB</strong><span>pesos · heap W = 0</span></div>
+                <div><Cpu size={20} /><strong>~3 MiB</strong><span>RAM al boot · paper 1.0</span></div>
               </div>
             </article>
           </div>
@@ -1325,7 +1507,7 @@ function Home({ navigate }) {
           <SectionTitle
             code="03 / PIPELINE"
             title="DEL SENSOR AL SPIKE"
-            text="Stack RXos v5.5: desktop → event fabric → LIF/STDP → packages → Akida (Nivel 3 pendiente)."
+            text="Stack rxOS 8: boot → fabric → Q₆/LIF → WSP/NAVI-4.5 → Aero. Akida = Nivel 3 pendiente."
           />
           <div className="mini-arch" data-reveal>
             {ARCH_STACK.map((item) => (
@@ -1499,13 +1681,13 @@ function Architecture({ navigate }) {
     <>
       <PageHero
         index="02"
-        eyebrow="ARCHITECTURE / RXos v5.5 NEUROMORPHIC"
+        eyebrow="ARCHITECTURE / rxOS 8 · NAVI-4.5 · WSP · Q₆"
         title={<>EVENT FABRIC<br />ON VON NEUMANN.<br />FALSIFIABLE.</>}
-        text="RXos no dibuja neuronas: ejecuta un sustrato de eventos con LIF Q16.16, STDP local y codificación temporal comprobable con bench 6/6. Silicio = x86_64 con reloj. Nivel 3 (Akida) aún sin chip en el lab."
+        text="rxOS 8 no dibuja neuronas: ejecuta eventos, LIF Q16.16, el hipercubo Q₆ y NAVI-4.5 sobre paquetes WSP de 16 B. /prove es el test. Silicio = x86_64 con reloj. Nivel 3 (Akida) aún sin chip en el lab."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v5.5</span>
+          <span>v8.0.0</span>
           <span>SPSC 64 B</span>
           <span>LIF Q16.16</span>
           <span>STDP LOCAL</span>
@@ -1519,7 +1701,7 @@ function Architecture({ navigate }) {
           <SectionTitle
             code="01 / STACK"
             title="DEL BOOT AL NPU (PENDIENTE)"
-            text="Cinco capas del sustrato real en RXos v4.5. La última es objetivo de Nivel 3, no entregable."
+            text="Seis capas del sustrato real en rxOS 8. La última es objetivo de Nivel 3, no entregable."
           />
           <div className="architecture full-architecture" data-reveal>
             {ARCH_STACK.map((item, index) => (
@@ -1533,8 +1715,20 @@ function Architecture({ navigate }) {
           </div>
         </section>
 
-        <section className="section section-black">
+        <section className="section section-black" id="explain">
           <div className="wrap">
+            <SectionTitle
+              code="01b / THE FOUR PIECES"
+              title="rxOS 8 · NAVI · WSP · Q₆"
+              text="Cuatro analogías para quien llega de fuera. Cada cifra se puede falsear en QEMU."
+            />
+            <HitNumbers />
+            <ExplainChapters />
+          </div>
+        </section>
+
+        <section className="section wrap">
+          <div className="wrap" style={{ padding: 0 }}>
             <SectionTitle
               code="02 / LIF DYNAMICS"
               title="MEMBRANA ENTERA, SIN TICK NEURAL"
@@ -1614,7 +1808,7 @@ function Architecture({ navigate }) {
             </div>
             <div className="hero-actions section-actions">
               <button className="brutal-button primary" onClick={() => navigate('/rx-os')}>
-                RXos v5.5 PAGE <ArrowUpRight size={15} />
+                rxOS 8 PAGE <ArrowUpRight size={15} />
               </button>
               <a className="brutal-button" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
                 READ PAPER PDF
@@ -2035,13 +2229,12 @@ function BootLog() {
 
 function ArchitectureDiagram() {
   const layers = [
-    ['UI / WM', 'compositor double-buffer · damage tracking · terminal'],
-    ['TASKS', 'shell as task · sched_spawn/yield · cooperative ABI'],
-    ['EVENT FABRIC', '64 B events · SPSC rings · pump · no neural tick'],
-    ['LIF + STDP', 'Q16.16 membrane · lazy decay · local plasticity'],
-    ['DRIVERS', 'IRQ1/12 · NIC actor · RXFS · AHCI/ATA · framebuffer'],
-    ['POWER', 'MONITOR/MWAIT/HLT · RAPL (#GP-safe) · ACPI C-states'],
-    ['BOOT', 'NASM Multiboot2 · x86_64 long mode · 4 GiB identity map'],
+    ['NAVI-4.5', 'G_rxos whitelist · /prove · WSP 16 B · heap W = 0'],
+    ['UI / WM', 'Aero · Terminal · Neuro · chat tecla v'],
+    ['EVENT FABRIC', '64 B events · SPSC · no neural tick'],
+    ['LIF + Q₆', 'Q16.16 · hipercubo 64 · [6,3,3] 48/48'],
+    ['DRIVERS', 'IRQ1/12 · NIC · RXFS · framebuffer'],
+    ['BOOT', 'Multiboot2 · long mode · -mno-sse'],
   ];
   return (
     <div className="architecture" data-reveal>
@@ -2087,9 +2280,9 @@ function RXOS({ navigate }) {
       <PageHero
         index="04"
         className="rxos-hero"
-        eyebrow={`${RXOS_VERSION_LABEL} / DESKTOP + L2 + WWW`}
-        title={<>A LABORATORY<br />THAT BOOTS.<br />A DESKTOP THAT WORKS.</>}
-        text="rxOS 8 DESKTOP es un unikernel experimental: escritorio Aero, NAVI-4.5 operador (WSP 16 B + G_rxos sobre la Terminal), /prove medible, pesos NAVI3W01 en module2. No es un LLM. No es silicio Akida."
+        eyebrow={`${RXOS_VERSION_LABEL} / NAVI-4.5 / WSP / Q₆`}
+        title={<>THE OS<br />IS THE DEMO.</>}
+        text="Un pensamiento de 16 bytes. Un escritorio de ~3 MiB. Un comando — /prove — que es el anuncio y el test. NAVI-4.5 no es un LLM: es el operador del unikernel. El castellano es máscara. Si no hay esquema, dice DESCONOCIDO."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
@@ -2124,7 +2317,7 @@ function RXOS({ navigate }) {
           <figure className="rxos-principal-shot" data-reveal>
             <img
               src={RXOS_HERO_IMAGE}
-              alt="rxOS 6 desktop home — wallpaper, icons and taskbar"
+              alt="rxOS 8 DESKTOP home — wallpaper, icons and taskbar"
               width={1360}
               height={768}
               loading="eager"
@@ -2143,9 +2336,67 @@ function RXOS({ navigate }) {
         <section className="section section-black" id="rxos-infographic">
           <div className="wrap">
             <SectionTitle
-              code="02 / INFOGRAPHIC"
-              title="QUÉ ES rxOS 6 — DE UN VISTAZO"
-              text="Marketing honesto: lo que tienes hoy, por qué importa, y lo que viene sin venderlo como hecho."
+              code="02 / THE HIT"
+              title="UN PENSAMIENTO QUE CABE EN UN SMS DE 1999"
+              text="Dieciséis bytes. Eso es todo el paquete. Un LLM necesita un hangar. NAVI necesita un sello de correos. Arranca la ISO y pulsa /prove — o estás leyendo publicidad."
+            />
+
+            <HitNumbers />
+            <ExplainChapters />
+
+            <div className="impact-compare" data-reveal>
+              <div className="impact-compare-head">
+                <span>SI TE HABLARA UN LLM</span>
+                <span>SI TE HABLA NAVI-4.5</span>
+              </div>
+              {IMPACT_COMPARE.map((row) => (
+                <div className="impact-compare-row" key={row.criterion}>
+                  <strong>{row.criterion}</strong>
+                  <span>{row.them}</span>
+                  <span>{row.us}</span>
+                </div>
+              ))}
+            </div>
+
+            <SectionTitle
+              code="02e / CARBONO"
+              title="SI NO HAY EVENTO, NO HAY VATIO"
+              text="Comparación por órdenes de magnitud. Sin kWh inventado. Sin RAPL de QEMU disfrazado de ciencia."
+            />
+            <EcoImpact />
+
+            <div className="wsp-byte-card" data-reveal>
+              <span className="panel-label">WSP v0.5 · 16 BYTES EXACTOS</span>
+              <h3>src rel dst time · E[V A D C U B] · flags · ext</h3>
+              <div className="wsp-byte-grid">
+                {WSP_FIELDS.map(([k, v]) => (
+                  <div key={k}><code>{k}</code><p>{v}</p></div>
+                ))}
+              </div>
+              <p className="wsp-byte-note">
+                Analogía: el motor no escribe un ensayo. Clasifica un semáforo de 16 bombillas y elige un generador.
+                El castellano es la carátula. El protocolo es el voltaje.
+              </p>
+            </div>
+
+            <SectionTitle
+              code="02b / Q₆"
+              title="UN CUBO DE 6 BITS QUE CORRIGE UN BIT"
+              text="No es mística. 64 vértices, arista = Hamming 1, codebook lineal [6,3,3] de 8 palabras. Medido: 48/48 en 1-bit. Si fallara, lo diríamos."
+            />
+            <div className="q6-facts" data-reveal>
+              <div><strong>64</strong><span>neuronas LIF</span></div>
+              <div><strong>192</strong><span>aristas del Q₆</span></div>
+              <div><strong>8</strong><span>codewords [6,3,3]</span></div>
+              <div><strong>48/48</strong><span>1-bit recovery</span></div>
+              <div><strong>120/120</strong><span>hop Hamming</span></div>
+              <div><strong>0</strong><span>FPU</span></div>
+            </div>
+
+            <SectionTitle
+              code="02c / PILARES"
+              title="rxOS 8 — DE UN VISTAZO"
+              text="Seis hechos de producto. Cada uno se puede enseñar en QEMU en menos de un minuto."
             />
             <div className="rx-info-pillars">
               {RXOS_INFOGRAPHIC.pillars.map((item, index) => {
@@ -2193,13 +2444,29 @@ function RXOS({ navigate }) {
               </article>
             </div>
 
+            <SectionTitle
+              code="02d / ROADMAP HISTORY"
+              title="LAS VERSIONES VIEJAS NO SE BORRAN"
+              text="4 → 6 → 6.5 → 7 MONAD son historia. El producto que se descarga hoy es 8.0.0 DESKTOP."
+            />
+            <div className="version-rail" data-reveal>
+              {VERSION_HISTORY.map((v) => (
+                <article className={v.state === 'ACTUAL' ? 'is-now' : ''} key={v.ver}>
+                  <span>{v.ver}</span>
+                  <strong>{v.title}</strong>
+                  <em>{v.state}</em>
+                  <p>{v.text}</p>
+                </article>
+              ))}
+            </div>
+
             <div className="rx-info-strip" data-reveal>
               <div><strong>{RXOS_VERSION}</strong><span>Desktop Experience</span></div>
-              <div><strong>6/6</strong><span>bench PASS</span></div>
-              <div><strong>~3 MiB</strong><span>RAM al boot</span></div>
-              <div><strong>26/26</strong><span>smoke tests</span></div>
+              <div><strong>16 B</strong><span>paquete WSP</span></div>
+              <div><strong>0</strong><span>heap del modelo</span></div>
+              <div><strong>48/48</strong><span>Q₆ 1-bit</span></div>
+              <div><strong>6/6</strong><span>LIF bench</span></div>
               <div><strong>GPLv3</strong><span>open source</span></div>
-              <div><strong>N3</strong><span>Akida pendiente</span></div>
             </div>
           </div>
         </section>
@@ -2247,13 +2514,13 @@ function RXOS({ navigate }) {
             <SectionTitle
               code="05 / FOUNDATION"
               title={`${RXOS_VERSION_LABEL} — HECHOS MEDIDOS`}
-              text="Cifras del paper técnico rev 1.0 + línea desktop v5.5. Toda magnitud procede de una ejecución citada."
+              text="Cifras del paper técnico rev 1.0 + línea desktop 8.0. Toda magnitud procede de una ejecución citada."
             />
             <div className="rx-metrics">
-              <div data-reveal><strong>6/6</strong><span>bench PASS</span></div>
-              <div data-reveal><strong>~299</strong><span>cycles / event</span></div>
-              <div data-reveal><strong>~3 MiB</strong><span>RAM al boot</span></div>
-              <div data-reveal><strong>HH:MM:SS</strong><span>taskbar clock</span></div>
+              <div data-reveal><strong>16 B</strong><span>WSP packet</span></div>
+              <div data-reveal><strong>0</strong><span>heap navi3</span></div>
+              <div data-reveal><strong>48/48</strong><span>Q₆ 1-bit</span></div>
+              <div data-reveal><strong>6/6</strong><span>LIF bench</span></div>
             </div>
             <BootLog />
           </div>
@@ -2292,7 +2559,7 @@ function RXOS({ navigate }) {
           <div className="screenshot-grid rxos-capture-grid">
             {RXOS_INSTALL_SHOTS.map((shot) => (
               <figure className="screenshot scientific-capture" data-reveal key={shot.src}>
-                <img src={shot.src} alt={`${shot.title} — rxOS 6.5 installer`} loading="lazy" />
+                <img src={shot.src} alt={`${shot.title} — rxOS 8 LIVE installer`} loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>INSTALL / {shot.tag}</span>
                   <div><strong>{shot.title}</strong><p>{shot.text}</p></div>
@@ -2306,12 +2573,12 @@ function RXOS({ navigate }) {
           <div className="wrap">
             <SectionTitle
               code="08 / REAL CAPTURES"
-              title="DESKTOP 7 MONAD — QEMU"
-              text="Capturas del escritorio Aero (wallpaper empaquetado, taskbar, terminal, explorer) más el flujo LIVE."
+              title="rxOS 8 DESKTOP — QEMU, NO FIGMA"
+              text="Capturas de la sesión 8.0 (boot, /prove, neuro) y del escritorio Aero. Las fotos del instalador y del vault siguen siendo el mismo flujo LIVE."
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src="/rxos/desktop-home.jpg" alt="rxOS 6.5 desktop home after disk install" loading="lazy" />
+                <img src="/rxos/desktop-home.jpg" alt="rxOS desktop home after disk install" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 01</span>
                   <div><strong>DESKTOP HOME</strong><p>Wallpaper, iconos laterales, taskbar Start y bandeja de estado.</p></div>
@@ -2335,7 +2602,7 @@ function RXOS({ navigate }) {
                 <img src="/rxos/start-menu.jpg" alt="RXos Start menu on desktop" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>REAL / 04</span>
-                  <div><strong>START MENU</strong><p>Menú Start del escritorio v5.5 (apps y apagado).</p></div>
+                  <div><strong>START MENU</strong><p>Menú Start del escritorio (apps y apagado).</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
@@ -2348,22 +2615,22 @@ function RXOS({ navigate }) {
               <figure className="screenshot scientific-capture" data-reveal>
                 <img src="/rxos/monad/11-boot.png" alt="rxOS 8 DESKTOP NAVI Q6 self-test PASS" loading="lazy" />
                 <figcaption className="capture-caption">
-                  <span>MONAD / 06</span>
+                  <span>v8 / BOOT</span>
                   <div><strong>NAVI Q6 PASS</strong><p>Self-test del cubo en el banner de arranque.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture featured" data-reveal>
                 <img src="/rxos/monad/14-navi45-prove.png" alt="NAVI-4.5 /prove operator on rxOS 8 DESKTOP" loading="lazy" />
                 <figcaption className="capture-caption">
-                  <span>NAVI-3 / WSP</span>
-                  <div><strong>NAVI-3 WSP CHAT</strong><p>QEMU real. «estoy solo…» → YO→DESEAR→CONEXION. Máscara ES. Tecla v / /demo.</p></div>
+                  <span>NAVI-4.5 / PROVE</span>
+                  <div><strong>NAVI-4.5 /prove</strong><p>QEMU real. heap navi3 0 + rxOS&gt; status. Tecla v.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
                 <img src="/rxos/monad/17-neuro.png" alt="LIF neuron on the rxOS 8 event fabric" loading="lazy" />
                 <figcaption className="capture-caption">
-                  <span>NAVI 2 / 07</span>
-                  <div><strong>NAVI L1</strong><p>Capa Q₆ en la terminal. Self-test 48/48.</p></div>
+                  <span>FABRIC / LIF</span>
+                  <div><strong>NEURO</strong><p>Neurona LIF en vivo. Cualquier tecla es un estímulo.</p></div>
                 </figcaption>
               </figure>
             </div>
@@ -2430,7 +2697,7 @@ qemu-system-x86_64 \\
   -serial stdio`}</code></pre>
               <div className="qemu-commands">
                 <span>TRY INSIDE RXos</span>
-                <code>help</code><code>date</code><code>status</code><code>rx app search</code><code>rx app add hellopkg</code><code>ls</code><code>go rgx://hello</code>
+                <code>v</code><code>/prove</code><code>status</code><code>navi3 bench</code><code>help</code><code>date</code>
               </div>
             </article>
           </div>
@@ -2451,7 +2718,7 @@ qemu-system-x86_64 \\
             <SectionTitle
               code="10 / ENGINEERING STATUS"
               title="WHAT WORKS — AND WHAT DOES NOT"
-              text="Separación explícita: desktop v5.5 + Niveles 1–2 cerrados · Nivel 3 bloqueado sin Akida · red HTTPS pendiente."
+              text="Separación explícita: desktop 8.0 + Niveles 1–2 cerrados · Nivel 3 bloqueado sin Akida · TLS de body aún pendiente."
             />
           </div>
           <div className="wrap rx-state-grid">
@@ -3098,7 +3365,7 @@ function StartupIdea({ navigate }) {
           <button className="brutal-button primary" onClick={() => navigate('/pitch')}>PITCH DECK</button>
           <button className="brutal-button" onClick={() => navigate('/investors')}>PARA INVERSORES</button>
           <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA</button>
-          <button className="brutal-button" onClick={() => navigate('/rx-os')}>RXos v5.5</button>
+          <button className="brutal-button" onClick={() => navigate('/rx-os')}>rxOS 8</button>
         </div>
       </PageHero>
 
@@ -3411,16 +3678,16 @@ function Downloads({ navigate }) {
         image="/screenshots/prisma-engine/hero_gui.jpg"
       >
         <div className="hero-tags">
+          <span>rxOS 8.0.0 · VM + METAL</span>
           <span>PRISMA ENGINE 0.1.0</span>
           <span>WINDOWS SETUP.EXE</span>
           <span>MACOS DMG</span>
-          <span>LINUX x86_64</span>
           <span>SHA-256</span>
         </div>
         <div className="hero-actions">
           <a className="brutal-button primary" href="#prisma-engine">PRISMA ENGINE</a>
           <a className="brutal-button" href="#win-mac">WIN · MAC</a>
-          <a className="brutal-button" href="#rxos-build">RXos ZIP</a>
+          <a className="brutal-button" href="#rxos-build">rxOS 8 ISOs</a>
           <button className="brutal-button" type="button" onClick={() => navigate('/prisma')}>
             DOSSIER PRISMA
           </button>
@@ -3605,9 +3872,9 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
 
         <section className="section wrap rxos-download-section" id="rxos-build">
           <SectionTitle
-            code="02 / RXos"
-            title="PUBLIC TEST BUILD"
-            text="ISO bare-metal experimental. QEMU recomendado. No uses RXos para datos importantes."
+            code="02 / rxOS 8 DESKTOP"
+            title="THE OS IS THE DEMO"
+            text="ISO unikernel 8.0.0: Aero + NAVI-4.5 + WSP 16 B. QEMU recomendado. No uses rxOS para datos importantes."
           />
           <div className="rxos-docs-row" data-reveal>
             <a className="brutal-button primary" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
@@ -3812,7 +4079,7 @@ function setJsonLd(meta) {
 const DEFAULT_OG = {
   title: 'Knights Labs — Rogex Laboratories',
   description:
-    'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 7 MONAD (NAVI-3 WSP). Neurotech low-carbon. Experimental, no clínico.',
+    'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 8 DESKTOP (NAVI-4.5, WSP 16 B). Experimental, no clínico.',
   image: ogCard('home'),
   ...OG_DIM,
   imageAlt: 'Knights Labs — low-carbon neurotech',
@@ -3840,7 +4107,7 @@ const ROUTE_META = {
     url: `${SITE}/prisma`,
   },
   '/downloads': {
-    title: 'Downloads — PRISMA Engine & rxOS 7 MONAD — Knights Labs',
+    title: 'Downloads — PRISMA Engine & rxOS 8 DESKTOP — Knights Labs',
     description:
       'Descargas: PRISMA Engine 0.1.0 y rxOS 8.0.0 DESKTOP (VM + metal). NAVI-4.5 operador, e1000, SHA-256. Experimental, no clínico.',
     image: ogCard('prisma'),
@@ -3849,12 +4116,12 @@ const ROUTE_META = {
     url: `${SITE}/downloads`,
   },
   '/rx-os': {
-    title: 'rxOS 7 MONAD — Knights Labs',
+    title: 'rxOS 8 DESKTOP — Knights Labs',
     description:
-      'rxOS 7 MONAD: desktop Aero, NAVI-3 WSP (paquete 16 B + máscara ES), pesos module2, RAG HTTP→HDC. Experimental.',
+      'rxOS 8 DESKTOP: Aero, NAVI-4.5 operador (WSP 16 B + G_rxos), /prove medible. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'rxOS 6 desktop — real QEMU capture',
+    imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
     url: `${SITE}/rx-os`,
   },
   '/rx-os/packages': {
@@ -3867,27 +4134,27 @@ const ROUTE_META = {
     url: `${SITE}/rx-os/packages`,
   },
   '/docs': {
-    title: 'Docs — MONAD, NAVI, PRISMA — Knights Labs',
+    title: 'Docs — rxOS 8, NAVI-4.5, WSP, Q₆ — Knights Labs',
     description:
-      'Visor markdown: tutorial rxOS 7, demostraciones, benches, papers de teoría e implementación.',
+      'Visor markdown: rxOS 8 DESKTOP, NAVI-4.5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'Knights Labs technical documentation',
     url: `${SITE}/docs`,
   },
   '/rogexos': {
-    title: 'rxOS 7 MONAD — Knights Labs',
+    title: 'rxOS 8 DESKTOP — Knights Labs',
     description:
-      'rxOS 7 MONAD: desktop Aero, NAVI-3 WSP, RAG, pesos module2. Experimental.',
+      'rxOS 8 DESKTOP: Aero, NAVI-4.5 operador, WSP 16 B, /prove. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'rxOS 6 desktop — real QEMU capture',
+    imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
     url: `${SITE}/rx-os`,
   },
   '/architecture': {
-    title: 'Architecture RXos v5.5 — Knights Labs',
+    title: 'Architecture rxOS 8 — Knights Labs',
     description:
-      'Arquitectura RXos: desktop, event fabric en von Neumann, anillos SPSC, LIF/STDP y roadmap en 4 niveles. Papers PDF públicos.',
+      'Arquitectura rxOS 8: event fabric, Q₆, WSP 16 B, NAVI-4.5 y roadmap 4 niveles. Papers PDF públicos.',
     image: ogCard('architecture'),
     ...OG_DIM,
     imageAlt: 'RXos architecture — sensor to spike',
@@ -3905,7 +4172,7 @@ const ROUTE_META = {
   '/investors': {
     title: 'Para inversores — Knights Labs',
     description:
-      'Tecnoactivismo con P&L: RXos v4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
+      'Tecnoactivismo con P&L: rxOS 8, NAVI-4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
     image: ogCard('investors'),
     ...OG_DIM,
     imageAlt: 'Knights Labs for investors',

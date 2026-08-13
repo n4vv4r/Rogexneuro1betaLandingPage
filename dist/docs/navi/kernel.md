@@ -1,4 +1,4 @@
-# kernel/navi — NAVI Q₆ en el unikernel (rxOS 7 MONAD)
+# kernel/navi — NAVI Q₆ en el unikernel (rxOS 8 DESKTOP)
 
 Actor **blando**. No está en IRQ, disco ni #PF. El self-test de boot
 exige 48/48 en 1-bit y 120/120 de acuerdo Hamming en 2-bit+hop.

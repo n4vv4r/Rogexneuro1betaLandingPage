@@ -27,7 +27,7 @@ const ROUTES = [
     out: 'index.html', // rewrite in place
     title: 'Knights Labs — Rogex Laboratories',
     description:
-      'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 7 MONAD (NAVI 2). Neurotech low-carbon. Experimental, no clínico.',
+      'Knights Labs: rxOS 8 DESKTOP, NAVI-4.5, WSP 16 B y Q₆. PRISMA Engine. Neurotech low-carbon. Experimental, no clínico.',
     url: `${SITE}/`,
     image: OG('home'),
     imageAlt: 'Knights Labs — low-carbon neurotech Open Graph card',
@@ -43,9 +43,9 @@ const ROUTES = [
   },
   {
     out: 'architecture.html',
-    title: 'Architecture RXos v4.5 — Knights Labs',
+    title: 'Architecture rxOS 8 — Knights Labs',
     description:
-      'Arquitectura RXos: event fabric en von Neumann, anillos SPSC, LIF/STDP y roadmap neuromórfico en 4 niveles. Papers PDF públicos.',
+      'Arquitectura rxOS 8: event fabric, hipercubo Q₆, WSP 16 B, NAVI-4.5 y roadmap 4 niveles. Papers PDF públicos.',
     url: `${SITE}/architecture`,
     image: OG('architecture'),
     imageAlt: 'RXos architecture — sensor to spike',
@@ -61,30 +61,30 @@ const ROUTES = [
   },
   {
     out: 'downloads.html',
-    title: 'Downloads — PRISMA Engine & rxOS 7 MONAD — Knights Labs',
+    title: 'Downloads — PRISMA Engine & rxOS 8 DESKTOP — Knights Labs',
     description:
-      'Descargas: PRISMA Engine 0.1.0 y rxOS 7.0.0 MONAD (VM + metal). NAVI 2, e1000. Experimental, no clínico.',
+      'Descargas: PRISMA Engine 0.1.0 y rxOS 8.0.0 DESKTOP (VM + metal). NAVI-4.5, WSP 16 B, e1000. Experimental, no clínico.',
     url: `${SITE}/downloads`,
     image: OG('prisma'),
     imageAlt: 'Knights Labs public downloads — PRISMA Engine and RXos',
   },
   {
     out: 'docs.html',
-    title: 'Docs — MONAD, NAVI, PRISMA — Knights Labs',
+    title: 'Docs — rxOS 8, NAVI-4.5, WSP, Q₆ — Knights Labs',
     description:
-      'Visor markdown: tutorial rxOS 7, demostraciones, benches, teoría e implementación.',
+      'Visor markdown: rxOS 8 DESKTOP, NAVI-4.5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
     url: `${SITE}/docs`,
     image: OG('rx-os'),
     imageAlt: 'Knights Labs technical documentation',
   },
   {
     out: 'rx-os.html',
-    title: 'rxOS 7 MONAD — Knights Labs',
+    title: 'rxOS 8 DESKTOP — Knights Labs',
     description:
-      'rxOS 7 MONAD: desktop Aero, NAVI 2 (texto plano), RAG HTTP→HDC, virtio/e1000. Capturas QEMU reales.',
+      'rxOS 8 DESKTOP: Aero, NAVI-4.5 operador (WSP 16 B + G_rxos), /prove medible. Capturas QEMU reales.',
     url: `${SITE}/rx-os`,
     image: OG('rx-os'),
-    imageAlt: 'rxOS 6 desktop — real QEMU capture',
+    imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
   },
   {
     out: 'rx-os-packages.html',
@@ -99,7 +99,7 @@ const ROUTES = [
     out: 'investors.html',
     title: 'Para inversores — Knights Labs',
     description:
-      'Tecnoactivismo con P&L: RXos v4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
+      'Tecnoactivismo con P&L: rxOS 8, NAVI-4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
     url: `${SITE}/investors`,
     image: OG('investors'),
     imageAlt: 'Knights Labs for investors',

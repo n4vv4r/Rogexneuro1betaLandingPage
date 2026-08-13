@@ -1,9 +1,9 @@
-# Demostración y benches — rxOS 7 MONAD
+# Demostración y benches — rxOS 8 DESKTOP
 
 **Autor:** r. navarro  
 **Fecha de las capturas:** 13 ago 2026  
-**Máquina de las fotos:** QEMU q35, 512 MiB, ISO `rxOS-7.0.0-vm.iso`  
-**Script:** `tools/capture_monad.py`
+**Máquina de las fotos:** QEMU q35, 512 MiB, ISO `rxOS-8.0.0-vm.iso`  
+**Script:** `tools/capture_navi45.py` (sesión 11–17) · `tools/capture_monad.py` (legado 01–10)
 
 Esto es el texto para quien quiere **verlo funcionar** y repetir los números. Tono claro, tecnicismos los justos, cero teatro.
 

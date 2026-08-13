@@ -1,4 +1,4 @@
-# rxOS 7 MONAD — pack de lecturas
+# rxOS 8 DESKTOP — pack de lecturas
 
 **Autor:** r. navarro  
 **ISO:** `build/rxOS-7.0.0-vm.iso`  

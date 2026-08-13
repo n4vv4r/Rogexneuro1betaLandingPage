@@ -1,7 +1,7 @@
-# MONAD para gente curiosa (sin tesis doctoral)
+# rxOS 8 para gente curiosa (sin tesis doctoral)
 
 **Autor:** r. navarro  
-rxOS 7.0.0 MONAD · agosto 2026
+rxOS 8.0.0 DESKTOP · agosto 2026
 
 Vale. Respiro. Esto **no** es ChatGPT en un pendrive.  
 Es un sistema operativo que arranca en metal (o en QEMU) y lleva dentro una IA de impulsos tan pequeña que da un poco de vergüenza compararla con una app de calculadora.
@@ -14,9 +14,9 @@ El eslogan va en serio, y también va con asterisco: habla de **esta capa**, no 
 
 ## El escritorio, para que veas que existe
 
-![Escritorio de rxOS 7 MONAD](img/03-desktop.png)
+![Escritorio de rxOS 8 DESKTOP](img/12-desktop.png)
 
-Esto es el ISO `rxOS-7.0.0-vm.iso` recién registrado. Aero, iconos, reloj. No es un PDF con un mockup. Es la máquina.
+Esto es el ISO `rxOS-8.0.0-vm.iso`. Aero, iconos, reloj. No es un PDF con un mockup. Es la máquina. La captura `03-desktop.png` es de la línea 7 (historia).
 
 ---
 

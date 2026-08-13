@@ -134,7 +134,7 @@ const DOWNLOAD_CATALOG = {
     name: 'rxOS 7 MONAD',
     version: 'v7.0.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'VM + METAL · NAVI-3 WSP'
+    status: 'VM + METAL · NAVI-3 WSP',
     release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v7.0.0',
     zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/ISOS.zip',
     vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/rxOS-7.0.0-vm.iso',

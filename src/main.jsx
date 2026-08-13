@@ -37,10 +37,16 @@ import {
   Keyboard,
   HardDrive,
   LayoutGrid,
+  Moon,
+  Sun,
+  BookOpen,
 } from 'lucide-react';
 import './styles.css';
 import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx';
 import PackagesPage from './rxos/PackagesPage.jsx';
+import Slideshow from './Slideshow.jsx';
+import DocsPage from './DocsPage.jsx';
+import { applyTheme, getTheme, toggleTheme } from './theme.js';
 
 const NAV_ITEMS = [
   ['/', 'HOME'],
@@ -49,6 +55,7 @@ const NAV_ITEMS = [
   ['/prisma', 'PRISMA'],
   ['/downloads', 'DOWNLOADS'],
   ['/rx-os', 'RX OS'],
+  ['/docs', 'DOCS'],
   ['/investors', 'INVESTORS'],
   ['/pitch', 'PITCH'],
   ['/startup-idea', 'STARTUP'],
@@ -93,19 +100,19 @@ const DOWNLOAD_CATALOG = {
   },
   rxos: {
     id: 'rxos',
-    name: 'RXos',
-    version: 'v6.5.0',
+    name: 'rxOS 7 MONAD',
+    version: 'v7.0.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'VM + METAL',
-    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v6.5.0',
-    zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/ISOS.zip',
-    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/rxOS-6.5.0-vm.iso',
-    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/rxOS-6.5.0-metal.iso',
-    readme: 'https://github.com/knightslabs/RXos-Packages/blob/main/ISOS/README.txt',
-    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/SHA256SUMS.txt',
-    sha256: '60c709786d8f655f90a071ed201898824b55906c6ed3c56bc7abeb0e8f717ba3',
-    sha256Vm: '60c709786d8f655f90a071ed201898824b55906c6ed3c56bc7abeb0e8f717ba3',
-    sha256Metal: 'd4cb8e99cd654148a2ab77abefdc78472e2702b5057e761058f270979634a0b5',
+    status: 'VM + METAL · NAVI 2',
+    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v7.0.0',
+    zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/ISOS.zip',
+    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/rxOS-7.0.0-vm.iso',
+    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/rxOS-7.0.0-metal.iso',
+    readme: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v7.0.0',
+    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/SHA256SUMS.txt',
+    sha256: '76761285a98b2fc72b04c329bccd1841aba16aff97378d21f2db10f344067c80',
+    sha256Vm: '76761285a98b2fc72b04c329bccd1841aba16aff97378d21f2db10f344067c80',
+    sha256Metal: 'a2041ad63b421a96c2b3e1cadfefb4b5c7fe1d1326e67811dce895f44f8328c9',
     packages: '/rx-os/packages/',
   },
 };
@@ -123,11 +130,11 @@ const PRODUCT_SUITE = [
   {
     id: 'rxos-desktop',
     code: 'RX-01',
-    name: 'rxOS Desktop Experience',
+    name: 'rxOS 7 MONAD',
     tier: 'OPEN CORE · BOOTABLE x86-64',
-    status: 'v6.5 · HARDWARE + QEMU',
-    text: 'Escritorio bare-metal real (rxOS 6.5): instalador LIVE, wallpaper, taskbar con reloj, ventanas Aero, RXFS, lock screen, teclado ES/US/Mac y canal de paquetes .rxc. Verificado en HP 15-ac195nl y QEMU.',
-    tags: ['x86_64', 'Desktop 6.5', 'LIVE installer', 'rx app'],
+    status: 'v7.0.0 · NAVI 2 + RAG',
+    text: 'Unikernel bare-metal: escritorio Aero, NAVI 2 (chat texto plano), pesos en module2, RAG HTTP→HDC. Drivers virtio / e1000 / r8169 / rtl8139. Verificado en QEMU y HP 15-ac195nl.',
+    tags: ['MONAD', 'NAVI 2', 'module2 weights', 'e1000'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -394,8 +401,8 @@ const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
 const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
-const RXOS_VERSION = 'v6.5.0';
-const RXOS_VERSION_LABEL = 'rxOS 6.5 (RX OS 6.5)';
+const RXOS_VERSION = 'v7.0.0';
+const RXOS_VERSION_LABEL = 'rxOS 7 MONAD';
 
 const RXOS_INSTALL_SHOTS = [
   { src: '/rxos/install/01-language.jpg', tag: '01', title: 'LANGUAGE', text: 'English or Español. The keyboard layout follows the language.' },
@@ -756,6 +763,11 @@ function SocialIcon({ item }) {
 
 function Header({ path, navigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(() => getTheme());
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   useEffect(() => setMenuOpen(false), [path]);
 
@@ -776,21 +788,32 @@ function Header({ path, navigate }) {
           </span>
         </button>
 
-        <button
-          className="menu-toggle"
-          aria-label="Open navigation"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((value) => !value)}
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="nav-tools">
+          <button
+            type="button"
+            className="theme-toggle"
+            aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
+            onClick={() => setTheme(toggleTheme())}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <button
+            className="menu-toggle"
+            aria-label="Open navigation"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((value) => !value)}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
 
         <div className={menuOpen ? 'nav-drawer is-open' : 'nav-drawer'}>
           <nav className="main-nav" aria-label="Main navigation">
             {NAV_ITEMS.map(([href, label]) => {
               const active =
                 path === href ||
-                (href === '/rx-os' && (path === '/rx-os' || path.startsWith('/rx-os/')));
+                (href === '/rx-os' && (path === '/rx-os' || path.startsWith('/rx-os/'))) ||
+                (href === '/docs' && (path === '/docs' || path.startsWith('/docs/')));
               return (
                 <button
                   key={href}
@@ -1119,37 +1142,20 @@ function CtaBand({ navigate }) {
   );
 }
 
-/** Sección estilizada como knightscomputer.club (CRT / terminal verde), deliberadamente distinta del resto del lab. */
+/** Nodo KCC — bloque corto, misma voz en home y about. */
 function KccFindUsSection() {
   return (
-    <section className="kcc-find-section" id="kcc" aria-labelledby="kcc-find-title">
-      <div className="kcc-find-scanlines" aria-hidden />
-      <div className="kcc-find-vignette" aria-hidden />
+    <section className="kcc-find-section kcc-minimal" id="kcc" aria-labelledby="kcc-find-title">
       <div className="wrap kcc-find-inner" data-reveal>
         <div className="kcc-find-panel">
-          <div className="kcc-find-header">
-            <span className="kcc-find-live" aria-hidden>
-              <span className="kcc-find-pulse" />
-              NODE ONLINE
-            </span>
-            <span className="kcc-find-path">desk@lobby:~$ open kcc</span>
-          </div>
+          <p className="kcc-find-eyebrow">NODO · knightscomputer.club</p>
 
-          <pre className="kcc-find-ascii" aria-hidden>{` ██╗  ██╗ ██████╗ ██████╗
- ██║ ██╔╝██╔════╝██╔════╝
- █████╔╝ ██║     ██║     
- ██╔═██╗ ██║     ██║     
- ██║  ██╗╚██████╗╚██████╗
- ╚═╝  ╚═╝ ╚═════╝ ╚═════╝`}</pre>
-
-          <p className="kcc-find-eyebrow">COMUNIDAD · NODO UNDERGROUND</p>
           <h2 className="kcc-find-title" id="kcc-find-title">
-            Encuéntranos en <span className="kcc-find-glow">KCC</span>
+            Canal del lab
           </h2>
           <p className="kcc-find-text">
-            <strong>knightscomputer.club</strong> es el nodo tecnoactivista del lab: foro, lobby,
-            paste y debate sin vigilancia. RXos, PRISMA y computación libre — misma tribu, otra
-            estética.
+            Foro y lobby de Knights Labs. MONAD, PRISMA, computación libre.
+            Sin anuncios de terceros. Sin vigilancia de producto.
           </p>
 
           <div className="kcc-find-actions">
@@ -1159,8 +1165,8 @@ function KccFindUsSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              ENTRAR AL LOBBY
-              <ArrowUpRight size={16} strokeWidth={2.2} aria-hidden />
+              LOBBY
+              <ArrowUpRight size={15} aria-hidden />
             </a>
             <a
               className="kcc-btn kcc-btn-secondary"
@@ -1168,14 +1174,9 @@ function KccFindUsSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              IR AL FORO
+              FORO
             </a>
           </div>
-
-          <p className="kcc-find-prompt">
-            <span className="kcc-find-cmd">kcc@node:~$</span> soft jazz · no ads · no surveil
-            <span className="kcc-find-cursor" aria-hidden />
-          </p>
         </div>
       </div>
     </section>
@@ -1185,28 +1186,20 @@ function KccFindUsSection() {
 function Home({ navigate }) {
   return (
     <>
-      <PageHero
-        index="00"
-        className="rxos-hero"
-        eyebrow="KNIGHTS LABS · ROGEX LABORATORIES"
-        title={<>LOW-CARBON<br />NEUROTECH.<br />BOOTABLE LAB.</>}
-        text="Rogex Laboratories opera bajo Knights Labs: software EEG reproducible, un kernel neuromórfico de código abierto y una experiencia desktop bare-metal. Lanzamiento de la suite proyectado para diciembre 2026."
-        image={RXOS_HERO_IMAGE}
-      >
-        <div className="hero-actions">
-          <button className="brutal-button primary" onClick={() => navigate('/downloads')}>DOWNLOADS</button>
-          <button className="brutal-button" onClick={() => navigate('/prisma')}>PRISMA ENGINE</button>
-          <button className="brutal-button" onClick={() => navigate('/rx-os')}>rxOS 6.5</button>
-          <button className="brutal-button" onClick={() => navigate('/suite')}>PRODUCT SUITE</button>
-        </div>
+      <Slideshow onNavigate={navigate} />
+      <section className="home-lede wrap">
+        <span className="kicker">KNIGHTS LABS · ROGEX</span>
+        <p>
+          Software EEG reproducible, kernel neuromórfico abierto y un SO que arranca.
+          Capturas reales arriba: PRISMA Engine, rxOS 7 MONAD, NAVI 2. Nada de mockups.
+        </p>
         <div className="hero-tags">
           <span>PRISMA ENGINE 0.1</span>
-          <span>WIN · MAC · LINUX</span>
-          <span>≈2 µs HOT PATH</span>
-          <span>REAL GUI SHOTS</span>
-          <span>rxOS 6.5</span>
+          <span>rxOS 7 MONAD</span>
+          <span>NAVI 2 · TEXTO PLANO</span>
+          <span>virtio · e1000</span>
         </div>
-      </PageHero>
+      </section>
 
       <main>
         <section className="section wrap" id="identity">
@@ -2022,11 +2015,11 @@ function RXOS({ navigate }) {
         className="rxos-hero"
         eyebrow={`${RXOS_VERSION_LABEL} / DESKTOP + L2 + WWW`}
         title={<>A LABORATORY<br />THAT BOOTS.<br />A DESKTOP THAT WORKS.</>}
-        text="rxOS 6 es un SO experimental bare-metal x86_64: escritorio real (taskbar, reloj, ventanas), tejido LIF/STDP, L2 chat/ping y WWW opcional. Canal de paquetes .rxc. No es silicio Akida ni un reemplazo de Linux."
+        text="rxOS 7 MONAD es un unikernel experimental: escritorio Aero, NAVI 2 (chat de texto plano), pesos en module2, RAG HTTP→HDC y WWW opcional. No es un LLM. No es silicio Akida."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v6.5.0</span><span>LIVE INSTALLER</span><span>DISK BOOT</span><span>L2 CHAT</span><span>WWW OPT-IN</span><span>GPLv3</span>
+          <span>v7.0.0 MONAD</span><span>NAVI 2</span><span>LIVE INSTALLER</span><span>WWW OPT-IN</span><span>e1000</span><span>GPLv3</span>
         </div>
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
           <a
@@ -2040,7 +2033,9 @@ function RXOS({ navigate }) {
           <button type="button" className="brutal-button" onClick={() => navigate('/rx-os/packages')}>
             PACKAGE CHANNEL <Package size={15} />
           </button>
-          <a className="brutal-button" href="#rxos-infographic">INFOGRAPHIC</a>
+          <button type="button" className="brutal-button" onClick={() => navigate('/docs/tutorial-monad')}>
+            TUTORIAL <BookOpen size={15} />
+          </button>
           <a className="brutal-button" href="#rxos-captures">SCREENSHOTS</a>
         </div>
       </PageHero>
@@ -2050,7 +2045,7 @@ function RXOS({ navigate }) {
           <SectionTitle
             code="01 / DESKTOP"
             title="rxOS 6 DESKTOP — CAPTURA REAL"
-            text="Captura QEMU de rxOS 6.5 instalado en disco: wallpaper empaquetado, iconos, taskbar y reloj. Misma sesión que sale del LIVE installer."
+            text="Captura QEMU de rxOS 7 MONAD: wallpaper, iconos, taskbar. Misma sesión que sale del LIVE installer."
           />
           <figure className="rxos-principal-shot" data-reveal>
             <img
@@ -2237,7 +2232,7 @@ function RXOS({ navigate }) {
           <div className="wrap">
             <SectionTitle
               code="08 / REAL CAPTURES"
-              title="DESKTOP 6.5 — QEMU"
+              title="DESKTOP 7 MONAD — QEMU"
               text="Capturas del escritorio Aero (wallpaper empaquetado, taskbar, terminal, explorer) más el flujo LIVE."
             />
             <div className="screenshot-grid rxos-capture-grid">
@@ -2276,6 +2271,20 @@ function RXOS({ navigate }) {
                   <div><strong>VERIFIED BOOT</strong><p>Log de arranque con self-tests y first-run setup.</p></div>
                 </figcaption>
               </figure>
+              <figure className="screenshot scientific-capture" data-reveal>
+                <img src="/rxos/monad/01-boot.png" alt="rxOS 7 MONAD NAVI Q6 self-test PASS" loading="lazy" />
+                <figcaption className="capture-caption">
+                  <span>MONAD / 06</span>
+                  <div><strong>NAVI Q6 PASS</strong><p>Self-test del cubo en el banner de arranque.</p></div>
+                </figcaption>
+              </figure>
+              <figure className="screenshot scientific-capture" data-reveal>
+                <img src="/rxos/monad/04-navi-l1.png" alt="NAVI 2 / L1 in rxOS 7 MONAD" loading="lazy" />
+                <figcaption className="capture-caption">
+                  <span>NAVI 2 / 07</span>
+                  <div><strong>NAVI 2</strong><p>Chat neuromórfico. Solo texto plano. Tecla v.</p></div>
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>
@@ -2296,6 +2305,9 @@ function RXOS({ navigate }) {
             <button type="button" className="brutal-button" onClick={() => navigate('/rx-os/packages')}>
               PACKAGE CHANNEL <Package size={15} />
             </button>
+            <button type="button" className="brutal-button" onClick={() => navigate('/docs')}>
+              MARKDOWN DOCS <BookOpen size={15} />
+            </button>
           </div>
           <div className="rxos-download-layout">
             <article className="download-card" data-reveal>
@@ -2303,8 +2315,8 @@ function RXOS({ navigate }) {
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
               <p>Dos ISOs x86_64: <strong>VM</strong> para QEMU/VirtualBox y <strong>metal</strong> para USB en un PC real. No es producción, no está auditado y no debe usarse para datos importantes. Elige la imagen correcta en el release.</p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-6.5.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-6.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-7.0.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-7.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div><dt>PACKAGES</dt><dd><a href="/rx-os/packages/">/rx-os/packages</a></dd></div>
@@ -2333,7 +2345,7 @@ unzip ISOS.zip
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom ISOS/rxOS-6.5.0-vm.iso \\
+  -cdrom ISOS/rxOS-7.0.0-vm.iso \\
   -serial stdio`}</code></pre>
               <div className="qemu-commands">
                 <span>TRY INSIDE RXos</span>
@@ -3536,8 +3548,8 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 No es un sistema de producción, no está auditado y no debe usarse para datos importantes.
               </p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-6.5.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-6.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-7.0.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-7.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div>
@@ -3567,7 +3579,7 @@ unzip ISOS.zip
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom ISOS/rxOS-6.5.0-vm.iso \\
+  -cdrom ISOS/rxOS-7.0.0-vm.iso \\
   -serial stdio`}</code></pre>
               <button className="brutal-button" type="button" onClick={() => navigate('/rx-os')} style={{ marginTop: 18 }}>
                 FULL RXos PAGE <ArrowUpRight size={15} />
@@ -3719,7 +3731,7 @@ function setJsonLd(meta) {
 const DEFAULT_OG = {
   title: 'Knights Labs — Rogex Laboratories',
   description:
-    'Knights Labs (Rogex Laboratories): neurotech low-carbon — PRISMA 3.2 EEG, PRISMA 5 SNN y RXos v4.5.0 event fabric (bench 6/6). Para developers, research y OEM.',
+    'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 7 MONAD (NAVI 2, chat texto plano). Neurotech low-carbon. Experimental, no clínico.',
   image: ogCard('home'),
   ...OG_DIM,
   imageAlt: 'Knights Labs — low-carbon neurotech',
@@ -3747,18 +3759,18 @@ const ROUTE_META = {
     url: `${SITE}/prisma`,
   },
   '/downloads': {
-    title: 'Downloads — PRISMA Engine & RXos — Knights Labs',
+    title: 'Downloads — PRISMA Engine & rxOS 7 MONAD — Knights Labs',
     description:
-      'Descargas públicas: PRISMA Engine 0.1.0 y rxOS 6.5.0 ISOs (VM + metal) en GitHub Releases. Software experimental, no clínico.',
+      'Descargas: PRISMA Engine 0.1.0 y rxOS 7.0.0 MONAD (VM + metal). NAVI 2, e1000, SHA-256. Experimental, no clínico.',
     image: ogCard('prisma'),
     ...OG_DIM,
     imageAlt: 'Knights Labs public downloads',
     url: `${SITE}/downloads`,
   },
   '/rx-os': {
-    title: 'rxOS 6 (RX OS 6) — Knights Labs',
+    title: 'rxOS 7 MONAD — Knights Labs',
     description:
-      'rxOS 6 bare-metal x86_64: desktop, taskbar clock, L2 chat, WWW opt-in, paquetes .rxc. Bench 6/6. Experimental.',
+      'rxOS 7 MONAD: desktop Aero, NAVI 2 (texto plano), pesos module2, RAG HTTP→HDC, virtio/e1000. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'rxOS 6 desktop — real QEMU capture',
@@ -3773,10 +3785,19 @@ const ROUTE_META = {
     imageAlt: 'rxOS package channel .rxc',
     url: `${SITE}/rx-os/packages`,
   },
-  '/rogexos': {
-    title: 'rxOS 6 (RX OS 6) — Knights Labs',
+  '/docs': {
+    title: 'Docs — MONAD, NAVI, PRISMA — Knights Labs',
     description:
-      'rxOS 6 bare-metal x86_64: desktop, taskbar clock, L2 chat, WWW opt-in, paquetes .rxc. Bench 6/6. Experimental.',
+      'Visor markdown: tutorial rxOS 7, demostraciones, benches, papers de teoría e implementación.',
+    image: ogCard('rx-os'),
+    ...OG_DIM,
+    imageAlt: 'Knights Labs technical documentation',
+    url: `${SITE}/docs`,
+  },
+  '/rogexos': {
+    title: 'rxOS 7 MONAD — Knights Labs',
+    description:
+      'rxOS 7 MONAD: desktop Aero, NAVI 2, RAG, pesos en disco. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'rxOS 6 desktop — real QEMU capture',
@@ -3847,7 +3868,8 @@ function App() {
     if (newspaperMode) return;
 
     const metaPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
-    const meta = ROUTE_META[metaPath] || DEFAULT_OG;
+    const meta = ROUTE_META[metaPath]
+      || (metaPath.startsWith('/docs') ? ROUTE_META['/docs'] : DEFAULT_OG);
     document.title = meta.title;
     setCanonical(meta.url);
     setJsonLd(meta);
@@ -3902,6 +3924,16 @@ function App() {
   } else if (path === '/rx-os' || path === '/rogexos') {
     page = <RXOS navigate={navigate} />;
   }
+  if (path === '/docs' || path.startsWith('/docs/')) {
+    page = (
+      <DocsPage
+        path={path}
+        navigate={navigate}
+        PageHero={PageHero}
+        SectionTitle={SectionTitle}
+      />
+    );
+  }
   if (path === '/investors') page = <Investors navigate={navigate} />;
   if (path === '/pitch') page = <Pitch navigate={navigate} />;
   if (path === '/startup-idea') page = <StartupIdea navigate={navigate} />;
@@ -3921,6 +3953,7 @@ function App() {
   );
 }
 
+applyTheme(getTheme());
 const root = document.getElementById('root');
 if (root) {
   root.innerHTML = '';

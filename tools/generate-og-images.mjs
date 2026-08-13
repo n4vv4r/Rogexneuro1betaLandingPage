@@ -170,7 +170,7 @@ const CARDS = [
     svg: labCard({
       kicker: 'KNIGHTS LABS · ROGEX LABORATORIES',
       title: 'Low-carbon neurotech. Bootable lab.',
-      subtitle: 'PRISMA 3.2 · PRISMA 5 SNN · RXos v4.5 event fabric',
+      subtitle: 'PRISMA 5 SNN · rxOS 7 MONAD · NAVI 2',
       badge: 'SUITE 2026',
       accent: LAB.accent,
     }),
@@ -210,10 +210,10 @@ const CARDS = [
   {
     file: 'rx-os.png',
     // Real QEMU desktop capture + brand overlay (not a generic SVG card).
-    fromShot: 'public/rxos/desktop-home.jpg',
-    kicker: 'rxOS 6 · RX OS 6.0.0',
+    fromShot: 'public/rxos/monad/03-desktop.png',
+    kicker: 'rxOS 7 MONAD',
     title: 'A laboratory that boots.',
-    subtitle: 'Desktop · L2 chat · packages · optional WWW',
+    subtitle: 'NAVI 2 · module2 weights · RAG · e1000',
     badge: 'REAL CAPTURE',
   },
   {

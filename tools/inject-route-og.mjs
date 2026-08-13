@@ -27,7 +27,7 @@ const ROUTES = [
     out: 'index.html', // rewrite in place
     title: 'Knights Labs — Rogex Laboratories',
     description:
-      'Knights Labs (Rogex Laboratories): neurotech low-carbon — PRISMA 3.2 EEG, PRISMA 5 SNN y RXos v4.5.0 event fabric (bench 6/6). Para developers, research y OEM.',
+      'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 7 MONAD (NAVI 2). Neurotech low-carbon. Experimental, no clínico.',
     url: `${SITE}/`,
     image: OG('home'),
     imageAlt: 'Knights Labs — low-carbon neurotech Open Graph card',
@@ -61,18 +61,27 @@ const ROUTES = [
   },
   {
     out: 'downloads.html',
-    title: 'Downloads — PRISMA Engine & RXos — Knights Labs',
+    title: 'Downloads — PRISMA Engine & rxOS 7 MONAD — Knights Labs',
     description:
-      'Descargas públicas: PRISMA Engine 0.1.0 Linux x86_64 (tar.gz + SHA-256) y RXos test ZIP. Software experimental, no clínico.',
+      'Descargas: PRISMA Engine 0.1.0 y rxOS 7.0.0 MONAD (VM + metal). NAVI 2, e1000. Experimental, no clínico.',
     url: `${SITE}/downloads`,
     image: OG('prisma'),
     imageAlt: 'Knights Labs public downloads — PRISMA Engine and RXos',
   },
   {
-    out: 'rx-os.html',
-    title: 'rxOS 6 (RX OS 6) — Knights Labs',
+    out: 'docs.html',
+    title: 'Docs — MONAD, NAVI, PRISMA — Knights Labs',
     description:
-      'rxOS 6 bare-metal x86_64: desktop real, L2 chat, WWW opt-in, paquetes .rxc. Capturas QEMU reales.',
+      'Visor markdown: tutorial rxOS 7, demostraciones, benches, teoría e implementación.',
+    url: `${SITE}/docs`,
+    image: OG('rx-os'),
+    imageAlt: 'Knights Labs technical documentation',
+  },
+  {
+    out: 'rx-os.html',
+    title: 'rxOS 7 MONAD — Knights Labs',
+    description:
+      'rxOS 7 MONAD: desktop Aero, NAVI 2 (texto plano), RAG HTTP→HDC, virtio/e1000. Capturas QEMU reales.',
     url: `${SITE}/rx-os`,
     image: OG('rx-os'),
     imageAlt: 'rxOS 6 desktop — real QEMU capture',

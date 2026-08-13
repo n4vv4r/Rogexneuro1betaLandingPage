@@ -13,7 +13,7 @@ Sitio oficial: [www.rogexlaboratories.com](https://www.rogexlaboratories.com/)
 |----------|--------|--------|
 | **PRISMA 3.2** | Activo | Software EEG experimental, no clínico |
 | **PRISMA 5** | R&D | Motor SNN / path sobre RXos |
-| **rxOS 6 (RX OS 6)** | Hardware + QEMU | Escritorio bare-metal, L2, WWW opt-in, paquetes .rxc |
+| **rxOS 7 MONAD** | Hardware + QEMU | Escritorio Aero, NAVI 2, RAG, virtio/e1000 |
 | **RXos neuromorphic fabric** | Niveles 1–2 cerrados | LIF Q16.16, STDP, bench 6/6; Nivel 3 Akida pendiente |
 | **RXos packages** | Canal vivo | `/rx-os/packages` — INDEX + `.rxc` + admin |
 | **Docs** | Públicos | `/docs/rxos/*.pdf` paper + hoja de ruta 4 niveles |
@@ -36,7 +36,8 @@ Cada ruta pública tiene HTML estático post-build (`suite.html`, `newspaper.htm
 - `/suite` — productos y capas de licencia
 - `/architecture` — stack técnico EEG → spikes
 - `/prisma` — PRISMA 3.2 + sección PRISMA 5
-- `/rx-os` — rxOS 6 + capturas reales + infographic + download
+- `/rx-os` — rxOS 7 MONAD + capturas + download
+- `/docs` — visor markdown (tutorial, demo, bench, teoría, impl)
 - `/rx-os/packages` — catálogo público `.rxc` + tutorial (sin admin)
 - `/about` — lab, contacto, CTAs
 - `/newspaper` — Rogex Newspaper (también en subdominio)

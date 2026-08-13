@@ -7,6 +7,8 @@
   --accent: #e64a32;
   --acid: #d6ff3f;
   --white: #fffef8;
+  --on-dark: #f4f4f5; /* always light — type on permanently black surfaces */
+  --field: #fffef8;
   --black: #0b0b0a;
   /* Exact photographic negative of each surface (255 − channel). */
   --ink: rgb(from var(--paper) calc(255 - r) calc(255 - g) calc(255 - b));
@@ -31,7 +33,9 @@ html[data-theme='dark'] {
   --paper-2: #1c1b18;
   --accent: #ff6a52;
   --acid: #d6ff3f;
-  --white: #1a1914;
+  --white: #fffef8;
+  --on-dark: #f4f4f5;
+  --field: #1a1914;
   --black: #0c0c0b;
   --header-bg: color-mix(in srgb, var(--paper) 92%, transparent);
 }
@@ -737,6 +741,8 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .rx-state-grid article + article { border-left: 0; background: var(--ink); color: var(--paper); }
 .state-heading { display: flex; align-items: center; gap: 11px; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
 .state-ok { color: #177a3e; }
+.rx-state-grid article + article .state-ok,
+html[data-theme='dark'] .state-ok { color: #7dffb0; }
 .state-todo { color: var(--accent); }
 .rx-state-grid ul { margin: 38px 0 0; padding-left: 20px; display: grid; gap: 15px; }
 .rx-state-grid li { font-size: 11px; line-height: 1.65; }
@@ -806,7 +812,7 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .contact-form { border: 1.5px solid var(--ink); background: var(--paper); padding: clamp(24px, 4vw, 44px); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .contact-form label { display: grid; gap: 8px; margin-bottom: 16px; font-size: 9px; font-weight: 800; letter-spacing: .08em; }
-.contact-form input, .contact-form textarea, .contact-form select { width: 100%; border: 1.5px solid var(--ink); border-radius: 0; background: var(--white); color: var(--ink-on-white); padding: 13px; outline: none; font-size: 12px; }
+.contact-form input, .contact-form textarea, .contact-form select { width: 100%; border: 1.5px solid var(--ink); border-radius: 0; background: var(--field); color: var(--ink); padding: 13px; outline: none; font-size: 12px; }
 .contact-form textarea { resize: vertical; min-height: 190px; }
 .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { box-shadow: 4px 4px 0 var(--accent); }
 .form-submit { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-top: 8px; }
@@ -3817,5 +3823,71 @@ html[data-theme='dark'] .home-slideshow {
   color: var(--paper-2);
 }
 .theme-toggle { color: var(--ink); }
+
+/* Permanently black surfaces: --paper becomes dark in dark mode, so type
+   must stay on --on-dark (always #f4f4f5), never --paper / remapped --white. */
+.footer,
+.footer .footer-wordmark,
+.footer .footer-nav button,
+.qemu-guide,
+.qemu-guide h3,
+.qemu-guide p,
+.qemu-guide .panel-label,
+.suite-card-dark,
+.suite-card-dark h3,
+.suite-card-dark p,
+.suite-card-dark .suite-tier,
+.home-slideshow,
+.home-slideshow-copy,
+.home-slideshow-copy h1,
+.home-slideshow-copy p,
+.rx-window,
+.cta-band,
+.cta-band .section-title h2,
+.cta-band .section-title p,
+.cta-band .cta-card h3,
+.cta-band .cta-card p,
+.md-pre,
+.page-hero,
+.page-hero h1,
+.page-hero p {
+  color: var(--on-dark);
+}
+.footer .footer-main p,
+.footer-bottom {
+  color: color-mix(in srgb, var(--on-dark) 62%, var(--black));
+}
+html[data-theme='dark'] .section-black,
+html[data-theme='dark'] .section-black h1,
+html[data-theme='dark'] .section-black h2,
+html[data-theme='dark'] .section-black h3,
+html[data-theme='dark'] .section-black p,
+html[data-theme='dark'] .section-black li,
+html[data-theme='dark'] .section-black strong,
+html[data-theme='dark'] .black-panel,
+html[data-theme='dark'] .black-panel h3,
+html[data-theme='dark'] .black-panel p,
+html[data-theme='dark'] .edition-dark,
+html[data-theme='dark'] .edition-dark h3,
+html[data-theme='dark'] .edition-dark p {
+  color: var(--on-dark);
+}
+html[data-theme='dark'] .section-black .section-title p,
+html[data-theme='dark'] .section-black .method-card p,
+html[data-theme='dark'] .black-panel .check-list li {
+  color: color-mix(in srgb, var(--on-dark) 78%, var(--black));
+}
+.section-black .deck-stack-hi,
+.section-black .pitch-stack-highlight,
+.deck-stack-hi,
+.pitch-stack-highlight {
+  color: var(--ink-on-acid);
+}
+.section-black .deck-stack-hi h3,
+.section-black .pitch-stack-highlight h3,
+.deck-stack-hi h3,
+.pitch-stack-highlight h3 {
+  color: var(--ink-on-acid);
+}
 .campaign-need { color: var(--ink-soft); }
 .home-slideshow-dots button.is-active { outline: 1px solid var(--ink-on-acid); }

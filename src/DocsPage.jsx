@@ -138,6 +138,11 @@ function DocArticle({ doc, navigate }) {
           <a className="checksum-link" href={doc.path} target="_blank" rel="noreferrer">
             RAW .md
           </a>
+          {doc.pdf && (
+            <a className="checksum-link" href={doc.pdf} target="_blank" rel="noreferrer" style={{ marginLeft: 16 }}>
+              PDF
+            </a>
+          )}
         </header>
         {err && <p className="download-boundary">{err}</p>}
         {!raw && !err && <p className="md-p">Cargando…</p>}

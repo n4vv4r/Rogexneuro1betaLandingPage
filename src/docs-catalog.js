@@ -68,10 +68,18 @@ export const DOCS = [
   },
   {
     id: 'rfc-q6',
-    title: 'RFC-2026-08-Q6',
+    title: 'RFC-2026-08-Q6 — PoC medido',
     category: 'theory',
     path: '/docs/navi/RFC-2026-08-Q6.md',
-    blurb: 'Hipercubo Q₆, Hamming, codebook [6,3,3].',
+    blurb: 'Hipercubo Q₆, Hamming, codebook [6,3,3]. Lo que ya corre.',
+  },
+  {
+    id: 'rfc-q6-campana',
+    title: 'RFC-2026-08-Q6 — campaña abierta',
+    category: 'research',
+    path: '/docs/navi/RFC-2026-08-Q6-CAMPANA.md',
+    pdf: '/docs/navi/RFC-2026-08-Q6_CAMPANA.pdf',
+    blurb: 'Convocatoria: hipótesis Q₆, fases, KPI y dónde enviar resultados.',
   },
   {
     id: 'manifesto',

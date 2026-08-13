@@ -67,6 +67,7 @@ const NAV_MENUS = [
       ['/docs', 'INDEX'],
       ['/docs/tutorial-monad', 'TUTORIAL MONAD'],
       ['/docs/demostracion', 'DEMO + BENCH'],
+      ['/docs/rfc-q6-campana', 'RFC Q6 CAMPAÑA'],
       ['/architecture', 'ARCHITECTURE'],
     ],
   },

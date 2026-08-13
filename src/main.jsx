@@ -134,7 +134,7 @@ const DOWNLOAD_CATALOG = {
     name: 'rxOS 7 MONAD',
     version: 'v7.0.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'VM + METAL · NAVI 2',
+    status: 'VM + METAL · NAVI-3 WSP'
     release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v7.0.0',
     zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/ISOS.zip',
     vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/rxOS-7.0.0-vm.iso',
@@ -163,9 +163,9 @@ const PRODUCT_SUITE = [
     code: 'RX-01',
     name: 'rxOS 7 MONAD',
     tier: 'OPEN CORE · BOOTABLE x86-64',
-    status: 'v7.0.0 · NAVI 2 + RAG',
-    text: 'Unikernel bare-metal: escritorio Aero, NAVI 2 (chat texto plano), pesos en module2, RAG HTTP→HDC. Drivers virtio / e1000 / r8169 / rtl8139. Verificado en QEMU y HP 15-ac195nl.',
-    tags: ['MONAD', 'NAVI 2', 'module2 weights', 'e1000'],
+    status: 'v7.0.0 · NAVI-3 WSP',
+    text: 'Unikernel bare-metal: escritorio Aero, NAVI-3 (paquetes WSP 16 B + máscara ES), pesos NAVI3W01 en module2, RAG HTTP→HDC. Drivers virtio / e1000 / r8169 / rtl8139. Verificado en QEMU.',
+    tags: ['MONAD', 'NAVI-3 WSP', 'module2 weights', 'e1000'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -1265,12 +1265,12 @@ function Home({ navigate }) {
         <span className="kicker">KNIGHTS LABS · ROGEX</span>
         <p>
           Software EEG reproducible, kernel neuromórfico abierto y un SO que arranca.
-          Capturas reales arriba: PRISMA Engine, rxOS 7 MONAD, NAVI 2. Nada de mockups.
+          Capturas reales arriba: PRISMA Engine, rxOS 7 MONAD, NAVI-3 WSP. Nada de mockups.
         </p>
         <div className="hero-tags">
           <span>PRISMA ENGINE 0.1</span>
           <span>rxOS 7 MONAD</span>
-          <span>NAVI 2 · TEXTO PLANO</span>
+          <span>NAVI-3 · WSP 16 B</span>
           <span>virtio · e1000</span>
         </div>
       </section>
@@ -2089,11 +2089,11 @@ function RXOS({ navigate }) {
         className="rxos-hero"
         eyebrow={`${RXOS_VERSION_LABEL} / DESKTOP + L2 + WWW`}
         title={<>A LABORATORY<br />THAT BOOTS.<br />A DESKTOP THAT WORKS.</>}
-        text="rxOS 7 MONAD es un unikernel experimental: escritorio Aero, NAVI 2 (chat de texto plano), pesos en module2, RAG HTTP→HDC y WWW opcional. No es un LLM. No es silicio Akida."
+        text="rxOS 7 MONAD es un unikernel experimental: escritorio Aero, NAVI-3 (WSP nativo, máscara ES), pesos NAVI3W01 en module2, RAG HTTP→HDC y WWW opcional. No es un LLM. No es silicio Akida."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v7.0.0 MONAD</span><span>NAVI 2</span><span>LIVE INSTALLER</span><span>WWW OPT-IN</span><span>e1000</span><span>GPLv3</span>
+          <span>v7.0.0 MONAD</span><span>NAVI-3 WSP</span><span>LIVE INSTALLER</span><span>WWW OPT-IN</span><span>e1000</span><span>GPLv3</span>
         </div>
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
           <a
@@ -2353,10 +2353,10 @@ function RXOS({ navigate }) {
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src="/rxos/monad/09-navi2-chat.png" alt="NAVI 2 Chat GUI on rxOS 7 MONAD" loading="lazy" />
+                <img src="/rxos/monad/10-navi3-wsp-chat.png" alt="NAVI-3 WSP chat: SOLEDAD to CONEXION on rxOS 7 MONAD" loading="lazy" />
                 <figcaption className="capture-caption">
-                  <span>NAVI 2 / CHAT</span>
-                  <div><strong>NAVI 2 CHAT</strong><p>GUI WhatsApp-mínimo. Solo texto plano. Tecla v.</p></div>
+                  <span>NAVI-3 / WSP</span>
+                  <div><strong>NAVI-3 WSP CHAT</strong><p>QEMU real. «estoy solo…» → YO→DESEAR→CONEXION. Máscara ES. Tecla v / /demo.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
@@ -3812,7 +3812,7 @@ function setJsonLd(meta) {
 const DEFAULT_OG = {
   title: 'Knights Labs — Rogex Laboratories',
   description:
-    'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 7 MONAD (NAVI 2, chat texto plano). Neurotech low-carbon. Experimental, no clínico.',
+    'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 7 MONAD (NAVI-3 WSP). Neurotech low-carbon. Experimental, no clínico.',
   image: ogCard('home'),
   ...OG_DIM,
   imageAlt: 'Knights Labs — low-carbon neurotech',
@@ -3842,7 +3842,7 @@ const ROUTE_META = {
   '/downloads': {
     title: 'Downloads — PRISMA Engine & rxOS 7 MONAD — Knights Labs',
     description:
-      'Descargas: PRISMA Engine 0.1.0 y rxOS 7.0.0 MONAD (VM + metal). NAVI 2, e1000, SHA-256. Experimental, no clínico.',
+      'Descargas: PRISMA Engine 0.1.0 y rxOS 7.0.0 MONAD (VM + metal). NAVI-3 WSP, e1000, SHA-256. Experimental, no clínico.',
     image: ogCard('prisma'),
     ...OG_DIM,
     imageAlt: 'Knights Labs public downloads',
@@ -3851,7 +3851,7 @@ const ROUTE_META = {
   '/rx-os': {
     title: 'rxOS 7 MONAD — Knights Labs',
     description:
-      'rxOS 7 MONAD: desktop Aero, NAVI 2 (texto plano), pesos module2, RAG HTTP→HDC, virtio/e1000. Experimental.',
+      'rxOS 7 MONAD: desktop Aero, NAVI-3 WSP (paquete 16 B + máscara ES), pesos module2, RAG HTTP→HDC. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'rxOS 6 desktop — real QEMU capture',
@@ -3878,7 +3878,7 @@ const ROUTE_META = {
   '/rogexos': {
     title: 'rxOS 7 MONAD — Knights Labs',
     description:
-      'rxOS 7 MONAD: desktop Aero, NAVI 2, RAG, pesos en disco. Experimental.',
+      'rxOS 7 MONAD: desktop Aero, NAVI-3 WSP, RAG, pesos module2. Experimental.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'rxOS 6 desktop — real QEMU capture',

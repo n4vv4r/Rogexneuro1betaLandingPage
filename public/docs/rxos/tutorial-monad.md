@@ -62,6 +62,7 @@ En el log de arranque debe aparecer:
 ```
 [rxos] NAVI Q6 self-test (cube + 1-bit + hop): PASS
 [rxos] NAVI2 weights: 491584 B (module2)
+[rxos] NAVI3-WSP weights: 474560 B (module2)
 ```
 
 Si no ves `module2`, el `.bin` no cargó. La ISO oficial sí lo incluye.
@@ -73,7 +74,7 @@ Si no ves `module2`, el `.bin` no cargó. La ISO oficial sí lo incluye.
 1. Registro (usuario + contraseña) si es LIVE.
 2. Escritorio Aero: iconos, taskbar, reloj.
 3. Tecla **`t`** — terminal.
-4. Tecla **`v`** — **NAVI 2 Chat** (burbujas, barra, ENVIAR).
+4. Tecla **`v`** — **NAVI-3 Chat** (WSP + máscara ES). `/demo` prueba SOLEDAD.
 5. `F12` o `capture` — miniatura en `/screenshots`.
 
 Comandos útiles:
@@ -91,22 +92,18 @@ www on
 
 ---
 
-## 5. Cómo chatear con NAVI 2
+## 5. Cómo chatear con NAVI-3 (WSP)
 
-Solo **texto plano**. Sin archivos, sin imágenes.
+El chat habla **paquetes WSP**. El castellano es máscara. Ver [`NAVI3_WSP_ARCHITECTURE.md`](NAVI3_WSP_ARCHITECTURE.md).
 
 | Dónde | Cómo |
 | --- | --- |
 | GUI | tecla `v` · escribe · Enter o ENVIAR |
-| Shell | `navi2 chat` luego `navi2 tu mensaje` |
-| Un turno con memoria | `navi2 + sigue el hilo` |
-| Borrar S | `navi2 .` o `/clear` en el chat |
+| Demo | `/demo` → «estoy solo y necesito ayuda» |
+| Shell | `navi3 chat` luego `navi3 tu mensaje` (`navi2` es alias) |
+| Borrar S | `navi3 .` o `/clear` |
 
-Atajos en la ventana:
-
-- `/www` — activa la pila de red
-- `/fetch http://…` — RAG (texto HTTP → HDC L2)
-- `/bench` — ciclos `rdtsc` por token
+Atajos: `/bench` (rdtsc/paquete), `/fetch`, `/www`, F12 captura.
 - `/help` — aviso
 
 Lee el aviso: [USER_NOTICE.md](USER_NOTICE.md).

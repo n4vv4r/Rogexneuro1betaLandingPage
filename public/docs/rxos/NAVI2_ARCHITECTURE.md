@@ -1,5 +1,9 @@
 # NAVI 2 — arquitectura (rxOS 7 MONAD)
 
+El chat del ISO (tecla `v`) usa **NAVI-3 WSP** cuando carga `NAVI3W01`.
+Este documento describe el motor ASCII legado. El transductor actual:
+[`NAVI3_WSP_ARCHITECTURE.md`](NAVI3_WSP_ARCHITECTURE.md).
+
 **Autor:** r. navarro
 
 ## 1. Técnica

@@ -31,11 +31,11 @@ export const HOME_SLIDES = [
     href: '/docs/tutorial-monad',
   },
   {
-    src: '/rxos/monad/09-navi2-chat.png',
-    kicker: 'NAVI 2 CHAT',
-    title: 'WhatsApp mínimo. Texto plano.',
-    caption: 'Tecla v. Burbujas, barra, ENVIAR. Captura QEMU real.',
-    href: '/docs/navi2',
+    src: '/rxos/monad/10-navi3-wsp-chat.png',
+    kicker: 'NAVI-3 WSP',
+    title: 'SOLEDAD → CONEXION.',
+    caption: 'Tecla v. Paquete WSP 16 B + máscara ES. Captura QEMU real.',
+    href: '/docs/navi3',
   },
   {
     src: '/rxos/monad/05-navi-l2.png',
@@ -66,7 +66,7 @@ export default function Slideshow({ slides = HOME_SLIDES, onNavigate, interval =
     <section
       className="home-slideshow"
       aria-roledescription="carousel"
-      aria-label="Capturas reales — PRISMA, MONAD, NAVI 2"
+      aria-label="Capturas reales — PRISMA, MONAD, NAVI-3 WSP"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

@@ -15,14 +15,14 @@ export const DOCS = [
     title: 'Tutorial rxOS 7 MONAD',
     category: 'tutorial',
     path: '/docs/rxos/tutorial-monad.md',
-    blurb: 'Arrancar la ISO, chatear con NAVI 2, RAG y cómo medir.',
+    blurb: 'Arrancar la ISO, chatear con NAVI-3 WSP, RAG y cómo medir.',
   },
   {
     id: 'user-notice',
-    title: 'Aviso NAVI 2 — qué esperar',
+    title: 'Aviso NAVI-3 — qué esperar',
     category: 'tutorial',
     path: '/docs/rxos/USER_NOTICE.md',
-    blurb: 'Solo texto plano. No es un LLM. Límites honestos.',
+    blurb: 'Habla WSP. El castellano es máscara. No es un LLM.',
   },
   {
     id: 'para-curiosos',
@@ -103,11 +103,18 @@ export const DOCS = [
     blurb: 'Dónde está el código y cómo comprobarlo.',
   },
   {
+    id: 'navi3',
+    title: 'NAVI-3 WSP — arquitectura',
+    category: 'impl',
+    path: '/docs/rxos/NAVI3_WSP_ARCHITECTURE.md',
+    blurb: 'Transductor S→S′, V=48, paquete 16 B, máscara ES.',
+  },
+  {
     id: 'navi2',
-    title: 'NAVI 2 — arquitectura',
+    title: 'NAVI 2 — arquitectura (legado ASCII)',
     category: 'impl',
     path: '/docs/rxos/NAVI2_ARCHITECTURE.md',
-    blurb: 'Pesos .bin, chat, RAG HTTP → HDC, no backprop.',
+    blurb: 'Motor de bytes legado. El chat del ISO usa NAVI-3.',
   },
   {
     id: 'kernel-navi',

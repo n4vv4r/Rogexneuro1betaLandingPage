@@ -94,13 +94,18 @@ const DOWNLOAD_CATALOG = {
   rxos: {
     id: 'rxos',
     name: 'RXos',
-    version: 'v5.5 Desktop Experience',
+    version: 'v6.5.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'DESKTOP EXPERIENCE',
-    zip: '/downloads/RXos-v4.1.1.zip',
-    readme: '/downloads/RXos-v4.1.1-README.md',
-    sha256File: '/downloads/RXos-v4.1.1.zip.sha256',
-    sha256: 'a275d6b1783d439625e0bcc7395535a085bd87a2ba4db6ff88a8b402de8745af',
+    status: 'VM + METAL',
+    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v6.5.0',
+    zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/ISOS.zip',
+    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/rxOS-6.5.0-vm.iso',
+    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/rxOS-6.5.0-metal.iso',
+    readme: 'https://github.com/knightslabs/RXos-Packages/blob/main/ISOS/README.txt',
+    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v6.5.0/SHA256SUMS.txt',
+    sha256: '60c709786d8f655f90a071ed201898824b55906c6ed3c56bc7abeb0e8f717ba3',
+    sha256Vm: '60c709786d8f655f90a071ed201898824b55906c6ed3c56bc7abeb0e8f717ba3',
+    sha256Metal: 'd4cb8e99cd654148a2ab77abefdc78472e2702b5057e761058f270979634a0b5',
     packages: '/rx-os/packages/',
   },
 };
@@ -2024,7 +2029,15 @@ function RXOS({ navigate }) {
           <span>v6.5.0</span><span>LIVE INSTALLER</span><span>DISK BOOT</span><span>L2 CHAT</span><span>WWW OPT-IN</span><span>GPLv3</span>
         </div>
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
-          <button type="button" className="brutal-button primary" onClick={() => navigate('/rx-os/packages')}>
+          <a
+            className="brutal-button primary"
+            href={DOWNLOAD_CATALOG.rxos.release}
+            target="_blank"
+            rel="noreferrer"
+          >
+            DOWNLOAD ISOs <ArrowUpRight size={15} />
+          </a>
+          <button type="button" className="brutal-button" onClick={() => navigate('/rx-os/packages')}>
             PACKAGE CHANNEL <Package size={15} />
           </button>
           <a className="brutal-button" href="#rxos-infographic">INFOGRAPHIC</a>
@@ -2271,7 +2284,7 @@ function RXOS({ navigate }) {
           <SectionTitle
             code="09 / DOWNLOAD + PACKAGES"
             title="BUILD PÚBLICO + CANAL .rxc"
-            text="ZIP de prueba histórico en /downloads y canal vivo de paquetes en /rx-os/packages. QEMU recomendado."
+            text="ISOs oficiales en GitHub Releases (VM + metal) y canal vivo de paquetes en /rx-os/packages."
           />
           <div className="rxos-docs-row" data-reveal>
             <a className="brutal-button primary" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
@@ -2286,39 +2299,41 @@ function RXOS({ navigate }) {
           </div>
           <div className="rxos-download-layout">
             <article className="download-card" data-reveal>
-              <div className="download-card-top"><span>OFFICIAL ZIP · TEST</span><strong>{RXOS_VERSION} line</strong></div>
+              <div className="download-card-top"><span>OFFICIAL ISOs · RELEASE</span><strong>{RXOS_VERSION}</strong></div>
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
-              <p>Build experimental bare-metal x86_64. No es producción, no está auditado y no debe usarse para datos importantes. El ZIP público en el sitio es la línea de test publicada; el desarrollo activo es rxOS 6.5 en el repo.</p>
+              <p>Dos ISOs x86_64: <strong>VM</strong> para QEMU/VirtualBox y <strong>metal</strong> para USB en un PC real. No es producción, no está auditado y no debe usarse para datos importantes. Elige la imagen correcta en el release.</p>
               <dl className="download-facts">
-                <div><dt>CONTENTS</dt><dd>ISO + README + screenshots</dd></div>
+                <div><dt>VM</dt><dd>rxOS-6.5.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-6.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div><dt>PACKAGES</dt><dd><a href="/rx-os/packages/">/rx-os/packages</a></dd></div>
-                <div><dt>SHA-256</dt><dd><code>a275d6b1783d439625e0bcc7395535a085bd87a2ba4db6ff88a8b402de8745af</code></dd></div>
+                <div><dt>SHA-256 VM</dt><dd><code>{DOWNLOAD_CATALOG.rxos.sha256Vm}</code></dd></div>
+                <div><dt>SHA-256 METAL</dt><dd><code>{DOWNLOAD_CATALOG.rxos.sha256Metal}</code></dd></div>
               </dl>
               <div className="download-actions">
-                <a className="brutal-button primary" href="/downloads/RXos-v4.1.1.zip" download>DOWNLOAD OFFICIAL ZIP <ArrowUpRight size={16} /></a>
-                <a className="brutal-button" href="/downloads/RXos-v4.1.1-README.md" target="_blank" rel="noreferrer">READ INCLUDED GUIDE <ArrowUpRight size={16} /></a>
-                <a className="checksum-link" href="/downloads/RXos-v4.1.1.zip.sha256" download>DOWNLOAD CHECKSUM</a>
+                <a className="brutal-button primary" href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">DOWNLOAD ISOs <ArrowUpRight size={16} /></a>
+                <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.readme} target="_blank" rel="noreferrer">READ INCLUDED GUIDE <ArrowUpRight size={16} /></a>
+                <a className="checksum-link" href={DOWNLOAD_CATALOG.rxos.sha256File} target="_blank" rel="noreferrer">DOWNLOAD CHECKSUM</a>
               </div>
             </article>
 
             <article className="qemu-guide" data-reveal>
               <span className="panel-label">QUICKSTART / QEMU</span>
               <h3>RUN WITHOUT INSTALLING RXos ON YOUR MACHINE.</h3>
-              <p>Instala QEMU, descomprime el paquete y arranca la ISO. La opción <code>-serial stdio</code> refleja el log de arranque.</p>
+              <p>Instala QEMU, baja <code>ISOS.zip</code> del release y arranca la ISO <strong>VM</strong>. La opción <code>-serial stdio</code> refleja el log de arranque. En un PC real usa la ISO <strong>metal</strong>.</p>
               <div className="platform-install">
                 <div><span>macOS</span><code>brew install qemu</code></div>
                 <div><span>Fedora</span><code>sudo dnf install qemu-system-x86-core</code></div>
                 <div><span>Debian / Ubuntu</span><code>sudo apt install qemu-system-x86</code></div>
               </div>
               <pre><code>{`mkdir rxos-lab && cd rxos-lab
-unzip ../RXos-v4.1.1.zip
+unzip ISOS.zip
 
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom RXos-v4-foundation.iso \\
+  -cdrom ISOS/rxOS-6.5.0-vm.iso \\
   -serial stdio`}</code></pre>
               <div className="qemu-commands">
                 <span>TRY INSIDE RXos</span>
@@ -3512,31 +3527,32 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
           <div className="rxos-download-layout">
             <article className="download-card" data-reveal>
               <div className="download-card-top">
-                <span>OFFICIAL ZIP · TEST</span>
+                <span>OFFICIAL ISOs · RELEASE</span>
                 <strong>{rx.version}</strong>
               </div>
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
               <p>
-                Build experimental bare-metal x86_64. No es un sistema de producción, no está auditado
-                y no debe utilizarse para almacenar información importante.
+                Dos ISOs x86_64: VM para QEMU/VirtualBox y metal para USB en un PC real.
+                No es un sistema de producción, no está auditado y no debe usarse para datos importantes.
               </p>
               <dl className="download-facts">
-                <div><dt>CONTENTS</dt><dd>ISO + README + screenshots</dd></div>
+                <div><dt>VM</dt><dd>rxOS-6.5.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-6.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div>
-                  <dt>SHA-256</dt>
-                  <dd><code title={rx.sha256}>{shortHash(rx.sha256, 20)}</code></dd>
+                  <dt>SHA-256 VM</dt>
+                  <dd><code title={rx.sha256Vm}>{shortHash(rx.sha256Vm, 20)}</code></dd>
                 </div>
               </dl>
               <div className="download-actions">
-                <a className="brutal-button primary" href={rx.zip} download>
-                  DOWNLOAD OFFICIAL ZIP <ArrowUpRight size={16} />
+                <a className="brutal-button primary" href={rx.release} target="_blank" rel="noreferrer">
+                  DOWNLOAD ISOs <ArrowUpRight size={16} />
                 </a>
                 <a className="brutal-button" href={rx.readme} target="_blank" rel="noreferrer">
                   READ INCLUDED GUIDE <ArrowUpRight size={16} />
                 </a>
-                <a className="checksum-link" href={rx.sha256File} download>
+                <a className="checksum-link" href={rx.sha256File} target="_blank" rel="noreferrer">
                   DOWNLOAD CHECKSUM
                 </a>
               </div>
@@ -3545,13 +3561,13 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
             <article className="qemu-guide" data-reveal>
               <span className="panel-label">QUICKSTART / QEMU</span>
               <h3>RUN WITHOUT INSTALLING RXos ON YOUR MACHINE.</h3>
-              <pre><code>{`mkdir rxos-v4.1.1 && cd rxos-v4.1.1
-unzip ../RXos-v4.1.1.zip
+              <pre><code>{`mkdir rxos-lab && cd rxos-lab
+unzip ISOS.zip
 
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom RXos-v4-foundation.iso \\
+  -cdrom ISOS/rxOS-6.5.0-vm.iso \\
   -serial stdio`}</code></pre>
               <button className="brutal-button" type="button" onClick={() => navigate('/rx-os')} style={{ marginTop: 18 }}>
                 FULL RXos PAGE <ArrowUpRight size={15} />
@@ -3733,7 +3749,7 @@ const ROUTE_META = {
   '/downloads': {
     title: 'Downloads — PRISMA Engine & RXos — Knights Labs',
     description:
-      'Descargas públicas: PRISMA Engine 0.1.0 Linux x86_64 (tar.gz + SHA-256) y RXos test ZIP. Software experimental, no clínico.',
+      'Descargas públicas: PRISMA Engine 0.1.0 y rxOS 6.5.0 ISOs (VM + metal) en GitHub Releases. Software experimental, no clínico.',
     image: ogCard('prisma'),
     ...OG_DIM,
     imageAlt: 'Knights Labs public downloads',

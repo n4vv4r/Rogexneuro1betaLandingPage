@@ -31,10 +31,10 @@ export const HOME_SLIDES = [
     href: '/docs/tutorial-monad',
   },
   {
-    src: '/rxos/monad/04-navi-l1.png',
-    kicker: 'NAVI 2',
-    title: 'Chat. Texto plano. Nada más.',
-    caption: 'Tecla v. Sin archivos. Estado S entre turnos.',
+    src: '/rxos/monad/09-navi2-chat.png',
+    kicker: 'NAVI 2 CHAT',
+    title: 'WhatsApp mínimo. Texto plano.',
+    caption: 'Tecla v. Burbujas, barra, ENVIAR. Captura QEMU real.',
     href: '/docs/navi2',
   },
   {

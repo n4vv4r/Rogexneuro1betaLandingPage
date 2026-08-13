@@ -37,8 +37,6 @@ import {
   Keyboard,
   HardDrive,
   LayoutGrid,
-  Moon,
-  Sun,
   BookOpen,
   ChevronDown,
 } from 'lucide-react';
@@ -47,7 +45,7 @@ import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx
 import PackagesPage from './rxos/PackagesPage.jsx';
 import Slideshow from './Slideshow.jsx';
 import DocsPage from './DocsPage.jsx';
-import { applyTheme, getTheme, toggleTheme } from './theme.js';
+import { applyTheme, getTheme, THEMES } from './theme.js';
 
 const NAV_MENUS = [
   {
@@ -842,14 +840,19 @@ function Header({ path, navigate }) {
         </button>
 
         <div className="nav-tools">
-          <button
-            type="button"
-            className="theme-toggle"
-            aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
-            onClick={() => setTheme(toggleTheme())}
-          >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+          <div className="theme-picker" title="Tema">
+            {THEMES.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                className={theme === t.id ? 'theme-swatch is-active' : 'theme-swatch'}
+                aria-label={t.label}
+                aria-pressed={theme === t.id}
+                style={{ '--swatch': t.swatch }}
+                onClick={() => { applyTheme(t.id); setTheme(t.id); }}
+              />
+            ))}
+          </div>
           <button
             className="menu-toggle"
             aria-label="Open navigation"
@@ -2349,11 +2352,18 @@ function RXOS({ navigate }) {
                   <div><strong>NAVI Q6 PASS</strong><p>Self-test del cubo en el banner de arranque.</p></div>
                 </figcaption>
               </figure>
+              <figure className="screenshot scientific-capture featured" data-reveal>
+                <img src="/rxos/monad/09-navi2-chat.png" alt="NAVI 2 Chat GUI on rxOS 7 MONAD" loading="lazy" />
+                <figcaption className="capture-caption">
+                  <span>NAVI 2 / CHAT</span>
+                  <div><strong>NAVI 2 CHAT</strong><p>GUI WhatsApp-mínimo. Solo texto plano. Tecla v.</p></div>
+                </figcaption>
+              </figure>
               <figure className="screenshot scientific-capture" data-reveal>
                 <img src="/rxos/monad/04-navi-l1.png" alt="NAVI 2 / L1 in rxOS 7 MONAD" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>NAVI 2 / 07</span>
-                  <div><strong>NAVI 2</strong><p>Chat neuromórfico. Solo texto plano. Tecla v.</p></div>
+                  <div><strong>NAVI L1</strong><p>Capa Q₆ en la terminal. Self-test 48/48.</p></div>
                 </figcaption>
               </figure>
             </div>

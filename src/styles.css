@@ -83,33 +83,55 @@ html[data-theme='matrix'] {
   --black: #000000;
   --ink-on-paper-2: #7dff9a;
   --ink-on-white: #020804;
-  --ink-on-acid: #001408;
-  --ink-on-accent: #001408;
+  --ink-on-acid: #000000;
+  --ink-on-accent: #000000;
   --ink-on-black: #7dff9a;
   --line: rgba(51, 255, 102, 0.28);
-  --header-bg: rgba(2, 8, 4, 0.86);
+  --header-bg: rgba(0, 0, 0, 0.88);
 }
 
+/* Rain is a fixed layer behind #root. The black gradient sits on top of
+   the GIF so glyphs never compete with the falling characters. */
+html[data-theme='matrix'],
 html[data-theme='matrix'] body {
   background-color: #000;
-  background-image: url('/themes/matrix-rain.gif');
-  background-size: cover;
-  background-position: center top;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-image: none;
+}
+html[data-theme='matrix'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.84) 42%,
+      rgba(0, 0, 0, 0.94) 100%
+    ),
+    url('/themes/matrix-rain.gif') center top / cover no-repeat;
+}
+html[data-theme='matrix'] #root {
+  position: relative;
+  z-index: 1;
 }
 html[data-theme='matrix'] .site-header,
-html[data-theme='matrix'] .section:not(.section-black),
 html[data-theme='matrix'] .nav-drop-panel,
 html[data-theme='matrix'] .docs-side,
 html[data-theme='matrix'] .docs-card,
 html[data-theme='matrix'] .download-card.paper {
-  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  background: rgba(0, 0, 0, 0.88);
 }
-html[data-theme='matrix'] .page-hero-media,
-html[data-theme='matrix'] .home-slideshow-frame img {
-  mix-blend-mode: screen;
-  opacity: 0.55;
+html[data-theme='matrix'] .section:not(.section-black) {
+  background: rgba(0, 0, 0, 0.74);
+}
+html[data-theme='matrix'] .section-black,
+html[data-theme='matrix'] .page-hero,
+html[data-theme='matrix'] .footer,
+html[data-theme='matrix'] .cta-band,
+html[data-theme='matrix'] .home-slideshow {
+  background: rgba(0, 0, 0, 0.88);
 }
 
 * { box-sizing: border-box; }
@@ -564,30 +586,37 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 }
 
 .section-black .brutal-button.primary {
-  color: var(--ink);
-  border-color: var(--ink);
+  color: var(--ink-on-acid);
+  border-color: var(--ink-on-acid);
 }
 
-/* Light cards nested inside dark sections keep dark text */
+/* Light / acid cards nested in dark sections keep dark text */
 .section-black .suite-card-paper,
 .section-black .suite-card-paper h3,
 .section-black .suite-card-paper p,
 .section-black .suite-card-paper .suite-tier,
-.section-black .suite-card-paper .status-badge,
-.section-black .suite-card-acid,
-.section-black .suite-card-acid h3,
-.section-black .suite-card-acid p,
-.section-black .suite-card-acid .suite-tier {
+.section-black .suite-card-paper .status-badge {
   color: var(--ink);
 }
 
-.section-black .suite-card-paper p,
-.section-black .suite-card-acid p {
+.section-black .suite-card-acid,
+.section-black .suite-card-acid h3,
+.section-black .suite-card-acid p,
+.section-black .suite-card-acid .suite-tier,
+.section-black .suite-card-acid .suite-status,
+.section-black .suite-card-acid .status-badge,
+.section-black .suite-card-acid .suite-card-top,
+.section-black .suite-card-acid .tag-row span,
+.section-black .suite-card-acid .text-link,
+.section-black .suite-card-acid svg {
+  color: var(--ink-on-acid);
+}
+
+.section-black .suite-card-paper p {
   color: var(--ink-soft);
 }
 
-.section-black .suite-card-paper .status-badge,
-.section-black .suite-card-acid .status-badge {
+.section-black .suite-card-paper .status-badge {
   color: var(--accent);
 }
 
@@ -650,7 +679,7 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .track-card h3 { margin-top: 13px; font-family: var(--script); font-size: clamp(34px, 4vw, 60px); line-height: .93; letter-spacing: -.065em; }
 .track-card p { margin-top: 20px; max-width: 540px; font-size: 13px; line-height: 1.7; }
 .track-card > svg:last-child { margin-top: auto; align-self: flex-end; }
-.track-card.inverted { background: var(--ink); color: var(--paper); }
+.track-card.inverted { background: var(--black); color: var(--ink-on-black); }
 
 /* Acid yellow card: dark violet text (near-complement of #d6ff3f), not pure black/gray */
 .track-card-edge,
@@ -685,15 +714,15 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .current-grid { margin-top: 22px; display: grid; grid-template-columns: 1.1fr .9fr; }
 .paper-panel, .black-panel { min-height: 510px; padding: clamp(28px, 4vw, 54px); border: 1.5px solid var(--ink); }
 .paper-panel { background: var(--paper); color: var(--ink); }
-.black-panel { background: var(--ink); color: var(--paper); border-left: 0; }
+.black-panel { background: var(--black); color: var(--ink-on-black); border-left: 0; }
 .panel-label { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
 .paper-panel h3, .black-panel h3 { margin-top: 42px; font-family: var(--script); font-size: clamp(30px, 4vw, 56px); line-height: .96; letter-spacing: -.06em; }
 .paper-panel p,
 .paper-panel li { color: var(--ink-soft); }
 .black-panel p,
-.black-panel li { color: rgba(255, 254, 248, 0.78); }
-.black-panel .eco-metrics strong { color: var(--paper); }
-.black-panel .eco-metrics span { color: rgba(255, 254, 248, 0.62); }
+.black-panel li { color: color-mix(in srgb, var(--ink-on-black) 80%, var(--black)); }
+.black-panel .eco-metrics strong { color: var(--ink-on-black); }
+.black-panel .eco-metrics span { color: color-mix(in srgb, var(--ink-on-black) 68%, var(--black)); }
 .check-list, .cross-list { list-style: none; padding: 0; margin: 46px 0 0; display: grid; gap: 17px; }
 .check-list li { display: grid; grid-template-columns: 22px 1fr; gap: 11px; font-size: 12px; line-height: 1.6; }
 .check-list svg { color: var(--accent); }
@@ -812,7 +841,7 @@ h1, h2, h3, p, blockquote, figure { margin: 0; }
 .rx-state-section { background: var(--accent); }
 .rx-state-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .rx-state-grid article { border: 1.5px solid var(--ink); padding: 34px; background: var(--paper); }
-.rx-state-grid article + article { border-left: 0; background: var(--ink); color: var(--paper); }
+.rx-state-grid article + article { border-left: 0; background: var(--black); color: var(--ink-on-black); }
 .state-heading { display: flex; align-items: center; gap: 11px; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
 .state-ok { color: #177a3e; }
 .rx-state-grid article + article .state-ok,
@@ -827,7 +856,7 @@ html[data-theme='dark'] .state-ok { color: #7dffb0; }
 .edition-card > span { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
 .edition-card h3 { margin-top: 70px; font-family: var(--script); font-size: clamp(38px, 5vw, 74px); line-height: .9; letter-spacing: -.07em; }
 .edition-card p { margin-top: 24px; max-width: 620px; font-size: 12px; line-height: 1.75; }
-.edition-dark { background: var(--ink); color: var(--paper); }
+.edition-dark { background: var(--black); color: var(--ink-on-black); }
 .tag-row { margin-top: auto; padding-top: 30px; display: flex; flex-wrap: wrap; gap: 7px; }
 .tag-row span { border: 1px solid currentColor; padding: 7px 9px; font-size: 8px; font-weight: 800; }
 
@@ -2639,6 +2668,7 @@ html[data-theme='dark'] .state-ok { color: #7dffb0; }
 }
 .download-card,
 .qemu-guide { min-width: 0; padding: clamp(28px, 4vw, 52px); color: var(--paper); }
+.qemu-guide { background: var(--black); color: var(--on-dark); }
 .download-card { background: var(--acid); color: var(--ink-on-acid); border-right: 1.5px solid var(--ink-on-acid); display: flex; flex-direction: column; }
 .download-card-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1.5px solid currentColor; padding-bottom: 14px; font-size: 9px; font-weight: 800; letter-spacing: .1em; }
 .download-card-top strong { font-family: var(--script); font-size: 20px; letter-spacing: -.04em; }
@@ -2821,7 +2851,7 @@ html[data-theme='dark'] .state-ok { color: #7dffb0; }
   border-color: rgba(255,255,255,.35);
   color: rgba(255,255,255,.85);
 }
-.suite-card-acid .status-badge { border-color: var(--ink); }
+.suite-card-acid .status-badge { border-color: var(--ink-on-acid); color: var(--ink-on-acid); }
 .suite-card-dark .text-link,
 .suite-card-accent .text-link,
 .edition-dark .text-link,
@@ -2829,10 +2859,13 @@ html[data-theme='dark'] .state-ok { color: #7dffb0; }
   color: var(--paper);
   border-bottom-color: rgba(255, 254, 248, 0.75);
 }
-.section-black .suite-card-paper .text-link,
-.section-black .suite-card-acid .text-link {
+.section-black .suite-card-paper .text-link {
   color: var(--ink);
   border-bottom-color: var(--ink);
+}
+.section-black .suite-card-acid .text-link {
+  color: var(--ink-on-acid);
+  border-bottom-color: var(--ink-on-acid);
 }
 
 .mini-arch {
@@ -3126,7 +3159,7 @@ html[data-theme='dark'] .state-ok { color: #7dffb0; }
   font-weight: 800;
   letter-spacing: 0.1em;
   background: var(--acid);
-  color: var(--ink);
+  color: var(--ink-on-acid);
 }
 
 .prisma-product-card-dark .prisma-product-code {
@@ -3238,7 +3271,7 @@ html[data-theme='dark'] .state-ok { color: #7dffb0; }
 }
 .prisma-product-card-dark .download-ready .brutal-button.primary {
   background: var(--acid);
-  color: var(--ink);
+  color: var(--ink-on-acid);
 }
 .prisma-product-card-dark .download-ready .brutal-button:not(.primary) {
   border-color: rgba(255, 255, 255, 0.45);
@@ -3877,7 +3910,13 @@ html[data-theme='dark'] .home-slideshow {
 .suite-card-acid h3,
 .suite-card-acid p,
 .suite-card-acid .suite-tier,
-.suite-card-acid .suite-status {
+.suite-card-acid .suite-status,
+.suite-card-acid .status-badge,
+.suite-card-acid .suite-card-top,
+.suite-card-acid .suite-card-top span,
+.suite-card-acid .tag-row span,
+.suite-card-acid .text-link,
+.suite-card-acid svg {
   color: var(--ink-on-acid);
 }
 .suite-card-accent,
@@ -3965,3 +4004,65 @@ html[data-theme='dark'] .black-panel .check-list li {
 }
 .campaign-need { color: var(--ink-soft); }
 .home-slideshow-dots button.is-active { outline: 1px solid var(--ink-on-acid); }
+
+/* Matrix: acid / accent greens are too close to --ink. Force black type. */
+html[data-theme='matrix'] .suite-card-acid,
+html[data-theme='matrix'] .suite-card-acid h3,
+html[data-theme='matrix'] .suite-card-acid p,
+html[data-theme='matrix'] .suite-card-acid .suite-tier,
+html[data-theme='matrix'] .suite-card-acid .suite-status,
+html[data-theme='matrix'] .suite-card-acid .status-badge,
+html[data-theme='matrix'] .suite-card-acid .suite-card-top,
+html[data-theme='matrix'] .suite-card-acid .suite-card-top span,
+html[data-theme='matrix'] .suite-card-acid .tag-row span,
+html[data-theme='matrix'] .suite-card-acid .text-link,
+html[data-theme='matrix'] .suite-card-acid svg,
+html[data-theme='matrix'] .section-black .suite-card-acid,
+html[data-theme='matrix'] .section-black .suite-card-acid h3,
+html[data-theme='matrix'] .section-black .suite-card-acid p,
+html[data-theme='matrix'] .section-black .suite-card-acid .text-link,
+html[data-theme='matrix'] .download-card,
+html[data-theme='matrix'] .download-card h3,
+html[data-theme='matrix'] .download-card p,
+html[data-theme='matrix'] .download-card dt,
+html[data-theme='matrix'] .download-card dd,
+html[data-theme='matrix'] .brutal-button.primary,
+html[data-theme='matrix'] .section-black .brutal-button.primary,
+html[data-theme='matrix'] .prisma-product-code,
+html[data-theme='matrix'] .contact-note,
+html[data-theme='matrix'] .campaign-number,
+html[data-theme='matrix'] .statement-mark,
+html[data-theme='matrix'] .track-card-edge,
+html[data-theme='matrix'] .track-card-edge h3,
+html[data-theme='matrix'] .track-card-edge p,
+html[data-theme='matrix'] .track-card-edge > span,
+html[data-theme='matrix'] .deck-card-hi,
+html[data-theme='matrix'] .deck-card-hi h3,
+html[data-theme='matrix'] .deck-card-hi p,
+html[data-theme='matrix'] .deck-stack-hi,
+html[data-theme='matrix'] .deck-stack-hi h3,
+html[data-theme='matrix'] .deck-stack-hi p,
+html[data-theme='matrix'] .pitch-stack-highlight,
+html[data-theme='matrix'] .pitch-stack-highlight h3,
+html[data-theme='matrix'] .pitch-stack-highlight p {
+  color: #000;
+}
+html[data-theme='matrix'] .suite-card-acid .text-link,
+html[data-theme='matrix'] .section-black .suite-card-acid .text-link {
+  border-bottom-color: #000;
+}
+
+/* Dark theme: section-black h3 { --on-dark } is more specific than
+   .suite-card-acid h3 and would paint cream on gold. */
+html[data-theme='dark'] .suite-card-acid,
+html[data-theme='dark'] .suite-card-acid h3,
+html[data-theme='dark'] .suite-card-acid p,
+html[data-theme='dark'] .suite-card-acid .suite-tier,
+html[data-theme='dark'] .suite-card-acid .status-badge,
+html[data-theme='dark'] .suite-card-acid .text-link,
+html[data-theme='dark'] .section-black .suite-card-acid,
+html[data-theme='dark'] .section-black .suite-card-acid h3,
+html[data-theme='dark'] .section-black .suite-card-acid p,
+html[data-theme='dark'] .section-black .suite-card-acid .text-link {
+  color: var(--ink-on-acid);
+}

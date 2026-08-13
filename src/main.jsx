@@ -40,6 +40,7 @@ import {
   Moon,
   Sun,
   BookOpen,
+  ChevronDown,
 } from 'lucide-react';
 import './styles.css';
 import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx';
@@ -48,20 +49,51 @@ import Slideshow from './Slideshow.jsx';
 import DocsPage from './DocsPage.jsx';
 import { applyTheme, getTheme, toggleTheme } from './theme.js';
 
+const NAV_MENUS = [
+  {
+    id: 'products',
+    label: 'PRODUCTS',
+    items: [
+      ['/rx-os', 'rxOS 7 MONAD'],
+      ['/prisma', 'PRISMA'],
+      ['/downloads', 'DOWNLOADS'],
+      ['/suite', 'SUITE'],
+    ],
+  },
+  {
+    id: 'docs',
+    label: 'DOCS',
+    items: [
+      ['/docs', 'INDEX'],
+      ['/docs/tutorial-monad', 'TUTORIAL MONAD'],
+      ['/docs/demostracion', 'DEMO + BENCH'],
+      ['/architecture', 'ARCHITECTURE'],
+    ],
+  },
+  {
+    id: 'lab',
+    label: 'LAB',
+    items: [
+      ['/about', 'ABOUT'],
+      ['https://newspaper.rogexlaboratories.com', 'NEWSPAPER'],
+      ['/investors', 'INVESTORS'],
+      ['/pitch', 'PITCH'],
+      ['/startup-idea', 'STARTUP'],
+    ],
+  },
+];
+
 const NAV_ITEMS = [
   ['/', 'HOME'],
-  ['/suite', 'SUITE'],
-  ['/architecture', 'ARCHITECTURE'],
-  ['/prisma', 'PRISMA'],
-  ['/downloads', 'DOWNLOADS'],
-  ['/rx-os', 'RX OS'],
-  ['/docs', 'DOCS'],
-  ['/investors', 'INVESTORS'],
-  ['/pitch', 'PITCH'],
-  ['/startup-idea', 'STARTUP'],
-  ['/about', 'ABOUT'],
-  ['https://newspaper.rogexlaboratories.com', 'NEWSPAPER'],
+  ...NAV_MENUS.flatMap((m) => m.items),
 ];
+
+function navHrefActive(path, href) {
+  if (path === href) return true;
+  if (href === '/rx-os' && path.startsWith('/rx-os/')) return true;
+  if (href === '/docs' && path.startsWith('/docs/')) return true;
+  return false;
+}
 
 /** Public download catalog (served from /public/downloads) */
 const DOWNLOAD_CATALOG = {
@@ -763,18 +795,38 @@ function SocialIcon({ item }) {
 
 function Header({ path, navigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openDrop, setOpenDrop] = useState(null);
   const [theme, setTheme] = useState(() => getTheme());
 
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
 
-  useEffect(() => setMenuOpen(false), [path]);
+  useEffect(() => {
+    setMenuOpen(false);
+    setOpenDrop(null);
+  }, [path]);
+
+  useEffect(() => {
+    if (!openDrop) return undefined;
+    const onDoc = (ev) => {
+      if (!(ev.target instanceof Element)) return;
+      if (!ev.target.closest('.nav-drop')) setOpenDrop(null);
+    };
+    document.addEventListener('pointerdown', onDoc);
+    return () => document.removeEventListener('pointerdown', onDoc);
+  }, [openDrop]);
+
+  const go = (href) => {
+    setOpenDrop(null);
+    setMenuOpen(false);
+    navigate(href);
+  };
 
   return (
     <header className="site-header">
       <div className="nav-shell">
-        <button className="wordmark" onClick={() => navigate('/')} aria-label="Knights Labs / Rogex Laboratories home">
+        <button className="wordmark" onClick={() => go('/')} aria-label="Knights Labs / Rogex Laboratories home">
           <img
             className="wordmark-knights"
             src="/knightslabs_logo.png"
@@ -801,7 +853,7 @@ function Header({ path, navigate }) {
             className="menu-toggle"
             aria-label="Open navigation"
             aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((value) => !value)}
+            onClick={() => { setMenuOpen((v) => !v); setOpenDrop(null); }}
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -809,26 +861,44 @@ function Header({ path, navigate }) {
 
         <div className={menuOpen ? 'nav-drawer is-open' : 'nav-drawer'}>
           <nav className="main-nav" aria-label="Main navigation">
-            {NAV_ITEMS.map(([href, label]) => {
-              const active =
-                path === href ||
-                (href === '/rx-os' && (path === '/rx-os' || path.startsWith('/rx-os/'))) ||
-                (href === '/docs' && (path === '/docs' || path.startsWith('/docs/')));
+            <button
+              type="button"
+              className={path === '/' ? 'nav-link is-active' : 'nav-link'}
+              onClick={() => go('/')}
+            >
+              HOME
+            </button>
+            {NAV_MENUS.map((menu) => {
+              const open = openDrop === menu.id;
+              const active = menu.items.some(([href]) => navHrefActive(path, href));
               return (
-                <button
-                  key={href}
-                  className={active ? 'nav-link is-active' : 'nav-link'}
-                  onClick={() => navigate(href)}
-                >
-                  {label}
-                </button>
+                <div className={open ? 'nav-drop is-open' : 'nav-drop'} key={menu.id}>
+                  <button
+                    type="button"
+                    className={active || open ? 'nav-link nav-drop-btn is-active' : 'nav-link nav-drop-btn'}
+                    aria-expanded={open}
+                    aria-haspopup="true"
+                    onClick={() => setOpenDrop(open ? null : menu.id)}
+                  >
+                    {menu.label}
+                    <ChevronDown size={13} strokeWidth={2.4} aria-hidden />
+                  </button>
+                  <div className="nav-drop-panel" hidden={!open}>
+                    {menu.items.map(([href, label]) => (
+                      <button
+                        key={href}
+                        type="button"
+                        className={navHrefActive(path, href) ? 'nav-drop-item is-active' : 'nav-drop-item'}
+                        onClick={() => go(href)}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </nav>
-
-          <div className="social-nav" aria-label="Social links">
-            {SOCIALS.map((item) => <SocialIcon item={item} key={item.label} />)}
-          </div>
         </div>
       </div>
     </header>

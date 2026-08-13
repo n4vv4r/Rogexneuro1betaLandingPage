@@ -52,7 +52,7 @@ const NAV_MENUS = [
     id: 'products',
     label: 'PRODUCTS',
     items: [
-      ['/rx-os', 'rxOS 7 MONAD'],
+      ['/rx-os', 'rxOS 8 DESKTOP'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
       ['/suite', 'SUITE'],
@@ -131,19 +131,19 @@ const DOWNLOAD_CATALOG = {
   },
   rxos: {
     id: 'rxos',
-    name: 'rxOS 7 MONAD',
-    version: 'v7.0.0',
+    name: 'rxOS 8 DESKTOP',
+    version: 'v8.0.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'VM + METAL · NAVI-3 WSP',
-    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v7.0.0',
-    zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/ISOS.zip',
-    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/rxOS-7.0.0-vm.iso',
-    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/rxOS-7.0.0-metal.iso',
-    readme: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v7.0.0',
-    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v7.0.0/SHA256SUMS.txt',
-    sha256: '76761285a98b2fc72b04c329bccd1841aba16aff97378d21f2db10f344067c80',
-    sha256Vm: '76761285a98b2fc72b04c329bccd1841aba16aff97378d21f2db10f344067c80',
-    sha256Metal: 'a2041ad63b421a96c2b3e1cadfefb4b5c7fe1d1326e67811dce895f44f8328c9',
+    status: 'VM + METAL · NAVI-4.5',
+    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.0.0',
+    zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/ISOS.zip',
+    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/rxOS-8.0.0-vm.iso',
+    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/rxOS-8.0.0-metal.iso',
+    readme: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.0.0',
+    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/SHA256SUMS.txt',
+    sha256: '1323cf285de8d5c9a93dee50ef4cc9ce86158079db44c66a4db6ccda8434df06',
+    sha256Vm: '1323cf285de8d5c9a93dee50ef4cc9ce86158079db44c66a4db6ccda8434df06',
+    sha256Metal: 'df7a4bce9c1a7c0c4be249405535540935d13c2e203bb21fafc849d8dadb9e8a',
     packages: '/rx-os/packages/',
   },
 };
@@ -161,11 +161,11 @@ const PRODUCT_SUITE = [
   {
     id: 'rxos-desktop',
     code: 'RX-01',
-    name: 'rxOS 7 MONAD',
+    name: 'rxOS 8 DESKTOP',
     tier: 'OPEN CORE · BOOTABLE x86-64',
-    status: 'v7.0.0 · NAVI-3 WSP',
-    text: 'Unikernel bare-metal: escritorio Aero, NAVI-3 (paquetes WSP 16 B + máscara ES), pesos NAVI3W01 en module2, RAG HTTP→HDC. Drivers virtio / e1000 / r8169 / rtl8139. Verificado en QEMU.',
-    tags: ['MONAD', 'NAVI-3 WSP', 'module2 weights', 'e1000'],
+    status: 'v8.0.0 · NAVI-4.5',
+    text: 'Unikernel bare-metal: escritorio Aero, NAVI-4.5 operador (WSP 16 B + G_rxos sobre la Terminal). /prove es el tour medible. Drivers virtio / e1000 / r8169 / rtl8139. Verificado en QEMU.',
+    tags: ['DESKTOP', 'NAVI-4.5', 'G_rxos', 'e1000'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -427,13 +427,13 @@ const RXOS_BENCH = [
   { test: 'sparsity: 200 sub-thr', model: '200 absorbed', kernel: '200 absorbed', result: 'PASS' },
 ];
 
-const RXOS_HERO_IMAGE = '/rxos/desktop-home.jpg';
+const RXOS_HERO_IMAGE = '/rxos/monad/12-desktop.png';
 const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
 const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
-const RXOS_VERSION = 'v7.0.0';
-const RXOS_VERSION_LABEL = 'rxOS 7 MONAD';
+const RXOS_VERSION = 'v8.0.0';
+const RXOS_VERSION_LABEL = 'rxOS 8 DESKTOP';
 
 const RXOS_INSTALL_SHOTS = [
   { src: '/rxos/install/01-language.jpg', tag: '01', title: 'LANGUAGE', text: 'English or Español. The keyboard layout follows the language.' },
@@ -1265,7 +1265,7 @@ function Home({ navigate }) {
         <span className="kicker">KNIGHTS LABS · ROGEX</span>
         <p>
           Software EEG reproducible, kernel neuromórfico abierto y un SO que arranca.
-          Capturas reales arriba: PRISMA Engine, rxOS 7 MONAD, NAVI-3 WSP. Nada de mockups.
+          Capturas reales arriba: rxOS 8 DESKTOP, NAVI-4.5 /prove, PRISMA Engine. Nada de mockups.
         </p>
         <div className="hero-tags">
           <span>PRISMA ENGINE 0.1</span>
@@ -2089,11 +2089,11 @@ function RXOS({ navigate }) {
         className="rxos-hero"
         eyebrow={`${RXOS_VERSION_LABEL} / DESKTOP + L2 + WWW`}
         title={<>A LABORATORY<br />THAT BOOTS.<br />A DESKTOP THAT WORKS.</>}
-        text="rxOS 7 MONAD es un unikernel experimental: escritorio Aero, NAVI-3 (WSP nativo, máscara ES), pesos NAVI3W01 en module2, RAG HTTP→HDC y WWW opcional. No es un LLM. No es silicio Akida."
+        text="rxOS 8 DESKTOP es un unikernel experimental: escritorio Aero, NAVI-4.5 operador (WSP 16 B + G_rxos sobre la Terminal), /prove medible, pesos NAVI3W01 en module2. No es un LLM. No es silicio Akida."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v7.0.0 MONAD</span><span>NAVI-3 WSP</span><span>LIVE INSTALLER</span><span>WWW OPT-IN</span><span>e1000</span><span>GPLv3</span>
+          <span>v8.0.0 DESKTOP</span><span>NAVI-4.5</span><span>G_rxos</span><span>/prove</span><span>e1000</span><span>GPLv3</span>
         </div>
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
           <a
@@ -2118,8 +2118,8 @@ function RXOS({ navigate }) {
         <section className="section wrap rxos-principal-section">
           <SectionTitle
             code="01 / DESKTOP"
-            title="rxOS 6 DESKTOP — CAPTURA REAL"
-            text="Captura QEMU de rxOS 7 MONAD: wallpaper, iconos, taskbar. Misma sesión que sale del LIVE installer."
+            title="rxOS 8 DESKTOP — CAPTURA REAL"
+            text="Captura QEMU de rxOS 8 DESKTOP: wallpaper, iconos, taskbar. Misma sesión que sale del LIVE installer."
           />
           <figure className="rxos-principal-shot" data-reveal>
             <img
@@ -2346,21 +2346,21 @@ function RXOS({ navigate }) {
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/monad/01-boot.png" alt="rxOS 7 MONAD NAVI Q6 self-test PASS" loading="lazy" />
+                <img src="/rxos/monad/11-boot.png" alt="rxOS 8 DESKTOP NAVI Q6 self-test PASS" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>MONAD / 06</span>
                   <div><strong>NAVI Q6 PASS</strong><p>Self-test del cubo en el banner de arranque.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture featured" data-reveal>
-                <img src="/rxos/monad/10-navi3-wsp-chat.png" alt="NAVI-3 WSP chat: SOLEDAD to CONEXION on rxOS 7 MONAD" loading="lazy" />
+                <img src="/rxos/monad/14-navi45-prove.png" alt="NAVI-4.5 /prove operator on rxOS 8 DESKTOP" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>NAVI-3 / WSP</span>
                   <div><strong>NAVI-3 WSP CHAT</strong><p>QEMU real. «estoy solo…» → YO→DESEAR→CONEXION. Máscara ES. Tecla v / /demo.</p></div>
                 </figcaption>
               </figure>
               <figure className="screenshot scientific-capture" data-reveal>
-                <img src="/rxos/monad/04-navi-l1.png" alt="NAVI 2 / L1 in rxOS 7 MONAD" loading="lazy" />
+                <img src="/rxos/monad/17-neuro.png" alt="LIF neuron on the rxOS 8 event fabric" loading="lazy" />
                 <figcaption className="capture-caption">
                   <span>NAVI 2 / 07</span>
                   <div><strong>NAVI L1</strong><p>Capa Q₆ en la terminal. Self-test 48/48.</p></div>
@@ -2396,8 +2396,8 @@ function RXOS({ navigate }) {
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
               <p>Dos ISOs x86_64: <strong>VM</strong> para QEMU/VirtualBox y <strong>metal</strong> para USB en un PC real. No es producción, no está auditado y no debe usarse para datos importantes. Elige la imagen correcta en el release.</p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-7.0.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-7.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-8.0.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-8.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div><dt>PACKAGES</dt><dd><a href="/rx-os/packages/">/rx-os/packages</a></dd></div>
@@ -2426,7 +2426,7 @@ unzip ISOS.zip
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom ISOS/rxOS-7.0.0-vm.iso \\
+  -cdrom ISOS/rxOS-8.0.0-vm.iso \\
   -serial stdio`}</code></pre>
               <div className="qemu-commands">
                 <span>TRY INSIDE RXos</span>
@@ -3629,8 +3629,8 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 No es un sistema de producción, no está auditado y no debe usarse para datos importantes.
               </p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-7.0.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-7.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-8.0.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-8.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div>
@@ -3660,7 +3660,7 @@ unzip ISOS.zip
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom ISOS/rxOS-7.0.0-vm.iso \\
+  -cdrom ISOS/rxOS-8.0.0-vm.iso \\
   -serial stdio`}</code></pre>
               <button className="brutal-button" type="button" onClick={() => navigate('/rx-os')} style={{ marginTop: 18 }}>
                 FULL RXos PAGE <ArrowUpRight size={15} />
@@ -3842,7 +3842,7 @@ const ROUTE_META = {
   '/downloads': {
     title: 'Downloads — PRISMA Engine & rxOS 7 MONAD — Knights Labs',
     description:
-      'Descargas: PRISMA Engine 0.1.0 y rxOS 7.0.0 MONAD (VM + metal). NAVI-3 WSP, e1000, SHA-256. Experimental, no clínico.',
+      'Descargas: PRISMA Engine 0.1.0 y rxOS 8.0.0 DESKTOP (VM + metal). NAVI-4.5 operador, e1000, SHA-256. Experimental, no clínico.',
     image: ogCard('prisma'),
     ...OG_DIM,
     imageAlt: 'Knights Labs public downloads',

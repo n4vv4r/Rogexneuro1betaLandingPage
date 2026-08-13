@@ -3,46 +3,60 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const HOME_SLIDES = [
   {
-    src: '/screenshots/prisma-engine/hero_gui.jpg',
-    kicker: 'PRISMA ENGINE · SNN',
-    title: 'Spikes on a real GUI.',
-    caption: 'Captura nativa egui — waveforms y telemetría. No es un mockup.',
-    href: '/prisma',
-  },
-  {
-    src: '/screenshots/prisma-engine/gui_03_live.png',
-    kicker: 'PRISMA 5 PATH',
-    title: 'Event-driven, not a batch FFT.',
-    caption: 'Motor LIF / Δ-mod en vivo. El producto P5 aún no se descarga.',
-    href: '/prisma#prisma5',
-  },
-  {
-    src: '/rxos/monad/03-desktop.png',
-    kicker: 'rxOS 7 MONAD',
-    title: 'A laboratory that boots.',
-    caption: 'Escritorio Aero en QEMU. ISO oficial v7.0.0.',
+    src: '/rxos/monad/12-desktop.png',
+    kicker: 'rxOS v8 DESKTOP',
+    title: 'Aero. Real. QEMU.',
+    caption: 'Escritorio nativo 1280×720. Captura QEMU 2026-08-13, no un mockup.',
     href: '/rx-os',
   },
   {
-    src: '/rxos/monad/01-boot.png',
-    kicker: 'MONAD · BOOT',
-    title: 'Q6 self-test: PASS.',
-    caption: 'NAVI L1 en el kernel. 1-bit 48/48 · hop 120/120.',
-    href: '/docs/tutorial-monad',
-  },
-  {
-    src: '/rxos/monad/10-navi3-wsp-chat.png',
-    kicker: 'NAVI-3 WSP',
-    title: 'SOLEDAD → CONEXION.',
-    caption: 'Tecla v. Paquete WSP 16 B + máscara ES. Captura QEMU real.',
+    src: '/rxos/monad/13-navi45-ready.png',
+    kicker: 'NAVI 4.5 · OPERADOR',
+    title: 'Not a chatbot. The OS operator.',
+    caption: 'Tecla v. WSP 16 B. Lista blanca: status, mem, nics, navi3 bench.',
     href: '/docs/navi3',
   },
   {
-    src: '/rxos/monad/05-navi-l2.png',
-    kicker: 'NAVI L2 HDC',
-    title: '66 KiB that do not grow.',
-    caption: 'Memoria asociativa. No es un LLM.',
+    src: '/rxos/monad/14-navi45-prove.png',
+    kicker: 'NAVI 4.5 · /prove',
+    title: 'heap navi3 0. HDC 100%.',
+    caption: 'Misma commands_dispatch() que la Terminal. El marketing es el binario.',
     href: '/docs/demostracion',
+  },
+  {
+    src: '/rxos/monad/15-navi45-status.png',
+    kicker: 'G_rxos',
+    title: 'rxOS> status',
+    caption: 'NAVI no inventa el estado: lo ejecuta y te pega la salida.',
+    href: '/docs/navi3',
+  },
+  {
+    src: '/rxos/monad/16-terminal.png',
+    kicker: 'TERMINAL',
+    title: 'The same shell NAVI calls.',
+    caption: 'ROSH en Aero. Esc suelta el teclado. Captura QEMU real.',
+    href: '/rx-os',
+  },
+  {
+    src: '/rxos/monad/17-neuro.png',
+    kicker: 'FABRIC LIF',
+    title: 'Any key is a stimulus.',
+    caption: 'Neurona LIF en el event fabric. Threshold 1.00. No es un skin.',
+    href: '/docs/event_fabric',
+  },
+  {
+    src: '/rxos/monad/11-boot.png',
+    kicker: 'BOOT · SELF-TEST',
+    title: 'Q6 PASS. NAVI3W01 bound.',
+    caption: 'Cada OK se imprime solo si esa etapa se comprobó de verdad.',
+    href: '/docs/tutorial-monad',
+  },
+  {
+    src: '/screenshots/prisma-engine/hero_gui.jpg',
+    kicker: 'PRISMA ENGINE · SNN',
+    title: 'Spikes on a real GUI.',
+    caption: 'Captura nativa egui — waveforms y telemetría.',
+    href: '/prisma',
   },
 ];
 
@@ -66,7 +80,7 @@ export default function Slideshow({ slides = HOME_SLIDES, onNavigate, interval =
     <section
       className="home-slideshow"
       aria-roledescription="carousel"
-      aria-label="Capturas reales — PRISMA, MONAD, NAVI-3 WSP"
+      aria-label="Capturas reales — rxOS v8 Desktop, NAVI 4.5, PRISMA"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

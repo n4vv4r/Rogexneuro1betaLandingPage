@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ArrowUpRight,
   Brain,
@@ -126,7 +126,30 @@ const COMPARE = [
   { c: 'Destruye nodos', n1: 'no', n2: 'no', n3: 'no', n45: 'no', n5: 'nunca (KCC)' },
 ];
 
+const DUMMY_STEPS = [
+  { n: '01', t: 'POSTAL DE 16 BYTES', d: 'Tu frase no viaja como novela. Viaja como postal WSP: quién, verbo, objeto, cuándo.' },
+  { n: '02', t: 'TABLERO DE FICHAS', d: 'Cada ficha es una causa. Si no está en el tablero, NAVI 6 no inventa la física.' },
+  { n: '03', t: '¿Y SI MUEVO ESTA?', d: 'Un contrafáctico es cortar una flecha (do-calculus), no un “imagínate que…” de loro.' },
+  { n: '04', t: 'TIRAR EL DADO', d: 'El modelo del mundo repite el escenario con ruido y se queda con la vía de menos sorpresa.' },
+];
+
+const EXPERT_STACK = [
+  { code: 'SNN', title: 'navi6_snn.py', text: 'Extiende NAVI5SNN. grow/retire de sinapsis, spawn_microcircuit, autotune de V_th y τ. KCC: no se matan instancias.' },
+  { code: 'DAG', title: 'navi6_causal.py', text: 'intervene mutila padres. counterfactual devuelve Δ. Currículo: cola CPU → spin-lock → RAM/GPU.' },
+  { code: 'WM', title: 'navi6_world.py', text: 'F ≈ E[‖s−s0‖²] + 0.1 Var. Escenarios discretos, no física continua ni vídeo.' },
+  { code: 'ISO', title: 'NAVI6W01', text: 'Magic 8 B + header 64 B. module2 navi6. Kernel navi6.c entero, heap 0. G_rxos sigue en 4.5.' },
+];
+
 export default function NaviPage({ navigate, PageHero, SectionTitle }) {
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return undefined;
+    const el = document.getElementById(hash);
+    if (!el) return undefined;
+    const timer = setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <PageHero
@@ -145,15 +168,11 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
           <span>0% FPU EN EL MOTOR</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–5</a>
-          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi5')}>
-            MANUAL NAVI 5
-          </button>
-          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi45')}>
-            OPERADOR 4.5
-          </button>
-          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi-catalog')}>
-            MARKDOWN
+          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–6</a>
+          <a className="brutal-button" href="#dummies">PARA DUMMIES</a>
+          <a className="brutal-button" href="#expertos">PARA EXPERTOS</a>
+          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi6')}>
+            MANUAL NAVI 6
           </button>
         </div>
       </PageHero>
@@ -295,6 +314,88 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
             </button>
             <button type="button" className="brutal-button" onClick={() => navigate('/docs')}>
               TODOS LOS DOCS
+            </button>
+          </div>
+        </section>
+
+        <section className="section section-black" id="dummies">
+          <div className="wrap">
+            <SectionTitle
+              code="04 / DUMMIES"
+              title="NAVI 6 ES UN MECÁNICO, NO UN LORO"
+              text="Un LLM apuesta la siguiente sílaba. NAVI 6 mueve fichas de causa y efecto. Si la ficha no está en el tablero, no inventa el taller."
+            />
+            <div className="explain-grid">
+              {DUMMY_STEPS.map((s) => (
+                <article className="explain-card" key={s.n} data-reveal>
+                  <span className="panel-label">{s.n}</span>
+                  <h3>{s.t}</h3>
+                  <p>{s.d}</p>
+                </article>
+              ))}
+            </div>
+            <div className="current-grid" style={{ marginTop: 28 }}>
+              <article className="paper-panel" data-reveal>
+                <span className="panel-label">EJEMPLO QUE SÍ CORRE</span>
+                <h3>GPU BLOQUEADA + RAM DISPARADA.</h3>
+                <p>No es falta de VRAM. La CPU encola más rápido de lo que la GPU confirma → spin-lock → el heap se llena. “¿Y si memoria compartida?”: sube la latencia de bus. Gana el ring-buffer lock-free.</p>
+              </article>
+              <article className="black-panel" data-reveal>
+                <span className="panel-label">LO QUE NO VENDE</span>
+                <h3>CERO QUBITS. CERO TESINA.</h3>
+                <p>Q-WSP son números complejos en el portátil. El enjambre es pequeño. No escribe tu paper. No es clínico. <code>./navi6 --ask "…"</code> o tecla v en la ISO.</p>
+              </article>
+            </div>
+            <div className="hero-actions section-actions">
+              <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi6-dummies')}>
+                LEER EL MARKDOWN
+              </button>
+              <a className="brutal-button" href="#expertos">SOY EXPERTO</a>
+            </div>
+          </div>
+        </section>
+
+        <section className="section wrap" id="expertos">
+          <SectionTitle
+            code="05 / EXPERTOS"
+            title="CONTRATO: BLOB, DO(), HOOK"
+            text="Host Python. Kernel C entero, heap 0. Magic NAVI6W01. Intercepta diagnóstico; G_rxos sigue en 4.5."
+          />
+          <div className="prisma-module-grid">
+            {EXPERT_STACK.map((item, i) => (
+              <article className="prisma-module-card" key={item.code} data-reveal style={{ '--delay': `${i * 70}ms` }}>
+                <div className="prisma-module-head"><span>{item.code}</span></div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="dataset-table" data-reveal style={{ marginTop: 28 }}>
+            <div className="dataset-row dataset-head">
+              <span>CÓMO MEDIR</span><span>COMANDO</span><span>QUÉ DEBE PASAR</span>
+            </div>
+            <div className="dataset-row">
+              <span>Suite host</span>
+              <span><code>python3 tests/test_navi6.py</code></span>
+              <span>6/6: grow, do(), F, tutor, magic.</span>
+            </div>
+            <div className="dataset-row">
+              <span>Train + blob</span>
+              <span><code>python3 navi6_train.py</code></span>
+              <span>Escribe NAVI_AI_SNN/l3/navi6_weights.bin.</span>
+            </div>
+            <div className="dataset-row">
+              <span>ISO</span>
+              <span><code>make iso-refresh</code></span>
+              <span>module2 navi6_weights.bin navi6. Sin relink si el .c no cambió.</span>
+            </div>
+          </div>
+          <div className="hero-actions section-actions">
+            <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi6-experts')}>
+              MANUAL EXPERTOS
+            </button>
+            <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi6')}>
+              ÍNDICE NAVI 6
             </button>
           </div>
         </section>

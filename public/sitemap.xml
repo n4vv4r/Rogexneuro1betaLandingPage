@@ -178,6 +178,24 @@
     <priority>0.88</priority>
   </url>
   <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi6</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi6-dummies</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi6-experts</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
     <loc>https://www.rogexlaboratories.com/docs/rfc-q6</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>

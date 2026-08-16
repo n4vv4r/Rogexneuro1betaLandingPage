@@ -8,6 +8,9 @@ y catalogado en [`/navi`](/navi).
 | [CATALOG.md](./CATALOG.md) | `/docs/navi-catalog` |
 | [NAVI1.md](./NAVI1.md) | `/docs/navi1` |
 | [NAVI5.md](./NAVI5.md) | `/docs/navi5` |
+| [NAVI6.md](./NAVI6.md) | `/docs/navi6` |
+| [NAVI6_DUMMIES.md](./NAVI6_DUMMIES.md) | `/docs/navi6-dummies` |
+| [NAVI6_EXPERTS.md](./NAVI6_EXPERTS.md) | `/docs/navi6-experts` |
 | [NAVI5_ARCHITECTURE.md](./NAVI5_ARCHITECTURE.md) | `/docs/navi5-arch` |
 | [NAVI5_TRAINING.md](./NAVI5_TRAINING.md) | `/docs/navi5-train` |
 | [L2.md](./L2.md) | `/docs/l2` |

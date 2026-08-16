@@ -41,6 +41,20 @@ export const DOCS = [
     blurb: 'DAG + world-model + neurogénesis. No es un LLM ni un QPU.',
   },
   {
+    id: 'navi6-dummies',
+    title: 'NAVI 6 para dummies',
+    category: 'navi',
+    path: '/docs/navi/NAVI6_DUMMIES.md',
+    blurb: 'El mecánico, no el loro. Analogía de un minuto.',
+  },
+  {
+    id: 'navi6-experts',
+    title: 'NAVI 6 para expertos',
+    category: 'navi',
+    path: '/docs/navi/NAVI6_EXPERTS.md',
+    blurb: 'Blob NAVI6W01, do-calculus, hook del kernel, cómo medir.',
+  },
+  {
     id: 'navi1',
     title: 'NAVI 1 — Q₆ L1',
     category: 'navi',

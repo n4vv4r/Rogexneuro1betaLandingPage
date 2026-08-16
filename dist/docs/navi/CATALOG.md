@@ -23,6 +23,8 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 4. [NAVI 4.5 — el operador](/docs/navi45)
 5. [NAVI 5 — lab cooperativo](/docs/navi5)
 6. [NAVI 6 — tutor causal](/docs/navi6)
+7. [NAVI 6 para dummies](/docs/navi6-dummies)
+8. [NAVI 6 para expertos](/docs/navi6-experts)
 6. [Arquitectura NAVI 5](/docs/navi5-arch)
 7. [Plan de entrenamiento NAVI 5](/docs/navi5-train)
 

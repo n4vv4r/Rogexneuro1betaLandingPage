@@ -46,6 +46,11 @@ navi6 bench          # dentro de rxOS
 - Magic `NAVI6W01`, header 64 B (igual que 2/3)
 - `mb2_take_navi2` también reloca `navi6`
 
+## Lectura
+
+- [Para dummies](/docs/navi6-dummies) — el mecánico, no el loro.
+- [Para expertos](/docs/navi6-experts) — blob, do-calculus, hook del kernel.
+
 ## Pruebas
 
 ```bash

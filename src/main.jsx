@@ -68,6 +68,8 @@ const NAV_MENUS = [
       ['/docs', 'INDEX'],
       ['/docs/rxos8', 'rxOS 8'],
       ['/docs/navi6', 'NAVI 6'],
+      ['/navi#dummies', 'NAVI 6 DUMMIES'],
+      ['/navi#expertos', 'NAVI 6 EXPERTOS'],
       ['/docs/navi5', 'NAVI 5'],
       ['/docs/navi45', 'NAVI 4.5'],
       ['/docs/tutorial-monad', 'TUTORIAL'],

@@ -36,7 +36,7 @@ class Emotion:
     bond: float = 0.0       # B
 ```
 
-En rxOS los mismos ejes van en `int8` \([-100, +100]\) (`wsp_packet_t`).
+En rxOS los mismos ejes van en `int8` en el rango `[-100, +100]` (`wsp_packet_t`).
 
 ## El paquete S
 

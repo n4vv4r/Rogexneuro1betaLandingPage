@@ -13,7 +13,7 @@ Corre en Python/Numba. Opcionalmente en contenedores `network_mode: none`
 | Principio | Qué significa en código |
 | --- | --- |
 | **Zero-pruning** | `lab_harness.py` no elimina subredes. Una señal de *reeducación* sustituye al prune. |
-| **SNN esparso** | LIF \(V \leftarrow V_{rest}+(V-V_{rest})e^{-dt/\tau}+I\), STDP LTP/LTD, homeostasis, \(\mu\)J/spike. |
+| **SNN esparso** | LIF `V := V_rest + (V - V_rest)*exp(-dt/tau) + I`, STDP LTP/LTD, homeostasis, µJ/spike. |
 | **WSP 16 B** | Misma postal que el kernel: 4 átomos + E[V A D C U B] + CRC8. |
 | **Q6 consenso** | Tareas por voto ponderado de *fitness*. Objetivo de acuerdo ≥ 98% en tareas simbólicas. |
 | **Memoria continua** | Decaimiento en working memory; patrones fuertes van a largo plazo. |

@@ -12,9 +12,9 @@ python3 run_peaceful_training.py --epochs 100 --instances 6
 | --- | --- | --- |
 | **1** | Estrés previo | `pre_training_stress.py`: CPU, RAM, shm, probe SNN. |
 | **2** | Ingesta WSP | Corpus → `ROGEXWSPCodec` → bus RX-DIB. |
-| **3** | Config Q6 / SNN | \(V_{th}\), \(\tau\), curvas STDP, población. |
+| **3** | Config Q6 / SNN | `V_th`, `tau`, curvas STDP, población. |
 | **4** | Peaceful Training | Épocas + ciclo cooperativo (reeducar / destilar / especializar). |
-| **5** | Telemetría pasiva | Tasa de disparo, homeostasis, \(\mu\)J/spike. Sin writes al sandbox. |
+| **5** | Telemetría pasiva | Tasa de disparo, homeostasis, µJ/spike. Sin writes al sandbox. |
 | **6** | Consolidación | `ContinualMemory` + volcado de pesos, conectividad y mapa WSP. |
 
 ## Resultados esperados (y qué se midió)
@@ -25,7 +25,7 @@ Valores de un run de **40 épocas / 4 instancias** en el host del lab
 | Área | Indicador | Esperado | Medido |
 | --- | --- | --- | --- |
 | Estabilidad | homeostasis, picos caóticos | esparso, sin caos | 0.999 · 0 picos · sparse 100% |
-| Energía | \(\mu\)J/spike | no crece al optimizar rutas | 1.00 → 0.988 |
+| Energía | µJ/spike | no crece al optimizar rutas | 1.00 → 0.988 |
 | Población | retención | 100%, 0 destruidas | 4/4, KCC ok |
 | Q6 | acuerdo simbólico | ≥ 98% | **1.00** en 4/4 tareas, 1 iter |
 | WSP | trama + densidad | 16 B, densa, ruido ok | 16 B, densidad 0.55 |

@@ -21,7 +21,7 @@ NAVI 6 tiene un **tablero de fichas** (causas → efectos). Si preguntas “¿y 
 
 - **Diagnóstico de contención.** “La GPU se bloquea y la RAM se dispara” → no es falta de VRAM: es un *spin-lock* en la cola de la CPU.
 - **Contrafácticos.** “¿Y si uso memoria compartida?” → sube la latencia de bus; el *ring-buffer* sigue ganando.
-- **Metabolismo.** Si la red dispara de más, sube el umbral sola. No hace falta que un humano retuerza \(\tau\).
+- **Metabolismo.** Si la red dispara de más, sube el umbral sola. No hace falta que un humano retuerza `tau`.
 
 ## Qué no hace (y no lo vende)
 

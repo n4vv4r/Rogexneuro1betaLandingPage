@@ -13,7 +13,7 @@ Versión para humanos: [NAVI6_DUMMIES.md](/docs/navi6-dummies).
 | --- | --- | --- |
 | SNN + metabolismo | `navi6_snn.py` | Extiende `NAVI5SNN`: `grow_synapse`, `retire_weak_synapses`, `spawn_microcircuit`, `autotune_metabolism` |
 | DAG | `navi6_causal.py` | `CausalDAG.add/intervene/counterfactual/root_causes` |
-| World model | `navi6_world.py` | Rollouts ruidosos; \(F \approx \mathbb{E}[\|s-s_0\|^2] + 0.1\mathrm{Var}\) |
+| World model | `navi6_world.py` | Rollouts ruidosos; `F ≈ mean(||s-s0||²) + 0.1 Var` |
 | Tutor | `navi6_engine.py` | `QWSP`, `FractalSwarm`, `NAVI6Engine.think` |
 | Train + pack | `navi6_train.py`, `navi6_pack.py` | Destila 5 → 6; escribe `NAVI_AI_SNN/l3/navi6_weights.bin` |
 | CLI | `./navi6` | REPL / `--ask` |
@@ -40,14 +40,14 @@ sin relink si el `.c` no cambió.
 ## Do-calculus (host)
 
 `intervene(node, value)` mutila padres de `node` y relaja el resto
-~10 pases. `counterfactual` devuelve \(\Delta\) respecto a priors.
+~10 pases. `counterfactual` devuelve el delta respecto a priors.
 Currículo semilla: cola CPU → spin-lock → ram_spike / gpu_stall;
 `ring_buffer` inhibe el lock; `shared_mem` alza `cache_incoherence`.
 
 ## Q-WSP (clásico)
 
-Vector \(\mathbb{C}^{48}\). Encode: \(e^{2\pi i (k+1)/4}\) en el átomo \(k\).
-Medida = \(\arg\max |a_i|^2\). Entropía Shannon de \(|a|^2\).
+Vector complejo de 48 amplitudes. Encode: `exp(2πi (k+1)/4)` en el átomo `k`.
+Medida = `argmax |a_i|²`. Entropía Shannon de `|a|²`.
 **No hay entrelazamiento físico.** El nombre es el protocolo, no el silicio.
 
 ## Enjambre

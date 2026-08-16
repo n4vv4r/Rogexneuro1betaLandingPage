@@ -22,19 +22,19 @@ host (solo lectura)
 | Contención | Docker | `network_mode: none`, `read_only`, `cap_drop: ALL`, `no-new-privileges`. |
 | Orquestación | `Q6Orchestrator` | Broadcast WSP, voto ponderado por fitness, destilación a disidentes. |
 | Bus | RX-DIB | Cola in-process + ficheros atómicos en tmpfs (`/tmp/rxdib`). Sin red. |
-| Núcleo | `NAVI5SNN` | LIF + STDP Numba. \(V_{th}\), \(\tau\), \(\mu\)J/spike, Watts–Strogatz. |
+| Núcleo | `NAVI5SNN` | LIF + STDP Numba. `V_th`, `tau`, µJ/spike, Watts–Strogatz. |
 | Memoria | `ContinualMemory` | Decay + fusión de vecinos + almacén de largo plazo. |
 | Códec | `ROGEXWSPCodec` | Contrato 16 B idéntico a `kernel/include/wsp.h`. |
 
 ## LIF (lo que se simula)
 
-\[
-V \leftarrow V_{rest} + (V - V_{rest})\,e^{-dt/\tau} + I
-\]
+```
+V := V_rest + (V - V_rest) * exp(-dt/tau) + I
+```
 
-Si \(V \ge V_{th}\): spike, \(V \leftarrow V_{reset}\), refractario.
-STDP cada 10 pasos: LTP \(A_+ e^{-\Delta t/\tau_+}\), LTD \(A_- e^{\Delta t/\tau_-}\).
-Sinapsis ociosas decaen → menos rutas activas → menos \(\mu\)J/spike.
+Si `V >= V_th`: spike, `V := V_reset`, refractario.
+STDP cada 10 pasos: LTP `A+ * exp(-dt/tau+)`, LTD `A- * exp(dt/tau-)`.
+Sinapsis ociosas decaen → menos rutas activas → menos µJ/spike.
 
 Homeostasis escala pesos hacia una tasa objetivo (~5%). Una corriente de
 fondo baja evita el régimen “red muerta” (esparso porque no dispara nadie).

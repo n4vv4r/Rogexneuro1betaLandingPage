@@ -125,6 +125,22 @@ const LINE = [
     extra: '/docs/navi65-dummies',
     extraLabel: 'PARA DUMMIES',
   },
+  {
+    id: 'navi7',
+    gen: '07',
+    name: 'NAVI 7',
+    codename: 'NPU · PLAN',
+    status: 'NO HAY CÓDIGO · ESPERA SILICIO',
+    tone: 'warn',
+    icon: Cpu,
+    where: 'docs/NAVI7.md · neurocpu akida',
+    unit: '6.5 + programa Akida .fbz',
+    text: 'La misma mente que 6.5, con un sitio donde Q6 y las poblaciones pueden disparar en BrainChip Akida. Sin placa, sin USB y sin test software-vs-NPU no se llama 7. El hook ya se niega.',
+    facts: ['PLAN, no tag', 'fallback a 6.5', 'Q6 primero', 'DAG sigue en CPU'],
+    docs: '/docs/navi7',
+    extra: '/docs/akida',
+    extraLabel: 'GANCHO AKIDA',
+  },
 ];
 
 const NAVI5_LAYERS = [
@@ -170,9 +186,9 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 6.5"
+        eyebrow="NAVI · LÍNEA SNN 1 → 6.5 · 7 EN PLANO"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
-        text="Siete generaciones. 1–4.5 en el unikernel. 5 es el lab cooperativo. 6 es el tutor causal. 6.5 es el modelo RLC oficial: razona, habla y emite código con esquema. Ninguna es un LLM."
+        text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 es el RLC oficial. 7 es el plan Akida: mismo router, spikes en silicio si hay placa. Hoy neurocpu akida se niega. Ninguna es un LLM."
         image="/rxos/monad/13-navi45-ready.png"
         className="rxos-hero"
       >
@@ -185,11 +201,14 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
           <span>0% FPU EN EL MOTOR</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–6.5</a>
+          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–7</a>
           <a className="brutal-button" href="#dummies">PARA DUMMIES</a>
           <a className="brutal-button" href="#expertos">PARA EXPERTOS</a>
           <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi65')}>
             MANUAL NAVI 6.5
+          </button>
+          <button type="button" className="brutal-button" onClick={() => navigate('/docs/cianotipo')}>
+            CIANOTIPO
           </button>
         </div>
       </PageHero>

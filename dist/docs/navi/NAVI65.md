@@ -70,3 +70,5 @@ python3 tests/test_navi6.py
 - [Para dummies](/docs/navi65-dummies)
 - [Para expertos](/docs/navi65-experts)
 - [NAVI 6](/docs/navi6) — el tutor causal que 6.5 usa como G_debug
+- [Cianotipo](/docs/cianotipo) — rxOS + NAVI + PRISMA + Akida
+- [NAVI 7](/docs/navi7) — plan. No hay código.

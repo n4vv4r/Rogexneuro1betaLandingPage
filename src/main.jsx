@@ -67,7 +67,10 @@ const NAV_MENUS = [
     items: [
       ['/docs', 'INDEX'],
       ['/docs/rxos8', 'rxOS 8'],
+      ['/docs/cianotipo', 'CIANOTIPO'],
+      ['/docs/akida', 'AKIDA'],
       ['/docs/navi65', 'NAVI 6.5'],
+      ['/docs/navi7', 'NAVI 7 PLAN'],
       ['/docs/navi6', 'NAVI 6'],
       ['/navi#dummies', 'NAVI 6.5 DUMMIES'],
       ['/navi#expertos', 'NAVI 6.5 EXPERTOS'],

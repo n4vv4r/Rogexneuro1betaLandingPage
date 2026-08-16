@@ -15,6 +15,7 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 | **5** | Lab KCC | host Python/Numba (`navi5_*.py`) | SNN LIF+STDP + WSP + Q6 | Entrenamiento no destructivo, air-gap | Silicio Akida ni un LLM |
 | **6** | Tutor causal | host `./navi6` + `kernel/navi/navi6.c` | DAG + world-model + WSP | Diagnóstico/contrafáctico; blob `NAVI6W01` en la ISO | LLM, QPU, millones de nodos |
 | **6.5** | RLC oficial | host `./navi65` + `navi6.c` router | 11 máscaras G_* + 5 cajas | Razona, habla y codea con esquema; DESCONOCIDO si no | LLM, Copilot, QPU |
+| **7** | NPU (plan) | no hay código | 6.5 + Akida `.fbz` | Offload de Q6/SNN si `neurocpu akida` ve silicio | No está escrito. Sin placa no hay 7 |
 
 ## Cómo leer esto
 
@@ -25,12 +26,11 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 5. [NAVI 5 — lab cooperativo](/docs/navi5)
 6. [NAVI 6 — tutor causal](/docs/navi6)
 7. [NAVI 6.5 — RLC](/docs/navi65)
-8. [NAVI 6.5 para dummies](/docs/navi65-dummies)
-9. [NAVI 6.5 para expertos](/docs/navi65-experts)
-10. [NAVI 6 para dummies](/docs/navi6-dummies)
-11. [NAVI 6 para expertos](/docs/navi6-experts)
-6. [Arquitectura NAVI 5](/docs/navi5-arch)
-7. [Plan de entrenamiento NAVI 5](/docs/navi5-train)
+8. [NAVI 7 — plan (no hay código)](/docs/navi7)
+9. [Cianotipo rxOS / NAVI / PRISMA](/docs/cianotipo)
+10. [Akida × rxOS](/docs/akida)
+11. [NAVI 6.5 para dummies](/docs/navi65-dummies)
+12. [Arquitectura NAVI 5](/docs/navi5-arch)
 
 Catálogo visual en la web: [`/navi`](/navi).
 
@@ -48,7 +48,7 @@ Catálogo visual en la web: [`/navi`](/navi).
   No está todavía dentro de la ISO como operador.
 - Ninguna generación “entiende español”. El castellano es máscara.
 - No hay cifra J/inferencia publicada: RAPL en QEMU miente.
-- No hay port a Loihi / TrueNorth / Akida. Nivel 3 del roadmap sigue bloqueado
-  por falta de chip en el lab.
+- No hay port a Loihi / TrueNorth / Akida **en silicio**. El hook
+  `neurocpu akida` se niega. Plano: [cianotipo](/docs/cianotipo), [Akida](/docs/akida).
 
 Experimental. No clínico. GPLv3 en el árbol rxOS.

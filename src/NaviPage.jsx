@@ -93,6 +93,22 @@ const LINE = [
     extra: '/docs/navi5-train',
     extraLabel: 'ENTRENAMIENTO',
   },
+  {
+    id: 'navi6',
+    gen: '06',
+    name: 'NAVI 6',
+    codename: 'TUTOR CAUSAL',
+    status: 'HOST + KERNEL · NAVI6W01',
+    tone: 'ok',
+    icon: Brain,
+    where: 'navi6 + kernel/navi/navi6.c',
+    unit: 'DAG + world-model + WSP',
+    text: 'Diagnostica causas (spin-lock ≠ VRAM) y responde “qué pasaría si”. Neurogénesis de sinapsis. Q-WSP son amplitudes clásicas, no qubits.',
+    facts: ['do-calculus', 'rollouts F', 'blob en la ISO', 'no es un LLM'],
+    docs: '/docs/navi6',
+    extra: '/docs/navi5',
+    extraLabel: 'NAVI 5 LAB',
+  },
 ];
 
 const NAVI5_LAYERS = [
@@ -115,9 +131,9 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 5"
+        eyebrow="NAVI · LÍNEA SNN 1 → 6"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
-        text="Cinco generaciones de IA neuromórfica Knights Labs. Las 1–4.5 viven en el unikernel. La 5 es el laboratorio host cooperativo. Ninguna es un LLM. El castellano, cuando aparece, es máscara."
+        text="Seis generaciones. 1–4.5 en el unikernel. 5 es el lab cooperativo. 6 es el tutor causal (DAG + world-model) en ./navi6 y en el kernel. Ninguna es un LLM."
         image="/rxos/monad/13-navi45-ready.png"
         className="rxos-hero"
       >

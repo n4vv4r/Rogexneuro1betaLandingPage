@@ -28,10 +28,17 @@ export const DOCS = [
   },
   {
     id: 'navi-catalog',
-    title: 'Catálogo NAVI 1 → 5',
+    title: 'Catálogo NAVI 1 → 6',
     category: 'navi',
     path: '/docs/navi/CATALOG.md',
-    blurb: 'Línea SNN completa. Cada generación añade una capa.',
+    blurb: 'Línea SNN completa. Cada generación añade una capa. NAVI 6 es el tutor causal.',
+  },
+  {
+    id: 'navi6',
+    title: 'NAVI 6 — tutor causal',
+    category: 'navi',
+    path: '/docs/navi/NAVI6.md',
+    blurb: 'DAG + world-model + neurogénesis. No es un LLM ni un QPU.',
   },
   {
     id: 'navi1',

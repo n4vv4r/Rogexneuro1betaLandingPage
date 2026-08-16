@@ -13,6 +13,7 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 | **3** | WSP SNN | `navi3_fwd.c` + `wsp.c` | `wsp_packet_t` 16 B | Transductor S→S′, máscara ES | Un parser de español |
 | **4 / 4.5** | Operador | `wsp_rxos.c` + `G_rxos` | 16 B + lista blanca | Ejecuta `status` / `/prove` | Un oráculo |
 | **5** | Lab KCC | host Python/Numba (`navi5_*.py`) | SNN LIF+STDP + WSP + Q6 | Entrenamiento no destructivo, air-gap | Silicio Akida ni un LLM |
+| **6** | Tutor causal | host `./navi6` + `kernel/navi/navi6.c` | DAG + world-model + WSP | Diagnóstico/contrafáctico; blob `NAVI6W01` en la ISO | LLM, QPU, millones de nodos |
 
 ## Cómo leer esto
 
@@ -21,6 +22,7 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 3. [NAVI 3 — WSP](/docs/navi3)
 4. [NAVI 4.5 — el operador](/docs/navi45)
 5. [NAVI 5 — lab cooperativo](/docs/navi5)
+6. [NAVI 6 — tutor causal](/docs/navi6)
 6. [Arquitectura NAVI 5](/docs/navi5-arch)
 7. [Plan de entrenamiento NAVI 5](/docs/navi5-train)
 

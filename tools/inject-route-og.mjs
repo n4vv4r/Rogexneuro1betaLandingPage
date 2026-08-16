@@ -69,10 +69,19 @@ const ROUTES = [
     imageAlt: 'Knights Labs public downloads — PRISMA Engine and RXos',
   },
   {
+    out: 'navi.html',
+    title: 'NAVI — catálogo SNN 1 → 5 — Knights Labs',
+    description:
+      'Línea NAVI: Q₆ L1, ASCII, WSP 16 B, operador 4.5 y lab cooperativo 5 (KCC, cero pruning). No es un LLM.',
+    url: `${SITE}/navi`,
+    image: OG('navi'),
+    imageAlt: 'NAVI SNN catalog — Knights Labs',
+  },
+  {
     out: 'docs.html',
     title: 'Docs — rxOS 8, NAVI-4.5, WSP, Q₆ — Knights Labs',
     description:
-      'Visor markdown: rxOS 8 DESKTOP, NAVI-4.5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
+      'Visor markdown: rxOS 8 DESKTOP, NAVI 1–5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
     url: `${SITE}/docs`,
     image: OG('rx-os'),
     imageAlt: 'Knights Labs technical documentation',

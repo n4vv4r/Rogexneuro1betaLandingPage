@@ -4428,3 +4428,67 @@ html[data-theme='matrix'] .download-card.paper h3,
 html[data-theme='matrix'] .download-card.paper p {
   color: var(--ink);
 }
+
+/* NAVI catalog */
+.navi-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+.navi-card {
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  padding: 18px 16px 16px;
+  display: grid;
+  gap: 10px;
+}
+.navi-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.navi-gen {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+.navi-card-title {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.navi-card-title h3 {
+  font-size: 20px;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+.navi-card-title em {
+  display: block;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+.navi-card p { font-size: 13px; line-height: 1.5; color: var(--ink-soft); margin: 0; }
+.navi-meta {
+  display: grid;
+  gap: 2px;
+  font-size: 11px;
+}
+.navi-meta code {
+  font-size: 10px;
+  word-break: break-all;
+}
+.navi-card ul {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.navi-compare .compare-row {
+  grid-template-columns: 0.7fr repeat(5, 1fr);
+}
+@media (max-width: 900px) {
+  .navi-compare .compare-row { grid-template-columns: 1fr; }
+}

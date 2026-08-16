@@ -8,6 +8,7 @@ export const DOC_CATEGORIES = [
   { id: 'impl', label: 'Implementación', color: '#1a6b7a' },
   { id: 'wsp', label: 'RogexWSP', color: '#c45c14' },
   { id: 'prisma', label: 'PRISMA', color: '#8b3a4a' },
+  { id: 'navi', label: 'NAVI', color: '#2a5a8c' },
 ];
 
 export const DOCS = [
@@ -26,9 +27,44 @@ export const DOCS = [
     blurb: 'Unikernel, números comprobables, historia de versiones.',
   },
   {
+    id: 'navi-catalog',
+    title: 'Catálogo NAVI 1 → 5',
+    category: 'navi',
+    path: '/docs/navi/CATALOG.md',
+    blurb: 'Línea SNN completa. Cada generación añade una capa.',
+  },
+  {
+    id: 'navi1',
+    title: 'NAVI 1 — Q₆ L1',
+    category: 'navi',
+    path: '/docs/navi/NAVI1.md',
+    blurb: 'Hipercubo de 6 bits. 48/48. No habla.',
+  },
+  {
+    id: 'navi5',
+    title: 'NAVI 5 — lab cooperativo',
+    category: 'navi',
+    path: '/docs/navi/NAVI5.md',
+    blurb: 'KCC, LIF+STDP, WSP 16 B, air-gap. No es un LLM.',
+  },
+  {
+    id: 'navi5-arch',
+    title: 'NAVI 5 — arquitectura',
+    category: 'navi',
+    path: '/docs/navi/NAVI5_ARCHITECTURE.md',
+    blurb: 'Harness pasivo, RX-DIB, Q6, Docker network none.',
+  },
+  {
+    id: 'navi5-train',
+    title: 'NAVI 5 — entrenamiento',
+    category: 'navi',
+    path: '/docs/navi/NAVI5_TRAINING.md',
+    blurb: 'Seis fases. Cero pruning. Resultados medidos.',
+  },
+  {
     id: 'navi45',
     title: 'NAVI-4.5 — el operador',
-    category: 'impl',
+    category: 'navi',
     path: '/docs/rxos/NAVI45.md',
     blurb: 'WSP 16 B, G_rxos, /prove. No es un LLM.',
   },
@@ -120,14 +156,14 @@ export const DOCS = [
   {
     id: 'navi3',
     title: 'NAVI-3/4 WSP — arquitectura',
-    category: 'impl',
+    category: 'navi',
     path: '/docs/rxos/NAVI3_WSP_ARCHITECTURE.md',
     blurb: 'Transductor S→S′, 16 B, máscara ES, ext v0.5.',
   },
   {
     id: 'navi2',
     title: 'NAVI 2 — arquitectura (legado ASCII)',
-    category: 'impl',
+    category: 'navi',
     path: '/docs/rxos/NAVI2_ARCHITECTURE.md',
     blurb: 'Motor de bytes legado. El chat del ISO usa NAVI-3.',
   },

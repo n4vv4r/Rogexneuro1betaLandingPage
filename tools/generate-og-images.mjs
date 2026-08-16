@@ -208,6 +208,17 @@ const CARDS = [
     }),
   },
   {
+    file: 'navi.png',
+    svg: labCard({
+      kicker: 'NAVI · SNN LINE 1 → 5',
+      title: 'Not a parrot. A line of relays.',
+      subtitle: 'Q₆ · WSP 16 B · NAVI-4.5 operator · NAVI 5 KCC lab',
+      badge: 'CATALOG',
+      accent: LAB.accent,
+      variant: 'dark',
+    }),
+  },
+  {
     file: 'rx-os.png',
     // Real QEMU desktop capture + brand overlay (not a generic SVG card).
     fromShot: 'public/rxos/monad/12-desktop.png',

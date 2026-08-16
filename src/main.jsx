@@ -46,6 +46,7 @@ import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx
 import PackagesPage from './rxos/PackagesPage.jsx';
 import Slideshow from './Slideshow.jsx';
 import DocsPage from './DocsPage.jsx';
+import NaviPage from './NaviPage.jsx';
 import { applyTheme, getTheme, THEMES } from './theme.js';
 
 const NAV_MENUS = [
@@ -54,6 +55,7 @@ const NAV_MENUS = [
     label: 'PRODUCTS',
     items: [
       ['/rx-os', 'rxOS 8 DESKTOP'],
+      ['/navi', 'NAVI'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
       ['/suite', 'SUITE'],
@@ -65,6 +67,7 @@ const NAV_MENUS = [
     items: [
       ['/docs', 'INDEX'],
       ['/docs/rxos8', 'rxOS 8'],
+      ['/docs/navi5', 'NAVI 5'],
       ['/docs/navi45', 'NAVI 4.5'],
       ['/docs/tutorial-monad', 'TUTORIAL'],
       ['/docs/demostracion', 'DEMO + BENCH'],
@@ -93,6 +96,7 @@ const NAV_ITEMS = [
 function navHrefActive(path, href) {
   if (path === href) return true;
   if (href === '/rx-os' && path.startsWith('/rx-os/')) return true;
+  if (href === '/navi' && (path === '/navi' || path.startsWith('/navi/'))) return true;
   if (href === '/docs' && path.startsWith('/docs/')) return true;
   return false;
 }
@@ -172,6 +176,18 @@ const PRODUCT_SUITE = [
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
+  },
+  {
+    id: 'navi-line',
+    code: 'NV-00',
+    name: 'NAVI SNN 1 → 5',
+    tier: 'OPEN · LÍNEA NEUROMÓRFICA',
+    status: 'CATÁLOGO · LAB 5 KCC',
+    text: 'Familia SNN: Q₆ L1, ASCII L3, WSP 16 B, operador G_rxos y laboratorio cooperativo sin pruning. No es un LLM. El castellano es máscara.',
+    tags: ['Q₆', 'WSP 16 B', 'NAVI-4.5', 'NAVI 5 KCC'],
+    href: '/navi',
+    icon: Brain,
+    tone: 'acid',
   },
   {
     id: 'rxos-kernel',
@@ -1447,6 +1463,9 @@ function Home({ navigate }) {
             <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">
               DESCARGAR rxOS 8
             </a>
+            <button className="brutal-button" onClick={() => navigate('/navi')}>
+              CATÁLOGO NAVI
+            </button>
             <button className="brutal-button" onClick={() => navigate('/docs/navi45')}>
               AVISO NAVI-4.5
             </button>
@@ -4133,10 +4152,19 @@ const ROUTE_META = {
     imageAlt: 'rxOS package channel .rxc',
     url: `${SITE}/rx-os/packages`,
   },
+  '/navi': {
+    title: 'NAVI — catálogo SNN 1 → 5 — Knights Labs',
+    description:
+      'Línea NAVI: Q₆ L1, ASCII, WSP 16 B, operador 4.5 y lab cooperativo 5 (KCC, cero pruning). No es un LLM.',
+    image: ogCard('navi'),
+    ...OG_DIM,
+    imageAlt: 'NAVI SNN catalog — Knights Labs',
+    url: `${SITE}/navi`,
+  },
   '/docs': {
     title: 'Docs — rxOS 8, NAVI-4.5, WSP, Q₆ — Knights Labs',
     description:
-      'Visor markdown: rxOS 8 DESKTOP, NAVI-4.5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
+      'Visor markdown: rxOS 8 DESKTOP, NAVI 1–5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'Knights Labs technical documentation',
@@ -4271,6 +4299,15 @@ function App() {
     );
   } else if (path === '/rx-os' || path === '/rogexos') {
     page = <RXOS navigate={navigate} />;
+  }
+  if (path === '/navi' || path.startsWith('/navi/')) {
+    page = (
+      <NaviPage
+        navigate={navigate}
+        PageHero={PageHero}
+        SectionTitle={SectionTitle}
+      />
+    );
   }
   if (path === '/docs' || path.startsWith('/docs/')) {
     page = (

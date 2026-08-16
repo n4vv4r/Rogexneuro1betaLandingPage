@@ -11,6 +11,8 @@
     { "source": "/suite", "destination": "/suite.html" },
     { "source": "/architecture", "destination": "/architecture.html" },
     { "source": "/prisma", "destination": "/prisma.html" },
+    { "source": "/navi", "destination": "/navi.html" },
+    { "source": "/navi/", "destination": "/navi.html" },
     { "source": "/downloads", "destination": "/downloads.html" },
     { "source": "/docs", "destination": "/docs.html" },
     { "source": "/docs/", "destination": "/docs.html" },

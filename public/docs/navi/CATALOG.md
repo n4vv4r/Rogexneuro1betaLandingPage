@@ -14,6 +14,7 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 | **4 / 4.5** | Operador | `wsp_rxos.c` + `G_rxos` | 16 B + lista blanca | Ejecuta `status` / `/prove` | Un oráculo |
 | **5** | Lab KCC | host Python/Numba (`navi5_*.py`) | SNN LIF+STDP + WSP + Q6 | Entrenamiento no destructivo, air-gap | Silicio Akida ni un LLM |
 | **6** | Tutor causal | host `./navi6` + `kernel/navi/navi6.c` | DAG + world-model + WSP | Diagnóstico/contrafáctico; blob `NAVI6W01` en la ISO | LLM, QPU, millones de nodos |
+| **6.5** | RLC oficial | host `./navi65` + `navi6.c` router | 11 máscaras G_* + 5 cajas | Razona, habla y codea con esquema; DESCONOCIDO si no | LLM, Copilot, QPU |
 
 ## Cómo leer esto
 
@@ -23,8 +24,11 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 4. [NAVI 4.5 — el operador](/docs/navi45)
 5. [NAVI 5 — lab cooperativo](/docs/navi5)
 6. [NAVI 6 — tutor causal](/docs/navi6)
-7. [NAVI 6 para dummies](/docs/navi6-dummies)
-8. [NAVI 6 para expertos](/docs/navi6-experts)
+7. [NAVI 6.5 — RLC](/docs/navi65)
+8. [NAVI 6.5 para dummies](/docs/navi65-dummies)
+9. [NAVI 6.5 para expertos](/docs/navi65-experts)
+10. [NAVI 6 para dummies](/docs/navi6-dummies)
+11. [NAVI 6 para expertos](/docs/navi6-experts)
 6. [Arquitectura NAVI 5](/docs/navi5-arch)
 7. [Plan de entrenamiento NAVI 5](/docs/navi5-train)
 

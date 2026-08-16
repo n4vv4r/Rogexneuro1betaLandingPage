@@ -109,6 +109,22 @@ const LINE = [
     extra: '/docs/navi5',
     extraLabel: 'NAVI 5 LAB',
   },
+  {
+    id: 'navi65',
+    gen: '06.5',
+    name: 'NAVI 6.5',
+    codename: 'RLC OFICIAL',
+    status: 'HOST + KERNEL · 11 MÁSCARAS G_*',
+    tone: 'ok',
+    icon: Brain,
+    where: 'navi65 + kernel/navi/navi6.c',
+    unit: 'PARSE → VERIFY → G_*',
+    text: 'El modelo oficial de razonamiento, lenguaje y código. Hereda talk/logic/poem/news/code/rxos de 4.5 y añade reason, math, debug, plan, teach. Si no hay esquema: DESCONOCIDO.',
+    facts: ['11 máscaras G_*', 'math entero 0% FPU', 'código + dry-run', 'no es un LLM'],
+    docs: '/docs/navi65',
+    extra: '/docs/navi65-dummies',
+    extraLabel: 'PARA DUMMIES',
+  },
 ];
 
 const NAVI5_LAYERS = [
@@ -127,17 +143,17 @@ const COMPARE = [
 ];
 
 const DUMMY_STEPS = [
-  { n: '01', t: 'POSTAL DE 16 BYTES', d: 'Tu frase no viaja como novela. Viaja como postal WSP: quién, verbo, objeto, cuándo.' },
-  { n: '02', t: 'TABLERO DE FICHAS', d: 'Cada ficha es una causa. Si no está en el tablero, NAVI 6 no inventa la física.' },
-  { n: '03', t: '¿Y SI MUEVO ESTA?', d: 'Un contrafáctico es cortar una flecha (do-calculus), no un “imagínate que…” de loro.' },
-  { n: '04', t: 'TIRAR EL DADO', d: 'El modelo del mundo repite el escenario con ruido y se queda con la vía de menos sorpresa.' },
+  { n: '01', t: 'CINCO CAJAS', d: 'PARSE, RETRIEVE, INFER, VERIFY, RENDER. NAVI 6.5 pasa por las cinco en cada turno. Siempre.' },
+  { n: '02', t: 'ONCE RELÉS', d: 'Hablar, lógica, poema, noticias, código, rxOS, razonar, math, debug, plan, enseñar. El castellano es la pintura.' },
+  { n: '03', t: 'SI NO HAY FICHA', d: 'DESCONOCIDO. Un compilador LLVM no está en el catálogo. Un loro lo inventaría. Aquí no.' },
+  { n: '04', t: 'LA CUENTA ES ENTERA', d: '12 por 7 más 3 = 87. Sin coma flotante. El código se dry-runea. El debug sigue siendo el mecánico de NAVI 6.' },
 ];
 
 const EXPERT_STACK = [
-  { code: 'SNN', title: 'navi6_snn.py', text: 'Extiende NAVI5SNN. grow/retire de sinapsis, spawn_microcircuit, autotune de V_th y τ. KCC: no se matan instancias.' },
-  { code: 'DAG', title: 'navi6_causal.py', text: 'intervene mutila padres. counterfactual devuelve Δ. Currículo: cola CPU → spin-lock → RAM/GPU.' },
-  { code: 'WM', title: 'navi6_world.py', text: 'F ≈ E[‖s−s0‖²] + 0.1 Var. Escenarios discretos, no física continua ni vídeo.' },
-  { code: 'ISO', title: 'NAVI6W01', text: 'Magic 8 B + header 64 B. module2 navi6. Kernel navi6.c entero, heap 0. G_rxos sigue en 4.5.' },
+  { code: 'RLC', title: 'navi65_engine.py', text: 'Cada turno: PARSE-RETRIEVE-INFER-VERIFY-RENDER. Máscara G_*. reflect() se pregunta al DAG. No es next-token.' },
+  { code: 'G_*', title: 'wsp.h + navi65_masks.py', text: '11 IDs. 4.5 (talk…rxos) + reason/math/debug/plan/teach. navi6_reply posee el chat y delega el render.' },
+  { code: 'CODE', title: 'navi65_code.py', text: 'Catálogo + dry-run entero. reverse, clamp, LIF, gcd, fib, crc8. Kubernetes/LLVM → DESCONOCIDO.' },
+  { code: 'ISO', title: 'navi6.c 6.5', text: 'claim = todo turno. Math recursive descent 0% FPU. G_rxos sigue siendo commands_dispatch. /prove no se rompe.' },
 ];
 
 export default function NaviPage({ navigate, PageHero, SectionTitle }) {
@@ -154,9 +170,9 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 6"
+        eyebrow="NAVI · LÍNEA SNN 1 → 6.5"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
-        text="Seis generaciones. 1–4.5 en el unikernel. 5 es el lab cooperativo. 6 es el tutor causal (DAG + world-model) en ./navi6 y en el kernel. Ninguna es un LLM."
+        text="Siete generaciones. 1–4.5 en el unikernel. 5 es el lab cooperativo. 6 es el tutor causal. 6.5 es el modelo RLC oficial: razona, habla y emite código con esquema. Ninguna es un LLM."
         image="/rxos/monad/13-navi45-ready.png"
         className="rxos-hero"
       >
@@ -165,14 +181,15 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
           <span>WSP 16 B</span>
           <span>NAVI-4.5 /prove</span>
           <span>NAVI 5 KCC</span>
+          <span>NAVI 6.5 RLC</span>
           <span>0% FPU EN EL MOTOR</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–6</a>
+          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–6.5</a>
           <a className="brutal-button" href="#dummies">PARA DUMMIES</a>
           <a className="brutal-button" href="#expertos">PARA EXPERTOS</a>
-          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi6')}>
-            MANUAL NAVI 6
+          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi65')}>
+            MANUAL NAVI 6.5
           </button>
         </div>
       </PageHero>
@@ -322,8 +339,8 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
           <div className="wrap">
             <SectionTitle
               code="04 / DUMMIES"
-              title="NAVI 6 ES UN MECÁNICO, NO UN LORO"
-              text="Un LLM apuesta la siguiente sílaba. NAVI 6 mueve fichas de causa y efecto. Si la ficha no está en el tablero, no inventa el taller."
+              title="NAVI 6.5 ES UN TABLERO DE RELÉS"
+              text="Un LLM apuesta la siguiente sílaba. NAVI 6.5 elige una máscara G_* y pasa por cinco cajas. Si la ficha no está, dice DESCONOCIDO."
             />
             <div className="explain-grid">
               {DUMMY_STEPS.map((s) => (
@@ -338,16 +355,16 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
               <article className="paper-panel" data-reveal>
                 <span className="panel-label">EJEMPLO QUE SÍ CORRE</span>
                 <h3>GPU BLOQUEADA + RAM DISPARADA.</h3>
-                <p>No es falta de VRAM. La CPU encola más rápido de lo que la GPU confirma → spin-lock → el heap se llena. “¿Y si memoria compartida?”: sube la latencia de bus. Gana el ring-buffer lock-free.</p>
+                <p>No es falta de VRAM. La CPU encola más rápido de lo que la GPU confirma → spin-lock → el heap se llena. “¿Y si memoria compartida?”: sube la latencia de bus. Gana el ring-buffer lock-free. Eso es G_debug, el NAVI 6 de siempre.</p>
               </article>
               <article className="black-panel" data-reveal>
                 <span className="panel-label">LO QUE NO VENDE</span>
-                <h3>CERO QUBITS. CERO TESINA.</h3>
-                <p>Q-WSP son números complejos en el portátil. El enjambre es pequeño. No escribe tu paper. No es clínico. <code>./navi6 --ask "…"</code> o tecla v en la ISO.</p>
+                <h3>CERO QUBITS. CERO COPILOT.</h3>
+                <p>Math entero. Código del catálogo. Q-WSP son números complejos en el portátil. No escribe tu paper. No es clínico. <code>./navi65 --ask "…"</code> o tecla v en la ISO.</p>
               </article>
             </div>
             <div className="hero-actions section-actions">
-              <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi6-dummies')}>
+              <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi65-dummies')}>
                 LEER EL MARKDOWN
               </button>
               <a className="brutal-button" href="#expertos">SOY EXPERTO</a>
@@ -358,8 +375,8 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
         <section className="section wrap" id="expertos">
           <SectionTitle
             code="05 / EXPERTOS"
-            title="CONTRATO: BLOB, DO(), HOOK"
-            text="Host Python. Kernel C entero, heap 0. Magic NAVI6W01. Intercepta diagnóstico; G_rxos sigue en 4.5."
+            title="CONTRATO: 11 G_*, 5 CAJAS, HOOK"
+            text="Host Python. Kernel C entero, heap 0. 6.5 posee el chat y delega G_rxos al mismo commands_dispatch. /prove no se rompe."
           />
           <div className="prisma-module-grid">
             {EXPERT_STACK.map((item, i) => (
@@ -380,6 +397,11 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
               <span>6/6: grow, do(), F, tutor, magic.</span>
             </div>
             <div className="dataset-row">
+              <span>Suite 6.5</span>
+              <span><code>python3 tests/test_navi65.py</code></span>
+              <span>16/16: máscaras, math, código, DESCONOCIDO, reflect.</span>
+            </div>
+            <div className="dataset-row">
               <span>Train + blob</span>
               <span><code>python3 navi6_train.py</code></span>
               <span>Escribe NAVI_AI_SNN/l3/navi6_weights.bin.</span>
@@ -391,11 +413,11 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
             </div>
           </div>
           <div className="hero-actions section-actions">
-            <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi6-experts')}>
+            <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi65-experts')}>
               MANUAL EXPERTOS
             </button>
-            <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi6')}>
-              ÍNDICE NAVI 6
+            <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi65')}>
+              ÍNDICE NAVI 6.5
             </button>
           </div>
         </section>

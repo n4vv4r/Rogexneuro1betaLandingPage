@@ -70,9 +70,9 @@ const ROUTES = [
   },
   {
     out: 'navi.html',
-    title: 'NAVI — catálogo SNN 1 → 5 — Knights Labs',
+    title: 'NAVI — catálogo SNN 1 → 6.5 — Knights Labs',
     description:
-      'Línea NAVI: Q₆ L1, ASCII, WSP 16 B, operador 4.5 y lab cooperativo 5 (KCC, cero pruning). No es un LLM.',
+      'Línea NAVI: Q₆, WSP, operador 4.5, lab 5, tutor 6 y modelo RLC 6.5 (once máscaras G_*). No es un LLM.',
     url: `${SITE}/navi`,
     image: OG('navi'),
     imageAlt: 'NAVI SNN catalog — Knights Labs',

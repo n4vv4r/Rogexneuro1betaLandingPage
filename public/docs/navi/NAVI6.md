@@ -5,8 +5,10 @@ desde [NAVI 5](/docs/navi5): de SNN orquestadas a un **sistema
 cognitivo pequeño** con DAG causal, modelo del mundo discreto, neurogénesis
 de sinapsis y un ejecutable local.
 
-El operador de lista blanca `G_rxos` sigue en 4.5. El chat (tecla `v`) usa
-NAVI 6 **cuando la pregunta es causal/diagnóstico**; el resto sigue en 4.5.
+NAVI 6.5 es el modelo oficial RLC y posee las máscaras de 4.5
+(`G_talk`…`G_rxos`) más reason/math/debug/plan/teach. NAVI 6 sigue
+siendo el tutor causal que 6.5 llama desde `G_debug`.
+Ver [NAVI 6.5](/docs/navi65).
 
 ## Lo que hay / lo que no
 

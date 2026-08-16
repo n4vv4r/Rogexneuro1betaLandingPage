@@ -58,11 +58,11 @@ tareas deterministas.
 
 ## Hook in-kernel
 
-`navi6_claim(user)` (subcadenas `gpu|ram|hilo|lock|pasaria|ring|compart|spike`).
-Si true y el generador no es `G_rxos`, `navi6_reply` gana.
-`G_rxos` / `/prove` / talk poético siguen en 4.5.
+`navi6_claim(user)` en 6.5 es todo turno no vacío. `navi6_reply` posee
+el chat y delega `G_talk`…`G_rxos` a `wsp_render_packet`. `/prove` sigue
+por `G_rxos`. Ver [NAVI 6.5](/docs/navi65).
 
-Comando shell: `navi6`, `navi6 bench`.
+Comando shell: `navi6`, `navi65`, `navi6 bench`.
 
 ## Cómo medir
 

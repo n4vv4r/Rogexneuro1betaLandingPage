@@ -145,19 +145,19 @@ const DOWNLOAD_CATALOG = {
   },
   rxos: {
     id: 'rxos',
-    name: 'rxOS 8 DESKTOP',
-    version: 'v8.0.0',
+    name: 'rxOS 8.5 DESKTOP',
+    version: 'v8.5.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'VM + METAL · NAVI-4.5',
-    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.0.0',
-    zip: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/ISOS.zip',
-    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/rxOS-8.0.0-vm.iso',
-    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/rxOS-8.0.0-metal.iso',
-    readme: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.0.0',
-    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.0.0/SHA256SUMS.txt',
-    sha256: '1323cf285de8d5c9a93dee50ef4cc9ce86158079db44c66a4db6ccda8434df06',
-    sha256Vm: '1323cf285de8d5c9a93dee50ef4cc9ce86158079db44c66a4db6ccda8434df06',
-    sha256Metal: 'df7a4bce9c1a7c0c4be249405535540935d13c2e203bb21fafc849d8dadb9e8a',
+    status: 'VM + METAL · NAVI 6.5',
+    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0',
+    zip: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0',
+    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.5.0/rxOS-8.5.0-vm.iso',
+    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.5.0/rxOS-8.5.0-metal.iso',
+    readme: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0',
+    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.5.0/SHA256SUMS-8.5.0.txt',
+    sha256: 'c2d8bb24eaa387323b52038cc3b5a982cc4a089e4d2238fd7eff948d168a8e18',
+    sha256Vm: 'c2d8bb24eaa387323b52038cc3b5a982cc4a089e4d2238fd7eff948d168a8e18',
+    sha256Metal: '1d364a86b1648f6e6cf9561132c5372ed17ed520f460a49c9e2c96bd81b9a814',
     packages: '/rx-os/packages/',
   },
 };
@@ -175,11 +175,11 @@ const PRODUCT_SUITE = [
   {
     id: 'rxos-desktop',
     code: 'RX-01',
-    name: 'rxOS 8 DESKTOP',
+    name: 'rxOS 8.5 DESKTOP',
     tier: 'OPEN CORE · BOOTABLE x86-64',
-    status: 'v8.0.0 · NAVI-4.5',
-    text: 'Unikernel bare-metal: escritorio Aero, NAVI-4.5 operador (WSP 16 B + G_rxos sobre la Terminal). /prove es el tour medible. Drivers virtio / e1000 / r8169 / rtl8139. Verificado en QEMU.',
-    tags: ['DESKTOP', 'NAVI-4.5', 'G_rxos', 'e1000'],
+    status: 'v8.5.0 · NAVI 6.5',
+    text: 'Unikernel bare-metal: escritorio Aero, NAVI 6.5 RLC preentrenado (11 máscaras G_*). El usuario no entrena. /prove sigue midiendo. Drivers virtio / e1000 / r8169 / rtl8139.',
+    tags: ['DESKTOP', 'NAVI 6.5', 'G_*', 'e1000'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -464,8 +464,8 @@ const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
 const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
-const RXOS_VERSION = 'v8.0.0';
-const RXOS_VERSION_LABEL = 'rxOS 8 DESKTOP';
+const RXOS_VERSION = 'v8.5.0';
+const RXOS_VERSION_LABEL = 'rxOS 8.5 DESKTOP';
 
 const RXOS_INSTALL_SHOTS = [
   { src: '/rxos/install/01-language.jpg', tag: '01', title: 'LANGUAGE', text: 'English or Español. The keyboard layout follows the language.' },

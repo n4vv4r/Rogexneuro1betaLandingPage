@@ -3,27 +3,27 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const HOME_SLIDES = [
   {
-    src: '/rxos/9/01-desktop.jpg',
-    credit: 'QEMU · rxOS 9.0.0 SMOKE · 17 ago 2026',
+    src: '/rxos/9/14-mac-desktop-photos.jpg',
+    credit: 'QEMU · macOS · rxOS 9.0.0 SMOKE',
     kicker: 'rxOS 9 · SMOKE AERO',
     title: 'EL ESCRITORIO YA ES NEGRO.',
-    caption: 'Dark Aero, iconos PNG, NAVI 7 oficial. Captura real de la ISO. No es un mockup.',
+    caption: 'QEMU en un Mac. Start, Photos, iconos. Captura real de la ISO. No es un mockup.',
     href: '/rx-os#rxos-captures',
   },
   {
-    src: '/rxos/9/03-navi7.jpg',
-    credit: 'QEMU · Navi 7 · tecla v',
-    kicker: 'NAVI 7 · 73 FICHAS',
+    src: '/rxos/9/13-mac-navi-explorer.png',
+    credit: 'QEMU · Mac · Navi 7 + Explorer',
+    kicker: 'NAVI 7 · HEAP 0',
     title: 'PREGUNTA. SI NO HAY FICHA, DESCONOCIDO.',
-    caption: 'Catálogo entrenado + harvest HTTP. No es un LLM. No hay NPU Akida.',
+    caption: 'Bench + status + Explorer. HDC 100%. No es un LLM. No hay NPU Akida.',
     href: '/navi',
   },
   {
-    src: '/rxos/9/00-grub.jpg',
-    credit: 'GRUB · fondo eclipse',
-    kicker: 'BOOT · ECLIPSE',
-    title: 'EL MENÚ TAMBIÉN ES rxOS 9.',
-    caption: 'GRUB con el eclipse. 8 segundos. Luego el unikernel.',
+    src: '/rxos/9/10-mac-www-ping.png',
+    credit: 'QEMU · Mac · www on',
+    kicker: 'RED · ICMP 3/3',
+    title: 'PING AL LAB. DESDE EL SO.',
+    caption: 'www on. ping www.rogexlaboratories.com → 3/3. e1000. No es un screenshot de marketing.',
     href: '/rx-os',
   },
   {
@@ -126,8 +126,8 @@ export const HOME_SLIDES = [
 
 export const DOC_SLIDES = [
   {
-    src: '/rxos/9/00-grub.jpg',
-    credit: 'GRUB · rxOS 9 · fondo eclipse',
+    src: '/rxos/9/14-mac-desktop-photos.jpg',
+    credit: 'QEMU · Mac · rxOS 9 desktop',
     kicker: 'ARTÍCULO · ROADMAP',
     title: 'DOS ÓRBITAS. UN CRUCE. LUEGO, UN NOMBRE.',
     caption: '8.5/6.5 medido. 9/7-WORLD en curso. 10/10 es el Eclipse. Eternal Eclipse y EchOS son visión. El pin está en el mapa.',

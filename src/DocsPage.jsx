@@ -33,7 +33,7 @@ export default function DocsPage({ path, navigate, PageHero, SectionTitle }) {
           eyebrow="DOCS · MARKDOWN VIVO"
           title={<>READ.<br />REPEAT.<br />MEASURE.</>}
           text="Tutoriales, demostraciones, benches, papers de teoría e implementación. Markdown del lab, no un CMS. PDFs clásicos siguen en /docs/rxos/*.pdf."
-          image="/rxos/9/00-grub.jpg"
+          image="/rxos/9/11-mac-tree.png"
           className="rxos-hero"
         />
         <main>

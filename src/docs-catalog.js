@@ -55,6 +55,13 @@ export const DOCS = [
     blurb: 'Loihi, Akida, SpiNNaker, TrueNorth, LLMs. Qué somos y qué no. Para escépticos.',
   },
   {
+    id: 'resumen-tecnico',
+    title: 'Resumen técnico — lab, web, rxOS, NAVI',
+    category: 'theory',
+    path: '/docs/rxos/RESUMEN_TECNICO.md',
+    blurb: 'Qué dice la web, qué hay en el binario, Q₆, WSP, RX-DIB, estado de la empresa, qué falta y qué sigue.',
+  },
+  {
     id: 'eternal-eclipse',
     title: 'Eternal Eclipse — hoja de ruta pública',
     category: 'theory',

@@ -12,8 +12,8 @@
       "seoTitle": "Knights Labs — rxOS 9 SMOKE · NAVI 7",
       "description": "rxOS 9 SMOKE: escritorio Dark Aero, NAVI 7 oficial (catálogo + harvest). Código e ISOs en GitHub. Experimental, no clínico.",
       "badge": "v9.0.0",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "GRUB rxOS 9 SMOKE con eclipse — THE OS IS THE DEMO.",
+      "shot": "public/rxos/9/14-mac-desktop-photos.jpg",
+      "imageAlt": "rxOS 9 en QEMU (Mac): escritorio, Start y Photos — THE OS IS THE DEMO.",
       "footer": "rogexlaboratories.com"
     },
     {
@@ -26,8 +26,8 @@
       "seoTitle": "rxOS 9 SMOKE — NAVI 7 — Knights Labs",
       "description": "Unikernel x86_64: Dark Aero, NAVI 7 (73 fichas), Ajustes, Photos, Explorer, wget. ISO VM y metal en GitHub. Experimental, no clínico.",
       "badge": "QEMU REAL",
-      "shot": "public/rxos/9/01-desktop.jpg",
-      "imageAlt": "Escritorio rxOS 9 Smoke Aero — captura QEMU real",
+      "shot": "public/rxos/9/14-mac-desktop-photos.jpg",
+      "imageAlt": "Escritorio rxOS 9 Smoke Aero en QEMU Mac — Start + Photos",
       "footer": "rogexlaboratories.com/rx-os"
     },
     {
@@ -40,8 +40,8 @@
       "seoTitle": "Roadmap Eternal Eclipse — Knights Labs",
       "description": "Línea de tiempo honesta: rxOS 8.5 + NAVI 6.5 medido, rxOS 9 + NAVI 7-WORLD en curso. El Eclipse (10/10), Eternal Eclipse y EchOS son visión. Sin fecha inventada.",
       "badge": "AQUÍ ESTAMOS",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "GRUB eclipse rxOS 9 — roadmap Eternal Eclipse",
+      "shot": "public/rxos/9/13-mac-navi-explorer.png",
+      "imageAlt": "NAVI 7 y Explorer en rxOS 9 — QEMU Mac",
       "footer": "rogexlaboratories.com/roadmap"
     },
     {
@@ -54,8 +54,8 @@
       "seoTitle": "NAVI 7 — catálogo SNN 1 → 7 — Knights Labs",
       "description": "NAVI 7-WORLD oficial: catálogo entrenado + harvest. 6.5 RLC, 6.6 lengua. 7-NPU Akida sigue PLAN. No es un LLM.",
       "badge": "73 FICHAS",
-      "shot": "public/rxos/9/03-navi7.jpg",
-      "imageAlt": "NAVI 7 en rxOS 9 — ventana de chat lista para preguntar",
+      "shot": "public/rxos/9/13-mac-navi-explorer.png",
+      "imageAlt": "NAVI 7 + Explorer en rxOS 9 — captura QEMU Mac",
       "footer": "rogexlaboratories.com/navi"
     },
     {
@@ -68,8 +68,8 @@
       "seoTitle": "Docs — rxOS 9, NAVI 7, WSP, Q₆ — Knights Labs",
       "description": "Visor markdown: rxOS 9 SMOKE, NAVI 7, cianotipo, Akida, WSP 16 B, Q₆, benches y papers.",
       "badge": "ÍNDICE",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "Documentación Knights Labs — eclipse GRUB rxOS 9",
+      "shot": "public/rxos/9/11-mac-tree.png",
+      "imageAlt": "Terminal rxOS 9 — tree del vault. Docs vivos.",
       "footer": "rogexlaboratories.com/docs"
     },
     {
@@ -82,8 +82,8 @@
       "seoTitle": "Downloads — rxOS 9 SMOKE + PRISMA — Knights Labs",
       "description": "Descargas: rxOS 9.0.0 SMOKE (VM + metal, NAVI 7) y PRISMA Engine 0.1.0. Experimental, no clínico.",
       "badge": "v9.0.0",
-      "shot": "public/rxos/9/01-desktop.jpg",
-      "imageAlt": "Descargas rxOS 9 SMOKE — escritorio Dark Aero",
+      "shot": "public/rxos/9/10-mac-www-ping.png",
+      "imageAlt": "rxOS 9 en QEMU Mac: www on, ping a rogexlaboratories.com 3/3",
       "footer": "rogexlaboratories.com/downloads"
     },
     {
@@ -96,8 +96,8 @@
       "seoTitle": "Product Suite — Knights Labs",
       "description": "Suite: rxOS Desktop, kernel neuromórfico, PRISMA 3 y PRISMA 5. Licencias para developers, research y OEM.",
       "badge": "4 PRODUCTS",
-      "shot": "public/rxos/9/02-start.jpg",
-      "imageAlt": "Suite Knights Labs — menú Start de rxOS 9",
+      "shot": "public/rxos/9/14-mac-desktop-photos.jpg",
+      "imageAlt": "Suite Knights Labs — Start y Photos en rxOS 9 QEMU Mac",
       "footer": "rogexlaboratories.com/suite"
     },
     {
@@ -110,8 +110,8 @@
       "seoTitle": "Architecture rxOS 9 — Knights Labs",
       "description": "Arquitectura rxOS 9: event fabric, Q₆, WSP 16 B, NAVI 7-WORLD y cianotipo Akida. Papers PDF públicos.",
       "badge": "rxOS 9",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "Arquitectura rxOS 9 — eclipse GRUB",
+      "shot": "public/rxos/9/10-mac-www-ping.png",
+      "imageAlt": "Arquitectura viva: www on + ping 3/3 desde rxOS 9",
       "footer": "rogexlaboratories.com/architecture"
     },
     {
@@ -124,8 +124,8 @@
       "seoTitle": "PRISMA Engine 0.1 & SNN — Knights Labs",
       "description": "PRISMA Engine 0.1.0 nativo (Rust·AVX2): SPSC, Δ-mod, LIF/STDP. Tech preview Linux en /downloads. No clínico.",
       "badge": "DOWNLOAD",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "PRISMA Engine — card sobre eclipse rxOS 9",
+      "shot": "public/rxos/9/14-mac-desktop-photos.jpg",
+      "imageAlt": "PRISMA Engine — card sobre escritorio rxOS 9 QEMU Mac",
       "footer": "rogexlaboratories.com/prisma"
     },
     {
@@ -138,8 +138,8 @@
       "seoTitle": "About — Knights Labs / Rogex",
       "description": "Lab independiente de neurotech low-carbon, software EEG y sistemas bare-metal. Contacto para developers, research y OEM.",
       "badge": "CONTACT",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "About Knights Labs — eclipse rxOS 9",
+      "shot": "public/rxos/9/14-mac-desktop-photos.jpg",
+      "imageAlt": "About Knights Labs — rxOS 9 en QEMU Mac",
       "footer": "rogexlaboratories.com/about"
     },
     {
@@ -152,8 +152,8 @@
       "seoTitle": "Para inversores — Knights Labs",
       "description": "Tecnoactivismo con P&L: rxOS 9, NAVI 7, PRISMA, licensing y riesgos deep-tech con transparencia.",
       "badge": "KNIGHTS LABS",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "Knights Labs para inversores — eclipse rxOS 9",
+      "shot": "public/rxos/9/13-mac-navi-explorer.png",
+      "imageAlt": "Knights Labs para inversores — NAVI 7 en rxOS 9",
       "footer": "rogexlaboratories.com/investors"
     },
     {
@@ -166,8 +166,8 @@
       "seoTitle": "Pre-Seed Pitch 150k€ — Knights Labs",
       "description": "Pitch pre-seed DeepTech: 150.000 € para PRISMA + rxOS. Tracción, use of funds y GTM developer-first.",
       "badge": "150.000 €",
-      "shot": "public/rxos/9/01-desktop.jpg",
-      "imageAlt": "Pitch Knights Labs — escritorio rxOS 9",
+      "shot": "public/rxos/9/14-mac-desktop-photos.jpg",
+      "imageAlt": "Pitch Knights Labs — escritorio rxOS 9 QEMU Mac",
       "footer": "rogexlaboratories.com/pitch"
     },
     {
@@ -180,8 +180,8 @@
       "seoTitle": "Startup idea — Knights Labs",
       "description": "Idea de startup: compute event-driven, software EEG y SNN neuromórfico con licensing filantrópico.",
       "badge": "DEEPTECH",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "Startup idea Knights Labs",
+      "shot": "public/rxos/9/11-mac-tree.png",
+      "imageAlt": "Startup idea — filesystem vivo en rxOS 9",
       "footer": "rogexlaboratories.com/startup-idea"
     },
     {
@@ -194,8 +194,8 @@
       "seoTitle": "rxOS packages (.rxc) — Knights Labs",
       "description": "Canal de paquetes RXos: lista de .rxc publicados y tutorial rx app add. Descarga directa.",
       "badge": ".RXC",
-      "shot": "public/rxos/9/05-terminal.jpg",
-      "imageAlt": "Terminal ROSH de rxOS 9 — canal de paquetes",
+      "shot": "public/rxos/9/12-mac-packages.png",
+      "imageAlt": "rx app add tree-view desde el canal vivo — QEMU Mac",
       "footer": "rogexlaboratories.com/rx-os/packages"
     },
     {
@@ -209,8 +209,8 @@
       "seoTitle": "Rogex Newspaper — avances del lab",
       "description": "Despachos sobre PRISMA, RXos y neurotech low-carbon. Suscríbete por correo o RSS. Experimental, no clínico.",
       "badge": "RSS · EMAIL",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "Rogex Newspaper — avances del lab",
+      "shot": "public/rxos/9/10-mac-www-ping.png",
+      "imageAlt": "Rogex Newspaper — rxOS 9 hace ping al lab",
       "footer": "newspaper.rogexlaboratories.com",
       "siteName": "Rogex Newspaper"
     },
@@ -224,9 +224,23 @@
       "seoTitle": "Eternal Eclipse — hoja de ruta — Knights Labs",
       "description": "Hoja de ruta pública: parejas NAVI/rxOS hasta el Eclipse (10/10), rebrand a EternalEclipse.com y visión EchOS. Honestidad de laboratorio.",
       "badge": "LEER",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "Documento Eternal Eclipse — GRUB eclipse rxOS 9",
+      "shot": "public/rxos/9/13-mac-navi-explorer.png",
+      "imageAlt": "Documento Eternal Eclipse — NAVI 7 en rxOS 9",
       "footer": "rogexlaboratories.com/docs/eternal-eclipse"
+    },
+    {
+      "slug": "docs-resumen-tecnico",
+      "path": "/docs/resumen-tecnico",
+      "out": "docs-resumen-tecnico.html",
+      "kicker": "DOCS · RESUMEN TÉCNICO",
+      "title": "QUÉ HAY. QUÉ FALTA.",
+      "subtitle": "Web, rxOS 9, NAVI, Q₆, WSP, RX-DIB, empresa. El pin no se mueve.",
+      "seoTitle": "Resumen técnico — Knights Labs",
+      "description": "Resumen del lab: qué dice la web, qué hay en rxOS 9, cómo funcionan NAVI, Q₆, WSP y RX-DIB, estado de la empresa, qué falta y qué sigue.",
+      "badge": "LEER",
+      "shot": "public/rxos/9/11-mac-tree.png",
+      "imageAlt": "Resumen técnico — tree del vault en rxOS 9",
+      "footer": "rogexlaboratories.com/docs/resumen-tecnico"
     },
     {
       "slug": "docs-navi7",
@@ -238,8 +252,8 @@
       "seoTitle": "NAVI 7 — 7-WORLD oficial · Knights Labs",
       "description": "NAVI 7 en rxOS 9: catálogo mundial, harvest HTTP, RLC. No es un LLM. Akida sigue PLAN.",
       "badge": "LEER",
-      "shot": "public/rxos/9/03-navi7.jpg",
-      "imageAlt": "Documento NAVI 7 — ventana Navi 7 en rxOS 9",
+      "shot": "public/rxos/9/13-mac-navi-explorer.png",
+      "imageAlt": "Documento NAVI 7 — ventana Navi 7 + Explorer, QEMU Mac",
       "footer": "rogexlaboratories.com/docs/navi7"
     },
     {
@@ -252,8 +266,8 @@
       "seoTitle": "NAVI 6.6 — lengua + TUI — Knights Labs",
       "description": "NAVI 6.6: compositor gramatical y TUI de colores. Léxico cerrado. No es un LLM.",
       "badge": "LEER",
-      "shot": "public/rxos/9/03-navi7.jpg",
-      "imageAlt": "Documento NAVI 6.6",
+      "shot": "public/rxos/9/13-mac-navi-explorer.png",
+      "imageAlt": "Documento NAVI 6.6 — Navi 7 en rxOS 9",
       "footer": "rogexlaboratories.com/docs/navi66"
     },
     {
@@ -266,8 +280,8 @@
       "seoTitle": "ISOs rxOS 9.0.0 — Knights Labs",
       "description": "Dónde están las ISOs de rxOS 9: VM para QEMU, metal para USB. SHA-256 y cómo flashear.",
       "badge": "v9.0.0",
-      "shot": "public/rxos/9/00-grub.jpg",
-      "imageAlt": "ISOs rxOS 9 — menú GRUB eclipse",
+      "shot": "public/rxos/9/10-mac-www-ping.png",
+      "imageAlt": "ISOs rxOS 9 — QEMU Mac, www on, ping 3/3",
       "footer": "rogexlaboratories.com/docs/isos"
     }
   ]

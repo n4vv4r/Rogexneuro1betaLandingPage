@@ -6,7 +6,7 @@ export const SOCIAL_POSTS = [
     net: 'x',
     audience: 'tech',
     title: 'rxOS 9 SMOKE — números',
-    shot: 'Escritorio Dark Aero + ventana Navi 7 (/rxos/9/01-desktop.jpg, /rxos/9/03-navi7.jpg)',
+    shot: 'Escritorio + Navi 7 (/rxos/9/14-mac-desktop-photos.jpg, /rxos/9/13-mac-navi-explorer.png)',
     text: `rxOS 9 SMOKE no es Linux recortado.
 
 Unikernel x86_64. Dark Aero. NAVI 7-WORLD: 73 fichas, bench 15/15.
@@ -38,7 +38,7 @@ rogexlaboratories.com/docs/hp-metal-85`,
     net: 'x',
     audience: 'tech',
     title: 'NAVI no predice tokens',
-    shot: 'Navi 7 chat (/rxos/9/03-navi7.jpg)',
+    shot: 'Navi 7 + Explorer (/rxos/9/13-mac-navi-explorer.png)',
     text: `NAVI no es un LLM.
 
 No hay KV-cache. No hay next-token.
@@ -56,7 +56,7 @@ rogexlaboratories.com/navi`,
     net: 'x',
     audience: 'user',
     title: 'Arranca. Pulsa V.',
-    shot: 'GRUB eclipse + escritorio (/rxos/9/00-grub.jpg, 01-desktop.jpg)',
+    shot: 'Escritorio QEMU Mac (/rxos/9/14-mac-desktop-photos.jpg)',
     text: `No te pedimos una cuenta.
 No te pedimos una GPU.
 No te pedimos que nos creas.
@@ -105,7 +105,7 @@ Mapa: rogexlaboratories.com/roadmap`,
     net: 'x',
     audience: 'vision',
     title: 'Hilo: El Eclipse',
-    shot: 'GRUB eclipse (/rxos/9/00-grub.jpg)',
+    shot: 'NAVI 7 QEMU Mac (/rxos/9/13-mac-navi-explorer.png)',
     thread: true,
     parts: [
       `1/ El eclipse no es un logo.

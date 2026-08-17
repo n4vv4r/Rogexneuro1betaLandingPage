@@ -109,7 +109,7 @@ export default function RoadmapPage({ navigate, PageHero, SectionTitle }) {
         eyebrow="ROADMAP · ETERNAL ECLIPSE"
         title={<>DOS ÓRBITAS.<br />UN CRUCE.<br />LUEGO, UN NOMBRE.</>}
         text="NAVI y rxOS crecen en parejas hasta el 10. Ese cruce es el Eclipse: el laboratorio se vuelve logia, y más tarde un solo sistema llamado EchOS. Hoy no estamos ahí. El pin está en el mapa."
-        image="/rxos/9/00-grub.jpg"
+        image="/rxos/9/14-mac-desktop-photos.jpg"
         className="rxos-hero"
       >
         <div className="hero-tags">

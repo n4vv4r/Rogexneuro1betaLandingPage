@@ -205,7 +205,7 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
         eyebrow="NAVI · LÍNEA SNN 1 → 7 · OFICIAL EN rxOS 9"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
         text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 RLC. 6.6 lengua. 7-WORLD es oficial en rxOS 9: 73 fichas + harvest. 7-NPU Akida sigue PLAN. Ninguna es un LLM."
-        image="/rxos/9/03-navi7.jpg"
+        image="/rxos/9/13-mac-navi-explorer.png"
         className="rxos-hero"
       >
         <div className="hero-tags">

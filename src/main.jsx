@@ -82,6 +82,7 @@ const NAV_MENUS = [
     items: [
       ['/docs', 'INDEX'],
       ['/docs/eternal-eclipse', 'ETERNAL ECLIPSE'],
+      ['/docs/resumen-tecnico', 'RESUMEN TÉCNICO'],
       ['/docs/rxos8', 'rxOS 8'],
       ['/docs/navi-compare', 'NAVI vs OTRAS IA'],
       ['/docs/cianotipo', 'CIANOTIPO'],
@@ -484,8 +485,8 @@ const RXOS_BENCH = [
   { test: 'sparsity: 200 sub-thr', model: '200 absorbed', kernel: '200 absorbed', result: 'PASS' },
 ];
 
-const RXOS_HERO_IMAGE = '/rxos/9/01-desktop.jpg';
-const RXOS_HERO_QEMU = '/rxos/9/01-desktop.jpg';
+const RXOS_HERO_IMAGE = '/rxos/9/14-mac-desktop-photos.jpg';
+const RXOS_HERO_QEMU = '/rxos/9/14-mac-desktop-photos.jpg';
 const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
@@ -494,12 +495,12 @@ const RXOS_VERSION = 'v9.0.0';
 const RXOS_VERSION_LABEL = 'rxOS 9 SMOKE';
 
 const RXOS9_SHOTS = [
-  { src: '/rxos/9/00-grub.jpg', tag: '00', title: 'GRUB', text: 'Menú rxOS 9 con el eclipse. 8 segundos para elegir.', featured: true, alt: 'GRUB rxOS 9 SMOKE — fondo eclipse' },
-  { src: '/rxos/9/01-desktop.jpg', tag: '01', title: 'ESCRITORIO', text: 'Dark Aero. Iconos PNG. Reloj y Start abajo.', featured: true, alt: 'Escritorio rxOS 9 Smoke Aero' },
-  { src: '/rxos/9/02-start.jpg', tag: '02', title: 'START', text: 'Ajustes, Terminal, Explorer, Navi 7, Photos.', featured: false, alt: 'Menú Start de rxOS 9' },
-  { src: '/rxos/9/03-navi7.jpg', tag: '03', title: 'NAVI 7', text: 'Catálogo entrenado. No es un LLM.', featured: true, alt: 'Ventana Navi 7 en rxOS 9' },
-  { src: '/rxos/9/05-terminal.jpg', tag: '05', title: 'TERMINAL', text: 'ROSH. curl, wget, www on.', featured: false, alt: 'Terminal ROSH en rxOS 9' },
-  { src: '/rxos/9/06-photos.jpg', tag: '06', title: 'PHOTOS', text: 'Pasar fotos no cambia el fondo.', featured: false, alt: 'App Photos de rxOS 9' },
+  { src: '/rxos/9/14-mac-desktop-photos.jpg', tag: '14', title: 'ESCRITORIO', text: 'QEMU en Mac. Start + Photos. Ver no cambia el fondo.', featured: true, alt: 'Escritorio rxOS 9 en QEMU Mac — Start y Photos' },
+  { src: '/rxos/9/13-mac-navi-explorer.png', tag: '13', title: 'NAVI 7', text: 'Bench + status + Explorer. Heap 0. HDC 100%.', featured: true, alt: 'NAVI 7 y Explorer en rxOS 9 — QEMU Mac' },
+  { src: '/rxos/9/10-mac-www-ping.png', tag: '10', title: 'WWW', text: 'www on. ping www.rogexlaboratories.com 3/3.', featured: true, alt: 'Terminal rxOS 9: www on y ping 3/3 al lab' },
+  { src: '/rxos/9/12-mac-packages.png', tag: '12', title: 'PACKAGES', text: 'rx app add tree-view desde el canal vivo.', featured: false, alt: 'rx app add tree-view en rxOS 9' },
+  { src: '/rxos/9/11-mac-tree.png', tag: '11', title: 'VAULT', text: 'mkdir Doc. tree. RXFS vivo.', featured: false, alt: 'tree del filesystem RXFS en rxOS 9' },
+  { src: '/rxos/9/00-grub.jpg', tag: '00', title: 'GRUB', text: 'Menú rxOS 9 con el eclipse. 8 segundos para elegir.', featured: false, alt: 'GRUB rxOS 9 SMOKE — fondo eclipse' },
 ];
 
 const RXOS_INSTALL_SHOTS = [

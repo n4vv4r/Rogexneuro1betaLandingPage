@@ -222,6 +222,22 @@ const LINE = [
     extra: '/docs/navi9-hybrid',
     extraLabel: '9 HÍBRIDO',
   },
+  {
+    id: 'navi92',
+    gen: '09.2',
+    name: 'NAVI 9.2',
+    codename: 'ZORRO',
+    status: 'HOST LIVE · UNA TAREA',
+    tone: 'ok',
+    icon: Brain,
+    where: 'navi9 + navi9_tasks.py + navi9_echo.py',
+    unit: 'ask / resume / echo / think',
+    text: 'Elige UNA caza. Resume el texto que pegas. Echo es RogexWSP + cubo modal. Léxico que crece. No ve. No Akida. Sin extracto: lo dice.',
+    facts: ['32 tests', 'slash + Tab', 'Echo 256/384/320 Hz', 'no es un LLM'],
+    docs: '/docs/navi92',
+    extra: '/docs/navi92-dummies',
+    extraLabel: 'PARA DUMMIES',
+  },
 ];
 
 const NAVI5_LAYERS = [
@@ -267,22 +283,22 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 8.9 · HOST PRE-BETA + rxOS 9"
-        title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
-        text="1–4.5 en el unikernel. 7.5 memoria. 8.8 sobrevive. 8.9 dual + TUI (razonamiento VERIFY, laberinto BFS). 9 = WSP + Q6 + boca atada. Ninguna es un LLM suelto."
-        image="/screenshots/navi/navi89-tui-desk.png"
+        eyebrow="NAVI · LÍNEA SNN 1 → 9.2 ZORRO · HOST LIVE + rxOS 9"
+        title={<>NO ES UN LORO.<br />ES UN ZORRO.</>}
+        text="1–4.5 en el unikernel. 7.5 memoria. 8.9 dual. 9.2 elige UNA tarea (ask, resume, echo, think). Sin ficha: lo dice. 10 = Akida + visión + cuerpo: PLAN."
+        image="/screenshots/navi/navi92-cli.png"
         className="rxos-hero"
       >
         <div className="hero-tags">
+          <span>9.2 ZORRO</span>
           <span>Q₆ 48/48</span>
-          <span>WSP 16 B</span>
-          <span>NAVI 8.9 DESK</span>
+          <span>ECHO 16 B</span>
           <span>WIKIPEDIA + DDG</span>
-          <span>MEMORIA SQLITE</span>
           <span>0% FPU EN EL MOTOR</span>
+          <span>AKIDA = PLAN</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–8.9</a>
+          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–9.2</a>
           <a className="brutal-button" href="#dummies">PARA DUMMIES</a>
           <a className="brutal-button" href="#expertos">PARA EXPERTOS</a>
           <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi65')}>
@@ -295,6 +311,53 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
       </PageHero>
 
       <main>
+        <section className="section wrap" id="puede">
+          <SectionTitle
+            code="00 / 9.2 ZORRO"
+            title="QUÉ PUEDE. QUÉ NO. ADÓNDE VA."
+            text="Contrato VERIFY. La visión (cámara, Akida, robot) se publica para no fingirla como 9.2."
+          />
+          <div className="navi-catalog">
+            <article className="navi-card" data-reveal>
+              <h3>Puede</h3>
+              <ul>
+                <li>Elegir UNA tarea: ask, resume, echo, teach, code, think, talk</li>
+                <li>Cosechar Wikipedia/DDG y guardar ficha (KCC)</li>
+                <li>Resumir el texto que pegas — cita, no hecho</li>
+                <li>Echo: postal RogexWSP + cubo 256/384/320 Hz + glifo</li>
+                <li>Charlar sin abrir Wikipedia. Dual 8.9 VERIFY</li>
+                <li>Math entero, maze BFS, esqueletos del catálogo</li>
+              </ul>
+            </article>
+            <article className="navi-card" data-reveal>
+              <h3>Aún no</h3>
+              <ul>
+                <li>Cámara en tiempo real</li>
+                <li>Arduino / Raspberry Pi</li>
+                <li>Q6-retrieve en Akida (0 placas; el driver se niega)</li>
+                <li>Inventar hechos, ARN o puentes entre fichas</li>
+                <li>Sustituir a un clínico o ganar LMSYS</li>
+              </ul>
+            </article>
+            <article className="navi-card" data-reveal>
+              <h3>Misión 10</h3>
+              <ul>
+                <li>Akida: el mismo DAG en NPU, o se dice que no hay placa</li>
+                <li>Visión: fotograma → ficha. Sin etiqueta: DESCONOCIDO</li>
+                <li>Cuerpo: un relé / servo / stop VERIFY</li>
+                <li>Eclipse: NAVI 10 + rxOS 10. Hoy no existe</li>
+              </ul>
+              <div className="hero-actions">
+                <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi92')}>
+                  LEER 9.2
+                </button>
+                <button type="button" className="brutal-button" onClick={() => navigate('/roadmap')}>
+                  ETERNAL ECLIPSE
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
         <section className="section wrap" id="catalogo">
           <SectionTitle
             code="01 / CATÁLOGO"

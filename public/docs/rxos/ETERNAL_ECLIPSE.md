@@ -2,9 +2,9 @@
 
 **Estado mixto.** Este papel dice dónde estamos, qué se puede arrancar
 hoy, y qué es visión. Si una casilla no tiene ISO, comando o cifra
-medida, no está hecha. Fecha de este corte: **17 agosto 2026**.
+medida, no está hecha. Fecha de este corte: **17 agosto 2026** (host NAVI **9.2 zorro**).
 
-Lectura viva: [rogexlaboratories.com/roadmap](https://www.rogexlaboratories.com/roadmap).
+Lectura viva en la web: [`/roadmap`](https://www.rogexlaboratories.com/roadmap).
 
 ## 0. Dónde estamos — dos verdades a la vez
 
@@ -13,9 +13,10 @@ Lectura viva: [rogexlaboratories.com/roadmap](https://www.rogexlaboratories.com/
 | rxOS **8.5** + NAVI **6.5 RLC** | Última línea **medida en metal** | HECHO. HP 15-ac195nl, 17 ago 2026 |
 | rxOS **9.0 SMOKE** + NAVI **7-WORLD** | ISO que se descarga hoy | EN CURSO. Escritorio + catálogo. No es NPU |
 | NAVI **7-NPU** (Akida) | 6.5 + silicio real | PLAN. `neurocpu akida` se niega. 0 placas en el lab |
-| NAVI 8 + rxOS 9 | Siguiente pareja de generación | PLAN. Sin spec de código todavía |
+| NAVI **8.8 / 8.9** + host | Supervivencia + dual + desk | **HECHO** en host (no en la ISO 9) |
+| NAVI **9.2 zorro** + host | Tarea, Echo, resume, léxico | **HECHO** en host. No es NPU. No ve. |
 | NAVI 9 + rxOS 10 | El SO salta a 10 | PLAN / VISIÓN |
-| NAVI **10** + rxOS **10** | **El Eclipse** | VISIÓN. Punto de alineación |
+| NAVI **10** + rxOS **10** | **El Eclipse** + Akida + visión/cuerpo | VISIÓN. Punto de alineación |
 | EternalEclipse.com | Logia de I+D | VISIÓN de marca. Hoy el dominio es rogexlaboratories.com |
 | **EchOS** | ISO unificada (SO + modelo + API a Internet) | VISIÓN de producto. No existe el artefacto |
 
@@ -71,13 +72,15 @@ Esto **no existe**. No hay ISO EchOS. No hay API Echo.
 | 0 | 6.5 RLC | 8.5 | Línea medida (RAPL, metal) | **HECHO** |
 | 1 | 7-WORLD | 9 SMOKE | Escritorio negro + catálogo + harvest | **EN CURSO** (ISO v9.0.0) |
 | 1b | 7-NPU | 9 | Mismo router, spikes en Akida | **PLAN**. Sin placa |
-| 2 | 8 | 9 | Siguiente generación sobre el 9 | **PLAN**. Sin spec cerrada |
+| 2 | 8.8 / 8.9 | host | Supervivencia + dual | **HECHO** (Python/TUI) |
+| 2b | **9.2 zorro** | host | Tarea + Echo + teach | **HECHO** (no ISO, no Akida) |
 | 3 | 9 | 10 | El SO salta. NAVI aún no es 10 | **PLAN / VISIÓN** |
-| 4 | 10 | 10 | **El Eclipse** | **VISIÓN** |
+| 4 | 10 | 10 | **El Eclipse**: Akida, cámara, cuerpo Pi/Arduino | **VISIÓN** |
 | 5 | Echo | EchOS | Un solo paquete, API a Internet | **VISIÓN** |
 
-NAVI 8, 9 y 10 **no tienen código con ese nombre**. No se venden
-features. Se venden el orden y la negativa a fingir el cruce.
+NAVI **9.2** sí tiene código (`./navi9` en el host). NAVI **10** no.
+No se vende visión como ISO. Se vende el orden y la negativa a fingir
+el cruce: sin placa Akida no hay 7-NPU; sin cámara no hay visión.
 
 ## 4. Qué se puede comprobar hoy (no es marketing)
 
@@ -86,7 +89,7 @@ features. Se venden el orden y la negativa a fingir el cruce.
 | ISO 9.0.0 VM + metal | [release v9.0.0](https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0) |
 | NAVI 7-WORLD = 73 fichas, bench 15/15 | `./navi7 --bench` |
 | WSP = 16 bytes | `_Static_assert` en `wsp.h` |
-| 8.5 metal, idle 3678 mW, Q6 72.5 µJ/run | metal HP 15-ac195nl |
+| 8.5 metal, idle 3678 mW, Q6 72.5 µJ/run | `docs/HP_AC195NL_85.md` |
 | 7-NPU ausente | `neurocpu akida` se niega |
 | Event fabric bench | 6/6 en boot |
 
@@ -122,6 +125,16 @@ rodando. Se cuenta. No se cobra como estreno.
 - Que Echo vaya a predecir el siguiente token. La tesis no cambia:
   esquema o DESCONOCIDO.
 - Uso clínico. Nada de esto es dispositivo médico.
+
+## 8. Lectura
+
+| Doc | Para qué |
+| --- | --- |
+| [CIANOTIPO.md](CIANOTIPO.md) | Plano técnico rxOS / NAVI / PRISMA / Akida |
+| [NAVI7.md](NAVI7.md) | 7-WORLD vs 7-NPU |
+| [RXOS9.md](RXOS9.md) | Qué es la ISO 9 |
+| [HP_AC195NL_85.md](HP_AC195NL_85.md) | Cifras metal |
+| [ROADMAP.md](../ROADMAP.md) | Backlog de ingeniería por versión histórica |
 
 Experimental. GPLv3 en el árbol rxOS. No clínico.
 Knights Labs / Rogex Laboratories · 2026.

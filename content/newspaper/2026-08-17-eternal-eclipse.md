@@ -14,7 +14,9 @@ Hay dos verdades a la vez y las dos se pueden comprobar.
 1. **rxOS 8.5 + NAVI 6.5 RLC** es la última línea que produjo julios en un portátil real (HP 15-ac195nl, 17 agosto 2026). QEMU se niega. El i7-5500U no.
 2. **rxOS 9 SMOKE + NAVI 7-WORLD** es la ISO que se descarga hoy. Escritorio negro. 73 fichas. Si no hay ficha: DESCONOCIDO.
 
-**7-NPU no está.** No hay placa Akida en el lab. `neurocpu akida` se niega. NAVI 8, 9 y 10 no tienen rama. No existe EchOS.
+**7-NPU no está.** No hay placa Akida en el lab. `neurocpu akida` se niega.
+**NAVI 9.2 zorro sí está** — en el host, no en la ISO. Ask, resume, Echo.
+NAVI 10 (cámara, Akida, cuerpo) no tiene rama. No existe EchOS.
 
 El mapa vivo: [rogexlaboratories.com/roadmap](https://www.rogexlaboratories.com/roadmap).
 

@@ -140,8 +140,9 @@ número, no hay ficha.
    Sustituye al Jaccard cuando hay ruido (typo, acento).
 3. **Producto dominio × cubo** — un bit de «social vs fact» en WSP
    para que «eso no rima» no caiga en Deontología.
-4. **Render atado (opcional)** — un modelo *local* ≤ 1 B, o ninguno.
-   Solo si VERIFY de tokens del extracto pasa. Si no hay GPU, se dice.
+4. **Render atado (HOST LIVE)** — `navi9_mouth`: si hay `XAI_API_KEY`
+   (api.x.ai) viste el extracto; si VERIFY de tokens falla, se cita el
+   extracto crudo. Sin clave no hay LLM. No es un GPT con Q6 de adorno.
 5. **Sri Yantra 9 vs Q6 8** — un bench, un párrafo en el RFC, no una
    religión.
 6. **Metal** — el mismo DAG en kernel; Akida si hay placa.

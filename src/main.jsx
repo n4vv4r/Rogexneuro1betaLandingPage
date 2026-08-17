@@ -58,7 +58,7 @@ const NAV_MENUS = [
     label: 'PRODUCTS',
     items: [
       ['/rx-os', 'rxOS 9 SMOKE'],
-      ['/navi', 'NAVI 8.9'],
+      ['/navi', 'NAVI 9.2 ZORRO'],
       ['/roadmap', 'ROADMAP · ECLIPSE'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
@@ -70,8 +70,9 @@ const NAV_MENUS = [
     id: 'open',
     label: 'OPEN',
     items: [
+      ['https://github.com/knightslabs/Navi-9.2', 'CÓDIGO · NAVI 9.2'],
       ['https://github.com/knightslabs/rxos-8.5', 'CÓDIGO · rxos-8.5'],
-      ['https://github.com/navywakura/RXos', 'CÓDIGO · mirror'],
+      ['https://github.com/navywakura/RXos', 'CÓDIGO · rxOS 9 mirror'],
       ['https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0', 'ISOs v9.0.0'],
       ['https://github.com/knightslabs/RXos-Packages', 'PACKAGES'],
       ['/downloads', 'TODAS LAS DESCARGAS'],

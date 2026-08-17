@@ -1,4 +1,7 @@
-# NAVI 8.5 → 9 → 10
+# NAVI 8.5 → 9.2 zorro → 10
+
+La línea **host viva** es [NAVI 9.2](NAVI92.md) (zorro: una tarea por
+turno, Echo, resume). Este papel sigue siendo el puente a metal / 10.
 
 **No es el camino hacia ChatGPT.** El techo no es un transformer más
 gordo. Es un agente local que no inventa, con WSP en el cable y Q6 en
@@ -56,24 +59,55 @@ GPT-5. Es el techo *correcto* para un unikernel.
 - 9 usará ese debate como postal WSP (quién/verbo/objeto) entre
   módulos, no como CoT de tokens.
 
-## Navi 9 — «VERIFY en metal»
+## Navi 9 — «cuervo»: aprende, no inventa
 
-Estado: **PLAN.** Una sola mente (RLC), dos sitios de cómputo.
+Estado: **HOST LIVE.** Metal/WSP/Q6-retrieve sigue el plan de abajo.
+
+8.9 es avispa: sonda. Si no hay ficha, corta («no invento»). El desk
+además llamaba con `--no-live`, así que ni siquiera cosechaba.
+
+9 es cuervo / chimpancé: **sin ficha no inventa; va a buscar**.
+Cosecha Wikipedia / DDG / scrape / `context.db`, VERIFY del extracto,
+guarda la ficha (KCC) y entonces habla. Cualquier pregunta que no sea
+oráculo o charla entra por ese tubo.
+
+```
+PARSE → (oráculo | ella | código) 
+      → RETRIEVE catálogo+BD
+      → si miss: LEARN (harvest)
+      → MOUTH (extracto; LLM opcional atado)
+      → si aún miss: DESCONOCIDO
+```
 
 | Pieza | Qué entra |
 | --- | --- |
-| Cara | 8.5 in-OS (no solo host): misma voz, misma DB, harvest wiki/URL |
-| Busca | `busca X` / URL / inglés «search» sin spellfix |
-| Usuario | hechos (nombre, lugar, última página) en `context.db` |
-| Q6 retrieve | score de ficha = Hamming/LIF + VERIFY de tokens |
-| WSP | cada turno es una postal 16 B (quién/verbo/objeto/cuando) hacia el log |
-| Coach | banco ≥ 40; ejes verdad/habilidad/calibración/coste |
-| 7-NPU | si hay Akida, Q6-retrieve corre ahí; si no, software y se dice |
+| Cara | `./navi9` + desk Tab 8.8/8.9/9 (9 va **con red**) |
+| Ella | Navi, femenino, castellano, modelo de sí en `lab/navi9/self.json` |
+| Aprende | sin `/learn`: curiosidad automática. Persistencia en catálogo + BD |
+| Boca | extracto crudo, o `XAI_API_KEY` → grok atado (VERIFY de tokens) |
+| Código | no pega un `for` de C si pediste COBOL: o primitiva del idioma, o harvest |
+| Busca | wiki/URL/DDG; variantes («color de manzana» → manzana) |
+| Q6 retrieve | score Hamming/LIF — sigue PLAN (el retrieve de 9 ya es Jaccard+VERIFY) |
+| WSP | postal 16 B entre módulos — sigue PLAN |
 
-Fuera de 9: backprop, CoT de 8k tokens, opinión fingida.
+Fuera de 9: backprop, CoT de 8k, opinión fingida, disfraz de personaje.
 
 Híbrido SNN+esqueleto (WSP latente, Q6 atractor, LLM solo como
 boca atada): [`NAVI9_HYBRID.md`](NAVI9_HYBRID.md).
+
+**9.2 zorro** — elige la tarea (resume ≠ Echo). CLI: `./navi9` con `/ask /resume /echo /think` (Tab completa).
+
+```bash
+./navi9 --ask "color de manzana"
+./navi9 --teach-ecosystem
+./navi9 --echo "estoy solo"
+./navi9 --repl
+./navi9 --tui          # Tab → 9 cuervo (live)
+XAI_API_KEY=… ./navi9 --ask "qué es un hipercubo"
+python3 tests/test_navi9.py
+```
+
+Echo (evolución de WSP): [`ECHO.md`](ECHO.md).
 
 ## Navi 10 — «agente WSP»
 

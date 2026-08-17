@@ -2,7 +2,7 @@
 
 export const ROADMAP_CUTOFF = '2026-08-17';
 
-export const HERE_IDS = ['lab-85', 'smoke-9'];
+export const HERE_IDS = ['lab-85', 'smoke-9', 'host-92'];
 
 export const PHASES = [
   {
@@ -98,6 +98,20 @@ export const ERAS = [
     tech: 'ISO v9.0.0 VM+metal. Dark Aero, Photos, Ajustes, wget. Catálogo 73 fichas, bench 15/15. Harvest HTTP. RLC 6.5 debajo. 7-NPU = PLAN.',
     proof: 'make iso-vm · ./navi7 --bench · tecla v',
     not: '7-WORLD no es 7-NPU. No hay placa Akida. No es un LLM. TLS de cuerpo HTTPS aún no baja.',
+  },
+  {
+    id: 'host-92',
+    phase: 'lab',
+    navi: '9.2 zorro',
+    rxos: 'host',
+    title: 'El zorro en el host',
+    when: '17 ago 2026',
+    status: 'hecho',
+    here: true,
+    human: 'En el portátil, no en la ISO: elige una tarea, resume lo que pegas, traduce a Echo. Todavía no ve ni toca el mundo.',
+    tech: './navi9 · split_prompt · Echo+RogexWSP · cubo 256/384/320 Hz · 32 tests. Akida/cámara/robot = PLAN 10.',
+    proof: 'python3 tests/test_navi9.py · ./navi9 --train-social',
+    not: 'No está en la ISO 9. No hay visión. No hay NPU. No es NAVI 10.',
   },
   {
     id: 'npu-7',

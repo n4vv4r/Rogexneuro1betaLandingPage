@@ -123,6 +123,55 @@ export const DOCS = [
     category: 'navi',
     path: '/docs/navi/NAVI89.md',
     blurb: 'Dos voces, TUI, --train --stats, laberinto BFS.',
+    date: '2026-08-17',
+  },
+  {
+    id: 'navi92',
+    title: 'NAVI 9.2 — zorro',
+    category: 'navi',
+    path: '/docs/navi/NAVI92.md',
+    blurb: 'Una tarea por turno. Resume ≠ Echo. Host LIVE. No ve, no Akida.',
+    date: '2026-08-17',
+  },
+  {
+    id: 'navi92-dummies',
+    title: 'NAVI 9.2 para dummies',
+    category: 'tutorial',
+    path: '/docs/navi/NAVI92_DUMMIES.md',
+    blurb: 'Zorro, no loro. Cinco comandos slash. Tab completa.',
+    date: '2026-08-17',
+  },
+  {
+    id: 'navi92-experts',
+    title: 'NAVI 9.2 para expertos',
+    category: 'navi',
+    path: '/docs/navi/NAVI92_EXPERTS.md',
+    blurb: 'split_prompt, Echo+RogexWSP, onto, KPI de 32 tests.',
+    date: '2026-08-17',
+  },
+  {
+    id: 'navi92-blueprint',
+    title: 'Blueprint — pensamiento 9.2',
+    category: 'impl',
+    path: '/docs/navi/NAVI92_BLUEPRINT.md',
+    blurb: 'DAG real: CLI → tarea → VERIFY → render. 10 es otro recuadro.',
+    date: '2026-08-17',
+  },
+  {
+    id: 'navi92-train',
+    title: 'Entrenar NAVI 9.2',
+    category: 'tutorial',
+    path: '/docs/navi/NAVI92_TRAIN.md',
+    blurb: 'teach-ecosystem, train-social, léxico Echo. No SFT.',
+    date: '2026-08-17',
+  },
+  {
+    id: 'echo',
+    title: 'Echo — evolución de RogexWSP',
+    category: 'wsp',
+    path: '/docs/navi/ECHO.md',
+    blurb: 'Postal + cubo modal 256/384/320 Hz. Padre: RogexWSP.',
+    date: '2026-08-17',
   },
   {
     id: 'navi9-hybrid',
@@ -420,6 +469,10 @@ export function catById(id) {
 
 export function docById(id) {
   return DOCS.find((d) => d.id === id) || null;
+}
+
+export function docDate(d) {
+  return d.date || '2026-08-17';
 }
 
 export function docByPath(pathname) {

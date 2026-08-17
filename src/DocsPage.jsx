@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { DOC_CATEGORIES, DOCS, docById, catById } from './docs-catalog.js';
+import { DOC_CATEGORIES, DOCS, docById, catById, docDate } from './docs-catalog.js';
 import { renderMarkdown } from './markdown.jsx';
 
 export function parseDocsPath(path) {
@@ -28,53 +28,108 @@ export default function DocsPage({ path, navigate, PageHero, SectionTitle }) {
   if (parsed.list) {
     return (
       <>
-        <PageHero
-          index="DX"
-          eyebrow="DOCS · MARKDOWN VIVO"
-          title={<>READ.<br />REPEAT.<br />MEASURE.</>}
-          text="Tutoriales, demostraciones, benches, papers de teoría e implementación. Markdown del lab, no un CMS. PDFs clásicos siguen en /docs/rxos/*.pdf."
-          image="/rxos/9/11-mac-tree.png"
-          className="rxos-hero"
-        />
-        <main>
-          <section className="section wrap">
-            <SectionTitle
-              code="01 / CATÁLOGO"
-              title="LO QUE SE PUEDE LEER AQUÍ"
-              text="El visor renderiza los .md del árbol público. Capturas QEMU, fotos metal del HP 15-ac195nl (17 ago 2026) y GUI nativo de PRISMA Engine."
-            />
-            {DOC_CATEGORIES.map((cat) => {
-              const items = DOCS.filter((d) => d.category === cat.id);
-              if (!items.length) return null;
-              return (
-                <div key={cat.id} className="docs-cat">
-                  <h3 className="docs-cat-title" style={{ color: cat.color }}>{cat.label}</h3>
-                  <div className="docs-grid">
-                    {items.map((d) => (
-                      <article key={d.id} className="docs-card" data-reveal>
-                        <span className="doc-tag" style={{ '--tag': cat.color }}>{cat.label}</span>
-                        <h3>{d.title}</h3>
-                        <p>{d.blurb}</p>
-                        <button
-                          type="button"
-                          className="brutal-button"
-                          onClick={() => navigate(`/docs/${d.id}`)}
-                        >
-                          LEER
-                        </button>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </section>
-        </main>
+        <DocsIndex navigate={navigate} PageHero={PageHero} SectionTitle={SectionTitle} />
       </>
     );
   }
 
   return <DocArticle doc={doc} navigate={navigate} />;
+}
+
+function DocsIndex({ navigate, PageHero, SectionTitle }) {
+  const [sort, setSort] = useState('category');
+  const sorted = useMemo(() => {
+    const copy = [...DOCS];
+    if (sort === 'abc') {
+      copy.sort((a, b) => a.title.localeCompare(b.title, 'es'));
+    } else if (sort === 'date') {
+      copy.sort((a, b) => docDate(b).localeCompare(docDate(a)) || a.title.localeCompare(b.title, 'es'));
+    }
+    return copy;
+  }, [sort]);
+
+  return (
+    <>
+      <PageHero
+        index="DX"
+        eyebrow="DOCS · NAVI 9.2 · MARKDOWN VIVO"
+        title={<>READ.<br />REPEAT.<br />MEASURE.</>}
+        text="Tutoriales, benches, papers y el host 9.2 zorro. Ordena por fecha, categoría o ABC. Sin CMS. Sin paywall."
+        image="/rxos/9/11-mac-tree.png"
+        className="rxos-hero"
+      />
+      <main>
+        <section className="section wrap">
+          <SectionTitle
+            code="01 / CATÁLOGO"
+            title="LO QUE SE PUEDE LEER AQUÍ"
+            text="El visor renderiza los .md del árbol público. NAVI 9.2, Echo, Eternal Eclipse y el resto del lab."
+          />
+          <div className="docs-toolbar" role="toolbar" aria-label="Ordenar documentos">
+            <span className="docs-toolbar-label">Ordenar</span>
+            {[
+              ['category', 'Categoría'],
+              ['date', 'Fecha'],
+              ['abc', 'ABC'],
+            ].map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                className={sort === id ? 'brutal-button primary' : 'brutal-button'}
+                aria-pressed={sort === id}
+                onClick={() => setSort(id)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          {sort === 'category'
+            ? DOC_CATEGORIES.map((cat) => {
+                const items = sorted.filter((d) => d.category === cat.id);
+                if (!items.length) return null;
+                return (
+                  <DocsCat key={cat.id} cat={cat} items={items} navigate={navigate} />
+                );
+              })
+            : (
+              <div className="docs-grid">
+                {sorted.map((d) => (
+                  <DocCard key={d.id} d={d} navigate={navigate} />
+                ))}
+              </div>
+            )}
+        </section>
+      </main>
+    </>
+  );
+}
+
+function DocsCat({ cat, items, navigate }) {
+  return (
+    <div className="docs-cat">
+      <h3 className="docs-cat-title" style={{ color: cat.color }}>{cat.label}</h3>
+      <div className="docs-grid">
+        {items.map((d) => (
+          <DocCard key={d.id} d={d} navigate={navigate} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DocCard({ d, navigate }) {
+  const cat = catById(d.category);
+  return (
+    <article className="docs-card" data-reveal>
+      <span className="doc-tag" style={{ '--tag': cat?.color || '#888' }}>{cat?.label || d.category}</span>
+      <h3>{d.title}</h3>
+      <p>{d.blurb}</p>
+      <p className="docs-date">{docDate(d)}</p>
+      <button type="button" className="brutal-button" onClick={() => navigate(`/docs/${d.id}`)}>
+        LEER
+      </button>
+    </article>
+  );
 }
 
 function DocArticle({ doc, navigate }) {

@@ -75,7 +75,7 @@ make                                 # linka navi6.o
 make iso-refresh                     # stage NAVI6W01
 ```
 
-No se publica J/inferencia: RAPL en QEMU no es honesto.
+QEMU se niega a RAPL. Metal HP 15-ac195nl (17 ago 2026): 18554 µJ / 256 Q6 = 72.5 µJ/run de paquete. No es J/NPU. Ver [metal 8.5](/docs/hp-metal-85).
 
 ## Límites que son contrato
 

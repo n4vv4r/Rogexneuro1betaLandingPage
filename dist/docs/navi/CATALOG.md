@@ -48,7 +48,7 @@ Catálogo visual en la web: [`/navi`](/navi).
 - NAVI 1–4.5 viven **en el kernel**. NAVI 5 vive **en el host** (sandbox Docker / Python).
   No está todavía dentro de la ISO como operador.
 - Ninguna generación “entiende español”. El castellano es máscara.
-- No hay cifra J/inferencia publicada: RAPL en QEMU miente.
+- RAPL de paquete en metal (HP 15-ac195nl, 17 ago 2026): 18554 µJ / 256 Q6 = 72.5 µJ/run. QEMU se niega. No es J/NPU. Ver [metal 8.5](/docs/hp-metal-85).
 - No hay port a Loihi / TrueNorth / Akida **en silicio**. El hook
   `neurocpu akida` se niega. Plano: [cianotipo](/docs/cianotipo), [Akida](/docs/akida).
 

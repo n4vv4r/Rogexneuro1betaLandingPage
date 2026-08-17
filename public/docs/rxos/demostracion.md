@@ -1,11 +1,14 @@
 # Demostración y benches — rxOS 8 DESKTOP
 
 **Autor:** r. navarro  
-**Fecha de las capturas:** 13 ago 2026  
-**Máquina de las fotos:** QEMU q35, 512 MiB, ISO `rxOS-8.0.0-vm.iso`  
-**Script:** `tools/capture_navi45.py` (sesión 11–17) · `tools/capture_monad.py` (legado 01–10)
+**Fecha QEMU:** 13 ago 2026 (sesión 11–17)  
+**Fecha metal:** 17 ago 2026 — HP 15-ac195nl, ISO `rxOS-8.5.0-metal`  
+**Máquina QEMU:** q35, 512 MiB, ISO `rxOS-8.0.0-vm.iso`  
+**Informe metal:** [HP_AC195NL_85.md](/docs/hp-metal-85)
 
 Esto es el texto para quien quiere **verlo funcionar** y repetir los números. Tono claro, tecnicismos los justos, cero teatro.
+
+Las fotos del portátil (chat, `power`, `navi3 bench`, `navi6 bench`, `neurocpu`, `navi joules`, `/prove`, máscaras) están en `/rxos/hp-ac195nl-85/`. Cifras RAPL: idle 3678 mW, Q6 72.5 µJ/run.
 
 ---
 
@@ -15,7 +18,7 @@ Esto es el texto para quien quiere **verlo funcionar** y repetir los números. T
 | --- | --- |
 | L1 Q₆ corre en el kernel, self-test de boot en PASS | Que NAVI sea un modelo de lenguaje |
 | 1-bit 48/48 y hop 2-bit 120/120 | Que escriba drivers nuevos |
-| L2 cabe en **66 352 B** y no crece con el corpus | Julios medidos en QEMU (RAPL no está) |
+| L2 cabe en **66 352 B** y no crece con el corpus | Julios medidos en QEMU (RAPL se niega; metal: 72.5 µJ/run Q6) |
 | `void kernel_main` → `(` si se lo enseñaste | Que el RWKV ternario esté entrenado |
 
 El eslogan vale para **la capa NAVI**, no para el framebuffer del escritorio.

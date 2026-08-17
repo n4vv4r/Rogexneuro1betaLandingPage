@@ -13,8 +13,8 @@ Sitio oficial: [www.rogexlaboratories.com](https://www.rogexlaboratories.com/)
 |----------|--------|--------|
 | **PRISMA 3.2** | Activo | Software EEG experimental, no clínico |
 | **PRISMA 5** | R&D | Motor SNN / path sobre RXos |
-| **rxOS 8 DESKTOP** | Hardware + QEMU | Escritorio Aero, NAVI-4.5, WSP 16 B, virtio/e1000 |
-| **NAVI SNN 1→5** | Catálogo público | `/navi` — Q₆, ASCII, WSP, operador 4.5, lab 5 KCC |
+| **rxOS 8.5 DESKTOP** | Metal HP 15-ac195nl + QEMU | NAVI 6.5 RLC, RAPL 72.5 µJ/run Q6, HDC 100% |
+| **NAVI SNN 1→6.5** | Catálogo público | `/navi` — Q₆, WSP, 4.5, lab 5, tutor 6, RLC 6.5 |
 | **RXos neuromorphic fabric** | Niveles 1–2 cerrados | LIF Q16.16, STDP, bench 6/6; Nivel 3 Akida pendiente |
 | **RXos packages** | Canal vivo | `/rx-os/packages` — INDEX + `.rxc` + admin |
 | **Docs** | Públicos | `/docs/rxos/*.pdf` paper + hoja de ruta 4 niveles |

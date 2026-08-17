@@ -174,11 +174,18 @@ export const DOCS = [
     blurb: 'Público curioso + métricas para quien mide.',
   },
   {
+    id: 'hp-metal-85',
+    title: 'HP 15-ac195nl — metal 8.5 medido',
+    category: 'bench',
+    path: '/docs/rxos/HP_AC195NL_85.md',
+    blurb: 'RAPL, navi3/navi6, 72.5 µJ/run Q6. Ocho fotos del portátil, 17 ago 2026.',
+  },
+  {
     id: 'measure',
     title: 'MEASURE — cómo medir Q₆ / L2',
     category: 'bench',
     path: '/docs/navi/MEASURE.md',
-    blurb: 'Protocolo de medida del banco host NAVI.',
+    blurb: 'Protocolo de medida del banco host NAVI. Metal: /docs/hp-metal-85.',
   },
   {
     id: 'l2',

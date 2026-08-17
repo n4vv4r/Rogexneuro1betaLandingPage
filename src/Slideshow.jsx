@@ -3,6 +3,46 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const HOME_SLIDES = [
   {
+    src: '/rxos/hp-ac195nl-85/01-chat-rlc.jpg',
+    credit: 'HP 15-ac195nl · metal 8.5 · 17 ago 2026',
+    kicker: 'METAL · HP 15-ac195nl',
+    title: 'ESTO YA NO ES QEMU.',
+    caption: 'NAVI 6.5 RLC en el i7-5500U. 1 + 9 * 2 = 19. 463 KiB W + 64 KiB L2. Foto del portátil.',
+    href: '/rx-os#hp-metal',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/02-power-rapl.jpg',
+    credit: 'HP 15-ac195nl · comando power · 01:07:28',
+    kicker: 'RAPL REAL · MWAIT C7',
+    title: '3678 mW DE PAQUETE EN REPOSO.',
+    caption: 'i7-5500U. Cores 73 mW. 42 °C. msr guard OK. Medido, no estimado.',
+    href: '/docs/hp-metal-85',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/04-navi6-bench.jpg',
+    credit: 'HP 15-ac195nl · navi6 bench · 01:08:04',
+    kicker: 'NAVI 6.5 · 1010 B',
+    title: 'heap 0. ONCE MÁSCARAS. MATH ENTERO.',
+    caption: 'NAVI6W01 module2. El blob RLC cabe en un kilobyte y pico.',
+    href: '/docs/navi65',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/06-navi-joules.jpg',
+    credit: 'HP 15-ac195nl · navi joules · 01:08:50',
+    kicker: 'Q6 BURST · RAPL PKG',
+    title: '18554 µJ / 256 RUNS.',
+    caption: '72.5 µJ/run de paquete. No es J/NPU. Akida sigue ausente.',
+    href: '/docs/hp-metal-85',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/08-masks-demo.jpg',
+    credit: 'HP 15-ac195nl · G_logic / G_code / G_news',
+    kicker: 'MÁSCARAS EN METAL',
+    title: 'TRANSITIVIDAD. rev_u8. BRIEFING LOCAL.',
+    caption: '~16.8 ms por turno. Sin red. Sin FPU. El castellano es máscara.',
+    href: '/rx-os#hp-metal',
+  },
+  {
     src: '/rxos/monad/12-desktop.png',
     kicker: 'rxOS v8 DESKTOP',
     title: 'ESTO NO ES UN MOCKUP.',
@@ -61,6 +101,22 @@ export const HOME_SLIDES = [
 ];
 
 export const DOC_SLIDES = [
+  {
+    src: '/rxos/hp-ac195nl-85/02-power-rapl.jpg',
+    credit: 'HP 15-ac195nl · metal 8.5 · 17 ago 2026',
+    kicker: 'ARTÍCULO · METAL',
+    title: 'EL PORTÁTIL YA PRODUJO LAS CIFRAS.',
+    caption: 'RAPL, navi3, navi6, neurocpu, 72.5 µJ/run Q6. Ocho fotos. QEMU se niega; el i7-5500U no.',
+    href: '/docs/hp-metal-85',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/06-navi-joules.jpg',
+    credit: 'HP 15-ac195nl · navi joules',
+    kicker: 'ARTÍCULO · JULIOS',
+    title: 'DELTA DE PAQUETE. NO DE NPU.',
+    caption: '18554 µJ medidos en 256 corridas Q6. Software LIF. Akida sigue en stub.',
+    href: '/docs/hp-metal-85',
+  },
   {
     src: 'https://upload.wikimedia.org/wikipedia/commons/9/9c/DARPA_SyNAPSE_16_Chip_Board.jpg',
     credit: 'Wikimedia Commons · placa SyNAPSE / DARPA (IBM)',

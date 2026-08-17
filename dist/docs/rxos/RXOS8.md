@@ -34,7 +34,7 @@ rxOS arranca, pinta Aero y te deja pulsar `/prove`. El anuncio es el binario.
 3. **WSP v0.5** — un pensamiento = 16 bytes. El castellano es la carátula.
 4. **Q₆** — hipercubo de 6 bits, codebook [6,3,3]. Un bit de ruido: 48/48.
 
-**Impacto ecológico (órdenes, no kWh de marketing):** 475 KiB de pesos frente a decenas de GiB. ~3 MiB de RAM frente a 1–8 GiB de un desktop. Reposo = HLT, 0 paint. No publicamos julios/inferencia: RAPL en QEMU no es honesto. Nivel 3 (Akida) será la primera cifra J real.
+**Impacto ecológico (órdenes, no kWh de marketing):** 475 KiB de pesos frente a decenas de GiB. ~3 MiB de RAM frente a 1–8 GiB de un desktop. Reposo en metal (HP 15-ac195nl, 17 ago 2026): 3678 mW de paquete, 73 mW de cores (MWAIT C7). Q6 burst: 72.5 µJ/run de paquete RAPL. QEMU se niega. Nivel 3 (Akida) será la primera cifra J/NPU. Ver [metal 8.5](/docs/hp-metal-85).
 
 > Si no hay evento, no hay vatio.
 

@@ -89,6 +89,7 @@ const NAV_MENUS = [
       ['/docs/navi5', 'NAVI 5'],
       ['/docs/navi45', 'NAVI 4.5'],
       ['/docs/tutorial-monad', 'TUTORIAL'],
+      ['/docs/hp-metal-85', 'METAL HP 8.5'],
       ['/docs/demostracion', 'DEMO + BENCH'],
       ['/docs/rfc-q6-campana', 'RFC Q6 CAMPAÑA'],
       ['/architecture', 'ARCHITECTURE'],
@@ -474,7 +475,8 @@ const RXOS_BENCH = [
   { test: 'sparsity: 200 sub-thr', model: '200 absorbed', kernel: '200 absorbed', result: 'PASS' },
 ];
 
-const RXOS_HERO_IMAGE = '/rxos/monad/12-desktop.png';
+const RXOS_HERO_IMAGE = '/rxos/hp-ac195nl-85/01-chat-rlc.jpg';
+const RXOS_HERO_QEMU = '/rxos/monad/12-desktop.png';
 const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
@@ -670,7 +672,7 @@ const RXOS_INFOGRAPHIC = {
     {
       icon: LayoutGrid,
       title: 'DESKTOP QUE ARRANCA',
-      text: 'Aero, iconos, taskbar, Start. Captura QEMU del 13 ago 2026 — no un render de Figma.',
+      text: 'Aero, iconos, taskbar, Start. Foto del HP 15-ac195nl el 17 ago 2026 — y QEMU el 13 ago. No es Figma.',
     },
     {
       icon: Brain,
@@ -710,7 +712,7 @@ const RXOS_INFOGRAPHIC = {
     ['Edición Server', 'Mismo núcleo, AERO=0. Headless. Otro día — no está en esta ISO.'],
     ['TLS de verdad', 'Hoy: ClientHello + ServerHello. El body HTTPS aún no baja. HTTP RSS sí.'],
     ['Packs + HDC fallback', 'Si el n-grama falla, acercar a un dominio. No está cerrado en 8.0.0.'],
-    ['Akida / USB / HPET', 'Nivel 3 del roadmap. Sin chip en el lab = no hay cifra J/inferencia.'],
+    ['Akida / USB / HPET', 'RAPL CPU ya medido en el HP (72.5 µJ/run Q6). J/NPU sigue pendiente de placa.'],
   ],
 };
 
@@ -729,7 +731,7 @@ const ECO_COMPARE = [
   { criterion: 'RAM al arrancar', them: 'Windows / Linux desktop: 1–8 GiB', us: '~3 MiB (paper rev 1.0)' },
   { criterion: 'Reposo', them: 'Datacenter siempre encendido', us: 'HLT. Sin evento = 0 paint' },
   { criterion: 'Entrenar', them: 'MWh–GWh en un campus', us: 'Host train_wsp.py. El kernel no backpropaga' },
-  { criterion: 'Julios / inferencia', them: 'Cifra de marketing de nube', us: 'Sin J inventado. Nivel 3 (Akida) lo medirá' },
+  { criterion: 'Julios / inferencia', them: 'Cifra de marketing de nube', us: 'RAPL pkg 72.5 µJ/run Q6 en i7-5500U. No es J/NPU.' },
 ];
 
 const WSP_FIELDS = [
@@ -744,16 +746,84 @@ const VERSION_HISTORY = [
   { ver: '6.0', title: 'Desktop + WWW', state: 'HISTORIA', text: 'Aero, ISO dual, HTTP GET opt-in.' },
   { ver: '6.5', title: 'NICs', state: 'HISTORIA', text: 'virtio, e1000, r8169, rtl8139. ISO anterior en releases.' },
   { ver: '7.0', title: 'MONAD / NAVI-3', state: 'HISTORIA', text: 'SNN in-kernel, WSP 16 B, chat tecla v. Sustituida por 8.' },
-  { ver: '8.0', title: 'DESKTOP / NAVI-4.5', state: 'ACTUAL', text: 'Operador G_rxos, /prove, discurso, capturas 11–17.' },
+  { ver: '8.0', title: 'DESKTOP / NAVI-4.5', state: 'HISTORIA', text: 'Operador G_rxos, /prove, discurso, capturas QEMU 11–17.' },
+  { ver: '8.5', title: 'DESKTOP / NAVI 6.5', state: 'ACTUAL', text: 'RLC preentrenado. Metal HP 15-ac195nl medido 17 ago 2026.' },
 ];
 
 const HIT_NUMBERS = [
   { n: '16 B', l: 'un pensamiento WSP' },
   { n: '0', l: 'heap del modelo' },
-  { n: '48/48', l: 'Q₆ recupera 1 bit' },
-  { n: '~3 MiB', l: 'RAM al boot' },
-  { n: '6/6', l: 'LIF bench' },
-  { n: '/prove', l: 'el anuncio es el test' },
+  { n: '72.5 µJ', l: 'Q6 burst / run · RAPL pkg' },
+  { n: '3678 mW', l: 'idle package MWAIT C7' },
+  { n: '100%', l: 'HDC SOLEDAD · metal' },
+  { n: '1010 B', l: 'blob NAVI6W01' },
+];
+
+const HP_METAL_SHOTS = [
+  {
+    src: '/rxos/hp-ac195nl-85/01-chat-rlc.jpg',
+    tag: '01 / CHAT',
+    title: 'NAVI 6.5 RLC EN EL PORTÁTIL',
+    text: 'hola / quién eres / 1+9*2 = 19. 463 KiB W + 64 KiB L2. No soy un LLM.',
+    featured: true,
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/02-power-rapl.jpg',
+    tag: '02 / POWER',
+    title: 'RAPL i7-5500U',
+    text: 'MWAIT C7. 3678 mW package · 73 mW cores. 42 °C. msr guard OK.',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/03-navi3-bench.jpg',
+    tag: '03 / NAVI3',
+    title: 'rdtsc / PACKET',
+    text: 'med 40 378 672 ciclos. heap 0. HDC 100% (8 probes, SOLEDAD).',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/04-navi6-bench.jpg',
+    tag: '04 / NAVI6',
+    title: 'BLOB 6.5',
+    text: 'NAVI6W01 · 1010 B · heap 0 · 11 G_* · math entero.',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/05-neurocpu.jpg',
+    tag: '05 / NEUROCPU',
+    title: 'SOFTWARE LIF',
+    text: 'Akida pedido, no presente. spikes 0 · idle 830. Stubs akida/loihi.',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/06-navi-joules.jpg',
+    tag: '06 / JOULES',
+    title: '18554 µJ / 256 RUNS',
+    text: 'pkg 1006724426 → 1006742980 µJ. 72.5 µJ/run. Measured.',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/07-prove-status.jpg',
+    tag: '07 / PROVE',
+    title: '/prove + status',
+    text: '24 packets. HDC 494/1024 · 100%. boot OK GRUB/Multiboot2.',
+  },
+  {
+    src: '/rxos/hp-ac195nl-85/08-masks-demo.jpg',
+    tag: '08 / G_*',
+    title: 'LOGIC · CODE · NEWS',
+    text: 'Transitividad. rev_u8. Briefing local sin red. ~16.8 ms.',
+  },
+];
+
+const HP_METAL_ROWS = [
+  ['CPU', 'i7-5500U @ 2.40 GHz'],
+  ['Idle', 'MWAIT C7 · pkg 3678 mW · cores 73 mW'],
+  ['Temp / TDP', '42 °C core · 44 °C pkg · 15 000 mW spec'],
+  ['RAPL', 'pkg + cores + gpu · msr guard OK'],
+  ['navi3 cycles', 'min 40 372 172 · med 40 378 672 · max 40 436 068'],
+  ['L2 / pesos', '66 352 B · 474 560 B (module2)'],
+  ['heap navi3', '0'],
+  ['HDC', '100 % · 8 probes SOLEDAD · sim 492/1024'],
+  ['NAVI 6.5', 'NAVI6W01 · 1010 B · 11 G_* · math entero'],
+  ['neurocpu', 'Software LIF · Akida no presente · spikes 0'],
+  ['Q6 burst', '256 runs · delta 18 554 µJ · 72.5 µJ/run'],
+  ['G_math', '1 + 9 * 2 = 19 (entero, 0 % FPU)'],
 ];
 
 const EXPLAIN_CHAPTERS = [
@@ -762,7 +832,7 @@ const EXPLAIN_CHAPTERS = [
     slogan: 'EL SO ES LA DEMO',
     analog: 'Windows pesa cientos de megas y te pide una cuenta. rxOS arranca, pinta Aero y te deja pulsar /prove. El anuncio es el binario.',
     text: 'Unikernel x86_64 (C + NASM + Rust no_std). Escritorio Aero, Terminal, Explorer y NAVI-4.5 en el mismo binario. ISO VM + metal. No es Linux recortado.',
-    facts: ['~3 MiB al boot', 'Aero real · QEMU 13 ago', 'GPLv3 · SHA-256', 'No es producción'],
+    facts: ['~3 MiB al boot', 'Metal HP 17 ago + QEMU', 'GPLv3 · SHA-256', 'No es producción'],
   },
   {
     code: '02 · NAVI 4.5',
@@ -789,8 +859,8 @@ const EXPLAIN_CHAPTERS = [
     code: '05 · CARBONO',
     slogan: 'SI NO HAY EVENTO, NO HAY VATIO.',
     analog: 'Un LLM enciende un hangar de GPUs para apostar una sílaba. Un pensamiento WSP son 16 bytes y sumas enteras en el mismo binario que pinta el escritorio. El portátil ya estaba encendido. No se alquila un campus.',
-    text: 'Impacto ecológico medible por órdenes de magnitud, no por un kWh inventado. Pesos: 475 KiB frente a decenas de gigabytes. RAM al boot: ~3 MiB. Reposo: HLT, 0 paint. Julios/inferencia: no los publicamos — RAPL en QEMU miente. Nivel 3 (Akida) será la primera cifra J real.',
-    facts: ['475 KiB de pesos', '~3 MiB RAM', 'HLT si no hay evento', 'sin cifra J falsa'],
+    text: 'Impacto ecológico medible por órdenes de magnitud, no por un kWh inventado. Pesos: 475 KiB frente a decenas de gigabytes. RAM al boot: ~3 MiB. Reposo en metal: 3678 mW de paquete, 73 mW de cores (MWAIT C7). Q6 burst: 18554 µJ / 256 runs = 72.5 µJ/run de paquete RAPL en el i7-5500U. Eso no es J/NPU. Akida sigue ausente.',
+    facts: ['475 KiB de pesos', '3678 mW idle pkg', '72.5 µJ/run Q6', 'sin J/NPU inventado'],
   },
 ];
 
@@ -1151,9 +1221,10 @@ function EcoImpact() {
           <span className="panel-label">IMPACTO ECOLÓGICO · ÓRDENES, NO TEATRO</span>
           <h3>Un hangar de tokens vs un sello de correos.</h3>
           <p>
-            No publicamos un kWh de marketing. Publicamos tamaños, reposo y un límite:
-            RAPL en QEMU no es honesto, así que <em>no hay cifra J/inferencia</em> hasta Akida.
-            Lo que sí es cierto: 16 bytes no necesitan un reactor, y si no hay evento no hay paint.
+            No publicamos un kWh de marketing. En QEMU, RAPL se niega. En el HP 15-ac195nl
+            el paquete midió <em>18554 µJ / 256 corridas Q6 (72.5 µJ/run)</em> e idle
+            <em>3678 mW</em>. Eso es RAPL de CPU, no J/inferencia de un NPU.
+            Akida sigue ausente. 16 bytes no necesitan un reactor.
           </p>
         </div>
       </div>
@@ -1176,6 +1247,36 @@ function EcoImpact() {
 
 function StatusBadge({ children, tone = 'open' }) {
   return <span className={`status-badge status-${tone}`}>{children}</span>;
+}
+
+function MetalMetrics() {
+  return (
+    <div className="metal-metrics" data-reveal>
+      <div className="metal-metrics-hits">
+        <div><strong>3678 mW</strong><span>idle package C7</span></div>
+        <div><strong>73 mW</strong><span>idle cores</span></div>
+        <div><strong>72.5 µJ</strong><span>Q6 / run RAPL pkg</span></div>
+        <div><strong>18554 µJ</strong><span>delta 256 runs</span></div>
+        <div><strong>100%</strong><span>HDC SOLEDAD</span></div>
+        <div><strong>1010 B</strong><span>NAVI6W01</span></div>
+      </div>
+      <div className="bench-table bench-table-light metal-metrics-table">
+        <div className="bench-row bench-head">
+          <span>CAMPO</span><span>LEÍDO DEL PORTÁTIL</span>
+        </div>
+        {HP_METAL_ROWS.map(([k, v]) => (
+          <div className="bench-row" key={k}>
+            <span>{k}</span>
+            <span>{v}</span>
+          </div>
+        ))}
+      </div>
+      <p className="license-note" style={{ marginTop: 16 }}>
+        Sesión 2026-08-17 01:07–01:08. ISO metal 8.5. Software LIF. Akida no presente.
+        Cadenas viejas en ROSH (`rxOS 6`) y `/prove status` (`rxOS 7 MONAD`) son restos de identidad.
+      </p>
+    </div>
+  );
 }
 
 function DownloadSoonButton({ label, badge = 'Coming Soon' }) {
@@ -1502,15 +1603,24 @@ function Home({ navigate }) {
         <p>
           Un pensamiento de <strong>16 bytes</strong>. Un escritorio de <strong>~3 MiB</strong>.
           Un operador que, si no sabe, dice <strong>DESCONOCIDO</strong>.
-          Arriba no hay renders: es QEMU. Abajo, las cuatro piezas que hay que entender.
+          Arriba no hay renders: las primeras fotos son el HP 15-ac195nl en metal.
+          QEMU sigue más abajo. Las cifras RAPL salieron de ese portátil el 17 ago 2026.
         </p>
         <div className="hero-tags">
-          <span>rxOS 8.5 DESKTOP</span>
+          <span>rxOS 8.5 METAL</span>
+          <span>HP 15-ac195nl</span>
+          <span>72.5 µJ/run Q6</span>
           <span>NAVI 6.5 RLC</span>
-          <span>WSP 16 B · Q₆ 48/48</span>
           <span>PRISMA ENGINE 0.1</span>
         </div>
         <OpenLabBar />
+        <div className="home-metal-strip" data-reveal>
+          {['01-chat-rlc.jpg', '02-power-rapl.jpg', '06-navi-joules.jpg', '08-masks-demo.jpg'].map((file) => (
+            <button type="button" key={file} onClick={() => navigate('/rx-os#hp-metal')}>
+              <img src={`/rxos/hp-ac195nl-85/${file}`} alt="HP 15-ac195nl metal 8.5" />
+            </button>
+          ))}
+        </div>
       </section>
 
       <section className="section wrap" id="articulos">
@@ -2385,6 +2495,15 @@ function PapersSection({ code = 'PAPERS', title = 'DOCUMENTACIÓN TÉCNICA', tex
 }
 
 function RXOS({ navigate }) {
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return undefined;
+    const el = document.getElementById(hash);
+    if (!el) return undefined;
+    const timer = setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <PageHero
@@ -2392,11 +2511,11 @@ function RXOS({ navigate }) {
         className="rxos-hero"
         eyebrow={`${RXOS_VERSION_LABEL} / NAVI 6.5 / WSP / Q₆`}
         title={<>THE OS<br />IS THE DEMO.</>}
-        text="Un pensamiento de 16 bytes. Un escritorio de ~3 MiB. NAVI 6.5 RLC viene preentrenado: 11 máscaras G_*. /prove sigue midiendo. El castellano es máscara. Si no hay esquema, DESCONOCIDO."
+        text="Un pensamiento de 16 bytes. Medido en el HP 15-ac195nl el 17 ago 2026: idle 3678 mW, Q6 72.5 µJ/run, HDC 100%, blob 6.5 = 1010 B. NAVI 6.5 RLC preentrenado. Si no hay esquema, DESCONOCIDO."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v8.5.0 DESKTOP</span><span>NAVI 6.5</span><span>11 G_*</span><span>/prove</span><span>e1000</span><span>GPLv3</span>
+          <span>v8.5.0 METAL</span><span>i7-5500U</span><span>72.5 µJ/run</span><span>HDC 100%</span><span>NAVI 6.5</span><span>GPLv3</span>
         </div>
         <OpenLabBar />
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
@@ -2406,31 +2525,66 @@ function RXOS({ navigate }) {
           <button type="button" className="brutal-button" onClick={() => navigate('/docs/tutorial-monad')}>
             TUTORIAL <BookOpen size={15} />
           </button>
-          <a className="brutal-button" href="#rxos-captures">SCREENSHOTS</a>
+          <a className="brutal-button" href="#hp-metal">FOTOS METAL</a>
+          <a className="brutal-button" href="#rxos-captures">QEMU</a>
         </div>
       </PageHero>
 
       <main>
+        <section className="section wrap rxos-principal-section" id="hp-metal">
+          <SectionTitle
+            code="01 / METAL"
+            title="HP 15-ac195nl — MEDIDO 17 AGO 2026"
+            text="Ocho fotos del portátil de referencia ejecutando rxOS 8.5 metal. RAPL, navi3, navi6, neurocpu, /prove y tres máscaras. QEMU se niega a dar julios; el i7-5500U no."
+          />
+          <MetalMetrics />
+          <div className="screenshot-grid rxos-capture-grid metal-photo-grid">
+            {HP_METAL_SHOTS.map((shot) => (
+              <figure
+                className={`screenshot scientific-capture${shot.featured ? ' featured' : ''}`}
+                data-reveal
+                key={shot.src}
+              >
+                <img src={shot.src} alt={`${shot.title} — HP 15-ac195nl metal 8.5`} loading={shot.featured ? 'eager' : 'lazy'} />
+                <figcaption className="capture-caption">
+                  <span>METAL / {shot.tag}</span>
+                  <div>
+                    <strong>{shot.title}</strong>
+                    <p>{shot.text}</p>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <div className="hero-actions section-actions" style={{ marginTop: 22 }}>
+            <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/hp-metal-85')}>
+              INFORME COMPLETO
+            </button>
+            <button type="button" className="brutal-button" onClick={() => navigate('/docs/measure')}>
+              CÓMO MEDIR
+            </button>
+          </div>
+        </section>
+
         <section className="section wrap rxos-principal-section">
           <SectionTitle
-            code="01 / DESKTOP"
-            title="rxOS 8 DESKTOP — CAPTURA REAL"
-            text="Captura QEMU de rxOS 8 DESKTOP: wallpaper, iconos, taskbar. Misma sesión que sale del LIVE installer."
+            code="01b / DESKTOP QEMU"
+            title="SESIÓN QEMU — 13 AGO 2026"
+            text="Captura QEMU de rxOS 8 DESKTOP: wallpaper, iconos, taskbar. Sigue siendo real. Ya no es la foto principal: el portátil la sustituyó."
           />
           <figure className="rxos-principal-shot" data-reveal>
             <img
-              src={RXOS_HERO_IMAGE}
+              src={RXOS_HERO_QEMU}
               alt="rxOS 8 DESKTOP home — wallpaper, icons and taskbar"
               width={1360}
               height={768}
-              loading="eager"
-              fetchPriority="high"
+              loading="lazy"
             />
             <figcaption>
-              <span>PRINCIPAL · {RXOS_VERSION}</span>
+              <span>QEMU · {RXOS_VERSION}</span>
               <div>
                 <strong>DESKTOP HOME</strong>
-                <p>Escritorio bare-metal en vivo. Experimental, no clínico, no auditado.</p>
+                <p>Sesión emulada. Experimental, no clínico, no auditado.</p>
               </div>
             </figcaption>
           </figure>
@@ -2617,13 +2771,13 @@ function RXOS({ navigate }) {
             <SectionTitle
               code="05 / FOUNDATION"
               title={`${RXOS_VERSION_LABEL} — HECHOS MEDIDOS`}
-              text="Cifras del paper técnico rev 1.0 + línea desktop 8.0. Toda magnitud procede de una ejecución citada."
+              text="Paper rev 1.0 + metal HP 15-ac195nl 17 ago 2026. Toda magnitud procede de una ejecución citada."
             />
             <div className="rx-metrics">
               <div data-reveal><strong>16 B</strong><span>WSP packet</span></div>
               <div data-reveal><strong>0</strong><span>heap navi3</span></div>
-              <div data-reveal><strong>48/48</strong><span>Q₆ 1-bit</span></div>
-              <div data-reveal><strong>6/6</strong><span>LIF bench</span></div>
+              <div data-reveal><strong>72.5 µJ</strong><span>Q6 / run RAPL pkg</span></div>
+              <div data-reveal><strong>100%</strong><span>HDC metal</span></div>
             </div>
             <BootLog />
           </div>
@@ -2676,8 +2830,8 @@ function RXOS({ navigate }) {
           <div className="wrap">
             <SectionTitle
               code="08 / REAL CAPTURES"
-              title="rxOS 8 DESKTOP — QEMU, NO FIGMA"
-              text="Capturas de la sesión 8.0 (boot, /prove, neuro) y del escritorio Aero. Las fotos del instalador y del vault siguen siendo el mismo flujo LIVE."
+              title="SESIÓN QEMU — SIGUE SIENDO REAL"
+              text="Capturas QEMU 8.0 (boot, /prove, neuro) y escritorio Aero. Las fotos del portátil están arriba, en METAL. Esto no se borra: es otra bancada."
             />
             <div className="screenshot-grid rxos-capture-grid">
               <figure className="screenshot scientific-capture featured" data-reveal>
@@ -4235,10 +4389,10 @@ const ROUTE_META = {
   '/rx-os': {
     title: 'rxOS 8.5 DESKTOP — NAVI 6.5 — Knights Labs',
     description:
-      'rxOS 8.5 DESKTOP: Aero, NAVI 6.5 RLC preentrenado (11 máscaras G_*), WSP 16 B, /prove. Código e ISOs en GitHub.',
+      'rxOS 8.5 DESKTOP medido en HP 15-ac195nl: RAPL idle 3678 mW, Q6 72.5 µJ/run, HDC 100%, NAVI 6.5 1010 B. Código e ISOs en GitHub.',
     image: ogCard('rx-os'),
     ...OG_DIM,
-    imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
+    imageAlt: 'rxOS 8.5 DESKTOP — foto metal HP 15-ac195nl',
     url: `${SITE}/rx-os`,
   },
   '/rx-os/packages': {

@@ -170,7 +170,7 @@ const CARDS = [
     svg: labCard({
       kicker: 'KNIGHTS LABS · ROGEX LABORATORIES',
       title: '16 bytes. The OS is the demo.',
-      subtitle: 'rxOS 8.5 DESKTOP · NAVI 6.5 · WSP · Q₆',
+      subtitle: 'rxOS 8.5 metal HP · 72.5 µJ/run Q6 · NAVI 6.5',
       badge: 'v8.5.0',
       accent: LAB.accent,
     }),
@@ -220,12 +220,12 @@ const CARDS = [
   },
   {
     file: 'rx-os.png',
-    // Real QEMU desktop capture + brand overlay (not a generic SVG card).
-    fromShot: 'public/rxos/monad/12-desktop.png',
-    kicker: 'rxOS 8 DESKTOP',
+    // Phone photo of the HP 15-ac195nl running metal 8.5 (17 ago 2026).
+    fromShot: 'public/rxos/hp-ac195nl-85/01-chat-rlc.jpg',
+    kicker: 'rxOS 8.5 · METAL HP 15-ac195nl',
     title: 'THE OS IS THE DEMO.',
-    subtitle: 'NAVI 6.5 · WSP 16 B · /prove · Q₆ 48/48',
-    badge: 'REAL CAPTURE',
+    subtitle: 'RAPL 72.5 µJ/run Q6 · HDC 100% · NAVI 6.5 1010 B',
+    badge: 'REAL LAPTOP',
   },
   {
     file: 'investors.png',

@@ -189,7 +189,7 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
         eyebrow="NAVI · LÍNEA SNN 1 → 6.5 · 7 EN PLANO"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
         text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 es el RLC oficial. 7 es el plan Akida: mismo router, spikes en silicio si hay placa. Hoy neurocpu akida se niega. Ninguna es un LLM."
-        image="/rxos/monad/13-navi45-ready.png"
+        image="/rxos/hp-ac195nl-85/08-masks-demo.jpg"
         className="rxos-hero"
       >
         <div className="hero-tags">
@@ -333,7 +333,7 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
                 <li>No es un LLM ni un razonador de propósito general.</li>
                 <li>No corre todavía como operador dentro de la ISO.</li>
                 <li>No hay port a Loihi / TrueNorth / Akida.</li>
-                <li>No publicamos julios/inferencia (RAPL en QEMU miente).</li>
+                <li>RAPL de paquete en el HP: 72.5 µJ/run Q6. No es J/NPU. QEMU se niega.</li>
                 <li>No diagnostica, no es clínico, no lee mentes.</li>
               </ul>
             </article>

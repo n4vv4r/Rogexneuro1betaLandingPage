@@ -36,4 +36,4 @@ Aviso oficial: [USER_NOTICE.md](./USER_NOTICE.md).
 
 ## Carbono, sin kWh de marketing
 
-475 KiB de pesos. Heap del modelo = 0. Un pensamiento = 16 bytes. Si no hay estímulo, el LIF no dispara y el escritorio no pinta. No publicamos julios/inferencia: RAPL en QEMU no es honesto. Eso no es modestia — es no mentir.
+475 KiB de pesos. Heap del modelo = 0. Un pensamiento = 16 bytes. Si no hay estímulo, el LIF no dispara y el escritorio no pinta. En QEMU, RAPL se niega. En el HP 15-ac195nl (17 ago 2026) el paquete midió 18554 µJ / 256 corridas Q6 = 72.5 µJ/run. Eso no es J/NPU. Akida sigue ausente. Ver [metal 8.5](/docs/hp-metal-85).

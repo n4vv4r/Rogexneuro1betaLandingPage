@@ -89,3 +89,19 @@ status        # fila NAVI Q6 (soft actor, not on IRQ)
 ```
 
 `navi joules` solo da un delta en µJ si RAPL existe. En QEMU se niega.
+
+## Metal — HP 15-ac195nl, 17 ago 2026
+
+El portátil ya produjo cifras. Informe y fotos: [HP_AC195NL_85.md](/docs/hp-metal-85).
+
+Leído de la pantalla (reloj del guest 01:07–01:08):
+
+| Comando | Resultado |
+| --- | --- |
+| `power` | RAPL pkg+cores+gpu. MWAIT C7. idle 1 s: package 3678 mW, cores 73 mW. 42 C / 44 C. TDP 15000 mW. msr guard OK. |
+| `navi3 bench` | cycles med 40378672. L2 66352 B. weights 474560 B. heap 0. HDC 100% (8 probes, SOLEDAD). |
+| `navi6 bench` | NAVI6W01 1010 B. heap 0. 11 mascaras G_*. math entero. |
+| `neurocpu` | Software LIF. akida requested but not present. spikes 0. idle 830. |
+| `navi joules` | Q6 burst 256. pkg 1006724426 → 1006742980 uJ. delta **18554 uJ**. 72.5 uJ/run. |
+
+Eso es delta de paquete, no J/NPU. Akida sigue ausente.

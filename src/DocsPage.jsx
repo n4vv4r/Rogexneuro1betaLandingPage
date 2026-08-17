@@ -33,7 +33,7 @@ export default function DocsPage({ path, navigate, PageHero, SectionTitle }) {
           eyebrow="DOCS · MARKDOWN VIVO"
           title={<>READ.<br />REPEAT.<br />MEASURE.</>}
           text="Tutoriales, demostraciones, benches, papers de teoría e implementación. Markdown del lab, no un CMS. PDFs clásicos siguen en /docs/rxos/*.pdf."
-          image="/rxos/monad/01-boot.png"
+          image="/rxos/hp-ac195nl-85/02-power-rapl.jpg"
           className="rxos-hero"
         />
         <main>
@@ -41,7 +41,7 @@ export default function DocsPage({ path, navigate, PageHero, SectionTitle }) {
             <SectionTitle
               code="01 / CATÁLOGO"
               title="LO QUE SE PUEDE LEER AQUÍ"
-              text="El visor renderiza los .md del árbol público. Las capturas son QEMU o el GUI nativo de PRISMA Engine."
+              text="El visor renderiza los .md del árbol público. Capturas QEMU, fotos metal del HP 15-ac195nl (17 ago 2026) y GUI nativo de PRISMA Engine."
             />
             {DOC_CATEGORIES.map((cat) => {
               const items = DOCS.filter((d) => d.category === cat.id);

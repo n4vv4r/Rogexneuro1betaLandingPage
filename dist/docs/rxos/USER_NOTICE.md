@@ -1,6 +1,6 @@
 ===================================================================
-                   NAVI-4.5  ·  WSP v0.5  ·  operador rxOS
-                 rxOS 8.0.0 DESKTOP  (unikernel x86_64)
+                   NAVI 7  ·  WSP v0.5  ·  catalogo + RLC
+                 rxOS 9.0.0 SMOKE  (unikernel x86_64)
 ===================================================================
 
 Copia pública: https://github.com/knightslabs/RXos-Packages/blob/main/docs/USER_NOTICE.md
@@ -9,11 +9,10 @@ Fuente:        https://github.com/navywakura/RXos/blob/main/docs/USER_NOTICE.md
 [AVISO IMPORTANTE PARA EL USUARIO]
 
 1. ARQUITECTURA TERNARIA Y CONSUMO:
-   NAVI-4.5 no es un LLM. Habla paquetes RogexWSP v0.5 de 16 bytes
-   (átomos + emoción int8). El castellano es una máscara.
-   ~475 KiB de pesos ternarios (NAVI3W01, module2) + 66 KiB HDC L2.
-   Cero heap para W. El eslogan se afirma de ESTA capa, no de toda la ISO.
-   Es el operador de rxOS (lista blanca sobre la Terminal), no un asistente general.
+   NAVI 7 no es un LLM. Es 6.5 RLC + catalogo 7-WORLD (73 fichas entrenadas)
+   + harvest HTTP. Razona en 5 cajas y pinta con 11 máscaras G_*.
+   Habla paquetes RogexWSP v0.5 de 16 bytes. El castellano es una máscara.
+   Sin ficha: DESCONOCIDO. 7-NPU (Akida) no está. W no se reentrena en el ISO.
 
 2. ENTRADA Y SALIDA ACORTADAS:
    - La GUI acepta TEXTO PLANO. Por dentro: encode → S → L3 → veto L2 → máscara.

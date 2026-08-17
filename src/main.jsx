@@ -58,10 +58,11 @@ const NAV_MENUS = [
     label: 'PRODUCTS',
     items: [
       ['/rx-os', 'rxOS 9 SMOKE'],
-      ['/navi', 'NAVI'],
+      ['/navi', 'NAVI 7.5'],
       ['/roadmap', 'ROADMAP · ECLIPSE'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
+      ['/docs/setup', 'SETUP QEMU · VBOX · USB'],
       ['/suite', 'SUITE'],
     ],
   },
@@ -90,7 +91,8 @@ const NAV_MENUS = [
       ['/docs/navi65', 'NAVI 6.5'],
       ['/docs/navi66', 'NAVI 6.6'],
       ['/docs/navi7', 'NAVI 7'],
-      ['/docs/navi66', 'NAVI 6.6'],
+      ['/docs/navi75', 'NAVI 7.5'],
+      ['/docs/setup', 'SETUP QEMU · VBOX · USB'],
       ['/docs/isos', 'ISOs 9.0.0'],
       ['/docs/navi6', 'NAVI 6'],
       ['/navi#dummies', 'NAVI 6.5 DUMMIES'],
@@ -171,7 +173,7 @@ const DOWNLOAD_CATALOG = {
     name: 'rxOS 9 SMOKE',
     version: 'v9.0.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'VM + METAL · NAVI 7',
+    status: 'VM + METAL · NAVI 7.5',
     release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0',
     zip: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0',
     vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v9.0.0/rxOS-9.0.0-vm.iso',
@@ -485,7 +487,7 @@ const RXOS_BENCH = [
   { test: 'sparsity: 200 sub-thr', model: '200 absorbed', kernel: '200 absorbed', result: 'PASS' },
 ];
 
-const RXOS_HERO_IMAGE = '/rxos/9/14-mac-desktop-photos.jpg';
+const RXOS_HERO_IMAGE = '/rxos/9/15-navi75-live.jpg';
 const RXOS_HERO_QEMU = '/rxos/9/14-mac-desktop-photos.jpg';
 const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
@@ -495,6 +497,7 @@ const RXOS_VERSION = 'v9.0.0';
 const RXOS_VERSION_LABEL = 'rxOS 9 SMOKE';
 
 const RXOS9_SHOTS = [
+  { src: '/rxos/9/15-navi75-live.jpg', tag: '15', title: 'NAVI 7.5', text: 'Conversa real: identidad, fotosíntesis, Wikipedia, 12×7+3=87.', featured: true, alt: 'NAVI 7.5 — conversación real con harvest Wikipedia y math entero' },
   { src: '/rxos/9/14-mac-desktop-photos.jpg', tag: '14', title: 'ESCRITORIO', text: 'QEMU en Mac. Start + Photos. Ver no cambia el fondo.', featured: true, alt: 'Escritorio rxOS 9 en QEMU Mac — Start y Photos' },
   { src: '/rxos/9/13-mac-navi-explorer.png', tag: '13', title: 'NAVI 7', text: 'Bench + status + Explorer. Heap 0. HDC 100%.', featured: true, alt: 'NAVI 7 y Explorer en rxOS 9 — QEMU Mac' },
   { src: '/rxos/9/10-mac-www-ping.png', tag: '10', title: 'WWW', text: 'www on. ping www.rogexlaboratories.com 3/3.', featured: true, alt: 'Terminal rxOS 9: www on y ping 3/3 al lab' },
@@ -1184,7 +1187,7 @@ function OpenLabBar({ compact = false }) {
         ISO VM 9 <ArrowUpRight size={14} />
       </a>
       <a className="brutal-button primary" href={rx.metalIso}>
-        ISO METAL 8.5 <ArrowUpRight size={14} />
+        ISO METAL 9 <ArrowUpRight size={14} />
       </a>
       <a className="brutal-button" href={rx.release} target="_blank" rel="noreferrer">
         PACKAGES / ISOs <ArrowUpRight size={14} />
@@ -1622,15 +1625,14 @@ function Home({ navigate }) {
         <span className="kicker">KNIGHTS LABS · ROGEX · AGOSTO 2026</span>
         <p>
           Un pensamiento de <strong>16 bytes</strong>. Un escritorio de <strong>~3 MiB</strong>.
-          Un operador que, si no sabe, dice <strong>DESCONOCIDO</strong>.
-          Arriba no hay renders: las primeras fotos son el HP 15-ac195nl en metal.
-          QEMU sigue más abajo. Las cifras RAPL salieron de ese portátil el 17 ago 2026.
+          Arriba, una conversa <strong>real</strong> con NAVI 7.5: se presenta, explica, busca en Wikipedia y cuenta.
+          Si no hay ficha, lo dice. QEMU, VirtualBox o USB. Las cifras RAPL salieron del HP el 17 ago 2026.
         </p>
         <div className="hero-tags">
-          <span>rxOS 8.5 METAL</span>
-          <span>HP 15-ac195nl</span>
+          <span>NAVI 7.5 VIVO</span>
+          <span>rxOS 9 SMOKE</span>
+          <span>QEMU · VBOX · USB</span>
           <span>72.5 µJ/run Q6</span>
-          <span>NAVI 6.5 RLC</span>
           <span>PRISMA ENGINE 0.1</span>
         </div>
         <OpenLabBar />
@@ -2532,13 +2534,13 @@ function RXOS({ navigate }) {
       <PageHero
         index="04"
         className="rxos-hero"
-        eyebrow={`${RXOS_VERSION_LABEL} / NAVI 7 / DARK AERO`}
+        eyebrow={`${RXOS_VERSION_LABEL} / NAVI 7.5 / DARK AERO`}
         title={<>THE OS<br />IS THE DEMO.</>}
-        text="rxOS 9 SMOKE: escritorio de cristal negro, NAVI 7 que responde con ficha y fuente, Photos que no te cambia el fondo, Ajustes y wget. Si no hay esquema: DESCONOCIDO. Arranca la ISO. Eso es la demo."
+        text="rxOS 9 SMOKE: escritorio de cristal negro y NAVI 7.5 que busca, razona y cuenta. Photos no te cambia el fondo. Si no hay ficha: lo dice. Arranca la ISO en QEMU, VirtualBox o USB. Eso es la demo."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v9.0.0 SMOKE</span><span>NAVI 7</span><span>73 FICHAS</span><span>DARK AERO</span><span>wget</span><span>GPLv3</span>
+          <span>v9.0.0 SMOKE</span><span>NAVI 7.5</span><span>QEMU · VBOX · USB</span><span>DARK AERO</span><span>wget</span><span>GPLv3</span>
         </div>
         <OpenLabBar />
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
@@ -2945,8 +2947,8 @@ function RXOS({ navigate }) {
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
               <p>Dos ISOs x86_64: <strong>VM</strong> para QEMU/VirtualBox y <strong>metal</strong> para USB en un PC real. No es producción, no está auditado y no debe usarse para datos importantes. Elige la imagen correcta en el release.</p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-8.5.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-8.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-9.0.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-9.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div><dt>PACKAGES</dt><dd><a href="/rx-os/packages/">/rx-os/packages</a></dd></div>
@@ -2965,23 +2967,23 @@ function RXOS({ navigate }) {
             <article className="qemu-guide" data-reveal>
               <span className="panel-label">QUICKSTART / QEMU</span>
               <h3>RUN WITHOUT INSTALLING RXos ON YOUR MACHINE.</h3>
-              <p>Instala QEMU, baja <code>ISOS.zip</code> del release y arranca la ISO <strong>VM</strong>. La opción <code>-serial stdio</code> refleja el log de arranque. En un PC real usa la ISO <strong>metal</strong>.</p>
+              <p>Baja la ISO <strong>VM</strong> y arranca. En un PC real usa la ISO <strong>metal</strong>. Guía completa: <a href="/docs/setup">/docs/setup</a>.</p>
               <div className="platform-install">
                 <div><span>macOS</span><code>brew install qemu</code></div>
                 <div><span>Fedora</span><code>sudo dnf install qemu-system-x86-core</code></div>
                 <div><span>Debian / Ubuntu</span><code>sudo apt install qemu-system-x86</code></div>
+                <div><span>VirtualBox</span><code>EFI off · IDE · e1000 · ISO VM</code></div>
               </div>
-              <pre><code>{`mkdir rxos-lab && cd rxos-lab
-unzip ISOS.zip
+              <pre><code>{`curl -LO https://github.com/knightslabs/RXos-Packages/releases/download/v9.0.0/rxOS-9.0.0-vm.iso
 
 qemu-system-x86_64 \\
-  -machine q35 \\
-  -m 512M \\
-  -cdrom ISOS/rxOS-8.5.0-vm.iso \\
+  -machine q35 -m 512M \\
+  -cdrom rxOS-9.0.0-vm.iso \\
+  -device virtio-net-pci,netdev=n0 -netdev user,id=n0 \\
   -serial stdio`}</code></pre>
               <div className="qemu-commands">
                 <span>TRY INSIDE RXos</span>
-                <code>v</code><code>/prove</code><code>status</code><code>navi3 bench</code><code>help</code><code>date</code>
+                <code>v</code><code>www on</code><code>/search fotosintesis</code><code>/prove</code><code>nics</code>
               </div>
             </article>
           </div>
@@ -3967,17 +3969,20 @@ function Downloads({ navigate }) {
         image="/screenshots/prisma-engine/hero_gui.jpg"
       >
         <div className="hero-tags">
-          <span>rxOS 8.5.0 · VM + METAL</span>
+          <span>rxOS 9.0.0 · VM + METAL</span>
+          <span>NAVI 7.5</span>
           <span>PRISMA ENGINE 0.1.0</span>
-          <span>WINDOWS SETUP.EXE</span>
-          <span>MACOS DMG</span>
+          <span>QEMU · VBOX · USB</span>
           <span>SHA-256</span>
         </div>
         <OpenLabBar />
         <div className="hero-actions">
+          <a className="brutal-button" href="#rxos-build">rxOS 9 ISOs</a>
           <a className="brutal-button" href="#prisma-engine">PRISMA ENGINE</a>
           <a className="brutal-button" href="#win-mac">WIN · MAC</a>
-          <a className="brutal-button" href="#rxos-build">rxOS 8.5 ISOs</a>
+          <button className="brutal-button" type="button" onClick={() => navigate('/docs/setup')}>
+            SETUP QEMU · VBOX · USB
+          </button>
           <button className="brutal-button" type="button" onClick={() => navigate('/prisma')}>
             DOSSIER PRISMA
           </button>
@@ -4162,9 +4167,9 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
 
         <section className="section wrap rxos-download-section" id="rxos-build">
           <SectionTitle
-            code="02 / rxOS 8.5 DESKTOP"
+            code="02 / rxOS 9 SMOKE"
             title="THE OS IS THE DEMO"
-            text="ISO unikernel 8.5.0: Aero + NAVI 6.5 RLC preentrenado + WSP 16 B. QEMU recomendado. No uses rxOS para datos importantes."
+            text="ISO unikernel 9.0.0: Dark Aero + NAVI 7.5 + WSP 16 B. QEMU, VirtualBox o USB. No uses rxOS para datos importantes."
           />
           <div className="rxos-docs-row" data-reveal>
             <a className="brutal-button primary" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
@@ -4186,8 +4191,8 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 No es un sistema de producción, no está auditado y no debe usarse para datos importantes.
               </p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-8.5.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-8.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-9.0.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-9.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div>
@@ -4200,7 +4205,7 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                   ISO VM 9 <ArrowUpRight size={16} />
                 </a>
                 <a className="brutal-button primary" href={rx.metalIso}>
-                  ISO METAL 8.5 <ArrowUpRight size={16} />
+                  ISO METAL 9 <ArrowUpRight size={16} />
                 </a>
                 <a className="brutal-button" href={rx.release} target="_blank" rel="noreferrer">
                   PACKAGES / RELEASE <ArrowUpRight size={16} />
@@ -4217,13 +4222,12 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
             <article className="qemu-guide" data-reveal>
               <span className="panel-label">QUICKSTART / QEMU</span>
               <h3>RUN WITHOUT INSTALLING RXos ON YOUR MACHINE.</h3>
-              <pre><code>{`mkdir rxos-lab && cd rxos-lab
-unzip ISOS.zip
+              <pre><code>{`curl -LO https://github.com/knightslabs/RXos-Packages/releases/download/v9.0.0/rxOS-9.0.0-vm.iso
 
 qemu-system-x86_64 \\
-  -machine q35 \\
-  -m 512M \\
-  -cdrom ISOS/rxOS-8.5.0-vm.iso \\
+  -machine q35 -m 512M \\
+  -cdrom rxOS-9.0.0-vm.iso \\
+  -device virtio-net-pci,netdev=n0 -netdev user,id=n0 \\
   -serial stdio`}</code></pre>
               <button className="brutal-button" type="button" onClick={() => navigate('/rx-os')} style={{ marginTop: 18 }}>
                 FULL RXos PAGE <ArrowUpRight size={15} />

@@ -1,14 +1,14 @@
 # NAVI 6 — tutor causal local (no un loro más grande)
 
 NAVI 6 **no** es un LLM ni un computador cuántico. Es el salto de laboratorio
-desde [NAVI 5](/docs/navi5): de SNN orquestadas a un **sistema
+desde [NAVI 5](../NAVI_AI_SNN/README.md): de SNN orquestadas a un **sistema
 cognitivo pequeño** con DAG causal, modelo del mundo discreto, neurogénesis
 de sinapsis y un ejecutable local.
 
-NAVI 6.5 es el modelo oficial RLC y posee las máscaras de 4.5
-(`G_talk`…`G_rxos`) más reason/math/debug/plan/teach. NAVI 6 sigue
-siendo el tutor causal que 6.5 llama desde `G_debug`.
-Ver [NAVI 6.5](/docs/navi65).
+NAVI 6.5 es el contrato RLC (máscaras de 4.5 más reason/math/debug/plan/teach).
+En rxOS 9 la cara oficial es [NAVI 7-WORLD](NAVI7.md). NAVI 6 sigue
+siendo el tutor causal que 6.5 llama desde `G_debug` / `G_reason`.
+Ver [NAVI 6.5](NAVI65.md).
 
 ## Lo que hay / lo que no
 
@@ -50,8 +50,9 @@ navi6 bench          # dentro de rxOS
 
 ## Lectura
 
-- [Para dummies](/docs/navi6-dummies) — el mecánico, no el loro.
-- [Para expertos](/docs/navi6-experts) — blob, do-calculus, hook del kernel.
+- [NAVI 6.5 — RLC](NAVI65.md) — el modelo oficial de razonamiento/lengua/código.
+- [Para dummies](NAVI6_DUMMIES.md) — el mecánico, no el loro.
+- [Para expertos](NAVI6_EXPERTS.md) — blob, do-calculus, hook del kernel.
 
 ## Pruebas
 

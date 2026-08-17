@@ -3,6 +3,14 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const HOME_SLIDES = [
   {
+    src: '/rxos/9/15-navi75-live.jpg',
+    credit: 'NAVI 7.5 · captura real · Wikipedia + catálogo + math',
+    kicker: 'NAVI 7.5 · VIVO',
+    title: 'PREGUNTA. BUSCA. CUENTA. NO INVENTA.',
+    caption: 'Conversación real: se presenta, explica la fotosíntesis, busca a Pedro Sánchez en Wikipedia y hace 12×7+3 = 87. No es un LLM.',
+    href: '/navi',
+  },
+  {
     src: '/rxos/9/14-mac-desktop-photos.jpg',
     credit: 'QEMU · macOS · rxOS 9.0.0 SMOKE',
     kicker: 'rxOS 9 · SMOKE AERO',

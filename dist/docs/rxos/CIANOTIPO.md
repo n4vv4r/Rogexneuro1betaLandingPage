@@ -6,7 +6,8 @@ Sirve para que un extraño pueda auditar si sabemos qué estamos
 haciendo. Si una casilla no tiene comando o commit, no está hecha.
 
 Fecha de este corte: 17 agosto 2026.
-Línea viva: rxOS 8 DESKTOP + NAVI 6.5 RLC + PRISMA Engine 0.1.
+Línea viva: rxOS 9 SMOKE + NAVI 7-WORLD (73 fichas) + RLC 6.5 + PRISMA Engine 0.1.
+7-NPU (Akida) sigue PLAN.
 
 ## 0. Una imagen
 
@@ -25,7 +26,7 @@ rxOS event fabric      rx_event_t 64 B, LIF Q16.16, STDP local
     └─ caminos blandos
           │
           ▼
-        NAVI 6.5 RLC     11 máscaras G_*, 5 cajas, DAG
+        NAVI 7-WORLD     catálogo + harvest + 11 G_* + 5 cajas
           │
           ├─ CPU          talk, logic, poem, news, code, rxos,
           │               math, plan, teach, reason, debug
@@ -40,7 +41,7 @@ Tres productos, un idioma (eventos enteros). Ninguno es un LLM.
 
 | Pieza | Dónde se demuestra | Número o comando |
 | --- | --- | --- |
-| rxOS unikernel x86_64 | ISO 8 VM / metal | `make iso-vm` / tecla `v` |
+| rxOS unikernel x86_64 | ISO 9 VM / metal | `make iso-vm` / tecla `v` |
 | Tejido de eventos | boot + `bench` | 6/6, evento 64 B |
 | LIF / STDP software | fabric + NAVI 5 | Q16.16, 0% FPU en el motor |
 | WSP 16 B | `wsp.h` | `_Static_assert` 16 |
@@ -49,10 +50,11 @@ Tres productos, un idioma (eventos enteros). Ninguno es un LLM.
 | NAVI 5 lab | `tests/test_navi5_manual.py` | KCC: 0 destruidas |
 | NAVI 6 tutor | `tests/test_navi6.py` | 6/6 DAG / world-model |
 | NAVI 6.5 RLC | `./navi65`, `test_navi65.py` | 16/16, 11 G_* |
+| NAVI 7-WORLD | `./navi7 --bench`, tecla `v` | 15/15, 73 fichas |
 | PRISMA Engine 0.1 | `/downloads` | SPSC, Δ-mod, LIF AVX2 |
 | Hook Akida / Loihi | `neurocpu akida` | **stub honesto, sin placa** |
 
-Niveles de la [hoja de ruta neuromórfica](/docs/rxos/rxos_hoja_de_ruta_4_niveles_rev1.3.pdf):
+Niveles de la [hoja de ruta neuromórfica](paper/rxos_hoja_de_ruta_4_niveles_rev1.3.html):
 
 | Nivel | Nombre | Estado |
 | --- | --- | --- |
@@ -74,7 +76,7 @@ Próximo trabajo de SO que el Nivel 3 **exige** (no es NAVI):
 1. Pila USB XHCI + bulk, o MMIO PCIe si el kit es AXI/PCIe.
 2. Reloj más fino que el PIT a 100 Hz (HPET / LAPIC) si se
    entregan trenes de spikes con sentido temporal.
-3. Driver `HardwareDriver` (ver [AKIDA.md](/docs/akida)).
+3. Driver `HardwareDriver` (ver [AKIDA.md](AKIDA.md)).
 4. Energía comparada CPU vs NPU.
 
 Sin (1) no hay kit USB. Sin (3) el interruptor sigue siendo teatro
@@ -93,7 +95,7 @@ Línea SNN propia. Cada generación **añade una capa**:
 | 5 | Lab cooperativo KCC | Host / Docker air-gap |
 | 6 | Tutor causal | Host + kernel |
 | **6.5** | **RLC oficial** | Host + router en kernel |
-| **7** | **6.5 + NPU** | [Plan](/docs/navi7). No hay código |
+| **7** | **6.5 + NPU** | [Plan](NAVI7.md). No hay código |
 
 6.5 ya razona, habla y emite código **con esquema**. 7 no es un
 cerebro nuevo: es el mismo router con un sitio donde Q6 y las
@@ -110,7 +112,7 @@ NAVI decide. rxOS transporta.
 
 ## 3. El gancho Akida, en una página
 
-Detalle en [AKIDA.md](/docs/akida). Resumen para auditoría:
+Detalle en [AKIDA.md](AKIDA.md). Resumen para auditoría:
 
 1. **Hoy:** `rx_backend.c` conoce `akida` y se niega.
 2. **Host:** MetaTF 2.19 (Keras/ONNX → `quantizeml` → `cnn2snn` →
@@ -139,7 +141,7 @@ público.
 | C | USB XHCI o probe PCIe en rxOS | `devices` muestra el NPU | Pila USB / IDs / docs de registro |
 | D | `HardwareDriver` + `program` de un sequence | `neurocpu akida` imprime HwVersion | C + NDA/docs BrainChip |
 | E | Offload Q6, test 48/48 en silicio | `navi` / `navi65` backend=akida | D |
-| F | Blob `NAVI7W01` + ISO | tag NAVI 7, según [NAVI7.md](/docs/navi7) | E + energía medida |
+| F | Blob `NAVI7W01` + ISO | tag NAVI 7, según [NAVI7.md](NAVI7.md) | E + energía medida |
 | G | PRISMA → tensor → mismo driver | demo sensor, no clínico | F + HAL P5 |
 
 Fase A no espera a nadie. B espera a una caja. C–D son ingeniería
@@ -171,12 +173,12 @@ Se escribe para que 7 tenga un destino, no para vender 8.
 
 | Doc | Para qué |
 | --- | --- |
-| [AKIDA.md](/docs/akida) | Contrato BrainChip + cinco cerraduras |
-| [NAVI7.md](/docs/navi7) | Criterios para atreverse a llamar 7 a un commit |
-| [NAVI65.md](/docs/navi65) | El modelo que ya se ejecuta |
-| [hoja 4 niveles](/docs/rxos/rxos_hoja_de_ruta_4_niveles_rev1.3.pdf) | Niveles 1–4, rev 1.3 |
-| [PRISMA 5 roadmap](/docs/prisma5-roadmap) | P5 no es el Engine |
-| [USER_GUIDE](/docs/tutorial-monad) | `neurocpu` tal como lo ve el usuario |
+| [AKIDA.md](AKIDA.md) | Contrato BrainChip + cinco cerraduras |
+| [NAVI7.md](NAVI7.md) | Criterios para atreverse a llamar 7 a un commit |
+| [NAVI65.md](NAVI65.md) | El modelo que ya se ejecuta |
+| [hoja 4 niveles](paper/rxos_hoja_de_ruta_4_niveles_rev1.3.html) | Niveles 1–4, rev 1.3 |
+| [PRISMA 5 roadmap](../ROGEX-LABORATORIES/public/docs/prisma/PRISMA_5_ROADMAP.md) | P5 no es el Engine |
+| [USER_GUIDE](USER_GUIDE.md) | `neurocpu` tal como lo ve el usuario |
 
 Fuentes de terceros: [BrainChip IP](https://brainchip.com/ip/),
 [MetaTF](https://doc.brainchipinc.com/). Experimental. No clínico.

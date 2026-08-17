@@ -6,7 +6,8 @@ para quien ya ha visto demasiadas presentaciones con la palabra
 medir, y ningún intento de vender un loro con disfraz de neurona.
 
 Fecha de este corte: 17 agosto 2026.
-Línea viva: NAVI 6.5 dentro de rxOS 8.5.
+Línea viva: NAVI 7-WORLD dentro de rxOS 9 SMOKE (RLC 6.5 debajo).
+7-NPU (Akida) sigue PLAN.
 
 ## 1. Primero, la pregunta correcta
 
@@ -75,7 +76,7 @@ candidato de Nivel 3. Enteros de 1, 2, 4 u 8 bits. Convierte CNN a
 SNN (MetaTF). Edge learning en Akida 1, con reglas distintas a
 nuestro STDP. El runtime es propietario.
 
-Ya escribimos el gancho con detalle: [AKIDA.md](/docs/akida). Hoy
+Ya escribimos el gancho con detalle: [AKIDA.md](AKIDA.md). Hoy
 `neurocpu akida` se niega. Eso no es un eufemismo.
 
 **Qué hace mejor que nosotros:** vatios en el borde, un SoC que se
@@ -319,7 +320,7 @@ Pedimos tres cortes limpios en la conversación:
 2. **No nos compares con un ASIC** como si ya lo tuviéramos. El
    hook está; la placa no.
 3. **Sí puedes pedirnos una demo que se rompe.** Arranca la ISO
-   8.5, pulsa `v`, escribe `/prove`, pide un poema, pide
+   9, pulsa `v`, escribe `que es fotosintesis`, `/prove`, pide
    `cuanto es 12 por 7 mas 3`, pide un compilador LLVM. Las
    cuatro respuestas son el argumento.
 
@@ -334,8 +335,8 @@ python3 tests/test_navi65.py
 ./navi65 --ask "quien eres"
 ./navi65 --ask "escribe un compilador LLVM completo"
 
-# ISO (release v8.5.0)
-qemu-system-x86_64 -machine q35 -m 512M -cdrom rxOS-8.5.0-vm.iso -serial stdio
+# ISO (release v9.0.0)
+qemu-system-x86_64 -machine q35 -m 512M -cdrom rxOS-9.0.0-vm.iso -serial stdio
 # tecla v, luego: /prove
 #              neurocpu akida
 ```
@@ -347,10 +348,10 @@ activo y no hay placa, eso es un bug, no un hito.
 
 Nuestras:
 
-- [NAVI 6.5](/docs/navi65) — el contrato RLC.
-- [Cianotipo](/docs/cianotipo) — rxOS, NAVI, PRISMA, Akida.
-- [Akida × rxOS](/docs/akida) — el gancho, sin teatro.
-- [Catálogo 1 a 6.5](/docs/navi-catalog).
+- [NAVI 6.5](NAVI65.md) — el contrato RLC.
+- [Cianotipo](CIANOTIPO.md) — rxOS, NAVI, PRISMA, Akida.
+- [Akida × rxOS](AKIDA.md) — el gancho, sin teatro.
+- [Catálogo 1 a 6.5](../ROGEX-LABORATORIES/public/docs/navi/CATALOG.md).
 
 Ajenas, para no hablar de oídas:
 

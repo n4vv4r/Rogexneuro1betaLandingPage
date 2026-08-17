@@ -336,7 +336,7 @@ export default function RoadmapPage({ navigate, PageHero, SectionTitle }) {
             <article data-reveal>
               <div className="state-heading state-ok">SE PUEDE ARRANCAR / MEDIR</div>
               <ul>
-                <li>ISO rxOS 9.0.0 SMOKE (VM + metal) y NAVI 7-WORLD (73 fichas).</li>
+                <li>ISO rxOS 9.0.0 SMOKE (VM + metal) y NAVI 7.5 (catálogo + Wikipedia + memoria).</li>
                 <li>rxOS 8.5 + NAVI 6.5 RLC medidos en el HP 15-ac195nl (RAPL).</li>
                 <li>WSP 16 B, Q₆ 48/48, event fabric bench 6/6, heap del modelo 0.</li>
                 <li>PRISMA Engine 0.1.0 en /downloads. Experimental, no clínico.</li>

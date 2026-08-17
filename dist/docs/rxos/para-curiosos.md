@@ -1,7 +1,11 @@
-# rxOS 8 para gente curiosa (sin tesis doctoral)
+# rxOS 9 para gente curiosa (sin tesis doctoral)
 
 **Autor:** r. navarro  
-rxOS 8.0.0 DESKTOP · agosto 2026
+rxOS 9.0.0 SMOKE · agosto 2026
+
+El producto de hoy es **9 SMOKE + NAVI 7**. Las capturas de abajo
+mezclan 8 (Aero claro) y 9 (Dark Aero). El click es el mismo: arrancas
+y pulsas `v`.
 
 Vale. Respiro. Esto **no** es ChatGPT en un pendrive.  
 Es un sistema operativo que arranca en metal (o en QEMU) y lleva dentro una IA de impulsos tan pequeña que da un poco de vergüenza compararla con una app de calculadora.

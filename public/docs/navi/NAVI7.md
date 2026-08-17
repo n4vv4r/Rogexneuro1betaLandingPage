@@ -11,6 +11,9 @@ Hay **dos** cosas llamadas 7. No se mezclan.
 laboratorio donde NAVI aprende conceptos con fuente: programación,
 filosofía, psicología, ciencia, leyes, mundo humano, noticias.
 
+**7.5** (oficial encima de 7-WORLD): voz humana, memoria SQLite, harvest
+Wikipedia/DuckDuckGo, fichas extra (España, CCAA). Ver [NAVI75.md](NAVI75.md).
+
 ```
 ./navi7 --train          # laboratorio (oráculos + wiki + news + quiz + bench)
 ./navi7 --ask "que es fotosintesis"

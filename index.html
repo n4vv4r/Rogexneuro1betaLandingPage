@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b0b0a" />
-    <title>Knights Labs — rxOS 9 SMOKE · NAVI 7</title>
+    <title>Knights Labs — rxOS 9 SMOKE · NAVI 7.5</title>
     <!-- SERP snippet: title ~50–60 chars · description ~120–160 chars -->
-    <meta name="description" content="Knights Labs: rxOS 9 SMOKE, NAVI 7 oficial, escritorio Dark Aero. Código e ISOs en GitHub. Experimental, no clínico." />
+    <meta name="description" content="rxOS 9 unikernel + NAVI 7.5: busca en Wikipedia, razona con ficha y cuenta enteros. ISO para QEMU, VirtualBox o USB. No es un LLM. Experimental." />
+    <meta name="keywords" content="rxOS, NAVI 7.5, unikernel, neuromorphic OS, QEMU, VirtualBox, bare metal OS, local AI, Wikipedia harvest, Knights Labs, Rogex Laboratories, not an LLM" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="https://www.rogexlaboratories.com/" />
@@ -14,22 +15,22 @@
     <!-- Open Graph (per-route shells + SPA override; default = home card 1200×630) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Knights Labs / Rogex Laboratories" />
-    <meta property="og:title" content="Knights Labs — rxOS 9 SMOKE · NAVI 7" />
-    <meta property="og:description" content="rxOS 9 SMOKE · NAVI 7 · Dark Aero. Código e ISOs en GitHub. Experimental, no clínico." />
+    <meta property="og:title" content="Knights Labs — rxOS 9 SMOKE · NAVI 7.5" />
+    <meta property="og:description" content="NAVI 7.5 busca, razona y cuenta. ISO QEMU / VirtualBox / USB. No es un LLM." />
     <meta property="og:url" content="https://www.rogexlaboratories.com/" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:image" content="https://www.rogexlaboratories.com/og/home.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Knights Labs — rxOS 9 SMOKE · NAVI 7 · eclipse GRUB" />
+    <meta property="og:image:alt" content="NAVI 7.5 — conversación real: Wikipedia, fotosíntesis, math entero" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Knights Labs — rxOS 9 SMOKE · NAVI 7" />
-    <meta name="twitter:description" content="rxOS 9 SMOKE · NAVI 7 · Dark Aero. Código e ISOs en GitHub." />
+    <meta name="twitter:title" content="Knights Labs — rxOS 9 SMOKE · NAVI 7.5" />
+    <meta name="twitter:description" content="NAVI 7.5 busca en Wikipedia, razona y cuenta. ISO QEMU / VirtualBox / USB." />
     <meta name="twitter:image" content="https://www.rogexlaboratories.com/og/home.png" />
-    <meta name="twitter:image:alt" content="Knights Labs — rxOS 9 SMOKE · NAVI 7 · eclipse GRUB" />
+    <meta name="twitter:image:alt" content="NAVI 7.5 — conversación real con harvest y math" />
 
     <!-- Favicon: Rogex Laboratories · Brand mark: Knights Labs (og / site UI) -->
     <link rel="icon" type="image/png" href="/rogexlaboratories_logo.png" />
@@ -54,7 +55,7 @@
             "height": 1200
           },
           "image": "https://www.rogexlaboratories.com/rogexlaboratories_logo.png",
-          "description": "Independent lab for low-carbon neurotech: rxOS 9 SMOKE, NAVI 7, WSP, Q₆ and PRISMA EEG software.",
+          "description": "Independent lab for low-carbon neurotech: rxOS 9 SMOKE, NAVI 7.5, WSP, Q₆ and PRISMA EEG software.",
           "email": "knightsys@proton.me",
           "sameAs": [
             "https://x.com/rogexlabs",
@@ -66,17 +67,44 @@
           "@type": "WebSite",
           "@id": "https://www.rogexlaboratories.com/#website",
           "url": "https://www.rogexlaboratories.com/",
-          "name": "Knights Labs — rxOS 9 SMOKE · NAVI 7",
-          "description": "Neurotech low-carbon: rxOS 9 SMOKE, NAVI 7, WSP 16 B y Q₆.",
+          "name": "Knights Labs — rxOS 9 SMOKE · NAVI 7.5",
+          "description": "Neurotech low-carbon: rxOS 9 SMOKE, NAVI 7.5, WSP 16 B y Q₆.",
           "publisher": { "@id": "https://www.rogexlaboratories.com/#organization" },
-          "inLanguage": ["es", "en"]
+          "inLanguage": ["es", "en"],
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.rogexlaboratories.com/docs?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://www.rogexlaboratories.com/#rxos",
+          "name": "rxOS 9 SMOKE",
+          "applicationCategory": "OperatingSystem",
+          "operatingSystem": "bare-metal x86_64",
+          "softwareVersion": "9.0.0",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+          "downloadUrl": "https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0",
+          "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "description": "Unikernel x86_64 with Dark Aero desktop and NAVI 7.5. Runs in QEMU, VirtualBox or USB."
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://www.rogexlaboratories.com/#navi",
+          "name": "NAVI 7.5",
+          "applicationCategory": "DeveloperApplication",
+          "softwareVersion": "7.5",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+          "url": "https://www.rogexlaboratories.com/navi",
+          "description": "Local assistant: catalog, Wikipedia/DuckDuckGo harvest, SQLite memory. Not an LLM."
         },
         {
           "@type": "WebPage",
           "@id": "https://www.rogexlaboratories.com/#webpage",
           "url": "https://www.rogexlaboratories.com/",
-          "name": "Knights Labs — rxOS 9 SMOKE · NAVI 7",
-          "description": "Knights Labs: rxOS 9 SMOKE, NAVI 7, WSP y PRISMA Engine. Experimental, no clínico.",
+          "name": "Knights Labs — rxOS 9 SMOKE · NAVI 7.5",
+          "description": "Knights Labs: rxOS 9 SMOKE, NAVI 7.5, WSP y PRISMA Engine. Experimental, no clínico.",
           "isPartOf": { "@id": "https://www.rogexlaboratories.com/#website" },
           "about": { "@id": "https://www.rogexlaboratories.com/#organization" },
           "inLanguage": "es",
@@ -95,8 +123,8 @@
     <div id="root">
       <noscript>
         <main>
-          <h1>Knights Labs — rxOS 8.5 · NAVI 6.5</h1>
-          <p>Neurotech low-carbon: rxOS 8.5 DESKTOP, NAVI 6.5 RLC, WSP 16 B, Q₆ y PRISMA Engine. Código: github.com/knightslabs/rxos-8.5 · ISOs: github.com/knightslabs/RXos-Packages</p>
+          <h1>Knights Labs — rxOS 9 SMOKE · NAVI 7.5</h1>
+          <p>Neurotech low-carbon: rxOS 9 SMOKE, NAVI 7.5 (Wikipedia + memoria), WSP 16 B, Q₆ y PRISMA Engine. Código: github.com/navywakura/RXos · ISOs: github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0 · Setup: /docs/setup</p>
           <p>Este sitio requiere JavaScript para la interfaz completa. Documentación y descargas siguen disponibles en las URLs públicas del sitemap.</p>
         </main>
       </noscript>

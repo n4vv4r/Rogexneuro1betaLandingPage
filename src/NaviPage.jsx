@@ -150,12 +150,28 @@ const LINE = [
     tone: 'ok',
     icon: Cpu,
     where: 'navi7 + kernel/navi/navi7_world.c + lab/navi7',
-    unit: '73 fichas + Google HTTP + RLC',
+    unit: '73 fichas + harvest + RLC',
     text: 'Oficial en rxOS 9. Catálogo entrenado (ciencia, leyes, filosofía, programación, psicología, mundo) + harvest en vivo. 7-NPU Akida sigue PLAN. Sin ficha: DESCONOCIDO.',
     facts: ['73 fichas', 'bench 15/15', 'no es un LLM', 'Akida sigue PLAN'],
     docs: '/docs/navi7',
     extra: '/docs/akida',
     extraLabel: '7-NPU PLAN',
+  },
+  {
+    id: 'navi75',
+    gen: '07.5',
+    name: 'NAVI 7.5',
+    codename: 'ASISTENTE · MEMORIA',
+    status: 'HOST + KERNEL · VIVO',
+    tone: 'ok',
+    icon: Brain,
+    where: 'navi75 + navi75_memory.py + www_web_search',
+    unit: 'ficha + Wikipedia/DDG + SQLite',
+    text: '7-WORLD con voz humana, memoria SQLite y harvest que responde (Wikipedia REST + DuckDuckGo). Se presenta, busca en la red, razona con ficha y cuenta enteros. 7-NPU sigue PLAN. Sin extracto: lo dice.',
+    facts: ['memoria SQLite', 'Wikipedia + DDG', 'voz humana', 'no es un LLM'],
+    docs: '/docs/navi75',
+    extra: '/docs/setup',
+    extraLabel: 'SETUP QEMU',
   },
 ];
 
@@ -202,18 +218,18 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 7 · OFICIAL EN rxOS 9"
+        eyebrow="NAVI · LÍNEA SNN 1 → 7.5 · OFICIAL EN rxOS 9"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
-        text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 RLC. 6.6 lengua. 7-WORLD es oficial en rxOS 9: 73 fichas + harvest. 7-NPU Akida sigue PLAN. Ninguna es un LLM."
-        image="/rxos/9/13-mac-navi-explorer.png"
+        text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 RLC. 6.6 lengua. 7-WORLD + 7.5: catálogo, harvest Wikipedia/DuckDuckGo, memoria. 7-NPU Akida sigue PLAN. Ninguna es un LLM."
+        image="/rxos/9/15-navi75-live.jpg"
         className="rxos-hero"
       >
         <div className="hero-tags">
           <span>Q₆ 48/48</span>
           <span>WSP 16 B</span>
-          <span>NAVI 7 WORLD</span>
-          <span>73 FICHAS</span>
-          <span>NAVI 6.6 LENGUA</span>
+          <span>NAVI 7.5 VIVO</span>
+          <span>WIKIPEDIA + DDG</span>
+          <span>MEMORIA SQLITE</span>
           <span>0% FPU EN EL MOTOR</span>
         </div>
         <div className="hero-actions">

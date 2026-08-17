@@ -6,8 +6,9 @@ enteros**, no párrafos de loro.
 
 ## Lo que ya puedes tocar
 
-Arrancas la ISO, pulsas `v`, escribes. Eso es NAVI 6.5. Razona en
-cinco cajas y, si no tiene ficha, dice DESCONOCIDO.
+Arrancas la ISO 9, pulsas `v`, escribes. Eso es **NAVI 7**. Hereda
+las cinco cajas de 6.5 y un catálogo de 73 fichas. Si no tiene
+ficha y el harvest falla, dice DESCONOCIDO.
 
 En la terminal, `neurocpu akida`. Hoy responde: **no hay placa,
 sigo en software**. Eso no es un fallo. Es el laboratorio diciendo
@@ -24,10 +25,13 @@ un **ayudante**: las neuronas de Q6 y las poblaciones SNN podrían
 disparar ahí. El razonamiento, el código, el operador `status` y
 la red se quedan en la CPU.
 
-NAVI 7 es el nombre de esa unión. **No está escrito.** El día que
-un `neurocpu akida` imprima la versión del silicio, un test compare
-software contra NPU, y midamos julios en los dos lados, se podrá
-llamar 7. Antes, no.
+Esa unión con el chip se llama **7-NPU**. **No está escrita.** El día
+que un `neurocpu akida` imprima la versión del silicio, un test
+compare software contra NPU, y midamos julios en los dos lados, se
+podrá llamar 7-NPU. Antes, no.
+
+**7-WORLD sí está escrito** y es oficial en rxOS 9: catálogo + harvest.
+No es el NPU. No es un LLM.
 
 ## Lo que no va a pasar
 
@@ -36,6 +40,6 @@ placa en el lab y una pila USB (o PCIe) en el unikernel. No hay
 qubits. No es clínico. PRISMA 5 todavía no se descarga: el Engine
 sí.
 
-Plano largo: [Cianotipo](/docs/cianotipo).
-Gancho técnico: [Akida](/docs/akida).
-Contrato de la 7: [NAVI 7](/docs/navi7).
+Plano largo: [Cianotipo](CIANOTIPO.md).
+Gancho técnico: [Akida](AKIDA.md).
+Contrato de la 7: [NAVI 7](NAVI7.md).

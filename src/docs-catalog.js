@@ -97,6 +97,20 @@ export const DOCS = [
     blurb: 'Oficial en rxOS 9: catálogo + harvest. 7-NPU Akida sigue PLAN. Sin ficha: DESCONOCIDO.',
   },
   {
+    id: 'navi75',
+    title: 'NAVI 7.5 — asistente con memoria',
+    category: 'navi',
+    path: '/docs/navi/NAVI75.md',
+    blurb: 'Voz humana, SQLite, Wikipedia/DuckDuckGo. No es un LLM.',
+  },
+  {
+    id: 'setup',
+    title: 'Arrancar rxOS 9 — QEMU, VirtualBox, USB',
+    category: 'tutorial',
+    path: '/docs/rxos/SETUP.md',
+    blurb: 'Tres caminos de 2 minutos. ISO VM o metal. NAVI 7.5 en el host.',
+  },
+  {
     id: 'navi66',
     title: 'NAVI 6.6 — lengua + TUI',
     category: 'navi',

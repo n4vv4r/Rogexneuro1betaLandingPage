@@ -1,6 +1,8 @@
 # NAVI 6.5 — modelo RLC (razonamiento + lenguaje + código)
 
-NAVI 6.5 **no** es un LLM. Es el transductor oficial de rxOS que
+NAVI 6.5 **no** es un LLM. Es el transductor RLC que rxOS 9 sigue
+usando por debajo de NAVI 7. 6.5 **es** el contrato de razonamiento;
+7-WORLD es la cara (fichas + harvest). 6.5
 **razona siempre**, **habla con máscaras G_*** y **emite código solo
 si hay esquema**. El castellano es pintura. El motor es un bucle de
 cinco cajas:
@@ -55,8 +57,16 @@ chmod +x navi65
 ./navi65 --reflect
 ```
 
-Dentro de rxOS: tecla `v`, o `navi6` / `navi65`. `/prove` sigue
-siendo el tour (G_rxos).
+Dentro de rxOS 9: tecla `v` abre **Navi 7** (6.5 + catálogo). El
+modelo RLC **ya viene entrenado** (`navi6_weights.bin`). `/prove`
+sigue siendo el tour (G_rxos).
+
+Entrenar otra vez (laboratorio, no el usuario de la ISO):
+
+```
+python3 navi65_train.py --rounds 2 --target 0.90
+./navi65 --tutor
+```
 
 ## Pruebas
 
@@ -67,9 +77,9 @@ python3 tests/test_navi6.py
 
 ## Lectura
 
-- [Para dummies](/docs/navi65-dummies)
-- [Para expertos](/docs/navi65-experts)
-- [NAVI 6](/docs/navi6) — el tutor causal que 6.5 usa como G_debug
-- [Cianotipo](/docs/cianotipo) — rxOS + NAVI + PRISMA + Akida
-- [NAVI 7](/docs/navi7) — plan. No hay código.
-- [NAVI frente a otras IA neuromórficas](/docs/navi-compare) — escépticos, Loihi, Akida, LLMs.
+- [Para dummies](NAVI65_DUMMIES.md)
+- [Para expertos](NAVI65_EXPERTS.md)
+- [NAVI 6](NAVI6.md) — el tutor causal que 6.5 usa como G_debug
+- [Cianotipo](CIANOTIPO.md) — rxOS + NAVI + PRISMA + Akida
+- [NAVI 7](NAVI7.md) — plan. No hay código.
+- [NAVI frente a otras IA neuromórficas](NAVI_COMPARE.md) — escépticos, Loihi, Akida, LLMs.

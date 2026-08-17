@@ -1,15 +1,16 @@
-# rxOS 8 DESKTOP — pack de lecturas
+# rxOS 9 SMOKE — pack de lecturas
 
 **Autor:** r. navarro  
-**ISO:** `build/rxOS-7.0.0-vm.iso`  
+**ISO:** `rxOS-9.0.0-vm.iso` / `rxOS-9.0.0-metal.iso`  
 **Eslogan:** *An AI that consumes less than your calculator app*
 
-Aquí no hay humo. Hay capturas del sistema arrancado, números que puedes repetir, y dos textos según con qué ganas vengas.
+El producto de hoy es **9 SMOKE + NAVI 7**. Tutorial: [`tutorial-monad.md`](tutorial-monad.md). ISOs: [`ISOS.md`](ISOS.md).
 
 | Si eres… | Lee esto |
 | --- | --- |
-| Curioso, quieres el click en 3 minutos | [`para-curiosos.md`](para-curiosos.md) |
-| Quieres ver que de verdad corre y los benches | [`demostracion.md`](demostracion.md) |
+| Quieres arrancar ya | [`tutorial-monad.md`](tutorial-monad.md) |
+| Curioso, 3 minutos | [`para-curiosos.md`](para-curiosos.md) |
+| Dónde están las ISOs | [`ISOS.md`](ISOS.md) |
 
 Capturas en [`img/`](img/). Todas salen de QEMU (`tools/capture_monad.py`) o del bench del host (`make l2-bench`). Nada de mockups.
 

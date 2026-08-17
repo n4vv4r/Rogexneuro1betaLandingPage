@@ -1,24 +1,28 @@
-# Tutorial — rxOS 8 DESKTOP
+# Tutorial — rxOS 9 SMOKE
 
 **Autor:** r. navarro  
-**ISO:** `rxOS-8.0.0-vm.iso` / `rxOS-8.0.0-metal.iso`  
+**ISO:** `rxOS-9.0.0-vm.iso` / `rxOS-9.0.0-metal.iso`  
 **Eslogan:** *An AI that consumes less than your calculator app*
 
-Este texto enseña a **arrancar, hablar con NAVI-4.5 y medir**. No es un LLM. No hay archivos en el chat. Experimental, sin garantía.
+Este texto enseña a **arrancar rxOS 9, hablar con NAVI 7 y medir**.  
+NAVI **no** es un LLM. Sin ficha: **DESCONOCIDO**. Experimental, sin garantía.
 
 ---
 
 ## 1. Qué es esto
 
-rxOS 8 DESKTOP es un unikernel x86_64 bare-metal. Lleva:
+rxOS 9 SMOKE es un unikernel x86_64 bare-metal. Escritorio **Dark Aero** (cristal negro, iconos PNG). NAVI 7 es la cara oficial del chat.
 
 | Capa | Qué hace | Dónde |
 | --- | --- | --- |
-| L1 Q₆ | 64 neuronas LIF, 1-bit 48/48, hop 2-bit | `navi` / boot self-test |
-| L2 HDC | Memoria asociativa 1024-bit, 66 352 B | `navi l2` |
-| L3 + WSP | transductor S→S′, paquetes de 16 B | tecla `v`, `navi3` |
-| NAVI-4.5 | operador `G_rxos` sobre la Terminal | `/prove` |
-| Desktop | Aero, RXFS, WWW opt-in | instalador LIVE |
+| Desktop Smoke | Dark Aero, Start, Ajustes, Photos | arranque gráfico |
+| NAVI 7-WORLD | 73 fichas + harvest HTTP + RLC | tecla `v` |
+| NAVI 6.5 RLC | 11 máscaras G_*, 5 cajas | dentro de 7 |
+| L1 Q₆ | 64 neuronas LIF, 1-bit 48/48 | `navi` / boot |
+| L2 HDC | 1024-bit, 66 352 B | `navi l2` |
+| WWW | HTTP GET/POST, curl, wget | `www on` |
+
+**7-NPU (Akida) sigue PLAN.** Sin placa, `neurocpu akida` se niega. Eso es honesto.
 
 El eslogan se afirma de **la capa NAVI**, no de toda la ISO.
 
@@ -26,16 +30,21 @@ El eslogan se afirma de **la capa NAVI**, no de toda la ISO.
 
 ## 2. Bajar la imagen correcta
 
-Release: [v8.0.0 en RXos-Packages](https://github.com/knightslabs/RXos-Packages/releases/tag/v8.0.0)
+Release: [v9.0.0 en RXos-Packages](https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0)
 
 | Archivo | Uso |
 | --- | --- |
-| `rxOS-8.0.0-vm.iso` | QEMU / VirtualBox |
-| `rxOS-8.0.0-metal.iso` | USB en un PC real (BIOS / Legacy) |
+| `rxOS-9.0.0-vm.iso` | QEMU / VirtualBox |
+| `rxOS-9.0.0-metal.iso` | USB en un PC real (BIOS / Legacy) |
 
-No flashees la ISO VM a un pendrive. Comprueba SHA-256 (`SHA256SUMS.txt`).
+No flashees la ISO VM a un pendrive. SHA-256: [ISOS.md](ISOS.md).
 
-Drivers de red en **ambas** ISOs: virtio-net, Intel e1000, Realtek r8169, RTL8139.
+```
+6cb64e0cd007d09088e0b931fd8e49d9c07db45a65f959999f272ba16910c24c  rxOS-9.0.0-vm.iso
+49f8f80f1e8c0ba4ebdf1f11592da1b0fb39c1a73d26b259205b88147bf87230  rxOS-9.0.0-metal.iso
+```
+
+Drivers en **ambas** ISOs: virtio-net, Intel e1000, Realtek r8169, RTL8139.
 
 ---
 
@@ -51,12 +60,14 @@ sudo apt install qemu-system-x86
 
 qemu-system-x86_64 \
   -machine q35 -m 512M \
-  -cdrom rxOS-8.0.0-vm.iso \
+  -cdrom rxOS-9.0.0-vm.iso \
   -netdev user,id=net0 -device virtio-net-pci,netdev=net0 \
   -serial stdio
 ```
 
-Para probar e1000: `-device e1000,netdev=net0`.
+Para e1000: `-device e1000,netdev=net0`.
+
+GRUB enseña el **eclipse** y el menú `rxOS 9.0.0 SMOKE - NAVI 7`. 8 segundos. Enter.
 
 En el log de arranque debe aparecer:
 
@@ -73,67 +84,87 @@ Si no ves `module2`, el `.bin` no cargó. La ISO oficial sí lo incluye.
 ## 4. Primeros minutos en el escritorio
 
 1. Registro (usuario + contraseña) si es LIVE.
-2. Escritorio Aero: iconos, taskbar, reloj.
-3. Tecla **`t`** — terminal.
-4. Tecla **`v`** — **NAVI-4.5** (WSP + máscara ES + `G_rxos`). `/prove` es el tour. `/demo` prueba SOLEDAD.
-5. `F12` o `capture` — miniatura en `/screenshots`.
+2. Escritorio **Smoke Aero**: iconos PNG (Ajustes, Terminal, Explorer, Neuro, Navi, Calculator, Disks, Photos, About).
+3. Click derecho en el vacío: Ajustes / cambiar fondo.
+4. Tecla **`t`** — Terminal (ROSH).
+5. Tecla **`v`** — **Navi 7**. Pregunta `que es fotosintesis`.
+6. Tecla **`a`** — Ajustes (tema + fondo).
+7. Tecla **`i`** — Photos. Pasar fotos **no** cambia el fondo. Enter o «Usar como fondo» sí.
+8. Tecla **`e`** — Explorer. JPEG/PNG se previsualizan.
+9. `F12` o `capture` — miniatura en `/screenshots`.
 
 Comandos útiles:
 
 ```
 help
+about
+status
 navi
 navi l2
-navi calc 1+2*3
-navi2
-navi2 chat
-navi2 bench
 www on
+curl search fotosintesis
+wget http://ejemplo/foto.jpg
 ```
 
 ---
 
-## 5. Cómo chatear con NAVI-4.5 (WSP)
+## 5. Cómo hablar con NAVI 7
 
-El chat habla **paquetes WSP**. El castellano es máscara. Ver [`NAVI3_WSP_ARCHITECTURE.md`](NAVI3_WSP_ARCHITECTURE.md).
+NAVI 7 hereda el bucle PARSE-RETRIEVE-INFER-VERIFY-RENDER de 6.5 y añade un **catálogo de fichas** (ciencia, leyes, filosofía, programación, psicología, mundo). Si no hay ficha y el harvest HTTP falla: **DESCONOCIDO**.
 
 | Dónde | Cómo |
 | --- | --- |
 | GUI | tecla `v` · escribe · Enter o ENVIAR |
-| Demo | `/demo` → «estoy solo y necesito ayuda» |
-| Shell | `navi3 chat` luego `navi3 tu mensaje` (`navi2` es alias) |
-| Borrar S | `navi3 .` o `/clear` |
+| Pregunta de mundo | `que es habeas corpus` · `que es un algoritmo` |
+| Internet | `/www` luego `/search tema` o `/curl http://…` |
+| Demo operador | `/prove` (lista blanca G_rxos) |
+| Borrar | `/clear` |
 
-Atajos: `/bench` (rdtsc/paquete), `/fetch`, `/www`, F12 captura.
-- `/help` — aviso
+Atajos: `/help`, `/bench`, `/fetch`, F12.
 
-Lee el aviso: [USER_NOTICE.md](USER_NOTICE.md).
+Lee el aviso: [USER_NOTICE.md](USER_NOTICE.md).  
+Contrato: [NAVI 7](NAVI7.md).
 
-Qué esperar: respuestas **cortas**. El modelo actual es un train corto (generador real, a menudo ruidoso). L2 puede vetar un carácter. No es ChatGPT.
+Qué esperar: respuestas **con fuente** si hay ficha. No es ChatGPT. No rellena el hueco.
+
+En el **host** (no dentro de la ISO):
+
+```bash
+./navi7 --ask "que es fotosintesis"
+./navi7 --bench
+python3 navi7_tui.py
+```
+
+Bench medido: **15/15**, 73 fichas, `destroyed=0`.
 
 ---
 
-## 6. Internet = RAG, no reentrenar
+## 6. Internet: harvest y descargas
 
 ```
 www on
-navi2 fetch http://ejemplo/texto.txt
+curl search fotosintesis
+curl http://example.com/
+wget http://example.com/foto.jpg
+curl -o /home/foto.jpg http://example.com/foto.jpg
 ```
 
-El HTML se limpia a ASCII y se inyecta en L2 (n-grams + hipervector 1024-bit). **W ternario no cambia.** HTTPS sin TLS completo: usa `http://`.
+- Google HTML por HTTP (`gbv=1`). HTTPS sin TLS completo: usa `http://`.
+- `wget` / `curl -o` guardan la URL **exacta**. Tope honesto: **192 KiB** por GET.
+- Las fotos descargadas se ven en Explorer.
 
 ---
 
-## 7. Entrenar sin recompilar el kernel
+## 7. Entrenar NAVI 7 (host)
 
-En el PC anfitrión:
+El unikernel **no** hace backprop. El laboratorio vive en el PC anfitrión:
 
 ```bash
-python3 NAVI_AI_SNN/l3/train.py --steps 2000
-make iso-refresh
+./navi7 --train
+python3 tests/test_navi7.py
 ```
 
-Eso escribe `navi2_weights.bin` y rehace la ISO. `rxos.elf` no se toca.
+Las fichas solo crecen (KCC). Luego `make iso` empaca el catálogo compacto en el kernel.
 
 ---
 
@@ -142,38 +173,39 @@ Eso escribe `navi2_weights.bin` y rehace la ISO. `rxos.elf` no se toca.
 **Dentro del OS**
 
 ```
-navi2 bench
+navi
+navi l2
 ```
 
-Sale: ciclos min/med/max por token (`rdtsc`), L2 + pesos, vetos, docs RAG.
+En Navi 7: `/bench` o `/prove`.
 
 **En el host**
 
 ```bash
+./navi7 --bench
+./navi65
 cd NAVI_AI_SNN && make l2-bench
-make test          # humo QEMU, incluye NAVI2 weights + notice + bench
+make test
 ```
-
-**Tabla de lectura**
 
 | Métrica | Dónde |
 | --- | --- |
 | 1-bit 48/48, hop 120/120 | boot / `navi` |
-| L2 sizeof 66 352 B | `navi l2` |
-| Ciclos/token | `navi2 bench` |
-| Pesos 491 584 B | línea `NAVI2 weights` |
-
-Julios RAPL: `navi joules` — en QEMU se niega (honesto).
+| L2 66 352 B | `navi l2` |
+| 73 fichas, 15/15 | `./navi7 --bench` |
+| RAPL julios | `navi joules` — QEMU se niega |
 
 ---
 
 ## 9. Metal (USB)
 
 ```bash
-sudo dd if=rxOS-7.0.0-metal.iso of=/dev/sdX bs=4M status=progress conv=fsync
+sudo dd if=rxOS-9.0.0-metal.iso of=/dev/sdX bs=4M status=progress conv=fsync
 ```
 
-`of=` es el disco entero. Secure Boot off, Legacy/CSM on. Hardware de referencia: HP 15-ac195nl (r8169).
+`of=` es el disco entero. Secure Boot off, Legacy/CSM on. Referencia: HP 15-ac195nl (r8169, cable Ethernet).
+
+Medidas 8.5 en ese portátil: [HP_AC195NL_85.md](HP_AC195NL_85.md). Siguen siendo el RAPL de referencia (el chip no cambió).
 
 ---
 
@@ -181,10 +213,11 @@ sudo dd if=rxOS-7.0.0-metal.iso of=/dev/sdX bs=4M status=progress conv=fsync
 
 | Si quieres… | Abre |
 | --- | --- |
-| Click en 3 minutos | [para-curiosos.md](para-curiosos.md) |
-| Ver benches y capturas | [demostracion.md](demostracion.md) |
-| Arquitectura NAVI 2 | [NAVI2_ARCHITECTURE.md](NAVI2_ARCHITECTURE.md) |
-| Teoría Q₆ | [RFC-2026-08-Q6](/docs/navi/RFC-2026-08-Q6.md) |
-| Cómo medir | [MEASURE.md](/docs/navi/MEASURE.md) |
+| Dónde están las ISOs | [ISOS.md](ISOS.md) |
+| Qué es NAVI 7 | [NAVI7.md](NAVI7.md) |
+| Relés, no loro | [NAVI65_DUMMIES.md](NAVI65_DUMMIES.md) |
+| Plano del lab | [CIANOTIPO.md](CIANOTIPO.md) |
+| Metal medido | [HP_AC195NL_85.md](HP_AC195NL_85.md) |
 
-Código: [github.com/navywakura/RXos](https://github.com/navywakura/RXos)
+Código: [github.com/navywakura/RXos](https://github.com/navywakura/RXos)  
+Espejo: [github.com/knightslabs/rxos-8.5](https://github.com/knightslabs/rxos-8.5)

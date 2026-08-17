@@ -30,9 +30,10 @@ Si no hay ficha y el harvest falla: **DESCONOCIDO**. No se rellena.
 
 **Estado: PLAN.** No hay blob `NAVI7W01` de Akida, no hay test NPU.
 
-NAVI 6.5 es el modelo RLC oficial de hoy: once máscaras `G_*`, bucle
-PARSE-RETRIEVE-INFER-VERIFY-RENDER, DAG + world-model de la 6.
-NAVI 7 es **la misma mente** con un sitio donde los spikes pueden
+NAVI 6.5 sigue siendo el contrato RLC (once máscaras `G_*`, bucle
+PARSE-RETRIEVE-INFER-VERIFY-RENDER). En rxOS 9 la **cara oficial**
+es 7-WORLD (catálogo + harvest) encima de ese contrato.
+7-NPU sería **la misma mente** con un sitio donde los spikes pueden
 salir de la CPU.
 
 ## 1. Una frase

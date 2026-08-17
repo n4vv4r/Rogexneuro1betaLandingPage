@@ -39,7 +39,8 @@ En el repo RXos:
 ./navi6 --ask "que pasaria si en lugar del ring buffer uso memoria compartida"
 ```
 
-Dentro de rxOS 8 (ISO con módulo `navi6`): tecla `v` y la misma pregunta.  
+Dentro de rxOS 9 (tecla `v` = Navi 7): la misma pregunta sigue yendo
+al tutor cuando es un «por qué / qué pasaría si».  
 Los comandos del sistema (`status`, `/prove`) siguen siendo el operador **4.5**. NAVI 6 entra cuando la duda es *por qué / qué pasaría si*.
 
 ## Tres piezas, en cristiano
@@ -48,5 +49,5 @@ Los comandos del sistema (`status`, `/prove`) siguen siendo el operador **4.5**.
 2. **Tablero causal (DAG)** — flechas que no se pueden circular. Cortar una flecha es un contrafáctico.
 3. **Modelo del mundo** — tira el dado muchas veces (rollouts) y se queda con la vía de menos “sorpresa”.
 
-Si quieres números, archivos y el blob `NAVI6W01`: [NAVI 6 para expertos](/docs/navi6-experts).  
-Índice: [NAVI6.md](/docs/navi6).
+Si quieres números, archivos y el blob `NAVI6W01`: [NAVI 6 para expertos](NAVI6_EXPERTS.md).  
+Índice: [NAVI6.md](NAVI6.md).

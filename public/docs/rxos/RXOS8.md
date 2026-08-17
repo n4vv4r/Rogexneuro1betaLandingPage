@@ -1,6 +1,9 @@
-# rxOS 8 DESKTOP — qué es (sin teatro)
+# rxOS 8 DESKTOP — qué era (historia)
 
-**Versión actual:** 8.0.0 · ISO VM + metal · [release](https://github.com/knightslabs/RXos-Packages/releases/tag/v8.0.0)
+**El producto que se descarga hoy es [rxOS 9 SMOKE](/docs/rxos9).**  
+8.0 / 8.5 son historia. El RAPL del HP se midió en 8.5.
+
+**Esta ficha describe 8.x.** ISO de entonces: [v8.5.0](https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0)
 
 rxOS no es Linux recortado. Es un **unikernel x86_64** escrito en C freestanding + NASM + Rust `no_std`. Arranca con GRUB, pinta un escritorio Aero y corre NAVI-4.5 **dentro del mismo binario**.
 

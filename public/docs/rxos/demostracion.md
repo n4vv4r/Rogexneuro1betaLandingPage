@@ -1,10 +1,12 @@
-# Demostración y benches — rxOS 8 DESKTOP
+# Demostración y benches — rxOS (8.5 metal + 9 SMOKE)
 
 **Autor:** r. navarro  
-**Fecha QEMU:** 13 ago 2026 (sesión 11–17)  
-**Fecha metal:** 17 ago 2026 — HP 15-ac195nl, ISO `rxOS-8.5.0-metal`  
-**Máquina QEMU:** q35, 512 MiB, ISO `rxOS-8.0.0-vm.iso`  
+**Producto actual:** rxOS 9.0.0 SMOKE + NAVI 7 — [tutorial](/docs/tutorial-monad) · [ISOs](/docs/isos)  
+**Fecha QEMU 9:** 17 ago 2026 (GRUB eclipse, Dark Aero)  
+**Fecha metal:** 17 ago 2026 — HP 15-ac195nl, ISO `rxOS-8.5.0-metal` (RAPL de referencia)  
 **Informe metal:** [HP_AC195NL_85.md](/docs/hp-metal-85)
+
+Las capturas 9 están en `/rxos/9/`. Las de 8.0/8.5 siguen abajo como historia medible.
 
 Esto es el texto para quien quiere **verlo funcionar** y repetir los números. Tono claro, tecnicismos los justos, cero teatro.
 

@@ -14,8 +14,9 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 | **4 / 4.5** | Operador | `wsp_rxos.c` + `G_rxos` | 16 B + lista blanca | Ejecuta `status` / `/prove` | Un oráculo |
 | **5** | Lab KCC | host Python/Numba (`navi5_*.py`) | SNN LIF+STDP + WSP + Q6 | Entrenamiento no destructivo, air-gap | Silicio Akida ni un LLM |
 | **6** | Tutor causal | host `./navi6` + `kernel/navi/navi6.c` | DAG + world-model + WSP | Diagnóstico/contrafáctico; blob `NAVI6W01` en la ISO | LLM, QPU, millones de nodos |
-| **6.5** | RLC oficial | host `./navi65` + `navi6.c` router | 11 máscaras G_* + 5 cajas | Razona, habla y codea con esquema; DESCONOCIDO si no | LLM, Copilot, QPU |
-| **7** | NPU (plan) | no hay código | 6.5 + Akida `.fbz` | Offload de Q6/SNN si `neurocpu akida` ve silicio | No está escrito. Sin placa no hay 7 |
+| **6.5** | RLC (contrato) | host `./navi65` + `navi6.c` | 11 máscaras G_* + 5 cajas | Debajo de 7. DESCONOCIDO si no hay esquema | LLM, Copilot, QPU |
+| **7-WORLD** | Oficial rxOS 9 | `./navi7` + tecla `v` | 73 fichas + harvest + RLC | Bench 15/15. Sin ficha: DESCONOCIDO | LLM, NPU |
+| **7-NPU** | PLAN | no hay código | 6.5 + Akida `.fbz` | Offload si hay silicio | Sin placa no hay 7-NPU |
 
 ## Cómo leer esto
 
@@ -26,7 +27,7 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 5. [NAVI 5 — lab cooperativo](/docs/navi5)
 6. [NAVI 6 — tutor causal](/docs/navi6)
 7. [NAVI 6.5 — RLC](/docs/navi65)
-8. [NAVI 7 — plan (no hay código)](/docs/navi7)
+8. [NAVI 7 — 7-WORLD oficial](/docs/navi7)
 9. [Cianotipo rxOS / NAVI / PRISMA](/docs/cianotipo)
 10. [Akida × rxOS](/docs/akida)
 11. [NAVI frente a otras IA neuromórficas](/docs/navi-compare)

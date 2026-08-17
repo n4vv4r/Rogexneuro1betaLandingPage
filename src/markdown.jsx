@@ -59,6 +59,40 @@ function rewriteImgs(md, baseDir) {
   });
 }
 
+function isFence(line) {
+  return line.startsWith('```');
+}
+
+function isHeading(line) {
+  return /^#{1,4}\s+/.test(line);
+}
+
+function isHr(line) {
+  return /^---+$/.test(line.trim());
+}
+
+function isBullet(line) {
+  return /^\s*[-*]\s+/.test(line);
+}
+
+function isOrdered(line) {
+  // Require space after the dot so "6.5 ya razona" is a paragraph, not item 6.
+  return /^\s*\d+\.\s+/.test(line);
+}
+
+function isTableRow(line) {
+  return /^\|/.test(line);
+}
+
+function isTableSep(line) {
+  return /^\|?\s*:?-{3,}/.test(line);
+}
+
+function isBlockStart(line) {
+  return isFence(line) || isHeading(line) || isHr(line) || isBullet(line)
+    || isOrdered(line) || isTableRow(line);
+}
+
 export function renderMarkdown(raw, { baseDir = '/' } = {}) {
   const src = rewriteImgs(String(raw || '').replace(/\r\n/g, '\n'), baseDir);
   const lines = src.split('\n');
@@ -69,12 +103,12 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
   while (i < lines.length) {
     const line = lines[i];
 
-    if (line.startsWith('```')) {
+    if (isFence(line)) {
       const lang = line.slice(3).trim();
       const buf = [];
       i++;
-      while (i < lines.length && !lines[i].startsWith('```')) buf.push(lines[i++]);
-      i++;
+      while (i < lines.length && !isFence(lines[i])) buf.push(lines[i++]);
+      if (i < lines.length) i++;
       blocks.push(
         <pre key={`pre-${k++}`} className="md-pre">
           <code className={lang ? `lang-${lang}` : undefined}>{buf.join('\n')}</code>
@@ -83,10 +117,10 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
       continue;
     }
 
-    if (/^\|/.test(line) && i + 1 < lines.length && /^\|?\s*-+/.test(lines[i + 1])) {
+    if (isTableRow(line) && i + 1 < lines.length && isTableSep(lines[i + 1])) {
       const rows = [];
-      while (i < lines.length && /^\|/.test(lines[i])) {
-        if (/^\|?\s*-+/.test(lines[i])) {
+      while (i < lines.length && isTableRow(lines[i])) {
+        if (isTableSep(lines[i])) {
           i++;
           continue;
         }
@@ -95,6 +129,9 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
         i++;
       }
       const [head, ...body] = rows;
+      if (!head) {
+        continue;
+      }
       blocks.push(
         <div key={`tbl-${k++}`} className="md-table-wrap">
           <table className="md-table">
@@ -120,7 +157,7 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
       continue;
     }
 
-    if (/^---+$/.test(line.trim())) {
+    if (isHr(line)) {
       blocks.push(<hr key={`hr-${k++}`} />);
       i++;
       continue;
@@ -139,9 +176,9 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
       continue;
     }
 
-    if (/^\s*[-*]\s+/.test(line)) {
+    if (isBullet(line)) {
       const items = [];
-      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+      while (i < lines.length && isBullet(lines[i])) {
         items.push(lines[i].replace(/^\s*[-*]\s+/, ''));
         i++;
       }
@@ -155,9 +192,9 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
       continue;
     }
 
-    if (/^\s*\d+\.\s+/.test(line)) {
+    if (isOrdered(line)) {
       const items = [];
-      while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
+      while (i < lines.length && isOrdered(lines[i])) {
         items.push(lines[i].replace(/^\s*\d+\.\s+/, ''));
         i++;
       }
@@ -177,9 +214,14 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
     }
 
     const para = [];
-    while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|```|\||---|^\s*[-*]\s|^\s*\d+\.)/.test(lines[i])) {
+    while (i < lines.length && lines[i].trim() && !isBlockStart(lines[i])) {
       para.push(lines[i]);
       i++;
+    }
+    if (!para.length) {
+      // Orphan block marker (e.g. a lone "|"); never spin.
+      i++;
+      continue;
     }
     blocks.push(
       <p key={`p-${k++}`} className="md-p">

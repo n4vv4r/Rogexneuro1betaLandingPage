@@ -47,6 +47,7 @@ import PackagesPage from './rxos/PackagesPage.jsx';
 import Slideshow, { DOC_SLIDES } from './Slideshow.jsx';
 import DocsPage from './DocsPage.jsx';
 import NaviPage from './NaviPage.jsx';
+import RoadmapPage from './RoadmapPage.jsx';
 import { applyTheme, getTheme, THEMES } from './theme.js';
 import OG_CATALOG from './og-catalog.json';
 import { docById } from './docs-catalog.js';
@@ -58,6 +59,7 @@ const NAV_MENUS = [
     items: [
       ['/rx-os', 'rxOS 9 SMOKE'],
       ['/navi', 'NAVI'],
+      ['/roadmap', 'ROADMAP · ECLIPSE'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
       ['/suite', 'SUITE'],
@@ -79,6 +81,7 @@ const NAV_MENUS = [
     label: 'DOCS',
     items: [
       ['/docs', 'INDEX'],
+      ['/docs/eternal-eclipse', 'ETERNAL ECLIPSE'],
       ['/docs/rxos8', 'rxOS 8'],
       ['/docs/navi-compare', 'NAVI vs OTRAS IA'],
       ['/docs/cianotipo', 'CIANOTIPO'],
@@ -123,6 +126,7 @@ function navHrefActive(path, href) {
   if (href === '/rx-os' && path.startsWith('/rx-os/')) return true;
   if (href === '/navi' && (path === '/navi' || path.startsWith('/navi/'))) return true;
   if (href === '/docs' && path.startsWith('/docs/')) return true;
+  if (href === '/roadmap' && (path === '/roadmap' || path.startsWith('/docs/eternal-eclipse'))) return true;
   return false;
 }
 
@@ -1679,6 +1683,9 @@ function Home({ navigate }) {
             <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.vmIso}>
               DESCARGAR rxOS 9
             </a>
+            <button className="brutal-button" onClick={() => navigate('/roadmap')}>
+              ROADMAP · ECLIPSE
+            </button>
             <button className="brutal-button" onClick={() => navigate('/navi')}>
               CATÁLOGO NAVI
             </button>
@@ -4470,6 +4477,15 @@ function App() {
   if (path === '/navi' || path.startsWith('/navi/')) {
     page = (
       <NaviPage
+        navigate={navigate}
+        PageHero={PageHero}
+        SectionTitle={SectionTitle}
+      />
+    );
+  }
+  if (path === '/roadmap' || path === '/roadmap/') {
+    page = (
+      <RoadmapPage
         navigate={navigate}
         PageHero={PageHero}
         SectionTitle={SectionTitle}

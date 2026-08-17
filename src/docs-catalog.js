@@ -55,6 +55,13 @@ export const DOCS = [
     blurb: 'Loihi, Akida, SpiNNaker, TrueNorth, LLMs. Qué somos y qué no. Para escépticos.',
   },
   {
+    id: 'eternal-eclipse',
+    title: 'Eternal Eclipse — hoja de ruta pública',
+    category: 'theory',
+    path: '/docs/rxos/ETERNAL_ECLIPSE.md',
+    blurb: 'Dónde estamos de verdad: 8.5/6.5 medido, 9/7-WORLD en curso. 10/10 es el Eclipse. EchOS es visión.',
+  },
+  {
     id: 'cianotipo',
     title: 'Cianotipo — rxOS, NAVI, PRISMA, Akida',
     category: 'theory',

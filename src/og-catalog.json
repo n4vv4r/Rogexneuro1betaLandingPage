@@ -31,6 +31,20 @@
       "footer": "rogexlaboratories.com/rx-os"
     },
     {
+      "slug": "roadmap",
+      "path": "/roadmap",
+      "out": "roadmap.html",
+      "kicker": "ROADMAP · ETERNAL ECLIPSE",
+      "title": "DOS ÓRBITAS. UN CRUCE.",
+      "subtitle": "8.5/6.5 medido. 9/7-WORLD en curso. 10/10 es el Eclipse. EchOS es visión.",
+      "seoTitle": "Roadmap Eternal Eclipse — Knights Labs",
+      "description": "Línea de tiempo honesta: rxOS 8.5 + NAVI 6.5 medido, rxOS 9 + NAVI 7-WORLD en curso. El Eclipse (10/10), Eternal Eclipse y EchOS son visión. Sin fecha inventada.",
+      "badge": "AQUÍ ESTAMOS",
+      "shot": "public/rxos/9/00-grub.jpg",
+      "imageAlt": "GRUB eclipse rxOS 9 — roadmap Eternal Eclipse",
+      "footer": "rogexlaboratories.com/roadmap"
+    },
+    {
       "slug": "navi",
       "path": "/navi",
       "out": "navi.html",
@@ -199,6 +213,20 @@
       "imageAlt": "Rogex Newspaper — avances del lab",
       "footer": "newspaper.rogexlaboratories.com",
       "siteName": "Rogex Newspaper"
+    },
+    {
+      "slug": "docs-eternal-eclipse",
+      "path": "/docs/eternal-eclipse",
+      "out": "docs-eternal-eclipse.html",
+      "kicker": "DOCS · ETERNAL ECLIPSE",
+      "title": "EL PIN ESTÁ EN EL MAPA.",
+      "subtitle": "8.5/6.5 medido. 9/7-WORLD en curso. 10/10 es visión. EchOS no existe.",
+      "seoTitle": "Eternal Eclipse — hoja de ruta — Knights Labs",
+      "description": "Hoja de ruta pública: parejas NAVI/rxOS hasta el Eclipse (10/10), rebrand a EternalEclipse.com y visión EchOS. Honestidad de laboratorio.",
+      "badge": "LEER",
+      "shot": "public/rxos/9/00-grub.jpg",
+      "imageAlt": "Documento Eternal Eclipse — GRUB eclipse rxOS 9",
+      "footer": "rogexlaboratories.com/docs/eternal-eclipse"
     },
     {
       "slug": "docs-navi7",

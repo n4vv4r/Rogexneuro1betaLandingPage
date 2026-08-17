@@ -38,7 +38,8 @@ Cada ruta pública tiene HTML estático post-build (`suite.html`, `newspaper.htm
 - `/architecture` — stack técnico EEG → spikes
 - `/prisma` — PRISMA 3.2 + sección PRISMA 5
 - `/navi` — catálogo NAVI SNN 1 → 5
-- `/rx-os` — rxOS 8 DESKTOP + capturas + download
+- `/rx-os` — rxOS 9 SMOKE + capturas + download
+- `/roadmap` — Eternal Eclipse: línea de tiempo honesta + kit de posts
 - `/docs` — visor markdown (tutorial, demo, bench, NAVI, teoría, impl)
 - `/rx-os/packages` — catálogo público `.rxc` + tutorial (sin admin)
 - `/about` — lab, contacto, CTAs

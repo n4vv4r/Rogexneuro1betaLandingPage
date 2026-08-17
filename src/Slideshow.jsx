@@ -126,6 +126,14 @@ export const HOME_SLIDES = [
 
 export const DOC_SLIDES = [
   {
+    src: '/rxos/9/00-grub.jpg',
+    credit: 'GRUB · rxOS 9 · fondo eclipse',
+    kicker: 'ARTÍCULO · ROADMAP',
+    title: 'DOS ÓRBITAS. UN CRUCE. LUEGO, UN NOMBRE.',
+    caption: '8.5/6.5 medido. 9/7-WORLD en curso. 10/10 es el Eclipse. Eternal Eclipse y EchOS son visión. El pin está en el mapa.',
+    href: '/roadmap',
+  },
+  {
     src: '/rxos/hp-ac195nl-85/02-power-rapl.jpg',
     credit: 'HP 15-ac195nl · metal 8.5 · 17 ago 2026',
     kicker: 'ARTÍCULO · METAL',

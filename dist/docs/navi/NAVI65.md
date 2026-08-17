@@ -72,3 +72,4 @@ python3 tests/test_navi6.py
 - [NAVI 6](/docs/navi6) — el tutor causal que 6.5 usa como G_debug
 - [Cianotipo](/docs/cianotipo) — rxOS + NAVI + PRISMA + Akida
 - [NAVI 7](/docs/navi7) — plan. No hay código.
+- [NAVI frente a otras IA neuromórficas](/docs/navi-compare) — escépticos, Loihi, Akida, LLMs.

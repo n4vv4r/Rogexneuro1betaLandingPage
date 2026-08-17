@@ -78,6 +78,7 @@ const NAV_MENUS = [
     items: [
       ['/docs', 'INDEX'],
       ['/docs/rxos8', 'rxOS 8'],
+      ['/docs/navi-compare', 'NAVI vs OTRAS IA'],
       ['/docs/cianotipo', 'CIANOTIPO'],
       ['/docs/akida', 'AKIDA'],
       ['/docs/navi65', 'NAVI 6.5'],

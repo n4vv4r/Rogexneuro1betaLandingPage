@@ -29,6 +29,7 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 8. [NAVI 7 — plan (no hay código)](/docs/navi7)
 9. [Cianotipo rxOS / NAVI / PRISMA](/docs/cianotipo)
 10. [Akida × rxOS](/docs/akida)
+11. [NAVI frente a otras IA neuromórficas](/docs/navi-compare)
 11. [NAVI 6.5 para dummies](/docs/navi65-dummies)
 12. [Arquitectura NAVI 5](/docs/navi5-arch)
 

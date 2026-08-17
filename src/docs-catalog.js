@@ -34,6 +34,13 @@ export const DOCS = [
     blurb: 'Línea SNN completa. 6.5 es el RLC oficial. 7 es plan (Akida).',
   },
   {
+    id: 'navi-compare',
+    title: 'NAVI frente a otras IA neuromórficas',
+    category: 'theory',
+    path: '/docs/navi/NAVI_COMPARE.md',
+    blurb: 'Loihi, Akida, SpiNNaker, TrueNorth, LLMs. Qué somos y qué no. Para escépticos.',
+  },
+  {
     id: 'cianotipo',
     title: 'Cianotipo — rxOS, NAVI, PRISMA, Akida',
     category: 'theory',

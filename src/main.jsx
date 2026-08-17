@@ -58,7 +58,7 @@ const NAV_MENUS = [
     label: 'PRODUCTS',
     items: [
       ['/rx-os', 'rxOS 9 SMOKE'],
-      ['/navi', 'NAVI 7.5'],
+      ['/navi', 'NAVI 8.9'],
       ['/roadmap', 'ROADMAP · ECLIPSE'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
@@ -187,6 +187,18 @@ const DOWNLOAD_CATALOG = {
     source: 'https://github.com/knightslabs/rxos-8.5',
     sourceMirror: 'https://github.com/navywakura/RXos',
     packagesRepo: 'https://github.com/knightslabs/RXos-Packages',
+  },
+  naviHost: {
+    id: 'navi-host',
+    name: 'NAVI 8.9 host',
+    version: '8.9.0',
+    tarball: '/downloads/navi-8.9.0-linux-x86_64.tar.gz',
+    sha256File: '/downloads/navi-8.9.0-linux-x86_64.tar.gz.sha256',
+    source: 'https://github.com/navywakura/RXos',
+    sourceKl: 'https://github.com/knightslabs/rxos-8.5',
+    readme: '/docs/navi89',
+    summary:
+      'Asistente local: catálogo + harvest + dual VERIFY + TUI. Python 3.11+. No es un LLM.',
   },
 };
 
@@ -3947,6 +3959,7 @@ function Footer({ navigate }) {
 function Downloads({ navigate }) {
   const pe = DOWNLOAD_CATALOG.prismaEngine;
   const rx = DOWNLOAD_CATALOG.rxos;
+  const nh = DOWNLOAD_CATALOG.naviHost;
 
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
@@ -4236,10 +4249,50 @@ qemu-system-x86_64 \\
           </div>
         </section>
 
+        <section className="section wrap" id="navi-host">
+          <SectionTitle
+            code="03 / NAVI 8.9 HOST"
+            title="DESCARGA EL ASISTENTE LOCAL"
+            text="Python + TUI. Catálogo, harvest, dual VERIFY, laberinto BFS. No es un LLM. Verifica el SHA-256."
+          />
+          <div className="rxos-download-layout">
+            <article className="download-card" data-reveal>
+              <div className="download-card-top">
+                <span>HOST · PRE-BETA</span>
+                <strong>v{nh.version}</strong>
+              </div>
+              <h3>ASK IT.<br />SCROLL IT.<br />VERIFY IT.</h3>
+              <p>{nh.summary}</p>
+              <div className="download-actions">
+                <a className="brutal-button primary" href={nh.tarball} download>
+                  TARBALL LINUX <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={nh.source} target="_blank" rel="noreferrer">
+                  CÓDIGO <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={nh.sourceKl} target="_blank" rel="noreferrer">
+                  MIRROR KNIGHTS <ArrowUpRight size={16} />
+                </a>
+                <a className="checksum-link" href={nh.sha256File} download>
+                  SHA-256
+                </a>
+              </div>
+            </article>
+            <article className="qemu-guide" data-reveal>
+              <span className="panel-label">QUICKSTART</span>
+              <pre><code>{`tar -xzf navi-8.9.0-linux-x86_64.tar.gz
+cd navi-8.9.0-linux-x86_64
+./navi89 --stats
+./navi89 --tui
+./navi89 --ask "hola"`}</code></pre>
+            </article>
+          </div>
+        </section>
+
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="03 / STATUS"
+              code="04 / STATUS"
               title="ENGINE SHIPPED · P5 ROADMAP"
               text="Installers del Engine 0.1.0 publicados. PRISMA 5 SNN no se descarga: ver docs. Firma Authenticode / notarización Apple en siguientes builds del Engine."
             />

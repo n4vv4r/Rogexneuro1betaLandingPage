@@ -4,6 +4,7 @@ import {
   Brain,
   CheckCircle,
   Cpu,
+  Database,
   Hexagon,
   Network,
   Radio,
@@ -173,6 +174,54 @@ const LINE = [
     extra: '/docs/setup',
     extraLabel: 'SETUP QEMU',
   },
+  {
+    id: 'navi8',
+    gen: '08',
+    name: 'NAVI 8',
+    codename: 'CONTEXT.DB',
+    status: 'HOST · CATÁLOGO + SQLITE',
+    tone: 'ok',
+    icon: Database,
+    where: 'navi8 + navi8_db.py + lab/navi8',
+    unit: 'ficha + context.db',
+    text: '7.5 más una base local. Si VERIFY falla, mira páginas y lecciones en disco y cosecha. Sin extracto: DESCONOCIDO.',
+    facts: ['context.db', 'KCC destroyed=0', 'plan compuesto', 'no es un LLM'],
+    docs: '/docs/navi8',
+    extra: '/downloads#navi-host',
+    extraLabel: 'DESCARGAR HOST',
+  },
+  {
+    id: 'navi88',
+    gen: '08.8',
+    name: 'NAVI 8.8',
+    codename: 'SURVIVE',
+    status: 'HOST · POBLACIÓN DE POLÍTICAS',
+    tone: 'ok',
+    icon: Network,
+    where: 'navi88 + navi88_life.py',
+    unit: 'organismo + VERIFY 0/1',
+    text: 'Torneo: el que cosecha un «hola» se duerme. El que acierta copia el enunciado. No hay backprop.',
+    facts: ['--train / --survive', 'KCC: se duerme', 'banco + charlas', 'no es un LLM'],
+    docs: '/docs/navi88',
+    extra: '/docs/navi89',
+    extraLabel: '8.9 DUAL',
+  },
+  {
+    id: 'navi89',
+    gen: '08.9',
+    name: 'NAVI 8.9',
+    codename: 'DUAL + DESK',
+    status: 'HOST · TUI · PRE-BETA',
+    tone: 'ok',
+    icon: Terminal,
+    where: 'navi89 + tui/navi89-rs + tui/navi89.c',
+    unit: 'propose / critic + BFS',
+    text: 'Dos voces VERIFY. Desk Rust/C: chat, log interno, métricas, laberinto 2D. --train --stats --tui. Boca atada: sin ficha no inventa.',
+    facts: ['2 voces', 'TUI scroll/copia', 'laberinto BFS', '--stats tabla'],
+    docs: '/docs/navi89',
+    extra: '/docs/navi9-hybrid',
+    extraLabel: '9 HÍBRIDO',
+  },
 ];
 
 const NAVI5_LAYERS = [
@@ -218,22 +267,22 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 7.5 · OFICIAL EN rxOS 9"
+        eyebrow="NAVI · LÍNEA SNN 1 → 8.9 · HOST PRE-BETA + rxOS 9"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
-        text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 RLC. 6.6 lengua. 7-WORLD + 7.5: catálogo, harvest Wikipedia/DuckDuckGo, memoria. 7-NPU Akida sigue PLAN. Ninguna es un LLM."
-        image="/rxos/9/15-navi75-live.jpg"
+        text="1–4.5 en el unikernel. 7.5 memoria. 8.8 sobrevive. 8.9 dual + TUI (razonamiento VERIFY, laberinto BFS). 9 = WSP + Q6 + boca atada. Ninguna es un LLM suelto."
+        image="/screenshots/navi/navi89-tui-desk.png"
         className="rxos-hero"
       >
         <div className="hero-tags">
           <span>Q₆ 48/48</span>
           <span>WSP 16 B</span>
-          <span>NAVI 7.5 VIVO</span>
+          <span>NAVI 8.9 DESK</span>
           <span>WIKIPEDIA + DDG</span>
           <span>MEMORIA SQLITE</span>
           <span>0% FPU EN EL MOTOR</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–7</a>
+          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–8.9</a>
           <a className="brutal-button" href="#dummies">PARA DUMMIES</a>
           <a className="brutal-button" href="#expertos">PARA EXPERTOS</a>
           <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi65')}>
@@ -383,6 +432,41 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
             <button type="button" className="brutal-button" onClick={() => navigate('/docs')}>
               TODOS LOS DOCS
             </button>
+          </div>
+        </section>
+
+        <section className="section wrap" id="desk">
+          <SectionTitle
+            code="03b / DESK 8.9"
+            title="TUI · RAZONAMIENTO · LABERINTO"
+            text="Chat a la izquierda, log VERIFY a la derecha, métricas arriba. Rueda para scroll, Ctrl+Y copia, pega con Shift+Insert. No es un LLM: si no hay ficha, lo dice."
+          />
+          <div className="current-grid">
+            <article className="paper-panel" data-reveal>
+              <span className="panel-label">CAPTURAS EN VIVO</span>
+              <h3>NAVI 8.9 EN EL HOST.</h3>
+              <p>Desk Rust: tabla de fichas/palabras/Q6, dual propose/critic, BFS del laberinto 2D.</p>
+              <img
+                src="/screenshots/navi/navi89-tui-desk.png"
+                alt="NAVI 8.9 TUI — chat, razonamiento VERIFY y métricas"
+                style={{ width: '100%', border: '1px solid #333', marginTop: 12 }}
+              />
+            </article>
+            <article className="black-panel" data-reveal>
+              <span className="panel-label">QUICKSTART</span>
+              <h3>CLONA · PREGUNTA · MIDE.</h3>
+              <pre><code>{`git clone https://github.com/navywakura/RXos
+cd RXos
+./navi89 --stats
+./navi89 --tui
+# o el tarball en /downloads`}</code></pre>
+              <div className="hero-actions" style={{ marginTop: 16 }}>
+                <a className="brutal-button primary" href="/downloads#navi-host">DESCARGAR HOST 8.9</a>
+                <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi89')}>
+                  MANUAL 8.9
+                </button>
+              </div>
+            </article>
           </div>
         </section>
 

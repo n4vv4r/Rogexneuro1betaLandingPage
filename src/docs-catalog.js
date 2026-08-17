@@ -20,6 +20,13 @@ export const DOCS = [
     blurb: 'Arrancar la ISO 9, tecla v, Navi 7, /prove, cómo medir.',
   },
   {
+    id: 'isos',
+    title: 'Dónde están las ISOs — rxOS 9',
+    category: 'tutorial',
+    path: '/docs/rxos/ISOS.md',
+    blurb: 'VM para QEMU, metal para USB. SHA-256 de 9.0.0 y cómo flashear.',
+  },
+  {
     id: 'rxos8',
     title: 'rxOS 8 DESKTOP — qué es',
     category: 'tutorial',
@@ -52,7 +59,7 @@ export const DOCS = [
     title: 'Cianotipo para dummies',
     category: 'tutorial',
     path: '/docs/rxos/CIANOTIPO_DUMMIES.md',
-    blurb: 'Tres máquinas, un idioma. NAVI 7 no está escrito.',
+    blurb: 'Tres máquinas, un idioma. NAVI 7-WORLD ya corre en rxOS 9. El NPU sigue PLAN.',
   },
   {
     id: 'akida',
@@ -63,10 +70,10 @@ export const DOCS = [
   },
   {
     id: 'navi7',
-    title: 'NAVI 7 — plan',
+    title: 'NAVI 7 — 7-WORLD oficial',
     category: 'navi',
     path: '/docs/navi/NAVI7.md',
-    blurb: '6.5 + NPU. Criterios para atreverse a llamar 7 a un commit. No hay código.',
+    blurb: 'Oficial en rxOS 9: catálogo + harvest. 7-NPU Akida sigue PLAN. Sin ficha: DESCONOCIDO.',
   },
   {
     id: 'navi66',

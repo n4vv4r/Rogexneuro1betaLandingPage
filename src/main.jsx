@@ -48,6 +48,8 @@ import Slideshow, { DOC_SLIDES } from './Slideshow.jsx';
 import DocsPage from './DocsPage.jsx';
 import NaviPage from './NaviPage.jsx';
 import { applyTheme, getTheme, THEMES } from './theme.js';
+import OG_CATALOG from './og-catalog.json';
+import { docById } from './docs-catalog.js';
 
 const NAV_MENUS = [
   {
@@ -84,6 +86,8 @@ const NAV_MENUS = [
       ['/docs/navi65', 'NAVI 6.5'],
       ['/docs/navi66', 'NAVI 6.6'],
       ['/docs/navi7', 'NAVI 7'],
+      ['/docs/navi66', 'NAVI 6.6'],
+      ['/docs/isos', 'ISOs 9.0.0'],
       ['/docs/navi6', 'NAVI 6'],
       ['/navi#dummies', 'NAVI 6.5 DUMMIES'],
       ['/navi#expertos', 'NAVI 6.5 EXPERTOS'],
@@ -4360,145 +4364,45 @@ function setJsonLd(meta) {
   el.textContent = JSON.stringify(graph);
 }
 
-const DEFAULT_OG = {
-  title: 'Knights Labs — rxOS 9 SMOKE · NAVI 7',
-  description:
-    'Knights Labs: rxOS 9 SMOKE, NAVI 7 oficial (catálogo + harvest), escritorio Dark Aero. Código en GitHub. ISOs en Packages. Experimental, no clínico.',
-  image: ogCard('home'),
-  ...OG_DIM,
-  imageAlt: 'Knights Labs — rxOS 9 SMOKE · NAVI 7',
-  url: `${SITE}/`,
-};
+function metaFromOgEntry(entry) {
+  return {
+    title: entry.seoTitle,
+    description: entry.description,
+    image: ogCard(entry.slug),
+    ...OG_DIM,
+    imageAlt: entry.imageAlt,
+    url: entry.url || `${SITE}${entry.path}`,
+  };
+}
 
-const ROUTE_META = {
-  '/': { ...DEFAULT_OG },
-  '/suite': {
-    title: 'Product Suite — Knights Labs',
-    description:
-      'Suite de producto: rxOS Desktop, kernel neuromórfico, PRISMA 3 y PRISMA 5. Licencias para developers, research y OEM.',
-    image: ogCard('suite'),
-    ...OG_DIM,
-    imageAlt: 'Knights Labs product suite',
-    url: `${SITE}/suite`,
-  },
-  '/prisma': {
-    title: 'PRISMA Engine 0.1 & SNN — Knights Labs',
-    description:
-      'PRISMA Engine 0.1.0 nativo (Rust·AVX2): SPSC, Δ-mod, LIF/STDP. Tech preview Linux en /downloads. No clínico.',
-    image: ogCard('prisma'),
-    ...OG_DIM,
-    imageAlt: 'PRISMA Engine and PRISMA 5 SNN',
-    url: `${SITE}/prisma`,
-  },
-  '/downloads': {
-    title: 'Downloads — rxOS 8.5 + PRISMA Engine — Knights Labs',
-    description:
-      'Descargas: rxOS 9.0.0 SMOKE (VM + metal, NAVI 7) y PRISMA Engine 0.1.0. Código en github.com/knightslabs/rxos-8.5. Experimental, no clínico.',
-    image: ogCard('prisma'),
-    ...OG_DIM,
-    imageAlt: 'Knights Labs public downloads',
-    url: `${SITE}/downloads`,
-  },
-  '/rx-os': {
-    title: 'rxOS 9 SMOKE — NAVI 7 — Knights Labs',
-    description:
-      'rxOS 8.5 DESKTOP medido en HP 15-ac195nl: RAPL idle 3678 mW, Q6 72.5 µJ/run, HDC 100%, NAVI 6.5 1010 B. Código e ISOs en GitHub.',
-    image: ogCard('rx-os'),
-    ...OG_DIM,
-    imageAlt: 'rxOS 8.5 DESKTOP — foto metal HP 15-ac195nl',
-    url: `${SITE}/rx-os`,
-  },
-  '/rx-os/packages': {
-    title: 'rxOS packages (.rxc) — Knights Labs',
-    description:
-      'Canal de paquetes RXos: lista de .rxc publicados y tutorial rx app add. Descarga directa.',
-    image: ogCard('rx-os'),
-    ...OG_DIM,
-    imageAlt: 'rxOS package channel .rxc',
-    url: `${SITE}/rx-os/packages`,
-  },
-  '/navi': {
-    title: 'NAVI — catálogo SNN 1 → 6.5 — Knights Labs',
-    description:
-      'Línea NAVI: Q₆, WSP, 4.5, lab 5, tutor 6 y RLC 6.5. 7 es plan (Akida). No es un LLM.',
-    image: ogCard('navi'),
-    ...OG_DIM,
-    imageAlt: 'NAVI SNN catalog — Knights Labs',
-    url: `${SITE}/navi`,
-  },
-  '/docs': {
-    title: 'Docs — rxOS 8.5, NAVI 6.5, WSP, Q₆ — Knights Labs',
-    description:
-      'Visor markdown: rxOS 8.5, cianotipo, Akida, NAVI 1–6.5, WSP 16 B, Q₆, benches y papers.',
-    image: ogCard('rx-os'),
-    ...OG_DIM,
-    imageAlt: 'Knights Labs technical documentation',
-    url: `${SITE}/docs`,
-  },
-  '/rogexos': {
-    title: 'rxOS 9 SMOKE — NAVI 7 — Knights Labs',
-    description:
-      'rxOS 8.5 DESKTOP: Aero, NAVI 6.5 RLC, WSP 16 B, /prove. Código e ISOs en GitHub.',
-    image: ogCard('rx-os'),
-    ...OG_DIM,
-    imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
-    url: `${SITE}/rx-os`,
-  },
-  '/architecture': {
-    title: 'Architecture rxOS 8.5 — Knights Labs',
-    description:
-      'Arquitectura rxOS 8.5: event fabric, Q₆, WSP 16 B, NAVI 6.5 y cianotipo Akida. Papers PDF públicos.',
-    image: ogCard('architecture'),
-    ...OG_DIM,
-    imageAlt: 'RXos architecture — sensor to spike',
-    url: `${SITE}/architecture`,
-  },
-  '/about': {
-    title: 'About — Knights Labs / Rogex',
-    description:
-      'Lab independiente de neurotech low-carbon, software EEG y sistemas bare-metal. Contacto para developers, research y OEM.',
-    image: ogCard('about'),
-    ...OG_DIM,
-    imageAlt: 'About Knights Labs',
-    url: `${SITE}/about`,
-  },
-  '/investors': {
-    title: 'Para inversores — Knights Labs',
-    description:
-      'Tecnoactivismo con P&L: rxOS 8, NAVI-4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
-    image: ogCard('investors'),
-    ...OG_DIM,
-    imageAlt: 'Knights Labs for investors',
-    url: `${SITE}/investors`,
-  },
-  '/pitch': {
-    title: 'Pre-Seed Pitch 150k€ — Knights Labs',
-    description:
-      'Pitch pre-seed DeepTech: 150.000 € para PRISMA + RXos hasta lanzamiento dic. 2026. Tracción, use of funds y GTM developer-first.',
-    image: ogCard('pitch'),
-    ...OG_DIM,
-    imageAlt: 'Knights Labs pre-seed pitch 150k€',
-    url: `${SITE}/pitch`,
-  },
-  '/startup-idea': {
-    title: 'Startup idea — Knights Labs',
-    description:
-      'Idea de startup: compute event-driven, software EEG y SNN neuromórfico con licensing filantrópico. Problema, solución y tracción.',
-    image: ogCard('startup-idea'),
-    ...OG_DIM,
-    imageAlt: 'Knights Labs startup idea',
-    url: `${SITE}/startup-idea`,
-  },
-  '/newspaper': {
-    title: 'Rogex Newspaper — avances del lab',
-    description:
-      'Despachos sobre PRISMA, RXos y neurotech low-carbon. Suscríbete por correo o RSS. Experimental, no clínico.',
-    image: ogCard('newspaper'),
-    ...OG_DIM,
-    imageAlt: 'Rogex Newspaper — email and RSS advances',
-    url: `${SITE}/newspaper`,
-  },
-};
+const ROUTE_META = Object.fromEntries(
+  OG_CATALOG.routes.map((entry) => [entry.path, metaFromOgEntry(entry)]),
+);
+ROUTE_META['/rogexos'] = ROUTE_META['/rx-os'];
+const DEFAULT_OG = ROUTE_META['/'];
+
+function resolveMeta(path) {
+  const metaPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+  if (ROUTE_META[metaPath]) return ROUTE_META[metaPath];
+  if (metaPath.startsWith('/docs/')) {
+    const id = metaPath.slice('/docs/'.length);
+    const keyed = ROUTE_META[`/docs/${id}`];
+    if (keyed) return keyed;
+    const doc = docById(id);
+    if (doc) {
+      return {
+        title: `${doc.title} — Knights Labs`,
+        description: doc.blurb,
+        image: ogCard('docs'),
+        ...OG_DIM,
+        imageAlt: doc.title,
+        url: `${SITE}/docs/${id}`,
+      };
+    }
+  }
+  if (metaPath.startsWith('/docs')) return ROUTE_META['/docs'] || DEFAULT_OG;
+  return DEFAULT_OG;
+}
 
 function App() {
   const [path, navigate] = useRoute();
@@ -4508,9 +4412,7 @@ function App() {
   useEffect(() => {
     if (newspaperMode) return;
 
-    const metaPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
-    const meta = ROUTE_META[metaPath]
-      || (metaPath.startsWith('/docs') ? ROUTE_META['/docs'] : DEFAULT_OG);
+    const meta = resolveMeta(path);
     document.title = meta.title;
     setCanonical(meta.url);
     setJsonLd(meta);

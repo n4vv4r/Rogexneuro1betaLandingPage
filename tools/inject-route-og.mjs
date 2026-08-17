@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 /**
- * Post-build: emit static HTML shells per route (and newspaper) so crawlers
- * that do not execute JS still receive correct Open Graph / Twitter tags.
- *
- * Replaces the older inject-rxos-og.mjs single-file approach.
+ * Post-build: static HTML shells per route so crawlers get OG tags
+ * without executing JS. Titles/images come from src/og-catalog.json.
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -11,157 +9,46 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const indexPath = join(root, 'dist', 'index.html');
+const catalog = JSON.parse(readFileSync(join(root, 'src', 'og-catalog.json'), 'utf8'));
 
 if (!existsSync(indexPath)) {
   console.error('inject-route-og: dist/index.html missing — run vite build first');
   process.exit(1);
 }
 
-const SITE = 'https://www.rogexlaboratories.com';
-const NP_SITE = 'https://newspaper.rogexlaboratories.com';
+const SITE = catalog.site;
+const NP_SITE = catalog.npSite;
 const OG = (slug) => `${SITE}/og/${slug}.png`;
 
-/** @type {Array<{ out: string, title: string, description: string, url: string, image: string, imageAlt: string, siteName?: string }>} */
-const ROUTES = [
-  {
-    out: 'index.html', // rewrite in place
-    title: 'Knights Labs — rxOS 8.5 · NAVI 6.5',
-    description:
-      'Knights Labs: rxOS 8.5 DESKTOP, NAVI 6.5 RLC, WSP 16 B y Q₆. Código e ISOs en GitHub. Experimental, no clínico.',
-    url: `${SITE}/`,
-    image: OG('home'),
-    imageAlt: 'Knights Labs — low-carbon neurotech Open Graph card',
-  },
-  {
-    out: 'suite.html',
-    title: 'Product Suite — Knights Labs',
-    description:
-      'Suite de producto: rxOS Desktop, kernel neuromórfico, PRISMA 3 y PRISMA 5. Licencias para developers, research y OEM.',
-    url: `${SITE}/suite`,
-    image: OG('suite'),
-    imageAlt: 'Knights Labs product suite',
-  },
-  {
-    out: 'architecture.html',
-    title: 'Architecture rxOS 8.5 — Knights Labs',
-    description:
-      'Arquitectura rxOS 8.5: event fabric, hipercubo Q₆, WSP 16 B, NAVI 6.5 y cianotipo Akida. Papers PDF públicos.',
-    url: `${SITE}/architecture`,
-    image: OG('architecture'),
-    imageAlt: 'RXos architecture — sensor to spike',
-  },
-  {
-    out: 'prisma.html',
-    title: 'PRISMA Engine 0.1 & SNN — Knights Labs',
-    description:
-      'PRISMA Engine 0.1.0 nativo (Rust·AVX2): SPSC, Δ-mod, LIF/STDP. Tech preview Linux en /downloads. No clínico.',
-    url: `${SITE}/prisma`,
-    image: OG('prisma'),
-    imageAlt: 'PRISMA Engine and PRISMA 5 SNN',
-  },
-  {
-    out: 'downloads.html',
-    title: 'Downloads — rxOS 8.5 + PRISMA Engine — Knights Labs',
-    description:
-      'Descargas: rxOS 8.5.0 DESKTOP (VM + metal, NAVI 6.5) y PRISMA Engine 0.1.0. Código en github.com/knightslabs/rxos-8.5.',
-    url: `${SITE}/downloads`,
-    image: OG('prisma'),
-    imageAlt: 'Knights Labs public downloads — PRISMA Engine and RXos',
-  },
-  {
-    out: 'navi.html',
-    title: 'NAVI — catálogo SNN 1 → 6.5 — Knights Labs',
-    description:
-      'Línea NAVI: Q₆, WSP, operador 4.5, lab 5, tutor 6 y modelo RLC 6.5 (once máscaras G_*). No es un LLM.',
-    url: `${SITE}/navi`,
-    image: OG('navi'),
-    imageAlt: 'NAVI SNN catalog — Knights Labs',
-  },
-  {
-    out: 'docs.html',
-    title: 'Docs — rxOS 8.5, NAVI 6.5, WSP, Q₆ — Knights Labs',
-    description:
-      'Visor markdown: rxOS 8.5, cianotipo, Akida, NAVI 1–6.5, WSP 16 B, Q₆, benches y papers.',
-    url: `${SITE}/docs`,
-    image: OG('rx-os'),
-    imageAlt: 'Knights Labs technical documentation',
-  },
-  {
-    out: 'rx-os.html',
-    title: 'rxOS 8.5 DESKTOP — NAVI 6.5 — Knights Labs',
-    description:
-      'rxOS 8.5 DESKTOP: Aero, NAVI 6.5 RLC preentrenado, WSP 16 B, /prove. Código e ISOs en GitHub.',
-    url: `${SITE}/rx-os`,
-    image: OG('rx-os'),
-    imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
-  },
-  {
-    out: 'rx-os-packages.html',
-    title: 'rxOS packages (.rxc) — Knights Labs',
-    description:
-      'Canal de paquetes RXos: lista de .rxc publicados y tutorial rx app add. Descarga directa.',
-    url: `${SITE}/rx-os/packages`,
-    image: OG('rx-os'),
-    imageAlt: 'rxOS package channel .rxc',
-  },
-  {
-    out: 'investors.html',
-    title: 'Para inversores — Knights Labs',
-    description:
-      'Tecnoactivismo con P&L: rxOS 8, NAVI-4.5, PRISMA 3/5, licensing Robin Hood, compute low-carbon y riesgos deep-tech con transparencia.',
-    url: `${SITE}/investors`,
-    image: OG('investors'),
-    imageAlt: 'Knights Labs for investors',
-  },
-  {
-    out: 'pitch.html',
-    title: 'Pre-Seed Pitch 150k€ — Knights Labs',
-    description:
-      'Pitch pre-seed DeepTech: 150.000 € para PRISMA + RXos hasta lanzamiento dic. 2026. Tracción, use of funds y GTM developer-first.',
-    url: `${SITE}/pitch`,
-    image: OG('pitch'),
-    imageAlt: 'Knights Labs pre-seed pitch 150k€',
-  },
-  {
-    out: 'startup-idea.html',
-    title: 'Startup idea — Knights Labs',
-    description:
-      'Idea de startup: compute event-driven, software EEG y SNN neuromórfico con licensing filantrópico. Problema, solución y tracción.',
-    url: `${SITE}/startup-idea`,
-    image: OG('startup-idea'),
-    imageAlt: 'Knights Labs startup idea',
-  },
-  {
-    out: 'about.html',
-    title: 'About — Knights Labs / Rogex',
-    description:
-      'Lab independiente de neurotech low-carbon, software EEG y sistemas bare-metal. Contacto para developers, research y OEM.',
-    url: `${SITE}/about`,
-    image: OG('about'),
-    imageAlt: 'About Knights Labs',
-  },
-  {
-    out: 'newspaper.html',
-    title: 'Rogex Newspaper — avances del lab',
-    description:
-      'Despachos sobre PRISMA, RXos y neurotech low-carbon. Suscríbete por correo o RSS. Experimental, no clínico.',
-    url: `${NP_SITE}/`,
-    image: OG('newspaper'),
-    imageAlt: 'Rogex Newspaper — email and RSS advances',
-    siteName: 'Rogex Newspaper',
-  },
-  // Path alias on main domain (same OG as subdomain home)
-  {
-    out: 'newspaper-path.html',
-    title: 'Rogex Newspaper — avances del lab',
-    description:
-      'Despachos sobre PRISMA, RXos y neurotech low-carbon. Suscríbete por correo o RSS. Experimental, no clínico.',
-    url: `${SITE}/newspaper`,
-    image: OG('newspaper'),
-    imageAlt: 'Rogex Newspaper — email and RSS advances',
-    siteName: 'Rogex Newspaper',
-  },
-];
+function routeFromEntry(entry, extra = {}) {
+  const url = extra.url || entry.url || `${SITE}${entry.path}`;
+  return {
+    out: extra.out || entry.out,
+    title: entry.seoTitle,
+    description: entry.description,
+    url,
+    image: OG(entry.slug),
+    imageAlt: entry.imageAlt,
+    siteName: extra.siteName || entry.siteName,
+  };
+}
+
+const ROUTES = [];
+for (const entry of catalog.routes) {
+  ROUTES.push(routeFromEntry(entry));
+  if (entry.slug === 'newspaper') {
+    ROUTES.push(
+      routeFromEntry(entry, {
+        out: 'newspaper.html',
+        url: `${NP_SITE}/`,
+        siteName: 'Rogex Newspaper',
+      }),
+    );
+  }
+  if (entry.slug === 'rx-os') {
+    ROUTES.push(routeFromEntry(entry, { out: 'rogexos.html', url: `${SITE}/rx-os` }));
+  }
+}
 
 const baseHtml = readFileSync(indexPath, 'utf8');
 
@@ -224,14 +111,12 @@ function inject(html, meta) {
     out = out.replace(re, value);
   }
 
-  // Replace ALL og:image blocks with a single clean OG card block
   const ogImageBlock = `    <meta property="og:image" content="${escapeAttr(meta.image)}" />
     <meta property="og:image:type" content="${imgType}" />
     <meta property="og:image:width" content="${imgW}" />
     <meta property="og:image:height" content="${imgH}" />
     <meta property="og:image:alt" content="${escapeAttr(meta.imageAlt)}" />`;
 
-  // Remove existing og:image* meta tags then insert after og:url
   out = out.replace(
     /\s*<meta property="og:image(?::[a-z]+)?" content="[^"]*"\s*\/?>/g,
     '',
@@ -241,20 +126,13 @@ function inject(html, meta) {
     `$1\n${ogImageBlock}`,
   );
 
-  // Ensure twitter:card is summary_large_image
   if (/twitter:card/.test(out)) {
     out = out.replace(
       /<meta name="twitter:card" content="[^"]*"\s*\/?>/,
       '<meta name="twitter:card" content="summary_large_image" />',
     );
-  } else {
-    out = out.replace(
-      /(<meta name="twitter:title")/,
-      '<meta name="twitter:card" content="summary_large_image" />\n    $1',
-    );
   }
 
-  // JSON-LD WebPage primary image
   out = out.replace(
     /<script type="application\/ld\+json" id="ld-org">[\s\S]*?<\/script>/,
     () => {
@@ -318,8 +196,7 @@ mkdirSync(distDir, { recursive: true });
 
 for (const route of ROUTES) {
   const html = inject(baseHtml, route);
-  const dest = join(distDir, route.out);
-  writeFileSync(dest, html);
+  writeFileSync(join(distDir, route.out), html);
   console.log('inject-route-og:', route.out, '→', route.image);
 }
 

@@ -44,7 +44,7 @@ import {
 import './styles.css';
 import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx';
 import PackagesPage from './rxos/PackagesPage.jsx';
-import Slideshow from './Slideshow.jsx';
+import Slideshow, { DOC_SLIDES } from './Slideshow.jsx';
 import DocsPage from './DocsPage.jsx';
 import NaviPage from './NaviPage.jsx';
 import { applyTheme, getTheme, THEMES } from './theme.js';
@@ -1511,6 +1511,30 @@ function Home({ navigate }) {
           <span>PRISMA ENGINE 0.1</span>
         </div>
         <OpenLabBar />
+      </section>
+
+      <section className="section wrap" id="articulos">
+        <SectionTitle
+          code="00 / ARTÍCULOS"
+          title="LEER ANTES DE DEBATIR"
+          text="Papeles vivos del lab. Cada banner es una foto externa que representa la idea — no un render del producto. Pulsa LEER."
+        />
+        <Slideshow
+          slides={DOC_SLIDES}
+          onNavigate={navigate}
+          interval={7200}
+          label="Artículos del laboratorio"
+          action="LEER"
+          className="docs-slideshow"
+        />
+        <div className="article-index">
+          {DOC_SLIDES.map((s) => (
+            <button key={s.href} type="button" className="article-index-item" onClick={() => navigate(s.href)}>
+              <span>{s.kicker.replace('ARTÍCULO · ', '')}</span>
+              <strong>{s.title}</strong>
+            </button>
+          ))}
+        </div>
       </section>
 
       <section className="section section-black" id="the-hit">

@@ -60,7 +60,65 @@ export const HOME_SLIDES = [
   },
 ];
 
-export default function Slideshow({ slides = HOME_SLIDES, onNavigate, interval = 6400 }) {
+export const DOC_SLIDES = [
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/9/9c/DARPA_SyNAPSE_16_Chip_Board.jpg',
+    credit: 'Wikimedia Commons · placa SyNAPSE / DARPA (IBM)',
+    kicker: 'ARTÍCULO · COMPARAR',
+    title: 'NAVI NO ES LOIHI. TAMPOCO ES UN LLM.',
+    caption: 'Loihi, Akida, SpiNNaker, TrueNorth y el loro de la nube. Qué somos y qué no. Para escépticos, con respeto.',
+    href: '/docs/navi-compare',
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Silicon_wafer.jpg',
+    credit: 'Wikimedia Commons · oblea de silicio',
+    kicker: 'ARTÍCULO · PLANO',
+    title: 'CIANOTIPO: QUÉ CORRE Y QUÉ ESPERA A UNA PLACA.',
+    caption: 'rxOS, NAVI, PRISMA, Akida. Nivel 3 = objetivo. Nivel 4 = horizonte de la industria.',
+    href: '/docs/cianotipo',
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/5/55/Intel_C4004.jpg',
+    credit: 'Wikimedia Commons · Intel 4004 (silicio, no Akida)',
+    kicker: 'ARTÍCULO · GANCHO',
+    title: 'AKIDA ES EL OBRERO. NAVI SIGUE SIENDO EL SITIO.',
+    caption: 'MetaTF, Engine C++, HardwareDriver. neurocpu akida hoy se niega. Eso es el contrato.',
+    href: '/docs/akida',
+  },
+  {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/9/99/DEC_VT100_terminal.jpg',
+    credit: 'Wikimedia Commons · terminal DEC VT100',
+    kicker: 'ARTÍCULO · NAVI 6.5',
+    title: 'ONCE RELÉS. CINCO CAJAS. DESCONOCIDO SI NO HAY FICHA.',
+    caption: 'El modelo RLC oficial. Razona, habla y emite código con esquema. No predice tokens.',
+    href: '/docs/navi65',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80',
+    credit: 'Unsplash · placa de circuito (idea: silicio futuro)',
+    kicker: 'ARTÍCULO · NAVI 7',
+    title: '7 ES UN PLAN. SIN PLACA NO HAY TAG.',
+    caption: 'Misma mente que 6.5 más un programa .fbz. Criterios para atreverse a llamarlo 7.',
+    href: '/docs/navi7',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80',
+    credit: 'Unsplash · código en pantalla (idea: línea, no un loro)',
+    kicker: 'ARTÍCULO · CATÁLOGO',
+    title: 'LA LÍNEA 1 → 6.5, EN ORDEN.',
+    caption: 'Cada generación añade una capa. Ninguna borra a la anterior. 7 sigue en el plano.',
+    href: '/docs/navi-catalog',
+  },
+];
+
+export default function Slideshow({
+  slides = HOME_SLIDES,
+  onNavigate,
+  interval = 6400,
+  label = 'Capturas reales — rxOS, NAVI, PRISMA',
+  action = 'ABRIR',
+  className = '',
+}) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const n = slides.length;
@@ -78,20 +136,21 @@ export default function Slideshow({ slides = HOME_SLIDES, onNavigate, interval =
 
   return (
     <section
-      className="home-slideshow"
+      className={`home-slideshow ${className}`.trim()}
       aria-roledescription="carousel"
-      aria-label="Capturas reales — rxOS v8 Desktop, NAVI 4.5, PRISMA"
+      aria-label={label}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div className="home-slideshow-frame">
         {slides.map((s, idx) => (
           <img
-            key={s.src}
+            key={`${s.href}-${s.src}`}
             src={s.src}
             alt={`${s.kicker} — ${s.caption}`}
             className={idx === i ? 'is-active' : ''}
             loading={idx === 0 ? 'eager' : 'lazy'}
+            referrerPolicy="no-referrer"
           />
         ))}
         <div className="home-slideshow-scrim" aria-hidden />
@@ -99,13 +158,14 @@ export default function Slideshow({ slides = HOME_SLIDES, onNavigate, interval =
           <span className="kicker">{slide.kicker}</span>
           <h1>{slide.title}</h1>
           <p>{slide.caption}</p>
+          {slide.credit && <p className="slide-credit">{slide.credit}</p>}
           <div className="hero-actions">
             <button
               type="button"
               className="brutal-button primary"
               onClick={() => onNavigate(slide.href)}
             >
-              ABRIR
+              {action}
             </button>
             <button type="button" className="brutal-button" onClick={() => onNavigate('/downloads')}>
               DOWNLOADS
@@ -127,7 +187,7 @@ export default function Slideshow({ slides = HOME_SLIDES, onNavigate, interval =
       <div className="home-slideshow-dots" role="tablist">
         {slides.map((s, idx) => (
           <button
-            key={s.src}
+            key={`${s.href}-${s.src}`}
             type="button"
             role="tab"
             aria-selected={idx === i}

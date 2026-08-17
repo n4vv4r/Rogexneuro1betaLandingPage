@@ -143,7 +143,85 @@ escondemos: es el argumento.
 Un sistema que cabe en un sello de correos no puede, ni debe,
 fingir que ha leído la biblioteca de Alejandría.
 
-## 4. Objeciones, contestadas en voz baja
+## 4. Ventajas de unir NAVI a un chip (Akida, Loihi, y los que vengan)
+
+Esto es plan, no inventario. No hay placa en el laboratorio. La
+opinión que sigue es la de quien escribe el cianotipo, no un
+comunicado de Intel ni de BrainChip.
+
+La unión no consiste en «meter NAVI dentro del chip». Consiste en
+**repartir el trabajo**. El unikernel sigue siendo el sitio. El NPU
+pasa a ser el obrero de los impulsos. Si invertimos los papeles,
+perdemos las dos cosas: un SO que no sabe decir que no, y un ASIC
+al que le pedimos un ensayo.
+
+### Lo que el chip haría mejor que nuestra CPU
+
+1. **Energía por evento.** Un LIF en Q16.16 sobre un i7 es honesto
+   y medible. También es un desperdicio relativo: movemos 64 bits
+   por un bus para simular lo que Akida o Loihi ya hacen en SRAM
+   local. La ventaja no es «más inteligencia». Es **menos julios
+   por spike** cuando el escenario (visión, audio, población SNN,
+   Q6 ruidoso) dispara de verdad.
+2. **Silencio cuando no hay estímulo.** El marketing neuromórfico
+   se resume en eso. Coincide con MONAD: gastar solo si hay
+   evento. En software lo aproximamos con `hlt` y actores. En
+   silicio, el dato no se mueve. Ahí sí hay una física distinta.
+3. **Escala de poblaciones, no de párrafos.** Loihi y SpiNNaker
+   ganan cuando hay muchas neuronas. NAVI no necesita un millón
+   para hablar. Sí las necesitaría PRISMA (EEG → spikes) o un
+   front-end de sensor. El chip absorbe esa masa. El router de
+   6.5 no.
+4. **Aprendizaje local, etiquetado como suyo.** El edge learning
+   de Akida 1 y la plasticidad de Loihi no son nuestro STDP. Si
+   algún día entrenan una capa densa en el NPU, se dice *edge
+   learning de BrainChip* o *plasticidad Lava*. No se reetiqueta
+   como «NAVI aprendió solo». La unión sirve precisamente para
+   **no mezclar las reglas**.
+5. **Un contrato de 16 bytes hacia el ASIC.** WSP ya es entero,
+   acotado y auditable. Encaja con tensores `uint8` de Akida y
+   con eventos de Loihi mejor que un embedding de 4096 floats.
+   La ventaja es de **interfaz**, no de marketing: menos
+   traducción, menos mentira en el camino.
+
+### Lo que se quedaría en la CPU (a propósito)
+
+El DAG, `G_reason`, `G_math`, `G_code`, `G_rxos` y el VERIFY.
+Un umbral del NPU no firma Ethernet, no ejecuta `status`, no
+decide que un compilador LLVM «parece» válido. Esa frontera es
+la ventaja política de la unión: el chip acelera; **el no sigue
+siendo nuestro**.
+
+Akida primero, Loihi segundo. Akida es comercial, habla enteros
+y ya tiene Engine C++ que un unikernel puede, en principio,
+conducir. Loihi es más interesante como laboratorio de
+plasticidad y como escala; el acceso es de comunidad, no de
+USB en una ISO. SpiNNaker es el primo académico de la
+cardinalidad. Ninguno reemplaza a NAVI. NAVI no reemplaza a
+ninguno.
+
+### Opinión (mía, no un slide)
+
+Creo que **esta es la única vía honesta hacia el Nivel 3**. Un
+chip sin sitio es una placa en un cajón. Un NAVI sin chip es un
+relé que ya funciona —y que debemos seguir vendiendo como
+relé—. Juntos no producen AGI. Producen algo más raro en 2026:
+un operador local que no alucina y, cuando hay sensor o
+población de verdad, no quema un portátil para fingir un
+cerebro.
+
+También creo que hay que resistir dos tentaciones. La primera:
+anunciar «NAVI on Loihi» el día que compile un hello-world en
+Lava. La segunda: despreciar el silicio porque hoy no lo
+tenemos. El desprecio es tan teatro como el anuncio.
+
+La prueba de que la unión sirve no será un comunicado. Será
+`neurocpu akida` imprimiendo un `HwVersion` leído del SoC, un
+test Hamming Q6 software-contra-NPU, y dos columnas de julios.
+Hasta entonces, esta sección es un plano. Se puede citar. No se
+puede cobrar como entregable.
+
+## 5. Objeciones, contestadas en voz baja
 
 ### «Es un ChatGPT recortado»
 
@@ -231,7 +309,7 @@ sustituye un centro de datos. Sirve si te importa:
 Si tu problema es otro, hay herramientas mejores. Decirlo no nos
 quita el trabajo. Nos ahorra el de los dos.
 
-## 5. Lo que pedimos, con educación
+## 6. Lo que pedimos, con educación
 
 No pedimos que abandones Loihi, ni Akida, ni tu proveedor de LLM.
 Pedimos tres cortes limpios en la conversación:
@@ -248,7 +326,7 @@ Pedimos tres cortes limpios en la conversación:
 Un escéptico bien informado es un aliado. Un converso que no ha
 medido es un riesgo. Preferimos al primero.
 
-## 6. Cómo comprobarlo esta tarde
+## 7. Cómo comprobarlo esta tarde
 
 ```
 # host
@@ -265,7 +343,7 @@ qemu-system-x86_64 -machine q35 -m 512M -cdrom rxOS-8.5.0-vm.iso -serial stdio
 El segundo comando debe negarse. Si un día dice que el NPU está
 activo y no hay placa, eso es un bug, no un hito.
 
-## 7. Lectura y fuentes
+## 8. Lectura y fuentes
 
 Nuestras:
 

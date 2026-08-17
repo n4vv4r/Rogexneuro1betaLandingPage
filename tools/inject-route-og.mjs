@@ -25,9 +25,9 @@ const OG = (slug) => `${SITE}/og/${slug}.png`;
 const ROUTES = [
   {
     out: 'index.html', // rewrite in place
-    title: 'Knights Labs — Rogex Laboratories',
+    title: 'Knights Labs — rxOS 8.5 · NAVI 6.5',
     description:
-      'Knights Labs: rxOS 8 DESKTOP, NAVI-4.5, WSP 16 B y Q₆. PRISMA Engine. Neurotech low-carbon. Experimental, no clínico.',
+      'Knights Labs: rxOS 8.5 DESKTOP, NAVI 6.5 RLC, WSP 16 B y Q₆. Código e ISOs en GitHub. Experimental, no clínico.',
     url: `${SITE}/`,
     image: OG('home'),
     imageAlt: 'Knights Labs — low-carbon neurotech Open Graph card',
@@ -43,9 +43,9 @@ const ROUTES = [
   },
   {
     out: 'architecture.html',
-    title: 'Architecture rxOS 8 — Knights Labs',
+    title: 'Architecture rxOS 8.5 — Knights Labs',
     description:
-      'Arquitectura rxOS 8: event fabric, hipercubo Q₆, WSP 16 B, NAVI-4.5 y roadmap 4 niveles. Papers PDF públicos.',
+      'Arquitectura rxOS 8.5: event fabric, hipercubo Q₆, WSP 16 B, NAVI 6.5 y cianotipo Akida. Papers PDF públicos.',
     url: `${SITE}/architecture`,
     image: OG('architecture'),
     imageAlt: 'RXos architecture — sensor to spike',
@@ -61,9 +61,9 @@ const ROUTES = [
   },
   {
     out: 'downloads.html',
-    title: 'Downloads — PRISMA Engine & rxOS 8 DESKTOP — Knights Labs',
+    title: 'Downloads — rxOS 8.5 + PRISMA Engine — Knights Labs',
     description:
-      'Descargas: PRISMA Engine 0.1.0 y rxOS 8.0.0 DESKTOP (VM + metal). NAVI-4.5, WSP 16 B, e1000. Experimental, no clínico.',
+      'Descargas: rxOS 8.5.0 DESKTOP (VM + metal, NAVI 6.5) y PRISMA Engine 0.1.0. Código en github.com/knightslabs/rxos-8.5.',
     url: `${SITE}/downloads`,
     image: OG('prisma'),
     imageAlt: 'Knights Labs public downloads — PRISMA Engine and RXos',
@@ -79,18 +79,18 @@ const ROUTES = [
   },
   {
     out: 'docs.html',
-    title: 'Docs — rxOS 8, NAVI-4.5, WSP, Q₆ — Knights Labs',
+    title: 'Docs — rxOS 8.5, NAVI 6.5, WSP, Q₆ — Knights Labs',
     description:
-      'Visor markdown: rxOS 8 DESKTOP, NAVI 1–5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
+      'Visor markdown: rxOS 8.5, cianotipo, Akida, NAVI 1–6.5, WSP 16 B, Q₆, benches y papers.',
     url: `${SITE}/docs`,
     image: OG('rx-os'),
     imageAlt: 'Knights Labs technical documentation',
   },
   {
     out: 'rx-os.html',
-    title: 'rxOS 8 DESKTOP — Knights Labs',
+    title: 'rxOS 8.5 DESKTOP — NAVI 6.5 — Knights Labs',
     description:
-      'rxOS 8 DESKTOP: Aero, NAVI-4.5 operador (WSP 16 B + G_rxos), /prove medible. Capturas QEMU reales.',
+      'rxOS 8.5 DESKTOP: Aero, NAVI 6.5 RLC preentrenado, WSP 16 B, /prove. Código e ISOs en GitHub.',
     url: `${SITE}/rx-os`,
     image: OG('rx-os'),
     imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',

@@ -170,8 +170,8 @@ const CARDS = [
     svg: labCard({
       kicker: 'KNIGHTS LABS · ROGEX LABORATORIES',
       title: '16 bytes. The OS is the demo.',
-      subtitle: 'rxOS 8 DESKTOP · NAVI-4.5 · WSP · Q₆',
-      badge: 'v8.0.0',
+      subtitle: 'rxOS 8.5 DESKTOP · NAVI 6.5 · WSP · Q₆',
+      badge: 'v8.5.0',
       accent: LAB.accent,
     }),
   },
@@ -180,7 +180,7 @@ const CARDS = [
     svg: labCard({
       kicker: 'PRODUCT SUITE',
       title: 'The stack, not the hype.',
-      subtitle: 'rxOS 8 DESKTOP · NAVI-4.5 · PRISMA Engine',
+      subtitle: 'rxOS 8.5 DESKTOP · NAVI 6.5 · PRISMA Engine',
       badge: '4 PRODUCTS',
       accent: LAB.acid,
       variant: 'dark',
@@ -191,8 +191,8 @@ const CARDS = [
     svg: labCard({
       kicker: 'ARCHITECTURE',
       title: 'From sensor to spike.',
-      subtitle: 'Event fabric · Q₆ · WSP 16 B · NAVI-4.5 · 4-level roadmap',
-      badge: 'rxOS 8',
+      subtitle: 'Event fabric · Q₆ · WSP 16 B · NAVI 6.5 · Akida plan',
+      badge: 'rxOS 8.5',
       accent: LAB.accent,
       variant: 'dark',
     }),
@@ -212,7 +212,7 @@ const CARDS = [
     svg: labCard({
       kicker: 'NAVI · SNN LINE 1 → 5',
       title: 'Not a parrot. A line of relays.',
-      subtitle: 'Q₆ · WSP 16 B · NAVI-4.5 operator · NAVI 5 KCC lab',
+      subtitle: 'Q₆ · WSP 16 B · NAVI 6.5 RLC · NAVI 5 KCC lab',
       badge: 'CATALOG',
       accent: LAB.accent,
       variant: 'dark',
@@ -224,7 +224,7 @@ const CARDS = [
     fromShot: 'public/rxos/monad/12-desktop.png',
     kicker: 'rxOS 8 DESKTOP',
     title: 'THE OS IS THE DEMO.',
-    subtitle: 'NAVI-4.5 · WSP 16 B · /prove · Q₆ 48/48',
+    subtitle: 'NAVI 6.5 · WSP 16 B · /prove · Q₆ 48/48',
     badge: 'REAL CAPTURE',
   },
   {

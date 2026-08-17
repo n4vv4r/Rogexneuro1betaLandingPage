@@ -54,11 +54,22 @@ const NAV_MENUS = [
     id: 'products',
     label: 'PRODUCTS',
     items: [
-      ['/rx-os', 'rxOS 8 DESKTOP'],
+      ['/rx-os', 'rxOS 8.5 DESKTOP'],
       ['/navi', 'NAVI'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
       ['/suite', 'SUITE'],
+    ],
+  },
+  {
+    id: 'open',
+    label: 'OPEN',
+    items: [
+      ['https://github.com/knightslabs/rxos-8.5', 'CÓDIGO · rxos-8.5'],
+      ['https://github.com/navywakura/RXos', 'CÓDIGO · mirror'],
+      ['https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0', 'ISOs v8.5.0'],
+      ['https://github.com/knightslabs/RXos-Packages', 'PACKAGES'],
+      ['/downloads', 'TODAS LAS DESCARGAS'],
     ],
   },
   {
@@ -159,12 +170,15 @@ const DOWNLOAD_CATALOG = {
     sha256Vm: 'c2d8bb24eaa387323b52038cc3b5a982cc4a089e4d2238fd7eff948d168a8e18',
     sha256Metal: '1d364a86b1648f6e6cf9561132c5372ed17ed520f460a49c9e2c96bd81b9a814',
     packages: '/rx-os/packages/',
+    source: 'https://github.com/knightslabs/rxos-8.5',
+    sourceMirror: 'https://github.com/navywakura/RXos',
+    packagesRepo: 'https://github.com/knightslabs/RXos-Packages',
   },
 };
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com/rogexlaboratories', mark: 'IG' },
-  { label: 'GitHub', href: 'https://github.com/n4vv4r', mark: 'GH' },
+  { label: 'GitHub', href: 'https://github.com/knightslabs/rxos-8.5', mark: 'GH' },
   { label: 'X', href: 'https://x.com/rogexlabs', mark: 'X' },
   { label: 'Newspaper', href: 'https://newspaper.rogexlaboratories.com', mark: 'NP' },
   { label: 'Linktree', href: 'https://linktr.ee/rogynavy', icon: LinkIcon },
@@ -931,6 +945,10 @@ function Header({ path, navigate }) {
   const go = (href) => {
     setOpenDrop(null);
     setMenuOpen(false);
+    if (/^https?:\/\//.test(href)) {
+      window.open(href, '_blank', 'noopener,noreferrer');
+      return;
+    }
     navigate(href);
   };
 
@@ -952,6 +970,22 @@ function Header({ path, navigate }) {
         </button>
 
         <div className="nav-tools">
+          <a
+            className="nav-ext-btn"
+            href={DOWNLOAD_CATALOG.rxos.vmIso}
+            title="Descargar ISO VM"
+          >
+            ISO VM
+          </a>
+          <a
+            className="nav-ext-btn nav-ext-btn-ghost"
+            href={DOWNLOAD_CATALOG.rxos.source}
+            target="_blank"
+            rel="noreferrer"
+            title="Código abierto en GitHub"
+          >
+            CÓDIGO
+          </a>
           <div className="theme-picker" title="Tema">
             {THEMES.map((t) => (
               <button
@@ -1047,6 +1081,30 @@ function SectionTitle({ code, title, text }) {
       <h2>{title}</h2>
       {text && <p>{text}</p>}
     </div>
+  );
+}
+
+/** Always-visible ISO + source + packages. External GitHub, no SPA dead-ends. */
+function OpenLabBar({ compact = false }) {
+  const rx = DOWNLOAD_CATALOG.rxos;
+  return (
+    <nav className={compact ? 'open-lab-bar is-compact' : 'open-lab-bar'} aria-label="Descargas y código">
+      <a className="brutal-button primary" href={rx.vmIso}>
+        ISO VM 8.5 <ArrowUpRight size={14} />
+      </a>
+      <a className="brutal-button primary" href={rx.metalIso}>
+        ISO METAL 8.5 <ArrowUpRight size={14} />
+      </a>
+      <a className="brutal-button" href={rx.release} target="_blank" rel="noreferrer">
+        PACKAGES / ISOs <ArrowUpRight size={14} />
+      </a>
+      <a className="brutal-button" href={rx.source} target="_blank" rel="noreferrer">
+        CÓDIGO · GitHub <ArrowUpRight size={14} />
+      </a>
+      <a className="brutal-button" href={rx.packagesRepo} target="_blank" rel="noreferrer">
+        REPO PACKAGES <ArrowUpRight size={14} />
+      </a>
+    </nav>
   );
 }
 
@@ -1446,11 +1504,12 @@ function Home({ navigate }) {
           Arriba no hay renders: es QEMU. Abajo, las cuatro piezas que hay que entender.
         </p>
         <div className="hero-tags">
-          <span>rxOS 8 DESKTOP</span>
-          <span>NAVI-4.5 · WSP 16 B</span>
-          <span>Q₆ 48/48 · /prove</span>
+          <span>rxOS 8.5 DESKTOP</span>
+          <span>NAVI 6.5 RLC</span>
+          <span>WSP 16 B · Q₆ 48/48</span>
           <span>PRISMA ENGINE 0.1</span>
         </div>
+        <OpenLabBar />
       </section>
 
       <section className="section section-black" id="the-hit">
@@ -1467,8 +1526,8 @@ function Home({ navigate }) {
             <button className="brutal-button primary" onClick={() => navigate('/rx-os#rxos-infographic')}>
               INFOGRAFÍA COMPLETA <ArrowUpRight size={15} />
             </button>
-            <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">
-              DESCARGAR rxOS 8
+            <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.vmIso}>
+              DESCARGAR rxOS 8.5
             </a>
             <button className="brutal-button" onClick={() => navigate('/navi')}>
               CATÁLOGO NAVI
@@ -1713,7 +1772,7 @@ function Architecture({ navigate }) {
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v8.0.0</span>
+          <span>v8.5.0</span>
           <span>SPSC 64 B</span>
           <span>LIF Q16.16</span>
           <span>STDP LOCAL</span>
@@ -2306,23 +2365,16 @@ function RXOS({ navigate }) {
       <PageHero
         index="04"
         className="rxos-hero"
-        eyebrow={`${RXOS_VERSION_LABEL} / NAVI-4.5 / WSP / Q₆`}
+        eyebrow={`${RXOS_VERSION_LABEL} / NAVI 6.5 / WSP / Q₆`}
         title={<>THE OS<br />IS THE DEMO.</>}
-        text="Un pensamiento de 16 bytes. Un escritorio de ~3 MiB. Un comando — /prove — que es el anuncio y el test. NAVI-4.5 no es un LLM: es el operador del unikernel. El castellano es máscara. Si no hay esquema, dice DESCONOCIDO."
+        text="Un pensamiento de 16 bytes. Un escritorio de ~3 MiB. NAVI 6.5 RLC viene preentrenado: 11 máscaras G_*. /prove sigue midiendo. El castellano es máscara. Si no hay esquema, DESCONOCIDO."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v8.0.0 DESKTOP</span><span>NAVI-4.5</span><span>G_rxos</span><span>/prove</span><span>e1000</span><span>GPLv3</span>
+          <span>v8.5.0 DESKTOP</span><span>NAVI 6.5</span><span>11 G_*</span><span>/prove</span><span>e1000</span><span>GPLv3</span>
         </div>
+        <OpenLabBar />
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
-          <a
-            className="brutal-button primary"
-            href={DOWNLOAD_CATALOG.rxos.release}
-            target="_blank"
-            rel="noreferrer"
-          >
-            DOWNLOAD ISOs <ArrowUpRight size={15} />
-          </a>
           <button type="button" className="brutal-button" onClick={() => navigate('/rx-os/packages')}>
             PACKAGE CHANNEL <Package size={15} />
           </button>
@@ -2473,7 +2525,7 @@ function RXOS({ navigate }) {
             <SectionTitle
               code="02d / ROADMAP HISTORY"
               title="LAS VERSIONES VIEJAS NO SE BORRAN"
-              text="4 → 6 → 6.5 → 7 MONAD son historia. El producto que se descarga hoy es 8.0.0 DESKTOP."
+              text="4 → 6 → 6.5 → 7 MONAD → 8.0 son historia. El producto que se descarga hoy es 8.5.0 DESKTOP + NAVI 6.5."
             />
             <div className="version-rail" data-reveal>
               {VERSION_HISTORY.map((v) => (
@@ -2689,8 +2741,8 @@ function RXOS({ navigate }) {
               <h3>BOOT IT.<br />INSPECT IT.<br />BREAK NOTHING.</h3>
               <p>Dos ISOs x86_64: <strong>VM</strong> para QEMU/VirtualBox y <strong>metal</strong> para USB en un PC real. No es producción, no está auditado y no debe usarse para datos importantes. Elige la imagen correcta en el release.</p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-8.0.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-8.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-8.5.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-8.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div><dt>PACKAGES</dt><dd><a href="/rx-os/packages/">/rx-os/packages</a></dd></div>
@@ -2698,8 +2750,10 @@ function RXOS({ navigate }) {
                 <div><dt>SHA-256 METAL</dt><dd><code>{DOWNLOAD_CATALOG.rxos.sha256Metal}</code></dd></div>
               </dl>
               <div className="download-actions">
-                <a className="brutal-button primary" href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">DOWNLOAD ISOs <ArrowUpRight size={16} /></a>
-                <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.readme} target="_blank" rel="noreferrer">READ INCLUDED GUIDE <ArrowUpRight size={16} /></a>
+                <a className="brutal-button primary" href={DOWNLOAD_CATALOG.rxos.vmIso}>ISO VM <ArrowUpRight size={16} /></a>
+                <a className="brutal-button primary" href={DOWNLOAD_CATALOG.rxos.metalIso}>ISO METAL <ArrowUpRight size={16} /></a>
+                <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">PACKAGES / RELEASE <ArrowUpRight size={16} /></a>
+                <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.source} target="_blank" rel="noreferrer">CÓDIGO <ArrowUpRight size={16} /></a>
                 <a className="checksum-link" href={DOWNLOAD_CATALOG.rxos.sha256File} target="_blank" rel="noreferrer">DOWNLOAD CHECKSUM</a>
               </div>
             </article>
@@ -2719,7 +2773,7 @@ unzip ISOS.zip
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom ISOS/rxOS-8.0.0-vm.iso \\
+  -cdrom ISOS/rxOS-8.5.0-vm.iso \\
   -serial stdio`}</code></pre>
               <div className="qemu-commands">
                 <span>TRY INSIDE RXos</span>
@@ -3665,7 +3719,12 @@ function Footer({ navigate }) {
           <p>Rogex Laboratories · low-carbon neurotech, EEG research software and neuromorphic systems.</p>
         </div>
         <div className="footer-nav">
-          {NAV_ITEMS.map(([href, label]) => <button key={href} onClick={() => navigate(href)}>{label}</button>)}
+          {NAV_ITEMS.filter(([href]) => !/^https?:\/\//.test(href)).map(([href, label]) => (
+            <button key={href} type="button" onClick={() => navigate(href)}>{label}</button>
+          ))}
+          <a href={DOWNLOAD_CATALOG.rxos.source} target="_blank" rel="noreferrer">CÓDIGO</a>
+          <a href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">ISOs</a>
+          <a href={DOWNLOAD_CATALOG.rxos.packagesRepo} target="_blank" rel="noreferrer">PACKAGES</a>
         </div>
         <div className="footer-socials">
           {SOCIALS.map((item) => <SocialIcon item={item} key={item.label} />)}
@@ -3704,16 +3763,17 @@ function Downloads({ navigate }) {
         image="/screenshots/prisma-engine/hero_gui.jpg"
       >
         <div className="hero-tags">
-          <span>rxOS 8.0.0 · VM + METAL</span>
+          <span>rxOS 8.5.0 · VM + METAL</span>
           <span>PRISMA ENGINE 0.1.0</span>
           <span>WINDOWS SETUP.EXE</span>
           <span>MACOS DMG</span>
           <span>SHA-256</span>
         </div>
+        <OpenLabBar />
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#prisma-engine">PRISMA ENGINE</a>
+          <a className="brutal-button" href="#prisma-engine">PRISMA ENGINE</a>
           <a className="brutal-button" href="#win-mac">WIN · MAC</a>
-          <a className="brutal-button" href="#rxos-build">rxOS 8 ISOs</a>
+          <a className="brutal-button" href="#rxos-build">rxOS 8.5 ISOs</a>
           <button className="brutal-button" type="button" onClick={() => navigate('/prisma')}>
             DOSSIER PRISMA
           </button>
@@ -3898,9 +3958,9 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
 
         <section className="section wrap rxos-download-section" id="rxos-build">
           <SectionTitle
-            code="02 / rxOS 8 DESKTOP"
+            code="02 / rxOS 8.5 DESKTOP"
             title="THE OS IS THE DEMO"
-            text="ISO unikernel 8.0.0: Aero + NAVI-4.5 + WSP 16 B. QEMU recomendado. No uses rxOS para datos importantes."
+            text="ISO unikernel 8.5.0: Aero + NAVI 6.5 RLC preentrenado + WSP 16 B. QEMU recomendado. No uses rxOS para datos importantes."
           />
           <div className="rxos-docs-row" data-reveal>
             <a className="brutal-button primary" href="/docs/rxos/rxos_paper_neuromorfico_rev1.0.pdf" target="_blank" rel="noreferrer">
@@ -3922,8 +3982,8 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 No es un sistema de producción, no está auditado y no debe usarse para datos importantes.
               </p>
               <dl className="download-facts">
-                <div><dt>VM</dt><dd>rxOS-8.0.0-vm.iso — QEMU / VirtualBox</dd></div>
-                <div><dt>METAL</dt><dd>rxOS-8.0.0-metal.iso — USB, BIOS/Legacy</dd></div>
+                <div><dt>VM</dt><dd>rxOS-8.5.0-vm.iso — QEMU / VirtualBox</dd></div>
+                <div><dt>METAL</dt><dd>rxOS-8.5.0-metal.iso — USB, BIOS/Legacy</dd></div>
                 <div><dt>BOOT</dt><dd>BIOS / SeaBIOS / CSM</dd></div>
                 <div><dt>RECOMMENDED</dt><dd>QEMU x86_64 · 512 MiB RAM</dd></div>
                 <div>
@@ -3932,11 +3992,17 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
                 </div>
               </dl>
               <div className="download-actions">
-                <a className="brutal-button primary" href={rx.release} target="_blank" rel="noreferrer">
-                  DOWNLOAD ISOs <ArrowUpRight size={16} />
+                <a className="brutal-button primary" href={rx.vmIso}>
+                  ISO VM 8.5 <ArrowUpRight size={16} />
                 </a>
-                <a className="brutal-button" href={rx.readme} target="_blank" rel="noreferrer">
-                  READ INCLUDED GUIDE <ArrowUpRight size={16} />
+                <a className="brutal-button primary" href={rx.metalIso}>
+                  ISO METAL 8.5 <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={rx.release} target="_blank" rel="noreferrer">
+                  PACKAGES / RELEASE <ArrowUpRight size={16} />
+                </a>
+                <a className="brutal-button" href={rx.source} target="_blank" rel="noreferrer">
+                  CÓDIGO <ArrowUpRight size={16} />
                 </a>
                 <a className="checksum-link" href={rx.sha256File} target="_blank" rel="noreferrer">
                   DOWNLOAD CHECKSUM
@@ -3953,7 +4019,7 @@ unzip ISOS.zip
 qemu-system-x86_64 \\
   -machine q35 \\
   -m 512M \\
-  -cdrom ISOS/rxOS-8.0.0-vm.iso \\
+  -cdrom ISOS/rxOS-8.5.0-vm.iso \\
   -serial stdio`}</code></pre>
               <button className="brutal-button" type="button" onClick={() => navigate('/rx-os')} style={{ marginTop: 18 }}>
                 FULL RXos PAGE <ArrowUpRight size={15} />
@@ -4103,12 +4169,12 @@ function setJsonLd(meta) {
 }
 
 const DEFAULT_OG = {
-  title: 'Knights Labs — Rogex Laboratories',
+  title: 'Knights Labs — rxOS 8.5 · NAVI 6.5',
   description:
-    'Knights Labs: PRISMA Engine, PRISMA 5 SNN y rxOS 8 DESKTOP (NAVI-4.5, WSP 16 B). Experimental, no clínico.',
+    'Knights Labs: rxOS 8.5 DESKTOP, NAVI 6.5 RLC preentrenado, WSP 16 B, Q₆. Código en GitHub. ISOs en Packages. Experimental, no clínico.',
   image: ogCard('home'),
   ...OG_DIM,
-  imageAlt: 'Knights Labs — low-carbon neurotech',
+  imageAlt: 'Knights Labs — rxOS 8.5 DESKTOP · NAVI 6.5',
   url: `${SITE}/`,
 };
 
@@ -4133,18 +4199,18 @@ const ROUTE_META = {
     url: `${SITE}/prisma`,
   },
   '/downloads': {
-    title: 'Downloads — PRISMA Engine & rxOS 8 DESKTOP — Knights Labs',
+    title: 'Downloads — rxOS 8.5 + PRISMA Engine — Knights Labs',
     description:
-      'Descargas: PRISMA Engine 0.1.0 y rxOS 8.0.0 DESKTOP (VM + metal). NAVI-4.5 operador, e1000, SHA-256. Experimental, no clínico.',
+      'Descargas: rxOS 8.5.0 DESKTOP (VM + metal, NAVI 6.5) y PRISMA Engine 0.1.0. Código en github.com/knightslabs/rxos-8.5. Experimental, no clínico.',
     image: ogCard('prisma'),
     ...OG_DIM,
     imageAlt: 'Knights Labs public downloads',
     url: `${SITE}/downloads`,
   },
   '/rx-os': {
-    title: 'rxOS 8 DESKTOP — Knights Labs',
+    title: 'rxOS 8.5 DESKTOP — NAVI 6.5 — Knights Labs',
     description:
-      'rxOS 8 DESKTOP: Aero, NAVI-4.5 operador (WSP 16 B + G_rxos), /prove medible. Experimental.',
+      'rxOS 8.5 DESKTOP: Aero, NAVI 6.5 RLC preentrenado (11 máscaras G_*), WSP 16 B, /prove. Código e ISOs en GitHub.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
@@ -4160,36 +4226,36 @@ const ROUTE_META = {
     url: `${SITE}/rx-os/packages`,
   },
   '/navi': {
-    title: 'NAVI — catálogo SNN 1 → 5 — Knights Labs',
+    title: 'NAVI — catálogo SNN 1 → 6.5 — Knights Labs',
     description:
-      'Línea NAVI: Q₆ L1, ASCII, WSP 16 B, operador 4.5 y lab cooperativo 5 (KCC, cero pruning). No es un LLM.',
+      'Línea NAVI: Q₆, WSP, 4.5, lab 5, tutor 6 y RLC 6.5. 7 es plan (Akida). No es un LLM.',
     image: ogCard('navi'),
     ...OG_DIM,
     imageAlt: 'NAVI SNN catalog — Knights Labs',
     url: `${SITE}/navi`,
   },
   '/docs': {
-    title: 'Docs — rxOS 8, NAVI-4.5, WSP, Q₆ — Knights Labs',
+    title: 'Docs — rxOS 8.5, NAVI 6.5, WSP, Q₆ — Knights Labs',
     description:
-      'Visor markdown: rxOS 8 DESKTOP, NAVI 1–5, protocolo WSP 16 B, hipercubo Q₆, benches y papers.',
+      'Visor markdown: rxOS 8.5, cianotipo, Akida, NAVI 1–6.5, WSP 16 B, Q₆, benches y papers.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'Knights Labs technical documentation',
     url: `${SITE}/docs`,
   },
   '/rogexos': {
-    title: 'rxOS 8 DESKTOP — Knights Labs',
+    title: 'rxOS 8.5 DESKTOP — NAVI 6.5 — Knights Labs',
     description:
-      'rxOS 8 DESKTOP: Aero, NAVI-4.5 operador, WSP 16 B, /prove. Experimental.',
+      'rxOS 8.5 DESKTOP: Aero, NAVI 6.5 RLC, WSP 16 B, /prove. Código e ISOs en GitHub.',
     image: ogCard('rx-os'),
     ...OG_DIM,
     imageAlt: 'rxOS 8 DESKTOP — real QEMU capture',
     url: `${SITE}/rx-os`,
   },
   '/architecture': {
-    title: 'Architecture rxOS 8 — Knights Labs',
+    title: 'Architecture rxOS 8.5 — Knights Labs',
     description:
-      'Arquitectura rxOS 8: event fabric, Q₆, WSP 16 B, NAVI-4.5 y roadmap 4 niveles. Papers PDF públicos.',
+      'Arquitectura rxOS 8.5: event fabric, Q₆, WSP 16 B, NAVI 6.5 y cianotipo Akida. Papers PDF públicos.',
     image: ogCard('architecture'),
     ...OG_DIM,
     imageAlt: 'RXos architecture — sensor to spike',

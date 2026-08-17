@@ -3,6 +3,30 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const HOME_SLIDES = [
   {
+    src: '/rxos/9/01-desktop.jpg',
+    credit: 'QEMU · rxOS 9.0.0 SMOKE · 17 ago 2026',
+    kicker: 'rxOS 9 · SMOKE AERO',
+    title: 'EL ESCRITORIO YA ES NEGRO.',
+    caption: 'Dark Aero, iconos PNG, NAVI 7 oficial. Captura real de la ISO. No es un mockup.',
+    href: '/rx-os#rxos-captures',
+  },
+  {
+    src: '/rxos/9/03-navi7.jpg',
+    credit: 'QEMU · Navi 7 · tecla v',
+    kicker: 'NAVI 7 · 73 FICHAS',
+    title: 'PREGUNTA. SI NO HAY FICHA, DESCONOCIDO.',
+    caption: 'Catálogo entrenado + harvest HTTP. No es un LLM. No hay NPU Akida.',
+    href: '/navi',
+  },
+  {
+    src: '/rxos/9/00-grub.jpg',
+    credit: 'GRUB · fondo eclipse',
+    kicker: 'BOOT · ECLIPSE',
+    title: 'EL MENÚ TAMBIÉN ES rxOS 9.',
+    caption: 'GRUB con el eclipse. 8 segundos. Luego el unikernel.',
+    href: '/rx-os',
+  },
+  {
     src: '/rxos/hp-ac195nl-85/01-chat-rlc.jpg',
     credit: 'HP 15-ac195nl · metal 8.5 · 17 ago 2026',
     kicker: 'METAL · HP 15-ac195nl',

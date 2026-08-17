@@ -126,20 +126,36 @@ const LINE = [
     extraLabel: 'PARA DUMMIES',
   },
   {
+    id: 'navi66',
+    gen: '06.6',
+    name: 'NAVI 6.6',
+    codename: 'LENGUA + TUI',
+    status: 'HOST TUI · KERNEL CORRECTOR',
+    tone: 'ok',
+    icon: Terminal,
+    where: 'navi66 + tui/navi66.c + navi66_lang.c',
+    unit: 'lexico + Damerau + cajas ANSI',
+    text: '6.5 más gramática: artículos, tiempos, conectores. Si «kien» entra, detecta el error y supone «quien». Chat TUI de colores (spinner, streaming, footer). No es un LLM.',
+    facts: ['corrector supone', 'G_lang', 'TUI C/Rust/Python', 'léxico cerrado'],
+    docs: '/docs/navi66',
+    extra: '/docs/navi66-dummies',
+    extraLabel: 'PARA DUMMIES',
+  },
+  {
     id: 'navi7',
     gen: '07',
     name: 'NAVI 7',
-    codename: 'NPU · PLAN',
-    status: 'NO HAY CÓDIGO · ESPERA SILICIO',
-    tone: 'warn',
+    codename: 'WORLD · OFICIAL EN rxOS 9',
+    status: 'CATÁLOGO + HARVEST · NO ES NPU',
+    tone: 'ok',
     icon: Cpu,
-    where: 'docs/NAVI7.md · neurocpu akida',
-    unit: '6.5 + programa Akida .fbz',
-    text: 'La misma mente que 6.5, con un sitio donde Q6 y las poblaciones pueden disparar en BrainChip Akida. Sin placa, sin USB y sin test software-vs-NPU no se llama 7. El hook ya se niega.',
-    facts: ['PLAN, no tag', 'fallback a 6.5', 'Q6 primero', 'DAG sigue en CPU'],
+    where: 'navi7 + kernel/navi/navi7_world.c + lab/navi7',
+    unit: '73 fichas + Google HTTP + RLC',
+    text: 'Oficial en rxOS 9. Catálogo entrenado (ciencia, leyes, filosofía, programación, psicología, mundo) + harvest en vivo. 7-NPU Akida sigue PLAN. Sin ficha: DESCONOCIDO.',
+    facts: ['73 fichas', 'bench 15/15', 'no es un LLM', 'Akida sigue PLAN'],
     docs: '/docs/navi7',
     extra: '/docs/akida',
-    extraLabel: 'GANCHO AKIDA',
+    extraLabel: '7-NPU PLAN',
   },
 ];
 
@@ -186,18 +202,18 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 6.5 · 7 EN PLANO"
+        eyebrow="NAVI · LÍNEA SNN 1 → 7 · OFICIAL EN rxOS 9"
         title={<>NO ES UN LORO.<br />ES UNA LÍNEA DE RELÉS.</>}
-        text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 es el RLC oficial. 7 es el plan Akida: mismo router, spikes en silicio si hay placa. Hoy neurocpu akida se niega. Ninguna es un LLM."
-        image="/rxos/hp-ac195nl-85/08-masks-demo.jpg"
+        text="1–4.5 en el unikernel. 5 lab. 6 tutor. 6.5 RLC. 6.6 lengua. 7-WORLD es oficial en rxOS 9: 73 fichas + harvest. 7-NPU Akida sigue PLAN. Ninguna es un LLM."
+        image="/rxos/9/03-navi7.jpg"
         className="rxos-hero"
       >
         <div className="hero-tags">
           <span>Q₆ 48/48</span>
           <span>WSP 16 B</span>
-          <span>NAVI-4.5 /prove</span>
-          <span>NAVI 5 KCC</span>
-          <span>NAVI 6.5 RLC</span>
+          <span>NAVI 7 WORLD</span>
+          <span>73 FICHAS</span>
+          <span>NAVI 6.6 LENGUA</span>
           <span>0% FPU EN EL MOTOR</span>
         </div>
         <div className="hero-actions">

@@ -54,7 +54,7 @@ const NAV_MENUS = [
     id: 'products',
     label: 'PRODUCTS',
     items: [
-      ['/rx-os', 'rxOS 8.5 DESKTOP'],
+      ['/rx-os', 'rxOS 9 SMOKE'],
       ['/navi', 'NAVI'],
       ['/prisma', 'PRISMA'],
       ['/downloads', 'DOWNLOADS'],
@@ -67,7 +67,7 @@ const NAV_MENUS = [
     items: [
       ['https://github.com/knightslabs/rxos-8.5', 'CÓDIGO · rxos-8.5'],
       ['https://github.com/navywakura/RXos', 'CÓDIGO · mirror'],
-      ['https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0', 'ISOs v8.5.0'],
+      ['https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0', 'ISOs v9.0.0'],
       ['https://github.com/knightslabs/RXos-Packages', 'PACKAGES'],
       ['/downloads', 'TODAS LAS DESCARGAS'],
     ],
@@ -82,7 +82,8 @@ const NAV_MENUS = [
       ['/docs/cianotipo', 'CIANOTIPO'],
       ['/docs/akida', 'AKIDA'],
       ['/docs/navi65', 'NAVI 6.5'],
-      ['/docs/navi7', 'NAVI 7 PLAN'],
+      ['/docs/navi66', 'NAVI 6.6'],
+      ['/docs/navi7', 'NAVI 7'],
       ['/docs/navi6', 'NAVI 6'],
       ['/navi#dummies', 'NAVI 6.5 DUMMIES'],
       ['/navi#expertos', 'NAVI 6.5 EXPERTOS'],
@@ -158,19 +159,19 @@ const DOWNLOAD_CATALOG = {
   },
   rxos: {
     id: 'rxos',
-    name: 'rxOS 8.5 DESKTOP',
-    version: 'v8.5.0',
+    name: 'rxOS 9 SMOKE',
+    version: 'v9.0.0',
     platform: 'x86_64 ISO (QEMU / bare-metal)',
-    status: 'VM + METAL · NAVI 6.5',
-    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0',
-    zip: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0',
-    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.5.0/rxOS-8.5.0-vm.iso',
-    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.5.0/rxOS-8.5.0-metal.iso',
-    readme: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v8.5.0',
-    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v8.5.0/SHA256SUMS-8.5.0.txt',
-    sha256: 'c2d8bb24eaa387323b52038cc3b5a982cc4a089e4d2238fd7eff948d168a8e18',
-    sha256Vm: 'c2d8bb24eaa387323b52038cc3b5a982cc4a089e4d2238fd7eff948d168a8e18',
-    sha256Metal: '1d364a86b1648f6e6cf9561132c5372ed17ed520f460a49c9e2c96bd81b9a814',
+    status: 'VM + METAL · NAVI 7',
+    release: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0',
+    zip: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0',
+    vmIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v9.0.0/rxOS-9.0.0-vm.iso',
+    metalIso: 'https://github.com/knightslabs/RXos-Packages/releases/download/v9.0.0/rxOS-9.0.0-metal.iso',
+    readme: 'https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0',
+    sha256File: 'https://github.com/knightslabs/RXos-Packages/releases/download/v9.0.0/SHA256SUMS-9.0.0.txt',
+    sha256: '6cb64e0cd007d09088e0b931fd8e49d9c07db45a65f959999f272ba16910c24c',
+    sha256Vm: '6cb64e0cd007d09088e0b931fd8e49d9c07db45a65f959999f272ba16910c24c',
+    sha256Metal: '49f8f80f1e8c0ba4ebdf1f11592da1b0fb39c1a73d26b259205b88147bf87230',
     packages: '/rx-os/packages/',
     source: 'https://github.com/knightslabs/rxos-8.5',
     sourceMirror: 'https://github.com/navywakura/RXos',
@@ -191,11 +192,11 @@ const PRODUCT_SUITE = [
   {
     id: 'rxos-desktop',
     code: 'RX-01',
-    name: 'rxOS 8.5 DESKTOP',
+    name: 'rxOS 9 SMOKE',
     tier: 'OPEN CORE · BOOTABLE x86-64',
-    status: 'v8.5.0 · NAVI 6.5',
-    text: 'Unikernel bare-metal: escritorio Aero, NAVI 6.5 RLC preentrenado (11 máscaras G_*). El usuario no entrena. /prove sigue midiendo. Drivers virtio / e1000 / r8169 / rtl8139.',
-    tags: ['DESKTOP', 'NAVI 6.5', 'G_*', 'e1000'],
+    status: 'v9.0.0 · NAVI 7',
+    text: 'Unikernel bare-metal: escritorio Dark Aero, NAVI 7 oficial (catálogo + harvest). El usuario no entrena. Photos, Ajustes, wget. Drivers virtio / e1000 / r8169 / rtl8139.',
+    tags: ['SMOKE AERO', 'NAVI 7', 'G_*', 'e1000'],
     href: '/rx-os',
     icon: Cpu,
     tone: 'dark',
@@ -475,14 +476,23 @@ const RXOS_BENCH = [
   { test: 'sparsity: 200 sub-thr', model: '200 absorbed', kernel: '200 absorbed', result: 'PASS' },
 ];
 
-const RXOS_HERO_IMAGE = '/rxos/hp-ac195nl-85/01-chat-rlc.jpg';
-const RXOS_HERO_QEMU = '/rxos/monad/12-desktop.png';
+const RXOS_HERO_IMAGE = '/rxos/9/01-desktop.jpg';
+const RXOS_HERO_QEMU = '/rxos/9/01-desktop.jpg';
 const SITE = 'https://www.rogexlaboratories.com';
 const NP_SITE = 'https://newspaper.rogexlaboratories.com';
 const ogCard = (slug) => `${SITE}/og/${slug}.png`;
 const OG_DIM = { imageType: 'image/png', imageWidth: '1200', imageHeight: '630' };
-const RXOS_VERSION = 'v8.5.0';
-const RXOS_VERSION_LABEL = 'rxOS 8.5 DESKTOP';
+const RXOS_VERSION = 'v9.0.0';
+const RXOS_VERSION_LABEL = 'rxOS 9 SMOKE';
+
+const RXOS9_SHOTS = [
+  { src: '/rxos/9/00-grub.jpg', tag: '00', title: 'GRUB', text: 'Menú rxOS 9 con el eclipse. 8 segundos para elegir.', featured: true, alt: 'GRUB rxOS 9 SMOKE — fondo eclipse' },
+  { src: '/rxos/9/01-desktop.jpg', tag: '01', title: 'ESCRITORIO', text: 'Dark Aero. Iconos PNG. Reloj y Start abajo.', featured: true, alt: 'Escritorio rxOS 9 Smoke Aero' },
+  { src: '/rxos/9/02-start.jpg', tag: '02', title: 'START', text: 'Ajustes, Terminal, Explorer, Navi 7, Photos.', featured: false, alt: 'Menú Start de rxOS 9' },
+  { src: '/rxos/9/03-navi7.jpg', tag: '03', title: 'NAVI 7', text: 'Catálogo entrenado. No es un LLM.', featured: true, alt: 'Ventana Navi 7 en rxOS 9' },
+  { src: '/rxos/9/05-terminal.jpg', tag: '05', title: 'TERMINAL', text: 'ROSH. curl, wget, www on.', featured: false, alt: 'Terminal ROSH en rxOS 9' },
+  { src: '/rxos/9/06-photos.jpg', tag: '06', title: 'PHOTOS', text: 'Pasar fotos no cambia el fondo.', featured: false, alt: 'App Photos de rxOS 9' },
+];
 
 const RXOS_INSTALL_SHOTS = [
   { src: '/rxos/install/01-language.jpg', tag: '01', title: 'LANGUAGE', text: 'English or Español. The keyboard layout follows the language.' },
@@ -747,7 +757,8 @@ const VERSION_HISTORY = [
   { ver: '6.5', title: 'NICs', state: 'HISTORIA', text: 'virtio, e1000, r8169, rtl8139. ISO anterior en releases.' },
   { ver: '7.0', title: 'MONAD / NAVI-3', state: 'HISTORIA', text: 'SNN in-kernel, WSP 16 B, chat tecla v. Sustituida por 8.' },
   { ver: '8.0', title: 'DESKTOP / NAVI-4.5', state: 'HISTORIA', text: 'Operador G_rxos, /prove, discurso, capturas QEMU 11–17.' },
-  { ver: '8.5', title: 'DESKTOP / NAVI 6.5', state: 'ACTUAL', text: 'RLC preentrenado. Metal HP 15-ac195nl medido 17 ago 2026.' },
+  { ver: '8.5', title: 'DESKTOP / NAVI 6.5', state: 'HISTORIA', text: 'RLC preentrenado. Metal HP 15-ac195nl medido 17 ago 2026.' },
+  { ver: '9.0', title: 'SMOKE / NAVI 7', state: 'ACTUAL', text: 'Dark Aero, catálogo 7-WORLD, Photos, Ajustes, wget. GRUB eclipse.' },
 ];
 
 const HIT_NUMBERS = [
@@ -1161,7 +1172,7 @@ function OpenLabBar({ compact = false }) {
   return (
     <nav className={compact ? 'open-lab-bar is-compact' : 'open-lab-bar'} aria-label="Descargas y código">
       <a className="brutal-button primary" href={rx.vmIso}>
-        ISO VM 8.5 <ArrowUpRight size={14} />
+        ISO VM 9 <ArrowUpRight size={14} />
       </a>
       <a className="brutal-button primary" href={rx.metalIso}>
         ISO METAL 8.5 <ArrowUpRight size={14} />
@@ -1662,7 +1673,7 @@ function Home({ navigate }) {
               INFOGRAFÍA COMPLETA <ArrowUpRight size={15} />
             </button>
             <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.vmIso}>
-              DESCARGAR rxOS 8.5
+              DESCARGAR rxOS 9
             </a>
             <button className="brutal-button" onClick={() => navigate('/navi')}>
               CATÁLOGO NAVI
@@ -1907,7 +1918,7 @@ function Architecture({ navigate }) {
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v8.5.0</span>
+          <span>v9.0.0</span>
           <span>SPSC 64 B</span>
           <span>LIF Q16.16</span>
           <span>STDP LOCAL</span>
@@ -2509,13 +2520,13 @@ function RXOS({ navigate }) {
       <PageHero
         index="04"
         className="rxos-hero"
-        eyebrow={`${RXOS_VERSION_LABEL} / NAVI 6.5 / WSP / Q₆`}
+        eyebrow={`${RXOS_VERSION_LABEL} / NAVI 7 / DARK AERO`}
         title={<>THE OS<br />IS THE DEMO.</>}
-        text="Un pensamiento de 16 bytes. Medido en el HP 15-ac195nl el 17 ago 2026: idle 3678 mW, Q6 72.5 µJ/run, HDC 100%, blob 6.5 = 1010 B. NAVI 6.5 RLC preentrenado. Si no hay esquema, DESCONOCIDO."
+        text="rxOS 9 SMOKE: escritorio de cristal negro, NAVI 7 que responde con ficha y fuente, Photos que no te cambia el fondo, Ajustes y wget. Si no hay esquema: DESCONOCIDO. Arranca la ISO. Eso es la demo."
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v8.5.0 METAL</span><span>i7-5500U</span><span>72.5 µJ/run</span><span>HDC 100%</span><span>NAVI 6.5</span><span>GPLv3</span>
+          <span>v9.0.0 SMOKE</span><span>NAVI 7</span><span>73 FICHAS</span><span>DARK AERO</span><span>wget</span><span>GPLv3</span>
         </div>
         <OpenLabBar />
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
@@ -2566,28 +2577,30 @@ function RXOS({ navigate }) {
           </div>
         </section>
 
-        <section className="section wrap rxos-principal-section">
+        <section className="section wrap rxos-principal-section" id="rxos-captures">
           <SectionTitle
-            code="01b / DESKTOP QEMU"
-            title="SESIÓN QEMU — 13 AGO 2026"
-            text="Captura QEMU de rxOS 8 DESKTOP: wallpaper, iconos, taskbar. Sigue siendo real. Ya no es la foto principal: el portátil la sustituyó."
+            code="01b / QEMU 9"
+            title="ESTO NO ES UN MOCKUP — rxOS 9 EN QEMU"
+            text="Capturas reales de la ISO 9.0.0: GRUB con eclipse, escritorio Smoke Aero, Navi 7, Photos, Explorer, Ajustes y Terminal. Lo que ves es el binario."
           />
-          <figure className="rxos-principal-shot" data-reveal>
-            <img
-              src={RXOS_HERO_QEMU}
-              alt="rxOS 8 DESKTOP home — wallpaper, icons and taskbar"
-              width={1360}
-              height={768}
-              loading="lazy"
-            />
-            <figcaption>
-              <span>QEMU · {RXOS_VERSION}</span>
-              <div>
-                <strong>DESKTOP HOME</strong>
-                <p>Sesión emulada. Experimental, no clínico, no auditado.</p>
-              </div>
-            </figcaption>
-          </figure>
+          <div className="screenshot-grid rxos-capture-grid metal-photo-grid">
+            {RXOS9_SHOTS.map((shot) => (
+              <figure
+                className={`screenshot scientific-capture${shot.featured ? ' featured' : ''}`}
+                data-reveal
+                key={shot.src}
+              >
+                <img src={shot.src} alt={shot.alt} loading={shot.featured ? 'eager' : 'lazy'} />
+                <figcaption className="capture-caption">
+                  <span>QEMU / {shot.tag}</span>
+                  <div>
+                    <strong>{shot.title}</strong>
+                    <p>{shot.text}</p>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section className="section section-black" id="rxos-infographic">
@@ -2704,7 +2717,7 @@ function RXOS({ navigate }) {
             <SectionTitle
               code="02d / ROADMAP HISTORY"
               title="LAS VERSIONES VIEJAS NO SE BORRAN"
-              text="4 → 6 → 6.5 → 7 MONAD → 8.0 son historia. El producto que se descarga hoy es 8.5.0 DESKTOP + NAVI 6.5."
+              text="4 → 6 → 6.5 → 7 MONAD → 8.0 → 8.5 son historia. El producto que se descarga hoy es 9.0.0 SMOKE + NAVI 7."
             />
             <div className="version-rail" data-reveal>
               {VERSION_HISTORY.map((v) => (
@@ -4172,7 +4185,7 @@ PRISMA_AKIDA_SIM=1 ./prisma-engine --backend akida --headless`}</code></pre>
               </dl>
               <div className="download-actions">
                 <a className="brutal-button primary" href={rx.vmIso}>
-                  ISO VM 8.5 <ArrowUpRight size={16} />
+                  ISO VM 9 <ArrowUpRight size={16} />
                 </a>
                 <a className="brutal-button primary" href={rx.metalIso}>
                   ISO METAL 8.5 <ArrowUpRight size={16} />
@@ -4348,12 +4361,12 @@ function setJsonLd(meta) {
 }
 
 const DEFAULT_OG = {
-  title: 'Knights Labs — rxOS 8.5 · NAVI 6.5',
+  title: 'Knights Labs — rxOS 9 SMOKE · NAVI 7',
   description:
-    'Knights Labs: rxOS 8.5 DESKTOP, NAVI 6.5 RLC preentrenado, WSP 16 B, Q₆. Código en GitHub. ISOs en Packages. Experimental, no clínico.',
+    'Knights Labs: rxOS 9 SMOKE, NAVI 7 oficial (catálogo + harvest), escritorio Dark Aero. Código en GitHub. ISOs en Packages. Experimental, no clínico.',
   image: ogCard('home'),
   ...OG_DIM,
-  imageAlt: 'Knights Labs — rxOS 8.5 DESKTOP · NAVI 6.5',
+  imageAlt: 'Knights Labs — rxOS 9 SMOKE · NAVI 7',
   url: `${SITE}/`,
 };
 
@@ -4380,14 +4393,14 @@ const ROUTE_META = {
   '/downloads': {
     title: 'Downloads — rxOS 8.5 + PRISMA Engine — Knights Labs',
     description:
-      'Descargas: rxOS 8.5.0 DESKTOP (VM + metal, NAVI 6.5) y PRISMA Engine 0.1.0. Código en github.com/knightslabs/rxos-8.5. Experimental, no clínico.',
+      'Descargas: rxOS 9.0.0 SMOKE (VM + metal, NAVI 7) y PRISMA Engine 0.1.0. Código en github.com/knightslabs/rxos-8.5. Experimental, no clínico.',
     image: ogCard('prisma'),
     ...OG_DIM,
     imageAlt: 'Knights Labs public downloads',
     url: `${SITE}/downloads`,
   },
   '/rx-os': {
-    title: 'rxOS 8.5 DESKTOP — NAVI 6.5 — Knights Labs',
+    title: 'rxOS 9 SMOKE — NAVI 7 — Knights Labs',
     description:
       'rxOS 8.5 DESKTOP medido en HP 15-ac195nl: RAPL idle 3678 mW, Q6 72.5 µJ/run, HDC 100%, NAVI 6.5 1010 B. Código e ISOs en GitHub.',
     image: ogCard('rx-os'),
@@ -4423,7 +4436,7 @@ const ROUTE_META = {
     url: `${SITE}/docs`,
   },
   '/rogexos': {
-    title: 'rxOS 8.5 DESKTOP — NAVI 6.5 — Knights Labs',
+    title: 'rxOS 9 SMOKE — NAVI 7 — Knights Labs',
     description:
       'rxOS 8.5 DESKTOP: Aero, NAVI 6.5 RLC, WSP 16 B, /prove. Código e ISOs en GitHub.',
     image: ogCard('rx-os'),

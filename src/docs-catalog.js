@@ -14,10 +14,10 @@ export const DOC_CATEGORIES = [
 export const DOCS = [
   {
     id: 'tutorial-monad',
-    title: 'Tutorial rxOS 8 DESKTOP',
+    title: 'Tutorial rxOS 9 SMOKE',
     category: 'tutorial',
     path: '/docs/rxos/tutorial-monad.md',
-    blurb: 'Arrancar la ISO 8, tecla v, /prove, cómo medir.',
+    blurb: 'Arrancar la ISO 9, tecla v, Navi 7, /prove, cómo medir.',
   },
   {
     id: 'rxos8',
@@ -28,10 +28,10 @@ export const DOCS = [
   },
   {
     id: 'navi-catalog',
-    title: 'Catálogo NAVI 1 → 6.5',
+    title: 'Catálogo NAVI 1 → 7',
     category: 'navi',
     path: '/docs/navi/CATALOG.md',
-    blurb: 'Línea SNN completa. 6.5 es el RLC oficial. 7 es plan (Akida).',
+    blurb: 'Línea SNN. 7-WORLD es oficial en rxOS 9. 7-NPU (Akida) sigue PLAN.',
   },
   {
     id: 'navi-compare',
@@ -67,6 +67,27 @@ export const DOCS = [
     category: 'navi',
     path: '/docs/navi/NAVI7.md',
     blurb: '6.5 + NPU. Criterios para atreverse a llamar 7 a un commit. No hay código.',
+  },
+  {
+    id: 'navi66',
+    title: 'NAVI 6.6 — lengua + TUI',
+    category: 'navi',
+    path: '/docs/navi/NAVI66.md',
+    blurb: 'Articulos, tiempos, corrector que supone. TUI de colores. No es un LLM.',
+  },
+  {
+    id: 'navi66-dummies',
+    title: 'NAVI 6.6 para dummies',
+    category: 'navi',
+    path: '/docs/navi/NAVI66_DUMMIES.md',
+    blurb: 'Si escribes «kien», lo marca y supone «quien».',
+  },
+  {
+    id: 'navi66-experts',
+    title: 'NAVI 6.6 para expertos',
+    category: 'navi',
+    path: '/docs/navi/NAVI66_EXPERTS.md',
+    blurb: 'Léxico cerrado, Damerau, ratatui / ANSI / pthread.',
   },
   {
     id: 'navi65',

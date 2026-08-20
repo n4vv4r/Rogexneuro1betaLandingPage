@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
   DOC_CATEGORIES,
   DOCS,
+  FEATURED_DOC_IDS,
   docById,
   catById,
   catLabel,
@@ -66,21 +67,32 @@ function DocsIndex({ navigate, PageHero, SectionTitle }) {
     return copy;
   }, [sort, lang]);
 
+  const featured = FEATURED_DOC_IDS.map((id) => docById(id)).filter(Boolean);
   return (
     <>
-      <PageHero
-        index="DX"
-        eyebrow={t('docsEyebrow')}
-        title={<>READ.<br />REPEAT.<br />MEASURE.</>}
-        text={t('docsHeroText')}
-        image="/rxos/9/11-mac-tree.png"
-        className="rxos-hero"
-      />
+      <section className="now-hero is-blue">
+        <div className="wrap now-hero-inner">
+          <span className="kicker">{t('docsEyebrow')}</span>
+          <h1>{t('docsHeroTitle')}</h1>
+          <p className="now-lede">{t('docsHeroText')}</p>
+        </div>
+      </section>
       <main>
         <section className="section wrap">
+          <h2 className="now-h">{t('docsNow')}</h2>
+          <div className="now-docs">
+            {featured.map((d) => (
+              <button type="button" key={d.id} className="now-doc" onClick={() => navigate(`/docs/${d.id}`)}>
+                <strong>{docTitle(d, lang)}</strong>
+                <span>{docBlurb(d, lang)}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+        <section className="section wrap">
           <SectionTitle
-            code="01 / CATÁLOGO"
-            title={t('docsIndexTitle')}
+            code="02"
+            title={t('docsArchive')}
             text={t('docsIndexText')}
           />
           <div className="docs-toolbar" role="toolbar" aria-label={t('docsSort')}>
@@ -184,7 +196,7 @@ function DocArticle({ doc, navigate }) {
   const cat = catById(doc.category);
 
   return (
-    <div className="docs-shell">
+    <div className={doc.diary ? 'docs-shell is-diary' : 'docs-shell'}>
       <aside className="docs-side">
         <button type="button" className="docs-back" onClick={() => navigate('/docs')}>
           ← {t('docsIndexBtn').toLowerCase()}
@@ -209,28 +221,48 @@ function DocArticle({ doc, navigate }) {
           );
         })}
       </aside>
-      <article className="docs-article">
-        <header className="docs-article-head">
-          <span className="doc-tag" style={{ '--tag': (cat || {}).color || 'var(--accent)' }}>
-            {catLabel(cat, lang) || doc.category}
-          </span>
-          <h1>{docTitle(doc, lang)}</h1>
-          <p>{docBlurb(doc, lang)}</p>
-          {!hasLangFile && lang === 'en' ? (
-            <p className="docs-lang-note">{t('docsEsOnly')}</p>
-          ) : null}
-          <a className="checksum-link" href={mdPath} target="_blank" rel="noreferrer">
-            RAW .md
-          </a>
-          {doc.pdf && (
-            <a className="checksum-link" href={doc.pdf} target="_blank" rel="noreferrer" style={{ marginLeft: 16 }}>
-              PDF
+      <article className={doc.diary ? 'docs-article is-diary' : 'docs-article'}>
+        {doc.diary ? (
+          <div className="diary-sheet">
+            <header className="diary-meta">
+              <span>{t('diaryStamp')}</span>
+              <em>{docDate(doc).split('-').reverse().join(' · ')}</em>
+            </header>
+            {!hasLangFile && lang === 'en' ? (
+              <p className="docs-lang-note">{t('docsEsOnly')}</p>
+            ) : null}
+            {err && <p className="download-boundary">{err}</p>}
+            {!raw && !err && <p className="md-p">{lang === 'en' ? 'Loading…' : 'Cargando…'}</p>}
+            <div className="diary-body md-body">{body}</div>
+            <a className="checksum-link diary-raw" href={mdPath} target="_blank" rel="noreferrer">
+              RAW .md
             </a>
-          )}
-        </header>
-        {err && <p className="download-boundary">{err}</p>}
-        {!raw && !err && <p className="md-p">{lang === 'en' ? 'Loading…' : 'Cargando…'}</p>}
-        <div className="md-body">{body}</div>
+          </div>
+        ) : (
+          <>
+            <header className="docs-article-head">
+              <span className="doc-tag" style={{ '--tag': (cat || {}).color || 'var(--accent)' }}>
+                {catLabel(cat, lang) || doc.category}
+              </span>
+              <h1>{docTitle(doc, lang)}</h1>
+              <p>{docBlurb(doc, lang)}</p>
+              {!hasLangFile && lang === 'en' ? (
+                <p className="docs-lang-note">{t('docsEsOnly')}</p>
+              ) : null}
+              <a className="checksum-link" href={mdPath} target="_blank" rel="noreferrer">
+                RAW .md
+              </a>
+              {doc.pdf && (
+                <a className="checksum-link" href={doc.pdf} target="_blank" rel="noreferrer" style={{ marginLeft: 16 }}>
+                  PDF
+                </a>
+              )}
+            </header>
+            {err && <p className="download-boundary">{err}</p>}
+            {!raw && !err && <p className="md-p">{lang === 'en' ? 'Loading…' : 'Cargando…'}</p>}
+            <div className="md-body">{body}</div>
+          </>
+        )}
       </article>
     </div>
   );

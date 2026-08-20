@@ -5,9 +5,57 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.rogexlaboratories.com/</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi10</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.98</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/rxos10</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.98</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi10-spec</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.96</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi10-lpu</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi10-ship</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi10-train</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi10-meta</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi10-slm</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
   </url>
   <url>
     <loc>https://www.rogexlaboratories.com/suite</loc>
@@ -29,9 +77,9 @@
   </url>
   <url>
     <loc>https://www.rogexlaboratories.com/navi</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <priority>0.97</priority>
   </url>
   <url>
     <loc>https://www.rogexlaboratories.com/docs/navi75</loc>
@@ -284,5 +332,41 @@
     <lastmod>2026-08-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi92</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi92-dummies</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi92-experts</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi92-blueprint</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/navi92-train</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.rogexlaboratories.com/docs/echo</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 </urlset>

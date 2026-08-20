@@ -7,13 +7,39 @@
     <link>https://newspaper.rogexlaboratories.com/</link>
     <description>Avances de Knights Labs / Rogex Laboratories: PRISMA, RXos y neurotech low-carbon. Experimental, no clínico.</description>
     <language>es</language>
-    <lastBuildDate>Thu, 20 Aug 2026 13:50:53 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 15:11:24 GMT</lastBuildDate>
     <atom:link href="https://newspaper.rogexlaboratories.com/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://www.rogexlaboratories.com/rogexlaboratories_logo.png</url>
       <title>Rogex Newspaper</title>
       <link>https://newspaper.rogexlaboratories.com/</link>
     </image>
+    <item>
+      <title>Cuaderno: hemos descubierto, hemos inventado, buscamos</title>
+      <link>https://newspaper.rogexlaboratories.com/2026-08-20-cuaderno</link>
+      <guid isPermaLink="true">https://newspaper.rogexlaboratories.com/2026-08-20-cuaderno</guid>
+      <pubDate>Thu, 20 Aug 2026 12:00:00 GMT</pubDate>
+      <description>La industria apuesta sílabas con un hangar de GPUs. Inventamos un pensamiento de 16 bytes y una mente que no rellena. Hoja de ruta: host ahora, SO después, oficio y acceso.</description>
+      <author>Roger Navarro / Knights Labs</author>
+      <category>diario</category>
+      <category>navi10</category>
+      <category>rxos10</category>
+      <category>tecnoactivismo</category>
+      <content:encoded><![CDATA[<h2>Hemos descubierto que…</h2>
+<p>La industria trata la inteligencia como más parámetros y más vatios. Un campus de GPUs apuesta la siguiente sílaba. Si no sabe, inventa y suena bien. Eso no cabe en un portátil ni en un USB.</p>
+<p>Un pensamiento no necesita un hangar: <strong>dieciséis bytes</strong> bastan. Un hecho no vive en los pesos: vive en una <strong>ficha</strong>. Si no hay extracto, la respuesta honesta es no lo sé.</p>
+<h2>Hemos inventado… para resolverlo</h2>
+<p><strong>RogexWSP</strong> — 16 bytes, <code>_Static_assert</code>.<br />
+<strong>NAVI 10 Echo</strong> — ya corre en el host. CAM Heap-0, VERIFY o DESCONOCIDO.<br />
+<strong>rxOS</strong> — unikernel. Hoy arrancas <strong>9 SMOKE</strong>. <strong>rxOS 10</strong> llevará Echo dentro.</p>
+<p>No inventamos julios de un chip que no está en la mesa.</p>
+<h2>Buscamos…</h2>
+<p>Quien quiera <strong>correrlo</strong>. Socios de silicio sin fingir la placa. Licencias que financien acceso. Una plaza, no un culto.</p>
+<h2>Hacia dónde vamos</h2>
+<p>Ahora: NAVI 10 en el host, ISO 9 se descarga. Siguiente: rxOS 10. Oficio: PRISMA se licencia, rxOS open core. Más lejos: USB, Akida si hay placa.</p>
+<p>Cinco caras, un artefacto — productos, empresa, negocio, filantropía, tecnoactivismo: preguntar a una máquina sin campus, sin mentira y sin factura de GPU.</p>
+<p>Página completa: <a href="https://www.rogexlaboratories.com/docs/diario" rel="noopener noreferrer" target="_blank">/docs/diario</a></p>]]></content:encoded>
+    </item>
     <item>
       <title>NAVI 10 Echo ya corre. rxOS 10 es el próximo lanzamiento.</title>
       <link>https://newspaper.rogexlaboratories.com/2026-08-20-navi-10-rxos-10</link>

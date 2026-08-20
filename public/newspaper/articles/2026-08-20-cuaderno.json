@@ -1,0 +1,17 @@
+{
+  "slug": "2026-08-20-cuaderno",
+  "title": "Cuaderno: hemos descubierto, hemos inventado, buscamos",
+  "date": "2026-08-20",
+  "summary": "La industria apuesta sílabas con un hangar de GPUs. Inventamos un pensamiento de 16 bytes y una mente que no rellena. Hoja de ruta: host ahora, SO después, oficio y acceso.",
+  "tags": [
+    "diario",
+    "navi10",
+    "rxos10",
+    "tecnoactivismo"
+  ],
+  "author": "Roger Navarro / Knights Labs",
+  "body": "## Hemos descubierto que…\n\nLa industria trata la inteligencia como más parámetros y más vatios. Un campus de GPUs apuesta la siguiente sílaba. Si no sabe, inventa y suena bien. Eso no cabe en un portátil ni en un USB.\n\nUn pensamiento no necesita un hangar: **dieciséis bytes** bastan. Un hecho no vive en los pesos: vive en una **ficha**. Si no hay extracto, la respuesta honesta es no lo sé.\n\n## Hemos inventado… para resolverlo\n\n**RogexWSP** — 16 bytes, `_Static_assert`.  \n**NAVI 10 Echo** — ya corre en el host. CAM Heap-0, VERIFY o DESCONOCIDO.  \n**rxOS** — unikernel. Hoy arrancas **9 SMOKE**. **rxOS 10** llevará Echo dentro.\n\nNo inventamos julios de un chip que no está en la mesa.\n\n## Buscamos…\n\nQuien quiera **correrlo**. Socios de silicio sin fingir la placa. Licencias que financien acceso. Una plaza, no un culto.\n\n## Hacia dónde vamos\n\nAhora: NAVI 10 en el host, ISO 9 se descarga. Siguiente: rxOS 10. Oficio: PRISMA se licencia, rxOS open core. Más lejos: USB, Akida si hay placa.\n\nCinco caras, un artefacto — productos, empresa, negocio, filantropía, tecnoactivismo: preguntar a una máquina sin campus, sin mentira y sin factura de GPU.\n\nPágina completa: [/docs/diario](https://www.rogexlaboratories.com/docs/diario)",
+  "html": "<h2>Hemos descubierto que…</h2>\n<p>La industria trata la inteligencia como más parámetros y más vatios. Un campus de GPUs apuesta la siguiente sílaba. Si no sabe, inventa y suena bien. Eso no cabe en un portátil ni en un USB.</p>\n<p>Un pensamiento no necesita un hangar: <strong>dieciséis bytes</strong> bastan. Un hecho no vive en los pesos: vive en una <strong>ficha</strong>. Si no hay extracto, la respuesta honesta es no lo sé.</p>\n<h2>Hemos inventado… para resolverlo</h2>\n<p><strong>RogexWSP</strong> — 16 bytes, <code>_Static_assert</code>.<br />\n<strong>NAVI 10 Echo</strong> — ya corre en el host. CAM Heap-0, VERIFY o DESCONOCIDO.<br />\n<strong>rxOS</strong> — unikernel. Hoy arrancas <strong>9 SMOKE</strong>. <strong>rxOS 10</strong> llevará Echo dentro.</p>\n<p>No inventamos julios de un chip que no está en la mesa.</p>\n<h2>Buscamos…</h2>\n<p>Quien quiera <strong>correrlo</strong>. Socios de silicio sin fingir la placa. Licencias que financien acceso. Una plaza, no un culto.</p>\n<h2>Hacia dónde vamos</h2>\n<p>Ahora: NAVI 10 en el host, ISO 9 se descarga. Siguiente: rxOS 10. Oficio: PRISMA se licencia, rxOS open core. Más lejos: USB, Akida si hay placa.</p>\n<p>Cinco caras, un artefacto — productos, empresa, negocio, filantropía, tecnoactivismo: preguntar a una máquina sin campus, sin mentira y sin factura de GPU.</p>\n<p>Página completa: <a href=\"https://www.rogexlaboratories.com/docs/diario\" rel=\"noopener noreferrer\" target=\"_blank\">/docs/diario</a></p>",
+  "url": "https://newspaper.rogexlaboratories.com/2026-08-20-cuaderno",
+  "path": "/2026-08-20-cuaderno"
+}

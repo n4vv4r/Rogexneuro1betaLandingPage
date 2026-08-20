@@ -44,15 +44,23 @@ import {
 import './styles.css';
 import NewspaperApp, { shouldMountNewspaper } from './newspaper/NewspaperApp.jsx';
 import PackagesPage from './rxos/PackagesPage.jsx';
-import Slideshow, { DOC_SLIDES } from './Slideshow.jsx';
 import DocsPage from './DocsPage.jsx';
-import NaviPage from './NaviPage.jsx';
-import RoadmapPage from './RoadmapPage.jsx';
 import { applyTheme, getTheme, THEMES } from './theme.js';
 import OG_CATALOG from './og-catalog.json';
 import { docById, docBlurb } from './docs-catalog.js';
 import { LangProvider, useLang } from './lang.jsx';
-import { Launch10Banner, Layer10Arch, Spec10Table } from './Launch10.jsx';
+import {
+  AboutNow,
+  ArchitectureNow,
+  DownloadsNow,
+  HomeNow,
+  LabNow,
+  NaviNow,
+  PrismaNow,
+  RoadmapNow,
+  RxosNow,
+  SuiteNow,
+} from './NowPages.jsx';
 
 function getNavMenus(t) {
   return [
@@ -62,12 +70,8 @@ function getNavMenus(t) {
       items: [
         ['/navi', t('navNavi')],
         ['/rx-os', t('navRxos')],
-        ['/roadmap', t('navRoadmap')],
-        ['/docs/navi10-spec', t('navSpec')],
-        ['/prisma', t('navPrisma')],
         ['/downloads', t('navDownloads')],
-        ['/docs/setup', t('navSetup')],
-        ['/suite', t('navSuite')],
+        ['/roadmap', t('navRoadmap')],
       ],
     },
     {
@@ -75,9 +79,8 @@ function getNavMenus(t) {
       label: t('open'),
       items: [
         ['https://github.com/navywakura/RXos', t('navCodeNavi')],
-        ['https://github.com/knightslabs/rxos-8.5', t('navCodeRxos')],
         ['https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0', t('navIsos')],
-        ['https://github.com/knightslabs/RXos-Packages', t('navPackages')],
+        ['/rx-os/packages', t('navPackages')],
         ['/downloads', t('navAllDl')],
       ],
     },
@@ -86,37 +89,23 @@ function getNavMenus(t) {
       label: t('docs'),
       items: [
         ['/docs', t('navIndex')],
+        ['/docs/diario', t('navDiario')],
         ['/docs/navi10', t('navNavi10')],
         ['/docs/rxos10', t('navRxos10')],
         ['/docs/navi10-spec', t('navSpec')],
-        ['/docs/eternal-eclipse', t('navEclipse')],
-        ['/docs/resumen-tecnico', t('navTech')],
-        ['/docs/navi-compare', 'NAVI vs IA'],
-        ['/docs/cianotipo', 'CIANOTIPO'],
-        ['/docs/akida', 'AKIDA'],
-        ['/docs/navi7', 'NAVI 7'],
-        ['/docs/navi75', 'NAVI 7.5'],
         ['/docs/setup', t('navSetup')],
-        ['/docs/isos', 'ISOs 9.0.0'],
-        ['/architecture', 'ARCHITECTURE'],
       ],
     },
     {
       id: 'lab',
       label: t('lab'),
       items: [
-        ['/about', 'ABOUT'],
+        ['/about', t('navAbout')],
+        ['/docs/diario', t('navDiario')],
         ['https://newspaper.rogexlaboratories.com', 'NEWSPAPER'],
-        ['/investors', 'INVESTORS'],
-        ['/pitch', 'PITCH'],
-        ['/startup-idea', 'STARTUP'],
       ],
     },
   ];
-}
-
-function getNavItems(t) {
-  return [['/', t('home')], ...getNavMenus(t).flatMap((m) => m.items)];
 }
 
 function navHrefActive(path, href) {
@@ -199,7 +188,7 @@ const DOWNLOAD_CATALOG = {
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com/rogexlaboratories', mark: 'IG' },
-  { label: 'GitHub', href: 'https://github.com/knightslabs/rxos-8.5', mark: 'GH' },
+  { label: 'GitHub', href: 'https://github.com/navywakura/RXos', mark: 'GH' },
   { label: 'X', href: 'https://x.com/rogexlabs', mark: 'X' },
   { label: 'Newspaper', href: 'https://newspaper.rogexlaboratories.com', mark: 'NP' },
   { label: 'Linktree', href: 'https://linktr.ee/rogynavy', icon: LinkIcon },
@@ -1203,11 +1192,9 @@ function Header({ path, navigate }) {
   );
 }
 
-function PageHero({ index, eyebrow, title, text, image, children, className = '' }) {
+function PageHero({ index, eyebrow, title, text, children, className = '' }) {
   return (
-    <section className={`page-hero ${className}`.trim()} style={{ '--hero-image': `url("${image}")` }}>
-      <div className="page-hero-media" aria-hidden="true" />
-      <div className="page-hero-grain" aria-hidden="true" />
+    <section className={`page-hero page-hero-plain ${className}`.trim()}>
       <div className="page-hero-content wrap">
         <div className="hero-index">{index}</div>
         <div className="hero-copy">
@@ -3988,7 +3975,6 @@ function About({ navigate }) {
 
 function Footer({ navigate }) {
   const { lang, setLang, t } = useLang();
-  const items = getNavItems(t);
   return (
     <footer className="footer">
       <div className="wrap footer-main">
@@ -4004,12 +3990,19 @@ function Footer({ navigate }) {
           </div>
         </div>
         <div className="footer-nav">
-          {items.filter(([href]) => !/^https?:\/\//.test(href)).map(([href, label]) => (
-            <button key={`${href}-${label}`} type="button" onClick={() => navigate(href)}>{label}</button>
+          {[
+            ['/', t('home')],
+            ['/navi', t('navNavi')],
+            ['/rx-os', t('navRxos')],
+            ['/downloads', t('navDownloads')],
+            ['/docs', t('docs')],
+            ['/docs/diario', t('navDiario')],
+            ['/about', t('navAbout')],
+          ].map(([href, label]) => (
+            <button key={href} type="button" onClick={() => navigate(href)}>{label}</button>
           ))}
-          <a href={DOWNLOAD_CATALOG.rxos.source} target="_blank" rel="noreferrer">{t('code')}</a>
+          <a href="https://github.com/navywakura/RXos" target="_blank" rel="noreferrer">{t('code')}</a>
           <a href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">ISOs</a>
-          <a href={DOWNLOAD_CATALOG.rxos.packagesRepo} target="_blank" rel="noreferrer">PACKAGES</a>
         </div>
         <div className="footer-socials">
           {SOCIALS.map((item) => <SocialIcon item={item} key={item.label} />)}
@@ -4634,39 +4627,21 @@ function App() {
   }
 
   let page = <NotFound navigate={navigate} />;
-  if (path === '/') page = <Home navigate={navigate} />;
-  if (path === '/suite') page = <Suite navigate={navigate} />;
-  if (path === '/architecture') page = <Architecture navigate={navigate} />;
-  if (path === '/prisma') page = <Prisma navigate={navigate} />;
-  if (path === '/downloads') page = <Downloads navigate={navigate} />;
+  if (path === '/') page = <HomeNow navigate={navigate} />;
+  if (path === '/suite') page = <SuiteNow navigate={navigate} />;
+  if (path === '/architecture') page = <ArchitectureNow navigate={navigate} />;
+  if (path === '/prisma') page = <PrismaNow navigate={navigate} />;
+  if (path === '/downloads') page = <DownloadsNow navigate={navigate} />;
   if (path === '/rx-os/packages' || path === '/rx-os/packages/') {
-    page = (
-      <PackagesPage
-        navigate={navigate}
-        PageHero={(props) => <PageHero {...props} className="rxos-hero" />}
-        SectionTitle={SectionTitle}
-      />
-    );
+    page = <PackagesPage navigate={navigate} />;
   } else if (path === '/rx-os' || path === '/rogexos') {
-    page = <RXOS navigate={navigate} />;
+    page = <RxosNow navigate={navigate} />;
   }
   if (path === '/navi' || path.startsWith('/navi/')) {
-    page = (
-      <NaviPage
-        navigate={navigate}
-        PageHero={PageHero}
-        SectionTitle={SectionTitle}
-      />
-    );
+    page = <NaviNow navigate={navigate} />;
   }
   if (path === '/roadmap' || path === '/roadmap/') {
-    page = (
-      <RoadmapPage
-        navigate={navigate}
-        PageHero={PageHero}
-        SectionTitle={SectionTitle}
-      />
-    );
+    page = <RoadmapNow navigate={navigate} />;
   }
   if (path === '/docs' || path.startsWith('/docs/')) {
     page = (
@@ -4678,15 +4653,10 @@ function App() {
       />
     );
   }
-  if (path === '/investors') page = <Investors navigate={navigate} />;
-  if (path === '/pitch') page = <Pitch navigate={navigate} />;
-  if (path === '/startup-idea') page = <StartupIdea navigate={navigate} />;
-  if (path === '/about') page = <About navigate={navigate} />;
-
-  // Pitch is a fullscreen slide deck — no site chrome
-  if (path === '/pitch') {
-    return page;
+  if (path === '/investors' || path === '/pitch' || path === '/startup-idea') {
+    page = <LabNow navigate={navigate} />;
   }
+  if (path === '/about') page = <AboutNow navigate={navigate} />;
 
   return (
     <>

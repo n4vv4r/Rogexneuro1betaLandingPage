@@ -80,6 +80,10 @@ function isOrdered(line) {
   return /^\s*\d+\.\s+/.test(line);
 }
 
+function isQuote(line) {
+  return /^>\s?/.test(line);
+}
+
 function isTableRow(line) {
   return /^\|/.test(line);
 }
@@ -90,7 +94,7 @@ function isTableSep(line) {
 
 function isBlockStart(line) {
   return isFence(line) || isHeading(line) || isHr(line) || isBullet(line)
-    || isOrdered(line) || isTableRow(line);
+    || isOrdered(line) || isTableRow(line) || isQuote(line);
 }
 
 export function renderMarkdown(raw, { baseDir = '/' } = {}) {
@@ -158,8 +162,24 @@ export function renderMarkdown(raw, { baseDir = '/' } = {}) {
     }
 
     if (isHr(line)) {
-      blocks.push(<hr key={`hr-${k++}`} />);
+      blocks.push(<hr key={`hr-${k++}`} className="md-hr" />);
       i++;
+      continue;
+    }
+
+    if (isQuote(line)) {
+      const items = [];
+      while (i < lines.length && isQuote(lines[i])) {
+        items.push(lines[i].replace(/^>\s?/, ''));
+        i++;
+      }
+      blocks.push(
+        <blockquote key={`q-${k++}`} className="md-quote">
+          {items.map((t, j) => (
+            <p key={j}>{inline(t, `q${k}${j}`)}</p>
+          ))}
+        </blockquote>,
+      );
       continue;
     }
 

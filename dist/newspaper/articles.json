@@ -1,5 +1,36 @@
 [
   {
+    "slug": "2026-08-20-cuaderno",
+    "title": "Cuaderno: hemos descubierto, hemos inventado, buscamos",
+    "date": "2026-08-20",
+    "summary": "La industria apuesta sílabas con un hangar de GPUs. Inventamos un pensamiento de 16 bytes y una mente que no rellena. Hoja de ruta: host ahora, SO después, oficio y acceso.",
+    "tags": [
+      "diario",
+      "navi10",
+      "rxos10",
+      "tecnoactivismo"
+    ],
+    "author": "Roger Navarro / Knights Labs",
+    "url": "https://newspaper.rogexlaboratories.com/2026-08-20-cuaderno",
+    "path": "/2026-08-20-cuaderno"
+  },
+  {
+    "slug": "2026-08-20-navi-10-rxos-10",
+    "title": "NAVI 10 Echo ya corre. rxOS 10 es el próximo lanzamiento.",
+    "date": "2026-08-20",
+    "summary": "La mente 10 es HOST LIVE: Q_N, CAM Heap-0, VERIFY o DESCONOCIDO. El unikernel 10 se anuncia. La ISO que se flashea hoy sigue siendo 9.0.0 SMOKE. Sin placa Akida no hay NPU.",
+    "tags": [
+      "navi10",
+      "rxos10",
+      "echo",
+      "eclipse",
+      "wsp"
+    ],
+    "author": "Roger Navarro / Knights Labs",
+    "url": "https://newspaper.rogexlaboratories.com/2026-08-20-navi-10-rxos-10",
+    "path": "/2026-08-20-navi-10-rxos-10"
+  },
+  {
     "slug": "2026-08-17-eternal-eclipse",
     "title": "Eternal Eclipse — el pin está en el mapa",
     "date": "2026-08-17",
@@ -14,6 +45,16 @@
     "author": "Roger Navarro / Knights Labs",
     "url": "https://newspaper.rogexlaboratories.com/2026-08-17-eternal-eclipse",
     "path": "/2026-08-17-eternal-eclipse"
+  },
+  {
+    "slug": "2026-08-17-navi-92-zorro",
+    "title": "NAVI 9.2 zorro — una tarea, no un loro",
+    "date": "2026-08-17",
+    "summary": "NAVI 9.2 corre en el host. Elige UNA caza: ask, resume, echo, teach, think.",
+    "tags": [],
+    "author": "Knights Labs / Rogex Laboratories",
+    "url": "https://newspaper.rogexlaboratories.com/2026-08-17-navi-92-zorro",
+    "path": "/2026-08-17-navi-92-zorro"
   },
   {
     "slug": "2026-08-08-inaugural",

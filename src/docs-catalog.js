@@ -13,6 +13,18 @@ export const DOC_CATEGORIES = [
 
 export const DOCS = [
   {
+    id: 'diario',
+    title: 'Cuaderno de laboratorio',
+    titleEn: 'Lab notebook',
+    category: 'theory',
+    path: '/docs/rxos/DIARIO.md',
+    pathEn: '/docs/rxos/DIARIO.en.md',
+    blurb: 'Hemos descubierto, hemos inventado, buscamos. Ruta: productos, empresa, oficio, filantropía, tecnoactivismo.',
+    blurbEn: 'We discovered, we invented, we are looking for. Roadmap: products, company, craft, philanthropy, technoactivism.',
+    date: '2026-08-20',
+    diary: true,
+  },
+  {
     id: 'navi10-spec',
     title: 'Ficha NAVI 10 + rxOS 10',
     titleEn: 'NAVI 10 + rxOS 10 product sheet',
@@ -585,3 +597,15 @@ export function catLabel(cat, lang = 'es') {
   if (!cat) return '';
   return lang === 'en' && cat.labelEn ? cat.labelEn : cat.label;
 }
+
+export const FEATURED_DOC_IDS = [
+  'diario',
+  'navi10-spec',
+  'navi10',
+  'rxos10',
+  'navi10-lpu',
+  'navi10-ship',
+  'navi10-train',
+  'setup',
+  'isos',
+];

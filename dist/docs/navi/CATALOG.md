@@ -17,6 +17,9 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 | **6.5** | RLC (contrato) | host `./navi65` + `navi6.c` | 11 máscaras G_* + 5 cajas | Debajo de 7. DESCONOCIDO si no hay esquema | LLM, Copilot, QPU |
 | **7-WORLD** | Oficial rxOS 9 | `./navi7` + tecla `v` | 73 fichas + harvest + RLC | Bench 15/15. Sin ficha: DESCONOCIDO | LLM, NPU |
 | **7-NPU** | PLAN | no hay código | 6.5 + Akida `.fbz` | Offload si hay silicio | Sin placa no hay 7-NPU |
+| **8.9** | Dual + desk | host `./navi89 --tui` | propose/critic + BFS | TUI, dos voces VERIFY | LLM |
+| **9.2** | Zorro | host `./navi9` | una tarea / turno | ask, resume, Echo | Visión, Akida |
+| **10 Echo** | Host LIVE | `./navi10 --ask` / `--tui` | Q_N + CAM 4096×32 B | VERIFY / DESCONOCIDO, Heap-0 | LLM, ISO 10, Akida |
 
 ## Cómo leer esto
 
@@ -28,11 +31,14 @@ Cada generación **añade una capa**. Ninguna borra a la anterior.
 6. [NAVI 6 — tutor causal](/docs/navi6)
 7. [NAVI 6.5 — RLC](/docs/navi65)
 8. [NAVI 7 — 7-WORLD oficial](/docs/navi7)
-9. [Cianotipo rxOS / NAVI / PRISMA](/docs/cianotipo)
-10. [Akida × rxOS](/docs/akida)
-11. [NAVI frente a otras IA neuromórficas](/docs/navi-compare)
-11. [NAVI 6.5 para dummies](/docs/navi65-dummies)
-12. [Arquitectura NAVI 5](/docs/navi5-arch)
+9. [NAVI 10 — Echo Heap-0](/docs/navi10)
+10. [Ficha NAVI 10 + rxOS 10](/docs/navi10-spec)
+11. [rxOS 10 — próximo lanzamiento](/docs/rxos10)
+12. [Cianotipo rxOS / NAVI / PRISMA](/docs/cianotipo)
+13. [Akida × rxOS](/docs/akida)
+14. [NAVI frente a otras IA neuromórficas](/docs/navi-compare)
+15. [NAVI 6.5 para dummies](/docs/navi65-dummies)
+16. [Arquitectura NAVI 5](/docs/navi5-arch)
 
 Catálogo visual en la web: [`/navi`](/navi).
 

@@ -15,7 +15,7 @@ function pkgUrl(pkg) {
   return pkg.url || `/rx-os/packages/${file}`;
 }
 
-export default function PackagesPage({ navigate, PageHero, SectionTitle }) {
+export default function PackagesPage({ navigate }) {
   const [packages, setPackages] = useState([]);
   const [updated, setUpdated] = useState('');
   const [error, setError] = useState('');
@@ -54,37 +54,21 @@ export default function PackagesPage({ navigate, PageHero, SectionTitle }) {
 
   return (
     <>
-      <PageHero
-        index="04b"
-        eyebrow="RXos PACKAGE CHANNEL"
-        title={
-          <>
-            PAQUETES
-            <br />
-            PUBLICADOS.
-          </>
-        }
-        text="Lista del canal oficial .rxc. Clic para descargar. En el SO: rx app add &lt;name&gt;."
-        image="/rxos/desktop-home.jpg"
-      >
-        <div className="hero-tags">
-          <span>{loading ? '…' : `${packages.length} PACKAGES`}</span>
-          <span>.RXC</span>
-          <span>rx app add</span>
+      <section className="now-hero is-teal">
+        <div className="wrap now-hero-inner">
+          <span className="kicker">rxOS · PAQUETES</span>
+          <h1>Canal .rxc</h1>
+          <p className="now-lede">
+            Lista oficial. Clic para descargar. En el sistema: <code>rx app add &lt;name&gt;</code>.
+            {updated ? ` Actualizado ${updated}.` : ''}
+          </p>
         </div>
-      </PageHero>
+      </section>
 
       <main>
         <section className="section wrap pkg-minimal" id="catalog">
-          <SectionTitle
-            code="01 / PACKAGES"
-            title="PUBLICADOS"
-            text={
-              updated
-                ? `Canal ${CHANNEL} · actualizado ${updated}`
-                : `Canal ${CHANNEL}`
-            }
-          />
+          <h2 className="now-h">{loading ? '…' : `${packages.length} publicados`}</h2>
+          <p className="now-sub">Canal {CHANNEL}</p>
 
           {loading && <p className="license-note">Cargando…</p>}
           {error && (
@@ -143,13 +127,10 @@ export default function PackagesPage({ navigate, PageHero, SectionTitle }) {
           </div>
         </section>
 
-        <section className="section section-black" id="tutorial">
-          <div className="wrap">
-            <SectionTitle
-              code="02 / TUTORIAL"
-              title="CÓMO INSTALAR EN RXos"
-              text="Dentro del SO (recomendado) o descarga manual del .rxc desde esta página."
-            />
+        <section className="section wrap" id="tutorial">
+          <div>
+            <h2 className="now-h">Cómo instalar</h2>
+            <p className="now-sub">Dentro del SO (recomendado) o descarga manual del .rxc.</p>
 
             <div className="pkg-tutorial-simple" data-reveal>
               <article>

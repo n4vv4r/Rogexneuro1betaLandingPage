@@ -18,7 +18,8 @@ if (!existsSync(indexPath)) {
 
 const SITE = catalog.site;
 const NP_SITE = catalog.npSite;
-const OG = (slug) => `${SITE}/og/${slug}.png`;
+const VER = catalog.ogVersion || '10c';
+const OG = (slug) => `${SITE}/og/${slug}.png?v=${VER}`;
 
 function routeFromEntry(entry, extra = {}) {
   const url = extra.url || entry.url || `${SITE}${entry.path}`;

@@ -2,7 +2,7 @@
 
 **Estado mixto.** Este papel dice dónde estamos, qué se puede arrancar
 hoy, y qué es visión. Si una casilla no tiene ISO, comando o cifra
-medida, no está hecha. Fecha de este corte: **17 agosto 2026** (host NAVI **9.2 zorro**).
+medida, no está hecha. Fecha de este corte: **20 agosto 2026** (host NAVI **10 Echo** LIVE; rxOS **10** próximo; ISO de hoy **9.0.0**).
 
 Lectura viva en la web: [`/roadmap`](https://www.rogexlaboratories.com/roadmap).
 
@@ -16,7 +16,7 @@ Lectura viva en la web: [`/roadmap`](https://www.rogexlaboratories.com/roadmap).
 | NAVI **8.8 / 8.9** + host | Supervivencia + dual + desk | **HECHO** en host (no en la ISO 9) |
 | NAVI **9.2 zorro** + host | Tarea, Echo, resume, léxico | **HECHO** en host. No es NPU. No ve. |
 | NAVI 9 + rxOS 10 | El SO salta a 10 | PLAN / VISIÓN |
-| NAVI **10** + rxOS **10** | **El Eclipse** + Akida + visión/cuerpo | VISIÓN. Punto de alineación |
+| NAVI **10** + rxOS **10** | **El Eclipse** + Akida + visión/cuerpo | MIXTO. Host SNN/CAM **LIVE** (`./navi10 --bench`). rxOS 10 **PRÓXIMO** (sin ISO). Akida/cuerpo VISIÓN |
 | EternalEclipse.com | Logia de I+D | VISIÓN de marca. Hoy el dominio es rogexlaboratories.com |
 | **EchOS** | ISO unificada (SO + modelo + API a Internet) | VISIÓN de producto. No existe el artefacto |
 
@@ -78,7 +78,7 @@ Esto **no existe**. No hay ISO EchOS. No hay API Echo.
 | 4 | 10 | 10 | **El Eclipse**: Akida, cámara, cuerpo Pi/Arduino | **VISIÓN** |
 | 5 | Echo | EchOS | Un solo paquete, API a Internet | **VISIÓN** |
 
-NAVI **9.2** sí tiene código (`./navi9` en el host). NAVI **10** no.
+NAVI **9.2** sí tiene código (`./navi9` en el host). NAVI **10** también (`./navi10`). rxOS **10** no tiene ISO.
 No se vende visión como ISO. Se vende el orden y la negativa a fingir
 el cruce: sin placa Akida no hay 7-NPU; sin cámara no hay visión.
 

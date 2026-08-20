@@ -20,8 +20,10 @@ import {
   statusLabel,
 } from './data/eclipse-roadmap.js';
 import { POST_FILTERS, SOCIAL_POSTS } from './data/social-posts.js';
+import { useLang } from './lang.jsx';
+import { Launch10Banner } from './Launch10.jsx';
 
-const HERE_INDEX = ERAS.findIndex((e) => e.id === 'smoke-9');
+const HERE_INDEX = ERAS.findIndex((e) => e.id === 'host-10');
 const PROGRESS = Math.round(((HERE_INDEX + 0.5) / (ERAS.length - 1)) * 100);
 
 function copyText(text) {
@@ -42,10 +44,11 @@ function copyText(text) {
 }
 
 export default function RoadmapPage({ navigate, PageHero, SectionTitle }) {
+  const { t } = useLang();
   const [selected, setSelected] = useState(() => {
     const hash = typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '';
     if (hash && ERAS.some((e) => e.id === hash)) return hash;
-    return 'smoke-9';
+    return 'host-10';
   });
   const [voice, setVoice] = useState('human');
   const [postFilter, setPostFilter] = useState('all');
@@ -106,17 +109,17 @@ export default function RoadmapPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="EE"
-        eyebrow="ROADMAP · ETERNAL ECLIPSE"
-        title={<>DOS ÓRBITAS.<br />UN CRUCE.<br />LUEGO, UN NOMBRE.</>}
-        text="NAVI y rxOS crecen en parejas hasta el 10. Ese cruce es el Eclipse: el laboratorio se vuelve logia, y más tarde un solo sistema llamado EchOS. Hoy no estamos ahí. El pin está en el mapa."
+        eyebrow={t('roadEyebrow')}
+        title={<>{t('roadTitle1')}<br />{t('roadTitle2')}<br />{t('roadTitle3')}</>}
+        text={t('roadText')}
         image="/rxos/9/14-mac-desktop-photos.jpg"
         className="rxos-hero"
       >
         <div className="hero-tags">
-          <span>AQUÍ: 8.5/6.5 + 9/7-WORLD</span>
+          <span>{t('roadHere')}</span>
           <span>7-NPU = PLAN</span>
-          <span>10/10 = VISIÓN</span>
-          <span>EchOS = VISIÓN</span>
+          <span>rxOS 10 = {t('comingSoon')}</span>
+          <span>EchOS = {t('vision')}</span>
         </div>
         <div className="hero-actions">
           <a className="brutal-button primary" href="#timeline">LÍNEA DE TIEMPO</a>
@@ -132,20 +135,16 @@ export default function RoadmapPage({ navigate, PageHero, SectionTitle }) {
         <section className="section wrap" id="here">
           <SectionTitle
             code="00 / AQUÍ ESTAMOS"
-            title="DOS VERDADES A LA VEZ"
-            text={`Corte ${ROADMAP_CUTOFF}. La última línea medida en metal no es la misma que la ISO que se descarga hoy. Las dos son reales. Ninguna es el Eclipse.`}
+            title={t('roadPinTitle')}
+            text={t('roadPinText')}
           />
+          <Launch10Banner navigate={navigate} compact />
           <div className="here-banner">
             <div className="here-banner-pin">
               <Moon size={22} strokeWidth={1.6} />
-              <span>AQUÍ ESTAMOS</span>
+              <span>{t('roadHere')}</span>
             </div>
-            <p>
-              <strong>8.5 + NAVI 6.5 RLC</strong> es lo último que midió julios en un portátil
-              (HP 15-ac195nl). <strong>9 SMOKE + NAVI 7-WORLD</strong> es la ISO negra que puedes
-              arrancar ahora. El NPU no está. NAVI 8, 9 y 10 no tienen código. Eternal Eclipse
-              y EchOS son el destino, no el dominio de hoy.
-            </p>
+            <p>{t('roadPinBody')}</p>
           </div>
           <div className="hit-numbers" data-reveal>
             {HERE_FACTS.map((item) => (

@@ -12,6 +12,8 @@ import {
   Terminal,
   Zap,
 } from 'lucide-react';
+import { useLang } from './lang.jsx';
+import { Launch10Banner, Spec10Table, Sku10Table } from './Launch10.jsx';
 
 const LINE = [
   {
@@ -238,6 +240,24 @@ const LINE = [
     extra: '/docs/navi92-dummies',
     extraLabel: 'PARA DUMMIES',
   },
+  {
+    id: 'navi10',
+    gen: '10',
+    name: 'NAVI 10',
+    codename: 'ECHO · HOST LIVE',
+    status: 'HOST LIVE · rxOS 10 PRÓXIMO',
+    statusEn: 'HOST LIVE · rxOS 10 COMING SOON',
+    tone: 'ok',
+    icon: Hexagon,
+    where: 'navi10 + NAVI_AI_SNN/qn + tui/navi10-rs',
+    unit: 'Q_N + CAM 4096×32 B + WSP 16 B',
+    text: 'SNN Heap-0. Q_N = Q₈×Q₈ (65536 direcciones, 256 LIF). Sin extracto: DESCONOCIDO. Akida PLAN. La boca (LPU) no posee los hechos. El SO 10 es el próximo lanzamiento.',
+    textEn: 'SNN Heap-0. Q_N = Q₈×Q₈ (65536 addresses, 256 LIF). No extract: UNKNOWN. Akida PLAN. The mouth (LPU) does not own facts. OS 10 is the coming launch.',
+    facts: ['CAM 4096×32 B', 'Q_N 65536', 'VERIFY / DESCONOCIDO', 'Akida = PLAN'],
+    docs: '/docs/navi10',
+    extra: '/docs/navi10-spec',
+    extraLabel: 'FICHA 10 / 10',
+  },
 ];
 
 const NAVI5_LAYERS = [
@@ -270,6 +290,8 @@ const EXPERT_STACK = [
 ];
 
 export default function NaviPage({ navigate, PageHero, SectionTitle }) {
+  const { lang, t } = useLang();
+
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
     if (!hash) return undefined;
@@ -283,73 +305,80 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
     <>
       <PageHero
         index="NV"
-        eyebrow="NAVI · LÍNEA SNN 1 → 9.2 ZORRO · HOST LIVE + rxOS 9"
-        title={<>NO ES UN LORO.<br />ES UN ZORRO.</>}
-        text="1–4.5 en el unikernel. 7.5 memoria. 8.9 dual. 9.2 elige UNA tarea (ask, resume, echo, think). Sin ficha: lo dice. 10 = Akida + visión + cuerpo: PLAN."
-        image="/screenshots/navi/navi92-cli.png"
+        eyebrow={t('naviEyebrow')}
+        title={<>{t('naviHeroTitle1')}<br />{t('naviHeroTitle2')}</>}
+        text={t('naviHeroText')}
+        image="/screenshots/navi/navi89-tui-desk.png"
         className="rxos-hero"
       >
         <div className="hero-tags">
-          <span>9.2 ZORRO</span>
-          <span>Q₆ 48/48</span>
-          <span>ECHO 16 B</span>
-          <span>WIKIPEDIA + DDG</span>
-          <span>0% FPU EN EL MOTOR</span>
+          <span>NAVI 10 ECHO</span>
+          <span>Q_N 65536</span>
+          <span>CAM 4096×32 B</span>
+          <span>WSP 16 B</span>
+          <span>0 FPU</span>
           <span>AKIDA = PLAN</span>
         </div>
         <div className="hero-actions">
-          <a className="brutal-button primary" href="#catalogo">CATÁLOGO 1–9.2</a>
-          <a className="brutal-button" href="#dummies">PARA DUMMIES</a>
-          <a className="brutal-button" href="#expertos">PARA EXPERTOS</a>
-          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi65')}>
-            MANUAL NAVI 6.5
+          <a className="brutal-button primary" href="#puede">{t('naviCatalogCta')}</a>
+          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi10-spec')}>
+            {t('naviSpecCta')}
           </button>
-          <button type="button" className="brutal-button" onClick={() => navigate('/docs/cianotipo')}>
-            CIANOTIPO
+          <button type="button" className="brutal-button" onClick={() => navigate('/docs/navi10')}>
+            {t('read')} NAVI 10
+          </button>
+          <button type="button" className="brutal-button" onClick={() => navigate('/docs/rxos10')}>
+            rxOS 10
+          </button>
+          <button type="button" className="brutal-button" onClick={() => navigate('/roadmap')}>
+            ECLIPSE
           </button>
         </div>
       </PageHero>
 
       <main>
+        <section className="section wrap" id="launch">
+          <Launch10Banner navigate={navigate} compact />
+        </section>
         <section className="section wrap" id="puede">
           <SectionTitle
-            code="00 / 9.2 ZORRO"
-            title="QUÉ PUEDE. QUÉ NO. ADÓNDE VA."
-            text="Contrato VERIFY. La visión (cámara, Akida, robot) se publica para no fingirla como 9.2."
+            code={t('naviCanCode')}
+            title={t('naviCanTitle')}
+            text={t('naviCanText')}
           />
           <div className="navi-catalog">
             <article className="navi-card" data-reveal>
-              <h3>Puede</h3>
+              <h3>{t('naviCanH')}</h3>
               <ul>
-                <li>Elegir UNA tarea: ask, resume, echo, teach, code, think, talk</li>
-                <li>Cosechar Wikipedia/DDG y guardar ficha (KCC)</li>
-                <li>Resumir el texto que pegas — cita, no hecho</li>
-                <li>Echo: postal RogexWSP + cubo 256/384/320 Hz + glifo</li>
-                <li>Charlar sin abrir Wikipedia. Dual 8.9 VERIFY</li>
-                <li>Math entero, maze BFS, esqueletos del catálogo</li>
+                <li>{t('naviCan1')}</li>
+                <li>{t('naviCan2')}</li>
+                <li>{t('naviCan3')}</li>
+                <li>{t('naviCan4')}</li>
+                <li>{t('naviCan5')}</li>
+                <li>{t('naviCan6')}</li>
               </ul>
             </article>
             <article className="navi-card" data-reveal>
-              <h3>Aún no</h3>
+              <h3>{t('naviNotH')}</h3>
               <ul>
-                <li>Cámara en tiempo real</li>
-                <li>Arduino / Raspberry Pi</li>
-                <li>Q6-retrieve en Akida (0 placas; el driver se niega)</li>
-                <li>Inventar hechos, ARN o puentes entre fichas</li>
-                <li>Sustituir a un clínico o ganar LMSYS</li>
+                <li>{t('naviNot1')}</li>
+                <li>{t('naviNot2')}</li>
+                <li>{t('naviNot3')}</li>
+                <li>{t('naviNot4')}</li>
+                <li>{t('naviNot5')}</li>
               </ul>
             </article>
             <article className="navi-card" data-reveal>
-              <h3>Misión 10</h3>
+              <h3>{t('naviGoH')}</h3>
               <ul>
-                <li>Akida: el mismo DAG en NPU, o se dice que no hay placa</li>
-                <li>Visión: fotograma → ficha. Sin etiqueta: DESCONOCIDO</li>
-                <li>Cuerpo: un relé / servo / stop VERIFY</li>
-                <li>Eclipse: NAVI 10 + rxOS 10. Hoy no existe</li>
+                <li>{t('naviGo1')}</li>
+                <li>{t('naviGo2')}</li>
+                <li>{t('naviGo3')}</li>
+                <li>{t('naviGo4')}</li>
               </ul>
               <div className="hero-actions">
-                <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi92')}>
-                  LEER 9.2
+                <button type="button" className="brutal-button primary" onClick={() => navigate('/docs/navi10')}>
+                  {t('read')} 10
                 </button>
                 <button type="button" className="brutal-button" onClick={() => navigate('/roadmap')}>
                   ETERNAL ECLIPSE
@@ -358,11 +387,15 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
             </article>
           </div>
         </section>
+        <section className="section wrap" id="ficha">
+          <Spec10Table />
+          <Sku10Table />
+        </section>
         <section className="section wrap" id="catalogo">
           <SectionTitle
             code="01 / CATÁLOGO"
-            title="TODAS LAS NAVI, EN ORDEN"
-            text="Cada generación añade una capa. Ninguna borra a la anterior. Pulsa LEER para el markdown vivo."
+            title={t('naviLineTitle')}
+            text={t('naviLineText')}
           />
           <div className="navi-catalog">
             {LINE.map((item, index) => {
@@ -377,7 +410,7 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
                 >
                   <header className="navi-card-head">
                     <span className="navi-gen">{item.gen}</span>
-                    <Status tone={item.tone}>{item.status}</Status>
+                    <Status tone={item.tone}>{lang === 'en' && item.statusEn ? item.statusEn : item.status}</Status>
                   </header>
                   <div className="navi-card-title">
                     <Icon size={22} strokeWidth={1.5} />
@@ -386,7 +419,7 @@ export default function NaviPage({ navigate, PageHero, SectionTitle }) {
                       <em>{item.codename}</em>
                     </div>
                   </div>
-                  <p>{item.text}</p>
+                  <p>{lang === 'en' && item.textEn ? item.textEn : item.text}</p>
                   <p className="navi-meta">
                     <code>{item.where}</code>
                     <span>{item.unit}</span>

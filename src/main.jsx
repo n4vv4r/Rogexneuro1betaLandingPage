@@ -50,80 +50,74 @@ import NaviPage from './NaviPage.jsx';
 import RoadmapPage from './RoadmapPage.jsx';
 import { applyTheme, getTheme, THEMES } from './theme.js';
 import OG_CATALOG from './og-catalog.json';
-import { docById } from './docs-catalog.js';
+import { docById, docBlurb } from './docs-catalog.js';
+import { LangProvider, useLang } from './lang.jsx';
+import { Launch10Banner, Layer10Arch, Spec10Table } from './Launch10.jsx';
 
-const NAV_MENUS = [
-  {
-    id: 'products',
-    label: 'PRODUCTS',
-    items: [
-      ['/rx-os', 'rxOS 9 SMOKE'],
-      ['/navi', 'NAVI 9.2 ZORRO'],
-      ['/roadmap', 'ROADMAP · ECLIPSE'],
-      ['/prisma', 'PRISMA'],
-      ['/downloads', 'DOWNLOADS'],
-      ['/docs/setup', 'SETUP QEMU · VBOX · USB'],
-      ['/suite', 'SUITE'],
-    ],
-  },
-  {
-    id: 'open',
-    label: 'OPEN',
-    items: [
-      ['https://github.com/knightslabs/Navi-9.2', 'CÓDIGO · NAVI 9.2'],
-      ['https://github.com/knightslabs/rxos-8.5', 'CÓDIGO · rxos-8.5'],
-      ['https://github.com/navywakura/RXos', 'CÓDIGO · rxOS 9 mirror'],
-      ['https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0', 'ISOs v9.0.0'],
-      ['https://github.com/knightslabs/RXos-Packages', 'PACKAGES'],
-      ['/downloads', 'TODAS LAS DESCARGAS'],
-    ],
-  },
-  {
-    id: 'docs',
-    label: 'DOCS',
-    items: [
-      ['/docs', 'INDEX'],
-      ['/docs/eternal-eclipse', 'ETERNAL ECLIPSE'],
-      ['/docs/resumen-tecnico', 'RESUMEN TÉCNICO'],
-      ['/docs/rxos8', 'rxOS 8'],
-      ['/docs/navi-compare', 'NAVI vs OTRAS IA'],
-      ['/docs/cianotipo', 'CIANOTIPO'],
-      ['/docs/akida', 'AKIDA'],
-      ['/docs/navi65', 'NAVI 6.5'],
-      ['/docs/navi66', 'NAVI 6.6'],
-      ['/docs/navi7', 'NAVI 7'],
-      ['/docs/navi75', 'NAVI 7.5'],
-      ['/docs/setup', 'SETUP QEMU · VBOX · USB'],
-      ['/docs/isos', 'ISOs 9.0.0'],
-      ['/docs/navi6', 'NAVI 6'],
-      ['/navi#dummies', 'NAVI 6.5 DUMMIES'],
-      ['/navi#expertos', 'NAVI 6.5 EXPERTOS'],
-      ['/docs/navi5', 'NAVI 5'],
-      ['/docs/navi45', 'NAVI 4.5'],
-      ['/docs/tutorial-monad', 'TUTORIAL'],
-      ['/docs/hp-metal-85', 'METAL HP 8.5'],
-      ['/docs/demostracion', 'DEMO + BENCH'],
-      ['/docs/rfc-q6-campana', 'RFC Q6 CAMPAÑA'],
-      ['/architecture', 'ARCHITECTURE'],
-    ],
-  },
-  {
-    id: 'lab',
-    label: 'LAB',
-    items: [
-      ['/about', 'ABOUT'],
-      ['https://newspaper.rogexlaboratories.com', 'NEWSPAPER'],
-      ['/investors', 'INVESTORS'],
-      ['/pitch', 'PITCH'],
-      ['/startup-idea', 'STARTUP'],
-    ],
-  },
-];
+function getNavMenus(t) {
+  return [
+    {
+      id: 'products',
+      label: t('products'),
+      items: [
+        ['/navi', t('navNavi')],
+        ['/rx-os', t('navRxos')],
+        ['/roadmap', t('navRoadmap')],
+        ['/docs/navi10-spec', t('navSpec')],
+        ['/prisma', t('navPrisma')],
+        ['/downloads', t('navDownloads')],
+        ['/docs/setup', t('navSetup')],
+        ['/suite', t('navSuite')],
+      ],
+    },
+    {
+      id: 'open',
+      label: t('open'),
+      items: [
+        ['https://github.com/navywakura/RXos', t('navCodeNavi')],
+        ['https://github.com/knightslabs/rxos-8.5', t('navCodeRxos')],
+        ['https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0', t('navIsos')],
+        ['https://github.com/knightslabs/RXos-Packages', t('navPackages')],
+        ['/downloads', t('navAllDl')],
+      ],
+    },
+    {
+      id: 'docs',
+      label: t('docs'),
+      items: [
+        ['/docs', t('navIndex')],
+        ['/docs/navi10', t('navNavi10')],
+        ['/docs/rxos10', t('navRxos10')],
+        ['/docs/navi10-spec', t('navSpec')],
+        ['/docs/eternal-eclipse', t('navEclipse')],
+        ['/docs/resumen-tecnico', t('navTech')],
+        ['/docs/navi-compare', 'NAVI vs IA'],
+        ['/docs/cianotipo', 'CIANOTIPO'],
+        ['/docs/akida', 'AKIDA'],
+        ['/docs/navi7', 'NAVI 7'],
+        ['/docs/navi75', 'NAVI 7.5'],
+        ['/docs/setup', t('navSetup')],
+        ['/docs/isos', 'ISOs 9.0.0'],
+        ['/architecture', 'ARCHITECTURE'],
+      ],
+    },
+    {
+      id: 'lab',
+      label: t('lab'),
+      items: [
+        ['/about', 'ABOUT'],
+        ['https://newspaper.rogexlaboratories.com', 'NEWSPAPER'],
+        ['/investors', 'INVESTORS'],
+        ['/pitch', 'PITCH'],
+        ['/startup-idea', 'STARTUP'],
+      ],
+    },
+  ];
+}
 
-const NAV_ITEMS = [
-  ['/', 'HOME'],
-  ...NAV_MENUS.flatMap((m) => m.items),
-];
+function getNavItems(t) {
+  return [['/', t('home')], ...getNavMenus(t).flatMap((m) => m.items)];
+}
 
 function navHrefActive(path, href) {
   if (path === href) return true;
@@ -214,11 +208,35 @@ const SOCIALS = [
 
 const PRODUCT_SUITE = [
   {
+    id: 'navi-10',
+    code: 'NV-10',
+    name: 'NAVI 10 Echo',
+    tier: 'OPEN · SNN HEAP-0 · HOST LIVE',
+    status: 'HOST LIVE · rxOS 10 PRÓXIMO',
+    text: 'Q_N = Q₈×Q₈, CAM 4096×32 B, WSP 16 B. VERIFY o DESCONOCIDO. TUI Rust. La boca (LPU) no posee los hechos. Akida PLAN. No es un LLM.',
+    tags: ['Q_N 65536', 'CAM Heap-0', 'WSP 16 B', 'VERIFY'],
+    href: '/navi',
+    icon: Brain,
+    tone: 'acid',
+  },
+  {
+    id: 'rxos-10',
+    code: 'RX-10',
+    name: 'rxOS 10',
+    tier: 'OPEN CORE · PRÓXIMO LANZAMIENTO',
+    status: 'COMING SOON · ISO 9 SHIPS TODAY',
+    text: 'El unikernel que alojará Echo. Contrato público: Heap-0, 0 FPU en el motor, KCC. Hoy se descarga 9.0.0 SMOKE. Sin SHA-256 no hay ISO 10.',
+    tags: ['ECLIPSE', 'ECHO IN-OS', 'DARK AERO', 'GPLv3'],
+    href: '/docs/rxos10',
+    icon: Cpu,
+    tone: 'dark',
+  },
+  {
     id: 'rxos-desktop',
     code: 'RX-01',
     name: 'rxOS 9 SMOKE',
     tier: 'OPEN CORE · BOOTABLE x86-64',
-    status: 'v9.0.0 · NAVI 7',
+    status: 'v9.0.0 · NAVI 7 · SHIPPING',
     text: 'Unikernel bare-metal: escritorio Dark Aero, NAVI 7 oficial (catálogo + harvest). El usuario no entrena. Photos, Ajustes, wget. Drivers virtio / e1000 / r8169 / rtl8139.',
     tags: ['SMOKE AERO', 'NAVI 7', 'G_*', 'e1000'],
     href: '/rx-os',
@@ -228,11 +246,11 @@ const PRODUCT_SUITE = [
   {
     id: 'navi-line',
     code: 'NV-00',
-    name: 'NAVI SNN 1 → 6.5',
+    name: 'NAVI SNN 1 → 10',
     tier: 'OPEN · LÍNEA NEUROMÓRFICA',
-    status: 'CATÁLOGO · RLC 6.5',
-    text: 'Familia SNN: Q₆, WSP 16 B, operador G_rxos, lab 5, tutor 6 y modelo RLC 6.5 (once máscaras G_*). No es un LLM. El castellano es máscara.',
-    tags: ['Q₆', 'WSP 16 B', 'NAVI 6.5 RLC', 'KCC'],
+    status: '10 ECHO LIVE · 7-WORLD EN ISO 9',
+    text: 'Familia SNN: Q₆, WSP 16 B, RLC 6.5, 7-WORLD, 9.2 zorro y 10 Echo. No es un LLM. El castellano es máscara. Los hechos viven en la CAM.',
+    tags: ['Q₆', 'WSP 16 B', 'NAVI 10', 'KCC'],
     href: '/navi',
     icon: Brain,
     tone: 'acid',
@@ -783,7 +801,8 @@ const VERSION_HISTORY = [
   { ver: '7.0', title: 'MONAD / NAVI-3', state: 'HISTORIA', text: 'SNN in-kernel, WSP 16 B, chat tecla v. Sustituida por 8.' },
   { ver: '8.0', title: 'DESKTOP / NAVI-4.5', state: 'HISTORIA', text: 'Operador G_rxos, /prove, discurso, capturas QEMU 11–17.' },
   { ver: '8.5', title: 'DESKTOP / NAVI 6.5', state: 'HISTORIA', text: 'RLC preentrenado. Metal HP 15-ac195nl medido 17 ago 2026.' },
-  { ver: '9.0', title: 'SMOKE / NAVI 7', state: 'ACTUAL', text: 'Dark Aero, catálogo 7-WORLD, Photos, Ajustes, wget. GRUB eclipse.' },
+  { ver: '9.0', title: 'SMOKE / NAVI 7', state: 'SHIPPING', text: 'Dark Aero, catálogo 7-WORLD, Photos, Ajustes, wget. GRUB eclipse. ISO de hoy.' },
+  { ver: '10', title: 'ECLIPSE / NAVI 10', state: 'PRÓXIMO', text: 'NAVI 10 Echo host LIVE. rxOS 10 próximo lanzamiento. Sin ISO 10 todavía.' },
 ];
 
 const HIT_NUMBERS = [
@@ -1026,6 +1045,8 @@ function SocialIcon({ item }) {
 }
 
 function Header({ path, navigate }) {
+  const { lang, setLang, t } = useLang();
+  const navMenus = getNavMenus(t);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(null);
   const [theme, setTheme] = useState(() => getTheme());
@@ -1080,19 +1101,38 @@ function Header({ path, navigate }) {
           <a
             className="nav-ext-btn"
             href={DOWNLOAD_CATALOG.rxos.vmIso}
-            title="Descargar ISO VM"
+            title={t('isoVm')}
           >
-            ISO VM
+            {t('isoVm')}
           </a>
           <a
             className="nav-ext-btn nav-ext-btn-ghost"
             href={DOWNLOAD_CATALOG.rxos.source}
             target="_blank"
             rel="noreferrer"
-            title="Código abierto en GitHub"
+            title={t('code')}
           >
-            CÓDIGO
+            {t('code')}
           </a>
+          <div className="lang-switch" role="group" aria-label={t('langSwitch')}>
+            <button
+              type="button"
+              className={lang === 'es' ? 'lang-btn is-active' : 'lang-btn'}
+              aria-pressed={lang === 'es'}
+              onClick={() => setLang('es')}
+            >
+              ES
+            </button>
+            <button
+              type="button"
+              className={lang === 'en' ? 'lang-btn is-active' : 'lang-btn'}
+              aria-pressed={lang === 'en'}
+              onClick={() => setLang('en')}
+              title={t('translateEn')}
+            >
+              EN
+            </button>
+          </div>
           <div className="theme-picker" title="Tema">
             {THEMES.map((t) => (
               <button
@@ -1108,7 +1148,7 @@ function Header({ path, navigate }) {
           </div>
           <button
             className="menu-toggle"
-            aria-label="Open navigation"
+            aria-label={t('menu')}
             aria-expanded={menuOpen}
             onClick={() => { setMenuOpen((v) => !v); setOpenDrop(null); }}
           >
@@ -1123,9 +1163,9 @@ function Header({ path, navigate }) {
               className={path === '/' ? 'nav-link is-active' : 'nav-link'}
               onClick={() => go('/')}
             >
-              HOME
+              {t('home')}
             </button>
-            {NAV_MENUS.map((menu) => {
+            {navMenus.map((menu) => {
               const open = openDrop === menu.id;
               const active = menu.items.some(([href]) => navHrefActive(path, href));
               return (
@@ -1631,23 +1671,21 @@ function KccFindUsSection() {
 }
 
 function Home({ navigate }) {
+  const { lang, t } = useLang();
   return (
     <>
       <Slideshow onNavigate={navigate} />
       <section className="home-lede wrap">
-        <span className="kicker">KNIGHTS LABS · ROGEX · AGOSTO 2026</span>
-        <p>
-          Un pensamiento de <strong>16 bytes</strong>. Un escritorio de <strong>~3 MiB</strong>.
-          Arriba, una conversa <strong>real</strong> con NAVI 7.5: se presenta, explica, busca en Wikipedia y cuenta.
-          Si no hay ficha, lo dice. QEMU, VirtualBox o USB. Las cifras RAPL salieron del HP el 17 ago 2026.
-        </p>
+        <span className="kicker">{t('homeKicker')}</span>
+        <p>{t('homeLede')}</p>
         <div className="hero-tags">
-          <span>NAVI 7.5 VIVO</span>
-          <span>rxOS 9 SMOKE</span>
-          <span>QEMU · VBOX · USB</span>
-          <span>72.5 µJ/run Q6</span>
-          <span>PRISMA ENGINE 0.1</span>
+          <span>{t('homeTag1')}</span>
+          <span>{t('homeTag2')}</span>
+          <span>{t('homeTag3')}</span>
+          <span>{t('homeTag4')}</span>
+          <span>{t('homeTag5')}</span>
         </div>
+        <Launch10Banner navigate={navigate} />
         <OpenLabBar />
         <div className="home-metal-strip" data-reveal>
           {['01-chat-rlc.jpg', '02-power-rapl.jpg', '06-navi-joules.jpg', '08-masks-demo.jpg'].map((file) => (
@@ -1660,9 +1698,9 @@ function Home({ navigate }) {
 
       <section className="section wrap" id="articulos">
         <SectionTitle
-          code="00 / ARTÍCULOS"
-          title="LEER ANTES DE DEBATIR"
-          text="Papeles vivos del lab. Cada banner es una foto externa que representa la idea — no un render del producto. Pulsa LEER."
+          code={t('articlesCode')}
+          title={t('articlesTitle')}
+          text={t('articlesText')}
         />
         <Slideshow
           slides={DOC_SLIDES}
@@ -1675,8 +1713,8 @@ function Home({ navigate }) {
         <div className="article-index">
           {DOC_SLIDES.map((s) => (
             <button key={s.href} type="button" className="article-index-item" onClick={() => navigate(s.href)}>
-              <span>{s.kicker.replace('ARTÍCULO · ', '')}</span>
-              <strong>{s.title}</strong>
+              <span>{(lang === 'en' && s.kickerEn ? s.kickerEn : s.kicker).replace(/ARTÍCULO · |ARTICLE · /g, '')}</span>
+              <strong>{lang === 'en' && s.titleEn ? s.titleEn : s.title}</strong>
             </button>
           ))}
         </div>
@@ -1685,9 +1723,9 @@ function Home({ navigate }) {
       <section className="section section-black" id="the-hit">
         <div className="wrap">
           <SectionTitle
-            code="00 / THE HIT"
-            title="UN PENSAMIENTO QUE CABE EN UN SMS DE 1999"
-            text="ChatGPT mueve un hangar. NAVI cabe en un sello de correos. Arranca la ISO, pulsa v, escribe /prove — o estás leyendo publicidad."
+            code={t('hitCode')}
+            title={t('hitTitle')}
+            text={t('hitText')}
           />
           <HitNumbers />
           <ExplainChapters />
@@ -1697,13 +1735,13 @@ function Home({ navigate }) {
               INFOGRAFÍA COMPLETA <ArrowUpRight size={15} />
             </button>
             <a className="brutal-button" href={DOWNLOAD_CATALOG.rxos.vmIso}>
-              DESCARGAR rxOS 9
+              {t('downloadRxos9')}
             </a>
             <button className="brutal-button" onClick={() => navigate('/roadmap')}>
-              ROADMAP · ECLIPSE
+              {t('navRoadmap')}
             </button>
             <button className="brutal-button" onClick={() => navigate('/navi')}>
-              CATÁLOGO NAVI
+              {t('catalogNavi')}
             </button>
             <button className="brutal-button" onClick={() => navigate('/docs/navi45')}>
               AVISO NAVI-4.5
@@ -1715,9 +1753,9 @@ function Home({ navigate }) {
       <main>
         <section className="section wrap" id="identity">
           <SectionTitle
-            code="01 / IDENTITY"
-            title="DE ROGEX AL MARCO KNIGHTS LABS"
-            text="Misma ingeniería, identidad de producto más clara: investigación abierta donde aporta, licencias estratificadas donde sostiene el hardware accesible."
+            code={t('identityCode')}
+            title={t('identityTitle')}
+            text={t('identityText')}
           />
           <div className="identity-grid">
             <article className="paper-panel" data-reveal>
@@ -1749,9 +1787,9 @@ function Home({ navigate }) {
         <section className="section section-black">
           <div className="wrap">
             <SectionTitle
-              code="02 / SUITE"
-              title="CUATRO SUPERFICIES, UN PIPELINE"
-              text="De la adquisición EEG al spike train y de vuelta a la telemetría — sin confudir MVP, roadmap y visión."
+              code={t('suiteCode')}
+              title={t('suiteTitle')}
+              text={t('suiteText')}
             />
             <div className="suite-grid">
               {PRODUCT_SUITE.map((product, index) => (
@@ -1763,9 +1801,9 @@ function Home({ navigate }) {
 
         <section className="section wrap">
           <SectionTitle
-            code="03 / PIPELINE"
-            title="DEL SENSOR AL SPIKE"
-            text="Stack rxOS 8: boot → fabric → Q₆/LIF → WSP/NAVI-4.5 → Aero. Akida = Nivel 3 pendiente."
+            code={t('pipeCode')}
+            title={t('pipeTitle')}
+            text={t('pipeText')}
           />
           <div className="mini-arch" data-reveal>
             {ARCH_STACK.map((item) => (
@@ -1777,12 +1815,13 @@ function Home({ navigate }) {
               </div>
             ))}
           </div>
+          <Layer10Arch />
           <div className="hero-actions section-actions">
             <button className="brutal-button primary" onClick={() => navigate('/architecture')}>
-              FULL ARCHITECTURE <ArrowUpRight size={15} />
+              {t('fullArch')} <ArrowUpRight size={15} />
             </button>
             <button className="brutal-button" onClick={() => navigate('/rx-os')}>
-              DOWNLOAD RXos TEST BUILD
+              {t('downloadRxos9')}
             </button>
           </div>
         </section>
@@ -1835,13 +1874,14 @@ function Home({ navigate }) {
 }
 
 function Suite({ navigate }) {
+  const { t } = useLang();
   return (
     <>
       <PageHero
         index="01"
-        eyebrow="PRODUCT SUITE / KNIGHTS LABS"
+        eyebrow={t('suiteEyebrow')}
         title={<>THE STACK,<br />NOT THE HYPE.</>}
-        text="rxOS Desktop, kernel neuromórfico open source, PRISMA 3.2 y PRISMA 5. Cada pieza tiene estado, licencia y público: desarrolladores, investigadores e integradores OEM."
+        text={t('suiteHeroText')}
         image="/rxos-concept.svg"
       >
         <div className="hero-actions">
@@ -1935,16 +1975,20 @@ function Suite({ navigate }) {
 }
 
 function Architecture({ navigate }) {
+  const { t } = useLang();
   return (
     <>
       <PageHero
         index="02"
-        eyebrow="ARCHITECTURE / rxOS 8 · NAVI-4.5 · WSP · Q₆"
+        eyebrow={t('archEyebrow')}
         title={<>EVENT FABRIC<br />ON VON NEUMANN.<br />FALSIFIABLE.</>}
-        text="rxOS 8 no dibuja neuronas: ejecuta eventos, LIF Q16.16, el hipercubo Q₆ y NAVI-4.5 sobre paquetes WSP de 16 B. /prove es el test. Silicio = x86_64 con reloj. Nivel 3 (Akida) aún sin chip en el lab."
+        text={t('archText')}
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
+          <span>NAVI 10</span>
+          <span>Q_N</span>
+          <span>CAM Heap-0</span>
           <span>v9.0.0</span>
           <span>SPSC 64 B</span>
           <span>LIF Q16.16</span>
@@ -1971,6 +2015,7 @@ function Architecture({ navigate }) {
               </div>
             ))}
           </div>
+          <Layer10Arch />
         </section>
 
         <section className="section section-black" id="explain">
@@ -2533,6 +2578,7 @@ function PapersSection({ code = 'PAPERS', title = 'DOCUMENTACIÓN TÉCNICA', tex
 }
 
 function RXOS({ navigate }) {
+  const { t } = useLang();
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
     if (!hash) return undefined;
@@ -2547,13 +2593,17 @@ function RXOS({ navigate }) {
       <PageHero
         index="04"
         className="rxos-hero"
-        eyebrow={`${RXOS_VERSION_LABEL} / NAVI 7.5 / DARK AERO`}
-        title={<>THE OS<br />IS THE DEMO.</>}
-        text="rxOS 9 SMOKE: escritorio de cristal negro y NAVI 7.5 que busca, razona y cuenta. Photos no te cambia el fondo. Si no hay ficha: lo dice. Arranca la ISO en QEMU, VirtualBox o USB. Eso es la demo."
+        eyebrow={t('rxosEyebrow')}
+        title={<>{t('rxosHeroTitle1')}<br />{t('rxosHeroTitle2')}</>}
+        text={t('rxosHeroText')}
         image={RXOS_HERO_IMAGE}
       >
         <div className="hero-tags">
-          <span>v9.0.0 SMOKE</span><span>NAVI 7.5</span><span>QEMU · VBOX · USB</span><span>DARK AERO</span><span>wget</span><span>GPLv3</span>
+          <span>rxOS 10 · {t('comingSoon')}</span>
+          <span>v9.0.0 {t('shipping')}</span>
+          <span>NAVI 10 {t('hostLive')}</span>
+          <span>QEMU · VBOX · USB</span>
+          <span>GPLv3</span>
         </div>
         <OpenLabBar />
         <div className="hero-cta-row" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 18 }}>
@@ -2569,6 +2619,15 @@ function RXOS({ navigate }) {
       </PageHero>
 
       <main>
+        <section className="section wrap" id="rxos-10">
+          <SectionTitle
+            code={t('rxos10Code')}
+            title={t('rxos10Title')}
+            text={t('rxos10Text')}
+          />
+          <Launch10Banner navigate={navigate} compact />
+          <Spec10Table />
+        </section>
         <section className="section wrap rxos-principal-section" id="hp-metal">
           <SectionTitle
             code="01 / METAL"
@@ -2748,7 +2807,7 @@ function RXOS({ navigate }) {
             />
             <div className="version-rail" data-reveal>
               {VERSION_HISTORY.map((v) => (
-                <article className={v.state === 'ACTUAL' ? 'is-now' : ''} key={v.ver}>
+                <article className={v.state === 'SHIPPING' || v.state === 'PRÓXIMO' ? 'is-now' : ''} key={v.ver}>
                   <span>{v.ver}</span>
                   <strong>{v.title}</strong>
                   <em>{v.state}</em>
@@ -3927,6 +3986,8 @@ function About({ navigate }) {
 }
 
 function Footer({ navigate }) {
+  const { lang, setLang, t } = useLang();
+  const items = getNavItems(t);
   return (
     <footer className="footer">
       <div className="wrap footer-main">
@@ -3935,13 +3996,17 @@ function Footer({ navigate }) {
             <img className="footer-knights-logo" src="/knightslabs_logo.png" alt="Knights Labs" width={48} height={48} />
             <span className="footer-wordmark">KNIGHTS<br />LABS</span>
           </button>
-          <p>Rogex Laboratories · low-carbon neurotech, EEG research software and neuromorphic systems.</p>
+          <p>{t('footerBlurb')}</p>
+          <div className="lang-switch lang-switch-footer" role="group" aria-label={t('langSwitch')}>
+            <button type="button" className={lang === 'es' ? 'lang-btn is-active' : 'lang-btn'} onClick={() => setLang('es')}>ES</button>
+            <button type="button" className={lang === 'en' ? 'lang-btn is-active' : 'lang-btn'} onClick={() => setLang('en')}>EN</button>
+          </div>
         </div>
         <div className="footer-nav">
-          {NAV_ITEMS.filter(([href]) => !/^https?:\/\//.test(href)).map(([href, label]) => (
-            <button key={href} type="button" onClick={() => navigate(href)}>{label}</button>
+          {items.filter(([href]) => !/^https?:\/\//.test(href)).map(([href, label]) => (
+            <button key={`${href}-${label}`} type="button" onClick={() => navigate(href)}>{label}</button>
           ))}
-          <a href={DOWNLOAD_CATALOG.rxos.source} target="_blank" rel="noreferrer">CÓDIGO</a>
+          <a href={DOWNLOAD_CATALOG.rxos.source} target="_blank" rel="noreferrer">{t('code')}</a>
           <a href={DOWNLOAD_CATALOG.rxos.release} target="_blank" rel="noreferrer">ISOs</a>
           <a href={DOWNLOAD_CATALOG.rxos.packagesRepo} target="_blank" rel="noreferrer">PACKAGES</a>
         </div>
@@ -3950,14 +4015,15 @@ function Footer({ navigate }) {
         </div>
       </div>
       <div className="wrap footer-bottom">
-        <span>© 2026 KNIGHTS LABS / ROGEX LABORATORIES. ALL RIGHTS RESERVED.</span>
-        <span>PRISMA IS EXPERIMENTAL, NON-CLINICAL RESEARCH SOFTWARE. LAUNCH TARGET DEC 2026.</span>
+        <span>{t('footerCopy')}</span>
+        <span>{t('footerLegal')}</span>
       </div>
     </footer>
   );
 }
 
 function Downloads({ navigate }) {
+  const { t } = useLang();
   const pe = DOWNLOAD_CATALOG.prismaEngine;
   const rx = DOWNLOAD_CATALOG.rxos;
   const nh = DOWNLOAD_CATALOG.naviHost;
@@ -3977,16 +4043,16 @@ function Downloads({ navigate }) {
     <>
       <PageHero
         index="DL"
-        eyebrow="PUBLIC ARTIFACTS · TECH PREVIEW"
-        title={<>DOWNLOADS.<br />VERIFY.<br />RUN.</>}
-        text="Binarios y paquetes de inspección pública. Software experimental — no clínico, sin garantía. Verifica siempre el SHA-256 antes de ejecutar."
+        eyebrow={t('dlEyebrow')}
+        title={<>{t('dlTitle')}</>}
+        text={t('dlText')}
         image="/screenshots/prisma-engine/hero_gui.jpg"
       >
         <div className="hero-tags">
           <span>rxOS 9.0.0 · VM + METAL</span>
-          <span>NAVI 7.5</span>
+          <span>NAVI 10 {t('hostLive')}</span>
+          <span>rxOS 10 {t('comingSoon')}</span>
           <span>PRISMA ENGINE 0.1.0</span>
-          <span>QEMU · VBOX · USB</span>
           <span>SHA-256</span>
         </div>
         <OpenLabBar />
@@ -4340,11 +4406,12 @@ cd navi-8.9.0-linux-x86_64
 }
 
 function NotFound({ navigate }) {
+  const { t } = useLang();
   return (
     <main className="not-found">
       <span>404 / ROUTE NOT FOUND</span>
-      <h1>NO SIGNAL.</h1>
-      <button className="brutal-button primary" onClick={() => navigate('/')}>RETURN HOME</button>
+      <h1>{t('notFound')}</h1>
+      <button className="brutal-button primary" onClick={() => navigate('/')}>{t('notFoundBtn')}</button>
     </main>
   );
 }
@@ -4389,7 +4456,7 @@ function setJsonLd(meta) {
         },
         image: 'https://www.rogexlaboratories.com/rogexlaboratories_logo.png',
         description:
-          'Independent lab for low-carbon neurotech: PRISMA EEG software, PRISMA 5 SNN path and RXos neuromorphic event fabric.',
+          'Independent lab for low-carbon neurotech: NAVI 10 Echo, rxOS 10 coming soon, PRISMA EEG software and neuromorphic unikernel.',
         email: 'knightsys@proton.me',
         sameAs: ['https://x.com/rogexlabs'],
       },
@@ -4397,11 +4464,32 @@ function setJsonLd(meta) {
         '@type': 'WebSite',
         '@id': 'https://www.rogexlaboratories.com/#website',
         url: 'https://www.rogexlaboratories.com/',
-        name: 'Knights Labs — Rogex Laboratories',
+        name: 'Knights Labs — NAVI 10 Echo · rxOS 10',
         description:
-          'Neurotech low-carbon: PRISMA 3.2 EEG, PRISMA 5 SNN y RXos v4.5.0 event fabric.',
+          'NAVI 10 Echo host-live, rxOS 10 coming soon, rxOS 9 SMOKE shipping, PRISMA Engine.',
         publisher: { '@id': 'https://www.rogexlaboratories.com/#organization' },
         inLanguage: ['es', 'en'],
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': 'https://www.rogexlaboratories.com/#navi10',
+        name: 'NAVI 10 Echo',
+        applicationCategory: 'DeveloperApplication',
+        softwareVersion: '10',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+        url: 'https://www.rogexlaboratories.com/navi',
+        description: 'Heap-0 SNN: Q_N, CAM 4096×32 B, WSP 16 B. VERIFY or UNKNOWN. Not an LLM.',
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': 'https://www.rogexlaboratories.com/#rxos10',
+        name: 'rxOS 10',
+        applicationCategory: 'OperatingSystem',
+        operatingSystem: 'bare-metal x86_64',
+        softwareVersion: '10 (coming soon)',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+        url: 'https://www.rogexlaboratories.com/docs/rxos10',
+        description: 'Coming unikernel that will host NAVI 10 Echo. Today’s shipping ISO is rxOS 9.0.0 SMOKE.',
       },
       {
         '@type': 'WebPage',
@@ -4411,7 +4499,7 @@ function setJsonLd(meta) {
         description: meta.description,
         isPartOf: { '@id': 'https://www.rogexlaboratories.com/#website' },
         about: { '@id': 'https://www.rogexlaboratories.com/#organization' },
-        inLanguage: 'es',
+        inLanguage: meta.locale === 'en_US' ? 'en' : 'es',
         primaryImageOfPage: {
           '@type': 'ImageObject',
           url: meta.image,
@@ -4430,60 +4518,86 @@ function setJsonLd(meta) {
   el.textContent = JSON.stringify(graph);
 }
 
-function metaFromOgEntry(entry) {
+function metaFromOgEntry(entry, lang = 'es') {
+  const title = lang === 'en' && entry.seoTitleEn ? entry.seoTitleEn : entry.seoTitle;
+  const description = lang === 'en' && entry.descriptionEn ? entry.descriptionEn : entry.description;
   return {
-    title: entry.seoTitle,
-    description: entry.description,
+    title,
+    description,
     image: ogCard(entry.slug),
     ...OG_DIM,
     imageAlt: entry.imageAlt,
     url: entry.url || `${SITE}${entry.path}`,
+    locale: lang === 'en' ? 'en_US' : 'es_ES',
   };
 }
 
-const ROUTE_META = Object.fromEntries(
-  OG_CATALOG.routes.map((entry) => [entry.path, metaFromOgEntry(entry)]),
-);
-ROUTE_META['/rogexos'] = ROUTE_META['/rx-os'];
-const DEFAULT_OG = ROUTE_META['/'];
+const OG_BY_PATH = Object.fromEntries(OG_CATALOG.routes.map((entry) => [entry.path, entry]));
+OG_BY_PATH['/rogexos'] = OG_BY_PATH['/rx-os'];
 
-function resolveMeta(path) {
+function resolveMeta(path, lang = 'es') {
   const metaPath = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
-  if (ROUTE_META[metaPath]) return ROUTE_META[metaPath];
+  const entry = OG_BY_PATH[metaPath];
+  if (entry) return metaFromOgEntry(entry, lang);
   if (metaPath.startsWith('/docs/')) {
     const id = metaPath.slice('/docs/'.length);
-    const keyed = ROUTE_META[`/docs/${id}`];
-    if (keyed) return keyed;
+    const keyed = OG_BY_PATH[`/docs/${id}`];
+    if (keyed) return metaFromOgEntry(keyed, lang);
     const doc = docById(id);
     if (doc) {
       return {
         title: `${doc.title} — Knights Labs`,
-        description: doc.blurb,
+        description: docBlurb(doc, lang) || doc.blurb,
         image: ogCard('docs'),
         ...OG_DIM,
         imageAlt: doc.title,
         url: `${SITE}/docs/${id}`,
+        locale: lang === 'en' ? 'en_US' : 'es_ES',
       };
     }
   }
-  if (metaPath.startsWith('/docs')) return ROUTE_META['/docs'] || DEFAULT_OG;
-  return DEFAULT_OG;
+  if (metaPath.startsWith('/docs') && OG_BY_PATH['/docs']) return metaFromOgEntry(OG_BY_PATH['/docs'], lang);
+  return metaFromOgEntry(OG_BY_PATH['/'], lang);
+}
+
+function setHreflang(url) {
+  const make = (hreflang, href) => {
+    let el = document.head.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`);
+    if (!el) {
+      el = document.createElement('link');
+      el.setAttribute('rel', 'alternate');
+      el.setAttribute('hreflang', hreflang);
+      document.head.appendChild(el);
+    }
+    el.setAttribute('href', href);
+  };
+  const clean = url.split('?')[0];
+  make('es', clean);
+  make('en', `${clean}?lang=en`);
+  make('x-default', clean);
 }
 
 function App() {
   const [path, navigate] = useRoute();
+  const { lang } = useLang();
   useReveal();
   const newspaperMode = shouldMountNewspaper(path);
 
   useEffect(() => {
     if (newspaperMode) return;
 
-    const meta = resolveMeta(path);
+    const meta = resolveMeta(path, lang);
     document.title = meta.title;
     setCanonical(meta.url);
     setJsonLd(meta);
+    setHreflang(meta.url);
 
     setMetaTag('name', 'description', meta.description);
+    setMetaTag(
+      'name',
+      'keywords',
+      'NAVI 10, NAVI 10 Echo, rxOS 10, rxOS 9 SMOKE, Knights Labs, Rogex Laboratories, neuromorphic OS, unikernel, CAM Heap-0, Q_N, RogexWSP, not an LLM, VERIFY, DESCONOCIDO',
+    );
     setMetaTag(
       'name',
       'robots',
@@ -4499,6 +4613,8 @@ function App() {
     setMetaTag('property', 'og:title', meta.title);
     setMetaTag('property', 'og:description', meta.description);
     setMetaTag('property', 'og:url', meta.url);
+    setMetaTag('property', 'og:locale', meta.locale || 'es_ES');
+    setMetaTag('property', 'og:locale:alternate', meta.locale === 'en_US' ? 'es_ES' : 'en_US');
     setMetaTag('property', 'og:image', meta.image);
     setMetaTag('property', 'og:image:type', meta.imageType);
     setMetaTag('property', 'og:image:width', meta.imageWidth);
@@ -4509,7 +4625,7 @@ function App() {
     setMetaTag('name', 'twitter:description', meta.description);
     setMetaTag('name', 'twitter:image', meta.image);
     setMetaTag('name', 'twitter:image:alt', meta.imageAlt);
-  }, [path, newspaperMode]);
+  }, [path, newspaperMode, lang]);
 
   // newspaper.rogexlaboratories.com or /newspaper on main domain
   if (newspaperMode) {
@@ -4584,5 +4700,9 @@ applyTheme(getTheme());
 const root = document.getElementById('root');
 if (root) {
   root.innerHTML = '';
-  createRoot(root).render(<App />);
+  createRoot(root).render(
+    <LangProvider>
+      <App />
+    </LangProvider>,
+  );
 }

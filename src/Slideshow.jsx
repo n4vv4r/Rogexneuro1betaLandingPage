@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLang } from './lang.jsx';
 
 export const HOME_SLIDES = [
   {
+    src: '/screenshots/navi/navi89-tui-desk.png',
+    credit: 'NAVI 10 Echo · host LIVE · TUI',
+    kicker: 'NAVI 10 ECHO · HOST LIVE',
+    kickerEn: 'NAVI 10 ECHO · HOST LIVE',
+    title: 'Q_N. CAM HEAP-0. VERIFY O DESCONOCIDO.',
+    titleEn: 'Q_N. HEAP-0 CAM. VERIFY OR UNKNOWN.',
+    caption: 'La mente 10 ya corre en el host. Un pensamiento son 16 bytes. Sin extracto no hay hecho. Akida sigue PLAN. No es un LLM.',
+    captionEn: 'Mind 10 already runs on the host. A thought is 16 bytes. No extract, no fact. Akida stays PLAN. Not an LLM.',
+    href: '/navi',
+  },
+  {
+    src: '/rxos/9/14-mac-desktop-photos.jpg',
+    credit: 'rxOS 10 · próximo lanzamiento · escritorio 9',
+    kicker: 'rxOS 10 · PRÓXIMO LANZAMIENTO',
+    kickerEn: 'rxOS 10 · COMING SOON',
+    title: 'EL ECLIPSE ES CUANDO EL 10 VIAJA EN EL SO.',
+    titleEn: 'THE ECLIPSE IS WHEN 10 TRAVELS IN THE OS.',
+    caption: 'Hoy flasheas 9.0.0 SMOKE. rxOS 10 alojará Echo. Hasta que exista el SHA-256, esto es el contrato, no un ISO inventado.',
+    captionEn: 'Today you flash 9.0.0 SMOKE. rxOS 10 will host Echo. Until the SHA-256 exists, this is the contract, not a fake ISO.',
+    href: '/docs/rxos10',
+  },
+  {
     src: '/rxos/9/15-navi75-live.jpg',
     credit: 'NAVI 7.5 · captura real · Wikipedia + catálogo + math',
-    kicker: 'NAVI 7.5 · VIVO',
+    kicker: 'NAVI 7.5 · VIVO EN LA ISO 9',
     title: 'PREGUNTA. BUSCA. CUENTA. NO INVENTA.',
     caption: 'Conversación real: se presenta, explica la fotosíntesis, busca a Pedro Sánchez en Wikipedia y hace 12×7+3 = 87. No es un LLM.',
     href: '/navi',
@@ -134,11 +157,44 @@ export const HOME_SLIDES = [
 
 export const DOC_SLIDES = [
   {
+    src: '/screenshots/navi/navi89-tui-desk.png',
+    credit: 'NAVI 10 Echo · host',
+    kicker: 'ARTÍCULO · NAVI 10',
+    kickerEn: 'ARTICLE · NAVI 10',
+    title: 'ECHO YA PIENSA. EL SO 10 ES EL PRÓXIMO.',
+    titleEn: 'ECHO ALREADY THINKS. OS 10 IS NEXT.',
+    caption: 'Q_N, CAM Heap-0, VERIFY o DESCONOCIDO. Ficha de producto, LPU, empaque USB. Akida PLAN. No es un LLM.',
+    captionEn: 'Q_N, Heap-0 CAM, VERIFY or UNKNOWN. Product sheet, LPU, USB packing. Akida PLAN. Not an LLM.',
+    href: '/docs/navi10',
+  },
+  {
+    src: '/rxos/9/14-mac-desktop-photos.jpg',
+    credit: 'rxOS 10 · contrato público',
+    kicker: 'ARTÍCULO · rxOS 10',
+    kickerEn: 'ARTICLE · rxOS 10',
+    title: 'PRÓXIMO LANZAMIENTO. SIN SHA-256 NO HAY ISO.',
+    titleEn: 'COMING SOON. NO SHA-256, NO ISO.',
+    caption: 'Unikernel + Echo. La ISO de hoy es 9.0.0 SMOKE. El Eclipse es el cruce 10/10, no un skin.',
+    captionEn: 'Unikernel + Echo. Today’s ISO is 9.0.0 SMOKE. The Eclipse is the 10/10 crossing, not a skin.',
+    href: '/docs/rxos10',
+  },
+  {
+    src: '/rxos/9/13-mac-navi-explorer.png',
+    credit: 'Ficha 10 / 10',
+    kicker: 'ARTÍCULO · SPEC',
+    kickerEn: 'ARTICLE · SPEC',
+    title: '16 B. 4096 RANURAS. 65536 DIRECCIONES.',
+    titleEn: '16 B. 4096 SLOTS. 65536 ADDRESSES.',
+    caption: 'Propiedades, SKU Desk/Edge/Host, lo que viaja en el USB y lo que se cae. Sin julios inventados.',
+    captionEn: 'Properties, Desk/Edge/Host SKU, what travels on the USB and what drops. No invented joules.',
+    href: '/docs/navi10-spec',
+  },
+  {
     src: '/rxos/9/14-mac-desktop-photos.jpg',
     credit: 'QEMU · Mac · rxOS 9 desktop',
     kicker: 'ARTÍCULO · ROADMAP',
     title: 'DOS ÓRBITAS. UN CRUCE. LUEGO, UN NOMBRE.',
-    caption: '8.5/6.5 medido. 9/7-WORLD en curso. 10/10 es el Eclipse. Eternal Eclipse y EchOS son visión. El pin está en el mapa.',
+    caption: 'NAVI 10 host LIVE. rxOS 10 próximo. 9 SMOKE se descarga. Akida PLAN. EchOS es visión. El pin está en el mapa.',
     href: '/roadmap',
   },
   {
@@ -218,7 +274,11 @@ export default function Slideshow({
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const n = slides.length;
+  const { lang } = useLang();
   const slide = slides[i] || slides[0];
+  const kicker = lang === 'en' && slide.kickerEn ? slide.kickerEn : slide.kicker;
+  const title = lang === 'en' && slide.titleEn ? slide.titleEn : slide.title;
+  const caption = lang === 'en' && slide.captionEn ? slide.captionEn : slide.caption;
 
   useEffect(() => {
     if (paused || n < 2) return undefined;
@@ -251,9 +311,9 @@ export default function Slideshow({
         ))}
         <div className="home-slideshow-scrim" aria-hidden />
         <div className="home-slideshow-copy wrap">
-          <span className="kicker">{slide.kicker}</span>
-          <h1>{slide.title}</h1>
-          <p>{slide.caption}</p>
+          <span className="kicker">{kicker}</span>
+          <h1>{title}</h1>
+          <p>{caption}</p>
           {slide.credit && <p className="slide-credit">{slide.credit}</p>}
           <div className="hero-actions">
             <button

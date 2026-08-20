@@ -1,8 +1,8 @@
 /** Public Eternal Eclipse pairing plan. Status labels are honest, not aspirational. */
 
-export const ROADMAP_CUTOFF = '2026-08-17';
+export const ROADMAP_CUTOFF = '2026-08-20';
 
-export const HERE_IDS = ['lab-85', 'smoke-9', 'host-92'];
+export const HERE_IDS = ['lab-85', 'smoke-9', 'host-92', 'host-10'];
 
 export const PHASES = [
   {
@@ -114,6 +114,20 @@ export const ERAS = [
     not: 'No está en la ISO 9. No hay visión. No hay NPU. No es NAVI 10.',
   },
   {
+    id: 'host-10',
+    phase: 'lab',
+    navi: '10 Echo',
+    rxos: 'host',
+    title: 'Echo en el host',
+    when: '20 ago 2026',
+    status: 'hecho',
+    here: true,
+    human: 'NAVI 10 ya piensa en el portátil: Q_N, CAM Heap-0, VERIFY o DESCONOCIDO. El SO 10 aún no existe.',
+    tech: './navi10 --ask / --tui / --bench. Q₈×Q₈, CAM 4096×32 B, WSP 16 B, 0 FPU. LPU es boca, no hechos. Akida PLAN.',
+    proof: 'python3 tests/test_navi10.py · ./navi10 --bench',
+    not: 'No hay ISO 10. No hay NPU. El SLM no posee cifras duras. EchOS no existe.',
+  },
+  {
     id: 'npu-7',
     phase: 'lab',
     navi: '7-NPU',
@@ -144,16 +158,16 @@ export const ERAS = [
   {
     id: 'pair-9-10',
     phase: 'align',
-    navi: '9',
+    navi: '10 Echo',
     rxos: '10',
     title: 'El SO salta',
-    when: 'después de 8/9',
+    when: 'próximo lanzamiento',
     status: 'plan',
-    here: false,
-    human: 'El sistema operativo llega a 10 antes que la mente. Se ven cerca. Aún no coinciden.',
-    tech: 'rxOS 10 no está especificado como release. NAVI 9 tampoco. El salto de SO es el anuncio; el eclipse espera al 10/10.',
-    proof: '—',
-    not: 'No hay ISO 10. No hay API Echo. No hay rebrand.',
+    here: true,
+    human: 'La mente 10 ya está. El sistema operativo 10 es el anuncio. Hasta que haya SHA-256, no se finge ISO.',
+    tech: 'Contrato público en docs/RXOS10.md: unikernel + Echo in-OS, mismos invariantes (WSP 16 B, Heap-0, VERIFY). No hay artefacto.',
+    proof: 'docs/RXOS10.md · /docs/rxos10',
+    not: 'No hay ISO 10. No hay API Echo. No hay rebrand. La ISO de hoy es 9.0.0.',
   },
   {
     id: 'eclipse',
@@ -162,12 +176,12 @@ export const ERAS = [
     rxos: '10',
     title: 'El Eclipse',
     when: 'convergencia',
-    status: 'vision',
+    status: 'plan',
     here: false,
-    human: 'Las dos lunas se alinean. El laboratorio cierra su nombre. Empieza la logia.',
+    human: 'Las dos lunas se alinean cuando exista ISO 10 con Echo dentro. El laboratorio cierra su nombre. Empieza la logia.',
     tech: 'Único hito que autoriza el paso de rogexlaboratories.com a EternalEclipse.com. Madurez de arquitectura, no un skin.',
     proof: 'cuando ambas v10 existan y se puedan arrancar',
-    not: 'Hoy es narrativa. No hay binario 10. No se cobra como producto.',
+    not: 'Hoy hay mente 10 en host, no ISO 10. No se cobra como producto.',
   },
   {
     id: 'lodge',
@@ -207,11 +221,11 @@ export const BRAND_ROWS = [
 ];
 
 export const HERE_FACTS = [
-  { n: '8.5×6.5', l: 'última línea medida en metal' },
-  { n: '9 SMOKE', l: 'ISO + NAVI 7-WORLD de hoy' },
-  { n: '0', l: 'placas Akida en el lab' },
-  { n: '72.5 µJ', l: 'Q6 / run RAPL pkg · i7-5500U' },
-  { n: '73', l: 'fichas NAVI 7-WORLD' },
+  { n: '10 Echo', l: 'HOST LIVE · ./navi10' },
+  { n: 'rxOS 10', l: 'próximo lanzamiento · sin ISO' },
+  { n: '9 SMOKE', l: 'ISO que se descarga hoy' },
+  { n: '65536', l: 'direcciones Q_N = Q₈×Q₈' },
+  { n: '4096×32 B', l: 'CAM Heap-0' },
   { n: '16 B', l: 'un pensamiento WSP' },
 ];
 

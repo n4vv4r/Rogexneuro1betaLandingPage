@@ -7,13 +7,41 @@
     <link>https://newspaper.rogexlaboratories.com/</link>
     <description>Avances de Knights Labs / Rogex Laboratories: PRISMA, RXos y neurotech low-carbon. Experimental, no clínico.</description>
     <language>es</language>
-    <lastBuildDate>Mon, 17 Aug 2026 16:36:54 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 13:50:53 GMT</lastBuildDate>
     <atom:link href="https://newspaper.rogexlaboratories.com/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://www.rogexlaboratories.com/rogexlaboratories_logo.png</url>
       <title>Rogex Newspaper</title>
       <link>https://newspaper.rogexlaboratories.com/</link>
     </image>
+    <item>
+      <title>NAVI 10 Echo ya corre. rxOS 10 es el próximo lanzamiento.</title>
+      <link>https://newspaper.rogexlaboratories.com/2026-08-20-navi-10-rxos-10</link>
+      <guid isPermaLink="true">https://newspaper.rogexlaboratories.com/2026-08-20-navi-10-rxos-10</guid>
+      <pubDate>Thu, 20 Aug 2026 12:00:00 GMT</pubDate>
+      <description>La mente 10 es HOST LIVE: Q_N, CAM Heap-0, VERIFY o DESCONOCIDO. El unikernel 10 se anuncia. La ISO que se flashea hoy sigue siendo 9.0.0 SMOKE. Sin placa Akida no hay NPU.</description>
+      <author>Roger Navarro / Knights Labs</author>
+      <category>navi10</category>
+      <category>rxos10</category>
+      <category>echo</category>
+      <category>eclipse</category>
+      <category>wsp</category>
+      <content:encoded><![CDATA[<h2>Dos verdades, otra vez</h2>
+<ol><li><strong>NAVI 10 Echo</strong> ya se puede correr en el host: <code>./navi10 --ask</code>, <code>--tui</code>, <code>--bench</code>. Un pensamiento son 16 bytes. La memoria de hechos es un CAM de 4096 ranuras × 32 B. Si no hay extracto: <strong>DESCONOCIDO</strong>.</li><li><strong>rxOS 10</strong> es el <strong>próximo lanzamiento</strong>. No hay ISO 10. No hay SHA-256. El escritorio que arrancas hoy es <strong>rxOS 9.0.0 SMOKE</strong> con NAVI 7-WORLD.</li></ol>
+<p>El cruce 10/10 es el Eclipse. Hasta que exista el artefacto, anunciamos el contrato — no fingimos un USB.</p>
+<p>Ficha: <a href="https://www.rogexlaboratories.com/docs/navi10-spec" rel="noopener noreferrer" target="_blank">rogexlaboratories.com/docs/navi10-spec</a><br />
+Mente: <a href="https://www.rogexlaboratories.com/docs/navi10" rel="noopener noreferrer" target="_blank"> /docs/navi10 </a><br />
+SO: <a href="https://www.rogexlaboratories.com/docs/rxos10" rel="noopener noreferrer" target="_blank"> /docs/rxos10 </a></p>
+<h2>Lo que no se rompe</h2>
+<ul><li>WSP = 16 B (<code>_Static_assert</code>).</li><li>Heap-0 en el paso SNN. El tick no hace malloc.</li><li>0 FPU en el motor. LIF leak 7/8, Hamming = popcount.</li><li>KCC: <code>destroyed=0</code>.</li><li>Akida: <strong>PLAN</strong>. 0 placas. <code>neurocpu akida</code> se niega.</li><li>El SLM de escritorio (LPU-S) es <strong>boca</strong>. Los hechos duros viven en la CAM, no en 57 M de pesos.</li></ul>
+<h2>Cómo se comprueba (hoy, en el host)</h2>
+<pre class="np-code"><code class="language-bash">./navi10 --ask &quot;que es un tomate&quot;
+./navi10 --bench
+./navi10 --tui
+python3 tests/test_navi10.py</code></pre>
+<p>La ISO 9 sigue en <a href="https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0" rel="noopener noreferrer" target="_blank">github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0</a>.</p>
+<p>Experimental. No clínico. GPLv3 en el árbol rxOS.</p>]]></content:encoded>
+    </item>
     <item>
       <title>Eternal Eclipse — el pin está en el mapa</title>
       <link>https://newspaper.rogexlaboratories.com/2026-08-17-eternal-eclipse</link>
@@ -29,7 +57,9 @@
       <content:encoded><![CDATA[<h2>Dónde estamos, sin teatro</h2>
 <p>Hay dos verdades a la vez y las dos se pueden comprobar.</p>
 <ol><li><strong>rxOS 8.5 + NAVI 6.5 RLC</strong> es la última línea que produjo julios en un portátil real (HP 15-ac195nl, 17 agosto 2026). QEMU se niega. El i7-5500U no.</li><li><strong>rxOS 9 SMOKE + NAVI 7-WORLD</strong> es la ISO que se descarga hoy. Escritorio negro. 73 fichas. Si no hay ficha: DESCONOCIDO.</li></ol>
-<p><strong>7-NPU no está.</strong> No hay placa Akida en el lab. <code>neurocpu akida</code> se niega. NAVI 8, 9 y 10 no tienen rama. No existe EchOS.</p>
+<p><strong>7-NPU no está.</strong> No hay placa Akida en el lab. <code>neurocpu akida</code> se niega.<br />
+<strong>NAVI 9.2 zorro sí está</strong> — en el host, no en la ISO. Ask, resume, Echo.<br />
+NAVI 10 (cámara, Akida, cuerpo) no tiene rama. No existe EchOS.</p>
 <p>El mapa vivo: <a href="https://www.rogexlaboratories.com/roadmap" rel="noopener noreferrer" target="_blank">rogexlaboratories.com/roadmap</a>.</p>
 <h2>La frase</h2>
 <p>Dos versiones que crecieron aparte — el sistema y la mente — van a coincidir en el <strong>10</strong>. Ese cruce es el eclipse. Después el laboratorio deja de llamarse laboratorio y se llama logia. Después el sistema y la mente dejan de ser dos descargas.</p>
@@ -41,6 +71,20 @@ medido      SMOKE     plan       plan        ECLIPSE</code></pre>
 <h2>Kit de posts</h2>
 <p>En la misma página hay textos listos para X y LinkedIn (ingeniería, usuarios, visión), en castellano y en inglés. Copia, adjunta la captura que dice el recuadro, publica.</p>
 <p>Papel: <a href="https://www.rogexlaboratories.com/docs/eternal-eclipse" rel="noopener noreferrer" target="_blank">/docs/eternal-eclipse</a>.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title>NAVI 9.2 zorro — una tarea, no un loro</title>
+      <link>https://newspaper.rogexlaboratories.com/2026-08-17-navi-92-zorro</link>
+      <guid isPermaLink="true">https://newspaper.rogexlaboratories.com/2026-08-17-navi-92-zorro</guid>
+      <pubDate>Mon, 17 Aug 2026 12:00:00 GMT</pubDate>
+      <description>NAVI 9.2 corre en el host. Elige UNA caza: ask, resume, echo, teach, think.</description>
+      <author>Knights Labs / Rogex Laboratories</author>
+      
+      <content:encoded><![CDATA[<p>NAVI 9.2 corre en el host. Elige UNA caza: ask, resume, echo, teach, think.<br />
+Resume no es Echo. Sin extracto no inventa. Akida, cámara y un cuerpo<br />
+Arduino/Pi son la misión de <strong>10</strong>, no de hoy.</p>
+<p>Código: <a href="https://github.com/knightslabs/Navi-9.2" rel="noopener noreferrer" target="_blank">knightslabs/Navi-9.2</a>.<br />
+Docs: [/docs/navi92](/docs/navi92).</p>]]></content:encoded>
     </item>
     <item>
       <title>Rogex Newspaper — primer despacho</title>

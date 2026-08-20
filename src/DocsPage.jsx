@@ -1,6 +1,17 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { DOC_CATEGORIES, DOCS, docById, catById, docDate } from './docs-catalog.js';
+import {
+  DOC_CATEGORIES,
+  DOCS,
+  docById,
+  catById,
+  catLabel,
+  docBlurb,
+  docDate,
+  docPath,
+  docTitle,
+} from './docs-catalog.js';
 import { renderMarkdown } from './markdown.jsx';
+import { useLang } from './lang.jsx';
 
 export function parseDocsPath(path) {
   if (path === '/docs' || path === '/docs/') return { list: true, id: null };
@@ -14,15 +25,7 @@ export default function DocsPage({ path, navigate, PageHero, SectionTitle }) {
   const doc = parsed.id ? docById(parsed.id) : null;
 
   if (!parsed.list && !doc) {
-    return (
-      <main className="section wrap">
-        <h1>Documento no encontrado</h1>
-        <p className="md-p">Ese id no está en el catálogo.</p>
-        <button type="button" className="brutal-button" onClick={() => navigate('/docs')}>
-          ÍNDICE
-        </button>
-      </main>
-    );
+    return <DocsMissing navigate={navigate} />;
   }
 
   if (parsed.list) {
@@ -36,25 +39,40 @@ export default function DocsPage({ path, navigate, PageHero, SectionTitle }) {
   return <DocArticle doc={doc} navigate={navigate} />;
 }
 
+function DocsMissing({ navigate }) {
+  const { t } = useLang();
+  return (
+    <main className="section wrap">
+      <h1>{t('docsMissing')}</h1>
+      <p className="md-p">{t('docsMissingText')}</p>
+      <button type="button" className="brutal-button" onClick={() => navigate('/docs')}>
+        {t('docsIndexBtn')}
+      </button>
+    </main>
+  );
+}
+
 function DocsIndex({ navigate, PageHero, SectionTitle }) {
+  const { lang, t } = useLang();
   const [sort, setSort] = useState('category');
   const sorted = useMemo(() => {
     const copy = [...DOCS];
+    const loc = lang === 'en' ? 'en' : 'es';
     if (sort === 'abc') {
-      copy.sort((a, b) => a.title.localeCompare(b.title, 'es'));
+      copy.sort((a, b) => docTitle(a, loc).localeCompare(docTitle(b, loc), loc));
     } else if (sort === 'date') {
-      copy.sort((a, b) => docDate(b).localeCompare(docDate(a)) || a.title.localeCompare(b.title, 'es'));
+      copy.sort((a, b) => docDate(b).localeCompare(docDate(a)) || docTitle(a, loc).localeCompare(docTitle(b, loc), loc));
     }
     return copy;
-  }, [sort]);
+  }, [sort, lang]);
 
   return (
     <>
       <PageHero
         index="DX"
-        eyebrow="DOCS · NAVI 9.2 · MARKDOWN VIVO"
+        eyebrow={t('docsEyebrow')}
         title={<>READ.<br />REPEAT.<br />MEASURE.</>}
-        text="Tutoriales, benches, papers y el host 9.2 zorro. Ordena por fecha, categoría o ABC. Sin CMS. Sin paywall."
+        text={t('docsHeroText')}
         image="/rxos/9/11-mac-tree.png"
         className="rxos-hero"
       />
@@ -62,15 +80,15 @@ function DocsIndex({ navigate, PageHero, SectionTitle }) {
         <section className="section wrap">
           <SectionTitle
             code="01 / CATÁLOGO"
-            title="LO QUE SE PUEDE LEER AQUÍ"
-            text="El visor renderiza los .md del árbol público. NAVI 9.2, Echo, Eternal Eclipse y el resto del lab."
+            title={t('docsIndexTitle')}
+            text={t('docsIndexText')}
           />
-          <div className="docs-toolbar" role="toolbar" aria-label="Ordenar documentos">
-            <span className="docs-toolbar-label">Ordenar</span>
+          <div className="docs-toolbar" role="toolbar" aria-label={t('docsSort')}>
+            <span className="docs-toolbar-label">{t('docsSort')}</span>
             {[
-              ['category', 'Categoría'],
-              ['date', 'Fecha'],
-              ['abc', 'ABC'],
+              ['category', t('docsCat')],
+              ['date', t('docsDate')],
+              ['abc', t('docsAbc')],
             ].map(([id, label]) => (
               <button
                 key={id}
@@ -105,9 +123,10 @@ function DocsIndex({ navigate, PageHero, SectionTitle }) {
 }
 
 function DocsCat({ cat, items, navigate }) {
+  const { lang } = useLang();
   return (
     <div className="docs-cat">
-      <h3 className="docs-cat-title" style={{ color: cat.color }}>{cat.label}</h3>
+      <h3 className="docs-cat-title" style={{ color: cat.color }}>{catLabel(cat, lang)}</h3>
       <div className="docs-grid">
         {items.map((d) => (
           <DocCard key={d.id} d={d} navigate={navigate} />
@@ -118,59 +137,64 @@ function DocsCat({ cat, items, navigate }) {
 }
 
 function DocCard({ d, navigate }) {
+  const { lang, t } = useLang();
   const cat = catById(d.category);
   return (
     <article className="docs-card" data-reveal>
-      <span className="doc-tag" style={{ '--tag': cat?.color || '#888' }}>{cat?.label || d.category}</span>
-      <h3>{d.title}</h3>
-      <p>{d.blurb}</p>
+      <span className="doc-tag" style={{ '--tag': cat?.color || '#888' }}>{catLabel(cat, lang) || d.category}</span>
+      <h3>{docTitle(d, lang)}</h3>
+      <p>{docBlurb(d, lang)}</p>
       <p className="docs-date">{docDate(d)}</p>
       <button type="button" className="brutal-button" onClick={() => navigate(`/docs/${d.id}`)}>
-        LEER
+        {t('read')}
       </button>
     </article>
   );
 }
 
 function DocArticle({ doc, navigate }) {
+  const { lang, t } = useLang();
   const [raw, setRaw] = useState('');
   const [err, setErr] = useState('');
+  const mdPath = docPath(doc, lang);
+  const hasLangFile = lang === 'en' ? Boolean(doc.pathEn) : true;
 
   useEffect(() => {
     let live = true;
     setRaw('');
     setErr('');
-    fetch(doc.path)
+    fetch(mdPath)
       .then((r) => {
         if (!r.ok) throw new Error(`${r.status}`);
         return r.text();
       })
-      .then((t) => {
-        if (live) setRaw(t);
+      .then((text) => {
+        if (live) setRaw(text);
       })
       .catch(() => {
-        if (live) setErr('No se pudo cargar el markdown.');
+        if (live) setErr(t('docsLoadErr'));
       });
     return () => {
       live = false;
     };
-  }, [doc.path]);
+  }, [mdPath, t]);
 
-  const baseDir = doc.path.replace(/[^/]+$/, '');
+  const baseDir = mdPath.replace(/[^/]+$/, '');
   const body = useMemo(() => (raw ? renderMarkdown(raw, { baseDir }) : null), [raw, baseDir]);
+  const cat = catById(doc.category);
 
   return (
     <div className="docs-shell">
       <aside className="docs-side">
         <button type="button" className="docs-back" onClick={() => navigate('/docs')}>
-          ← índice
+          ← {t('docsIndexBtn').toLowerCase()}
         </button>
-        {DOC_CATEGORIES.map((cat) => {
-          const items = DOCS.filter((d) => d.category === cat.id);
+        {DOC_CATEGORIES.map((sideCat) => {
+          const items = DOCS.filter((d) => d.category === sideCat.id);
           if (!items.length) return null;
           return (
-            <div key={cat.id}>
-              <span className="docs-side-cat" style={{ color: cat.color }}>{cat.label}</span>
+            <div key={sideCat.id}>
+              <span className="docs-side-cat" style={{ color: sideCat.color }}>{catLabel(sideCat, lang)}</span>
               {items.map((d) => (
                 <button
                   key={d.id}
@@ -178,7 +202,7 @@ function DocArticle({ doc, navigate }) {
                   className={d.id === doc.id ? 'is-active' : ''}
                   onClick={() => navigate(`/docs/${d.id}`)}
                 >
-                  {d.title}
+                  {docTitle(d, lang)}
                 </button>
               ))}
             </div>
@@ -187,12 +211,15 @@ function DocArticle({ doc, navigate }) {
       </aside>
       <article className="docs-article">
         <header className="docs-article-head">
-          <span className="doc-tag" style={{ '--tag': (catById(doc.category) || {}).color || 'var(--accent)' }}>
-            {(catById(doc.category) || {}).label || doc.category}
+          <span className="doc-tag" style={{ '--tag': (cat || {}).color || 'var(--accent)' }}>
+            {catLabel(cat, lang) || doc.category}
           </span>
-          <h1>{doc.title}</h1>
-          <p>{doc.blurb}</p>
-          <a className="checksum-link" href={doc.path} target="_blank" rel="noreferrer">
+          <h1>{docTitle(doc, lang)}</h1>
+          <p>{docBlurb(doc, lang)}</p>
+          {!hasLangFile && lang === 'en' ? (
+            <p className="docs-lang-note">{t('docsEsOnly')}</p>
+          ) : null}
+          <a className="checksum-link" href={mdPath} target="_blank" rel="noreferrer">
             RAW .md
           </a>
           {doc.pdf && (
@@ -202,7 +229,7 @@ function DocArticle({ doc, navigate }) {
           )}
         </header>
         {err && <p className="download-boundary">{err}</p>}
-        {!raw && !err && <p className="md-p">Cargando…</p>}
+        {!raw && !err && <p className="md-p">{lang === 'en' ? 'Loading…' : 'Cargando…'}</p>}
         <div className="md-body">{body}</div>
       </article>
     </div>

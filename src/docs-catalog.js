@@ -1,17 +1,105 @@
 /** Public markdown + PDF catalog for the in-site viewer. */
 export const DOC_CATEGORIES = [
-  { id: 'tutorial', label: 'Tutorial', color: '#c43c24' },
-  { id: 'demo', label: 'Demostración', color: '#2a7a4b' },
-  { id: 'bench', label: 'Benchmarks', color: '#b58900' },
-  { id: 'theory', label: 'Teoría', color: '#3d5a99' },
-  { id: 'research', label: 'Investigación', color: '#7a3d8c' },
-  { id: 'impl', label: 'Implementación', color: '#1a6b7a' },
-  { id: 'wsp', label: 'RogexWSP', color: '#c45c14' },
-  { id: 'prisma', label: 'PRISMA', color: '#8b3a4a' },
-  { id: 'navi', label: 'NAVI', color: '#2a5a8c' },
+  { id: 'tutorial', label: 'Tutorial', labelEn: 'Tutorial', color: '#c43c24' },
+  { id: 'demo', label: 'Demostración', labelEn: 'Demo', color: '#2a7a4b' },
+  { id: 'bench', label: 'Benchmarks', labelEn: 'Benchmarks', color: '#b58900' },
+  { id: 'theory', label: 'Teoría', labelEn: 'Theory', color: '#3d5a99' },
+  { id: 'research', label: 'Investigación', labelEn: 'Research', color: '#7a3d8c' },
+  { id: 'impl', label: 'Implementación', labelEn: 'Implementation', color: '#1a6b7a' },
+  { id: 'wsp', label: 'RogexWSP', labelEn: 'RogexWSP', color: '#c45c14' },
+  { id: 'prisma', label: 'PRISMA', labelEn: 'PRISMA', color: '#8b3a4a' },
+  { id: 'navi', label: 'NAVI', labelEn: 'NAVI', color: '#2a5a8c' },
 ];
 
 export const DOCS = [
+  {
+    id: 'navi10-spec',
+    title: 'Ficha NAVI 10 + rxOS 10',
+    titleEn: 'NAVI 10 + rxOS 10 product sheet',
+    category: 'navi',
+    path: '/docs/navi/NAVI10_SPEC.md',
+    pathEn: '/docs/navi/NAVI10_SPEC.en.md',
+    blurb: 'Propiedades, SKU, VERIFY, Q_N, CAM. Host live / ISO 10 próximo. Sin cifras inventadas.',
+    blurbEn: 'Properties, SKU, VERIFY, Q_N, CAM. Host live / ISO 10 coming soon. No invented figures.',
+    date: '2026-08-20',
+  },
+  {
+    id: 'navi10',
+    title: 'NAVI 10 — Echo Heap-0',
+    titleEn: 'NAVI 10 — Echo Heap-0',
+    category: 'navi',
+    path: '/docs/navi/NAVI10.md',
+    pathEn: '/docs/navi/NAVI10.en.md',
+    blurb: 'SNN host LIVE. Q_N = Q₈×Q₈, CAM 4096×32 B, VERIFY o DESCONOCIDO. Akida PLAN. No es un LLM.',
+    blurbEn: 'SNN host LIVE. Q_N = Q₈×Q₈, CAM 4096×32 B, VERIFY or UNKNOWN. Akida PLAN. Not an LLM.',
+    date: '2026-08-20',
+  },
+  {
+    id: 'rxos10',
+    title: 'rxOS 10 — próximo lanzamiento',
+    titleEn: 'rxOS 10 — coming soon',
+    category: 'tutorial',
+    path: '/docs/rxos/RXOS10.md',
+    pathEn: '/docs/rxos/RXOS10.en.md',
+    blurb: 'El Eclipse: unikernel + Echo. No hay ISO 10. Hoy se descarga 9.0.0 SMOKE. Contrato, no binario.',
+    blurbEn: 'The Eclipse: unikernel + Echo. No ISO 10 yet. Today you download 9.0.0 SMOKE. Contract, not a binary.',
+    date: '2026-08-20',
+  },
+  {
+    id: 'navi10-lpu',
+    title: 'NAVI 10 — LPU (córtex verbal)',
+    titleEn: 'NAVI 10 — LPU (verbal cortex)',
+    category: 'navi',
+    path: '/docs/navi/NAVI10_LPU.md',
+    pathEn: '/docs/navi/NAVI10_LPU.en.md',
+    blurb: 'La boca no posee los hechos. Relación y metáfora sí; masa de un asteroide, no.',
+    blurbEn: 'The mouth does not own facts. Relation and metaphor yes; an asteroid’s mass, no.',
+    date: '2026-08-20',
+  },
+  {
+    id: 'navi10-ship',
+    title: 'NAVI 10 — empaque USB / SKU',
+    titleEn: 'NAVI 10 — USB / SKU packing',
+    category: 'impl',
+    path: '/docs/navi/NAVI10_SHIP.md',
+    pathEn: '/docs/navi/NAVI10_SHIP.en.md',
+    blurb: 'Pequeño en el producto. Wiki dump opcional. Sin PyTorch ni Piper en el USB.',
+    blurbEn: 'Small in the product. Optional wiki dump. No PyTorch or Piper on the USB.',
+    date: '2026-08-20',
+  },
+  {
+    id: 'navi10-train',
+    title: 'NAVI 10 — entrenar (sin backprop)',
+    titleEn: 'NAVI 10 — train (no backprop)',
+    category: 'tutorial',
+    path: '/docs/navi/NAVI10_TRAIN.md',
+    pathEn: '/docs/navi/NAVI10_TRAIN.en.md',
+    blurb: 'Atractores en Q_N + CAM. Cuatro métodos. destroyed=0. --train es falseable.',
+    blurbEn: 'Attractors on Q_N + CAM. Four methods. destroyed=0. --train is falsifiable.',
+    date: '2026-08-20',
+  },
+  {
+    id: 'navi10-meta',
+    title: 'NAVI 10 — metacognición',
+    titleEn: 'NAVI 10 — metacognition',
+    category: 'navi',
+    path: '/docs/navi/NAVI10_META.md',
+    pathEn: '/docs/navi/NAVI10_META.en.md',
+    blurb: '≤4 pasadas. INHIBIT de señuelos. ACTION_REQ. No es chain-of-thought en prosa.',
+    blurbEn: '≤4 passes. Decoy INHIBIT. ACTION_REQ. Not chain-of-thought in prose.',
+    date: '2026-08-20',
+  },
+  {
+    id: 'navi10-slm',
+    title: 'NAVI 10 — SLM de escritorio',
+    titleEn: 'NAVI 10 — desktop SLM',
+    category: 'navi',
+    path: '/docs/navi/NAVI10_SLM.md',
+    pathEn: '/docs/navi/NAVI10_SLM.en.md',
+    blurb: 'LPU-S ~57 M. Hechos en la CAM. El SLM no rellena cifras duras.',
+    blurbEn: 'LPU-S ~57 M. Facts live in the CAM. The SLM does not fill hard figures.',
+    date: '2026-08-20',
+  },
   {
     id: 'tutorial-monad',
     title: 'Tutorial rxOS 9 SMOKE',
@@ -31,7 +119,8 @@ export const DOCS = [
     title: 'rxOS 9 SMOKE — qué es',
     category: 'tutorial',
     path: '/docs/rxos/RXOS9.md',
-    blurb: 'Unikernel Dark Aero, NAVI 7, wget, Photos. El producto de hoy.',
+    blurb: 'Unikernel Dark Aero, NAVI 7, wget, Photos. El producto ISO de hoy. El 10 es el próximo.',
+    blurbEn: 'Dark Aero unikernel, NAVI 7, wget, Photos. Today’s ISO product. 10 is next.',
   },
   {
     id: 'rxos8',
@@ -478,4 +567,21 @@ export function docDate(d) {
 export function docByPath(pathname) {
   const clean = pathname.replace(/\/+$/, '');
   return DOCS.find((d) => d.path.replace(/\.md$/, '') === clean || d.path === clean) || null;
+}
+
+export function docTitle(d, lang = 'es') {
+  return lang === 'en' && d.titleEn ? d.titleEn : d.title;
+}
+
+export function docBlurb(d, lang = 'es') {
+  return lang === 'en' && d.blurbEn ? d.blurbEn : d.blurb;
+}
+
+export function docPath(d, lang = 'es') {
+  return lang === 'en' && d.pathEn ? d.pathEn : d.path;
+}
+
+export function catLabel(cat, lang = 'es') {
+  if (!cat) return '';
+  return lang === 'en' && cat.labelEn ? cat.labelEn : cat.label;
 }

@@ -3,322 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EchOS & Navi 10 — Rogex Laboratories</title>
-  <meta name="description" content="Local, Deterministic & Zero-Hallucination Operating System. Powered by Neuromorphic SNN & LPU Architecture.">
-  <meta name="theme-color" content="#090a0f">
-  
-  <!-- Open Graph / Meta -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="EchOS & Navi 10 — Rogex Laboratories">
-  <meta property="og:description" content="Local, Deterministic & Zero-Hallucination Operating System. Powered by Neuromorphic SNN & LPU Architecture.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="EchOS & Navi 10 — Rogex Laboratories">
-  <meta name="twitter:description" content="Local, Deterministic & Zero-Hallucination Operating System. Powered by Neuromorphic SNN & LPU Architecture.">
-
+  <title>EchOS</title>
+  <meta name="theme-color" content="#000000">
   <style>
-    :root {
-      --bg: #090a0f;
-      --card-bg: #12151e;
-      --card-border: #1e293b;
-      --card-border-hover: rgba(16, 185, 129, 0.45);
-      --emerald: #10b981;
-      --emerald-glow: rgba(16, 185, 129, 0.25);
-      --emerald-dim: rgba(16, 185, 129, 0.1);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --accent-cyan: #38bdf8;
-      --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
+    * {
       margin: 0;
       padding: 0;
-    }
-
-    html, body {
-      min-height: 100%;
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      box-sizing: border-box;
     }
 
     body {
+      background: #000000;
+      color: #e6edf3;
+      font-family: ui-monospace, "SF Mono", Monaco, "Courier New", Courier, monospace;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 100vh;
-      padding: 2.5rem 1.5rem;
-      background-image: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.08), transparent 70%),
-        radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.04), transparent 60%);
-      background-attachment: fixed;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 1080px;
-      margin: 0 auto;
+    /* Subtle Wired / CRT scanline overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.28) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.55;
     }
 
-    /* Top Hero Header */
-    header {
-      padding: 3.5rem 0 3rem;
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .title-wrapper {
       text-align: center;
     }
 
-    /* Emerald Status Badge */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.45rem 1rem;
-      border-radius: 9999px;
-      background: var(--emerald-dim);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: var(--emerald);
-      font-family: var(--font-mono);
-      font-size: 0.84rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 24px var(--emerald-glow);
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--emerald);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--emerald);
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.35;
-        transform: scale(0.8);
-      }
-    }
-
-    /* Main Typography */
     h1 {
-      font-size: clamp(2.5rem, 6vw, 4.25rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
-      background: linear-gradient(180deg, #ffffff 30%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
-      color: var(--text-muted);
-      max-width: 760px;
-      margin: 0 auto;
-      font-weight: 400;
-      line-height: 1.6;
-    }
-
-    /* 4-Card Architecture Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0 3.5rem;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 1.75rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, transparent, transparent);
-      transition: background 0.3s ease;
-    }
-
-    .card:hover {
-      border-color: var(--card-border-hover);
-      transform: translateY(-3px);
-      box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.65), 0 0 25px rgba(16, 185, 129, 0.08);
-    }
-
-    .card:hover::before {
-      background: linear-gradient(90deg, transparent, var(--emerald), transparent);
-    }
-
-    .card-meta {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--emerald);
-      letter-spacing: 0.08em;
+      font-size: clamp(3.5rem, 15vw, 9.5rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.95;
       text-transform: uppercase;
-      margin-bottom: 0.65rem;
-      font-weight: 600;
-    }
-
-    .card-title {
-      font-size: 1.35rem;
-      font-weight: 700;
       color: #ffffff;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.75rem;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      user-select: none;
     }
 
-    .card-desc {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.55;
+    .cursor {
+      display: inline-block;
+      width: 0.45em;
+      height: 0.85em;
+      background: #00ff66;
+      margin-left: 0.08em;
+      vertical-align: baseline;
+      animation: blink 1.1s steps(2, start) infinite;
+      box-shadow: 0 0 14px rgba(0, 255, 102, 0.8);
     }
 
-    /* Footer & Newspaper Link */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
     footer {
-      border-top: 1px solid #1a202c;
-      padding: 2.5rem 0 1rem;
-      margin-top: auto;
+      font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+      color: #8b949e;
+      text-align: center;
+      letter-spacing: -0.02em;
     }
 
-    .footer-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .copyright {
-      font-family: var(--font-mono);
-      font-size: 0.86rem;
-      color: var(--text-dim);
-    }
-
-    .newspaper-link {
+    .contact {
       display: inline-flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 0.6rem;
-      color: var(--text-main);
+      justify-content: center;
+      gap: 0.4rem 0.6rem;
+    }
+
+    a {
+      color: #00ff66;
       text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      padding: 0.6rem 1.15rem;
-      border-radius: 8px;
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px solid var(--card-border);
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
 
-    .newspaper-link:hover {
-      background: var(--emerald-dim);
-      border-color: var(--emerald);
-      color: var(--emerald);
-      box-shadow: 0 0 18px var(--emerald-glow);
+    a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #00ff66;
+      text-decoration: underline;
     }
 
-    .newspaper-link svg {
-      transition: transform 0.2s ease;
+    .discord {
+      color: #f0f6fc;
     }
 
-    .newspaper-link:hover svg {
-      transform: translateX(3px);
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 640px) {
+    @media (max-width: 600px) {
       body {
-        padding: 1.5rem 1rem;
+        padding: 2rem 1.25rem;
       }
-      header {
-        padding: 2rem 0 1.75rem;
-      }
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      .footer-content {
+      .contact {
         flex-direction: column;
-        text-align: center;
-        gap: 1rem;
+        gap: 0.35rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="badge">
-        <span class="pulse-dot"></span>
-        <span>Active Engine Pre-training</span>
-      </div>
-      <h1>EchOS &amp; Navi 10</h1>
-      <p class="subtitle">Local, Deterministic &amp; Zero-Hallucination Operating System. Powered by Neuromorphic SNN &amp; LPU Architecture.</p>
-    </header>
+  <main>
+    <div class="title-wrapper">
+      <h1>EchOS<span class="cursor"></span></h1>
+    </div>
+  </main>
 
-    <main>
-      <div class="grid">
-        <div class="card">
-          <div class="card-meta">Workstation / OS</div>
-          <h2 class="card-title">EchOS Desk</h2>
-          <p class="card-desc">Full desktop environment with integrated Navi 10 LPU &amp; verified local knowledge base.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-meta">Bare-Metal / IoT</div>
-          <h2 class="card-title">EchOS Edge</h2>
-          <p class="card-desc">Bare-metal runtime for IoT, robotics, and drones with strict 16-byte WSP execution.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-meta">Neuromorphic Kernel</div>
-          <h2 class="card-title">Echo Core</h2>
-          <p class="card-desc">Always-on neuromorphic spiking kernel operating at milliwatt scale.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-meta">Developer Suite</div>
-          <h2 class="card-title">Echo SDK</h2>
-          <p class="card-desc">Developer toolkit for RogexWSP, Q6 quantization, and RX-DIB bus integration.</p>
-        </div>
-      </div>
-    </main>
-
-    <footer>
-      <div class="footer-content">
-        <div class="copyright">Rogex Laboratories &copy; 2026</div>
-        <a href="/newspaper/" class="newspaper-link">
-          <span>Rogex Newspaper &amp; Lab Dispatches</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </a>
-      </div>
-    </footer>
-  </div>
+  <footer>
+    <div class="contact">
+      <span>contact me on:</span>
+      <a href="https://x.com/navywakura" target="_blank" rel="noopener">x.com/navywakura</a>
+      <span>,</span>
+      <span>discord: <span class="discord">2006.kcc</span></span>
+    </div>
+  </footer>
 </body>
 </html>

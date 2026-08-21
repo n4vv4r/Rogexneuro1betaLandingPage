@@ -4,16 +4,5 @@
   "buildCommand": "echo 'Static build complete'",
   "installCommand": "echo 'No dependencies needed'",
   "outputDirectory": ".",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/newspaper",
-      "destination": "/newspaper/index.html"
-    },
-    {
-      "source": "/newspaper/",
-      "destination": "/newspaper/index.html"
-    }
-  ]
+  "cleanUrls": true
 }

@@ -1,0 +1,8 @@
+{
+  "name": "rogex-laboratories-teaser",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'Static build complete'"
+  }
+}

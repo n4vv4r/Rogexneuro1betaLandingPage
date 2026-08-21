@@ -1,5 +1,0 @@
-app "echo"
-page home:
-  title "echo"
-  text "Installed via rx app add. Prints args in the vault."
-  text "Source lives in /bin/echo.rxc"

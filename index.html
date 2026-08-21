@@ -1,138 +1,324 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b0b0a" />
-    <title>Knights Labs — El lab anuncia el 10</title>
-    <!-- SERP snippet: title ~50–60 chars · description ~120–160 chars -->
-    <meta name="description" content="NAVI 10 Echo ya corre en el host (Q_N, CAM Heap-0, VERIFY). rxOS 10 es el próximo unikernel. La ISO de hoy es 9.0.0 SMOKE. No es un LLM. Experimental." />
-    <meta name="keywords" content="NAVI 10, NAVI 10 Echo, rxOS 10, rxOS 9 SMOKE, unikernel, neuromorphic OS, CAM Heap-0, Q_N, RogexWSP, Knights Labs, Rogex Laboratories, not an LLM, VERIFY, DESCONOCIDO" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href="https://www.rogexlaboratories.com/" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchOS & Navi 10 — Rogex Laboratories</title>
+  <meta name="description" content="Local, Deterministic & Zero-Hallucination Operating System. Powered by Neuromorphic SNN & LPU Architecture.">
+  <meta name="theme-color" content="#090a0f">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="EchOS & Navi 10 — Rogex Laboratories">
+  <meta property="og:description" content="Local, Deterministic & Zero-Hallucination Operating System. Powered by Neuromorphic SNN & LPU Architecture.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EchOS & Navi 10 — Rogex Laboratories">
+  <meta name="twitter:description" content="Local, Deterministic & Zero-Hallucination Operating System. Powered by Neuromorphic SNN & LPU Architecture.">
 
-    <!-- Open Graph (per-route shells + SPA override; default = home card 1200×630) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Knights Labs / Rogex Laboratories" />
-    <meta property="og:title" content="Knights Labs — El lab anuncia el 10" />
-    <meta property="og:description" content="NAVI 10 Echo ya corre en el host. rxOS 10 es el próximo. La ISO de hoy es 9.0.0 SMOKE. VERIFY o DESCONOCIDO. No es un LLM." />
-    <meta property="og:url" content="https://www.rogexlaboratories.com/" />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <link rel="alternate" hreflang="es" href="https://www.rogexlaboratories.com/" />
-    <link rel="alternate" hreflang="en" href="https://www.rogexlaboratories.com/?lang=en" />
-    <link rel="alternate" hreflang="x-default" href="https://www.rogexlaboratories.com/" />
-    <meta property="og:image" content="https://www.rogexlaboratories.com/og/home.png?v=10c" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="NAVI 10 Echo + rxOS 10: local VERIFY, Wikipedia harvest, not an LLM" />
-
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Knights Labs — El lab anuncia el 10" />
-    <meta name="twitter:description" content="NAVI 10 Echo ya corre en el host. rxOS 10 es el próximo. ISO 9.0.0 hoy. No es un LLM." />
-    <meta name="twitter:image" content="https://www.rogexlaboratories.com/og/home.png?v=10c" />
-    <meta name="twitter:image:alt" content="NAVI 10 Echo + rxOS 10 coming soon" />
-
-    <!-- Favicon: Rogex Laboratories · Brand mark: Knights Labs (og / site UI) -->
-    <link rel="icon" type="image/png" href="/rogexlaboratories_logo.png" />
-    <link rel="shortcut icon" type="image/png" href="/rogexlaboratories_logo.png" />
-    <link rel="apple-touch-icon" href="/rogexlaboratories_logo.png" />
-
-    <!-- JSON-LD: Organization + WebSite (rich results / SERP fragment) -->
-    <script type="application/ld+json" id="ld-org">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://www.rogexlaboratories.com/#organization",
-          "name": "Knights Labs",
-          "alternateName": ["Rogex Laboratories", "ROGEX Laboratories"],
-          "url": "https://www.rogexlaboratories.com/",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://www.rogexlaboratories.com/knightslabs_logo.png",
-            "width": 1200,
-            "height": 1200
-          },
-          "image": "https://www.rogexlaboratories.com/rogexlaboratories_logo.png",
-          "description": "Independent lab for low-carbon neurotech: NAVI 10 Echo, rxOS 10 coming soon, rxOS 9 SMOKE, WSP, Q_N and PRISMA EEG software.",
-          "email": "knightsys@proton.me",
-          "sameAs": [
-            "https://x.com/rogexlabs",
-            "https://github.com/knightslabs/rxos-8.5",
-            "https://github.com/knightslabs/RXos-Packages"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://www.rogexlaboratories.com/#website",
-          "url": "https://www.rogexlaboratories.com/",
-          "name": "Knights Labs — El lab anuncia el 10",
-          "description": "NAVI 10 Echo host-live, rxOS 10 coming soon, WSP 16 B and Q_N.",
-          "publisher": { "@id": "https://www.rogexlaboratories.com/#organization" },
-          "inLanguage": ["es", "en"],
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.rogexlaboratories.com/docs?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "SoftwareApplication",
-          "@id": "https://www.rogexlaboratories.com/#rxos",
-          "name": "rxOS 9 SMOKE",
-          "applicationCategory": "OperatingSystem",
-          "operatingSystem": "bare-metal x86_64",
-          "softwareVersion": "9.0.0",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-          "downloadUrl": "https://github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0",
-          "license": "https://www.gnu.org/licenses/gpl-3.0.html",
-          "description": "Unikernel x86_64 with Dark Aero desktop and NAVI 7.5. Runs in QEMU, VirtualBox or USB."
-        },
-        {
-          "@type": "SoftwareApplication",
-          "@id": "https://www.rogexlaboratories.com/#navi",
-          "name": "NAVI 10 Echo",
-          "applicationCategory": "DeveloperApplication",
-          "softwareVersion": "10",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-          "url": "https://www.rogexlaboratories.com/navi",
-          "description": "Heap-0 SNN: Q_N, CAM 4096×32 B, WSP 16 B. VERIFY or UNKNOWN. Host live. Not an LLM."
-        },
-        {
-          "@type": "WebPage",
-          "@id": "https://www.rogexlaboratories.com/#webpage",
-          "url": "https://www.rogexlaboratories.com/",
-          "name": "Knights Labs — El lab anuncia el 10",
-          "description": "Knights Labs: NAVI 10 Echo, rxOS 10 próximo, rxOS 9 SMOKE, WSP y PRISMA Engine. Experimental, no clínico.",
-          "isPartOf": { "@id": "https://www.rogexlaboratories.com/#website" },
-          "about": { "@id": "https://www.rogexlaboratories.com/#organization" },
-          "inLanguage": "es",
-          "primaryImageOfPage": {
-            "@type": "ImageObject",
-            "url": "https://www.rogexlaboratories.com/og/home.png?v=10c",
-            "width": 1200,
-            "height": 630
-          }
-        }
-      ]
+  <style>
+    :root {
+      --bg: #090a0f;
+      --card-bg: #12151e;
+      --card-border: #1e293b;
+      --card-border-hover: rgba(16, 185, 129, 0.45);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --emerald-dim: rgba(16, 185, 129, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent-cyan: #38bdf8;
+      --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    </script>
-  </head>
-  <body>
-    <div id="root">
-      <noscript>
-        <main>
-          <h1>Knights Labs — El lab anuncia el 10</h1>
-          <p>NAVI 10 Echo ya corre en el host (Q_N, CAM Heap-0, VERIFY). rxOS 10 es el próximo. La ISO de hoy es 9.0.0 SMOKE. Código: github.com/navywakura/RXos · ISOs: github.com/knightslabs/RXos-Packages/releases/tag/v9.0.0 · Ficha: /docs/navi10-spec</p>
-          <p>Este sitio requiere JavaScript para la interfaz completa. Documentación y descargas siguen disponibles en las URLs públicas del sitemap.</p>
-        </main>
-      </noscript>
-    </div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.08), transparent 70%),
+        radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.04), transparent 60%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Top Hero Header */
+    header {
+      padding: 3.5rem 0 3rem;
+      text-align: center;
+    }
+
+    /* Emerald Status Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      background: var(--emerald-dim);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--emerald);
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 24px var(--emerald-glow);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.35;
+        transform: scale(0.8);
+      }
+    }
+
+    /* Main Typography */
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.25rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(180deg, #ffffff 30%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* 4-Card Architecture Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0 3.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, transparent, transparent);
+      transition: background 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--card-border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.65), 0 0 25px rgba(16, 185, 129, 0.08);
+    }
+
+    .card:hover::before {
+      background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+    }
+
+    .card-meta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--emerald);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+      font-weight: 600;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Footer & Newspaper Link */
+    footer {
+      border-top: 1px solid #1a202c;
+      padding: 2.5rem 0 1rem;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .copyright {
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      color: var(--text-dim);
+    }
+
+    .newspaper-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-main);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      padding: 0.6rem 1.15rem;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--card-border);
+      transition: all 0.2s ease;
+    }
+
+    .newspaper-link:hover {
+      background: var(--emerald-dim);
+      border-color: var(--emerald);
+      color: var(--emerald);
+      box-shadow: 0 0 18px var(--emerald-glow);
+    }
+
+    .newspaper-link svg {
+      transition: transform 0.2s ease;
+    }
+
+    .newspaper-link:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 640px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      header {
+        padding: 2rem 0 1.75rem;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">
+        <span class="pulse-dot"></span>
+        <span>Active Engine Pre-training</span>
+      </div>
+      <h1>EchOS &amp; Navi 10</h1>
+      <p class="subtitle">Local, Deterministic &amp; Zero-Hallucination Operating System. Powered by Neuromorphic SNN &amp; LPU Architecture.</p>
+    </header>
+
+    <main>
+      <div class="grid">
+        <div class="card">
+          <div class="card-meta">Workstation / OS</div>
+          <h2 class="card-title">EchOS Desk</h2>
+          <p class="card-desc">Full desktop environment with integrated Navi 10 LPU &amp; verified local knowledge base.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-meta">Bare-Metal / IoT</div>
+          <h2 class="card-title">EchOS Edge</h2>
+          <p class="card-desc">Bare-metal runtime for IoT, robotics, and drones with strict 16-byte WSP execution.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-meta">Neuromorphic Kernel</div>
+          <h2 class="card-title">Echo Core</h2>
+          <p class="card-desc">Always-on neuromorphic spiking kernel operating at milliwatt scale.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-meta">Developer Suite</div>
+          <h2 class="card-title">Echo SDK</h2>
+          <p class="card-desc">Developer toolkit for RogexWSP, Q6 quantization, and RX-DIB bus integration.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="copyright">Rogex Laboratories &copy; 2026</div>
+        <a href="/newspaper/" class="newspaper-link">
+          <span>Rogex Newspaper &amp; Lab Dispatches</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+</body>
 </html>

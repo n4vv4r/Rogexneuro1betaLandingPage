@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rogex Newspaper — Despachos del Laboratorio</title>
+  <meta name="description" content="Avances y notas de investigación de Knights Labs / Rogex Laboratories: EchOS, NAVI 10, PRISMA y computación neuromórfica.">
+  <meta name="theme-color" content="#090a0f">
+  <link rel="alternate" type="application/rss+xml" title="Rogex Newspaper RSS" href="/newspaper/feed.xml">
+
+  <style>
+    :root {
+      --bg: #090a0f;
+      --card-bg: #12151e;
+      --card-border: #1e293b;
+      --card-border-hover: rgba(16, 185, 129, 0.45);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --emerald-dim: rgba(16, 185, 129, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.07), transparent 70%),
+        radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.03), transparent 60%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Navigation header */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 3rem;
+    }
+
+    .back-btn, .rss-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover, .rss-btn:hover {
+      color: var(--emerald);
+      border-color: var(--emerald);
+      background: var(--emerald-dim);
+    }
+
+    .header-title {
+      margin-bottom: 2.5rem;
+    }
+
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .lead {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Article list / Detail view */
+    .articles-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 4rem;
+    }
+
+    .article-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .article-card:hover {
+      border-color: var(--card-border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .article-date {
+      color: var(--emerald);
+    }
+
+    .article-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .article-summary {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(30, 41, 59, 0.6);
+      color: var(--text-dim);
+    }
+
+    /* Full Article Modal / Reader */
+    #article-modal {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 4rem;
+    }
+
+    #article-modal.active {
+      display: block;
+    }
+
+    .article-content {
+      margin-top: 1.5rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    .article-content h2, .article-content h3 {
+      color: #ffffff;
+      margin: 1.75rem 0 0.75rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: rgba(15, 23, 42, 0.8);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+      color: #38bdf8;
+    }
+
+    .article-content pre {
+      background: #06080d;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+    }
+
+    .article-content pre code {
+      background: transparent;
+      padding: 0;
+      color: #e2e8f0;
+    }
+
+    .article-content a {
+      color: var(--emerald);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 2rem 0 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="top-nav">
+      <a href="/" class="back-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Volver a EchOS &amp; Navi 10</span>
+      </a>
+      <a href="/newspaper/feed.xml" class="rss-btn" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+        <span>Feed RSS</span>
+      </a>
+    </nav>
+
+    <header class="header-title">
+      <div class="kicker">Knights Labs / Rogex Laboratories</div>
+      <h1>Rogex Newspaper</h1>
+      <p class="lead">Despachos sobre EchOS, NAVI 10, PRISMA y computación neuromórfica sin alucinación.</p>
+    </header>
+
+    <main>
+      <div id="article-modal">
+        <button id="close-modal" class="back-btn" style="margin-bottom:1.5rem; cursor:pointer;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Todos los despachos</span>
+        </button>
+        <div id="modal-content"></div>
+      </div>
+
+      <div id="articles-container" class="articles-grid">
+        <!-- Rendered dynamically from articles.json -->
+      </div>
+    </main>
+
+    <footer>
+      <span>Rogex Laboratories &copy; 2026</span>
+      <span>Experimental · No clínico</span>
+    </footer>
+  </div>
+
+  <script>
+    async function loadArticles() {
+      const container = document.getElementById('articles-container');
+      try {
+        const res = await fetch('/newspaper/articles.json');
+        if (!res.ok) throw new Error('Failed to load articles');
+        const articles = await res.json();
+        
+        container.innerHTML = articles.map(art => `
+          <div class="article-card" onclick="viewArticle('${art.slug}')">
+            <div class="article-meta">
+              <span class="article-date">${art.date}</span>
+              <span>·</span>
+              <span>${art.author || 'Rogex Laboratories'}</span>
+            </div>
+            <h2 class="article-title">${art.title}</h2>
+            <p class="article-summary">${art.summary || ''}</p>
+            ${art.tags && art.tags.length ? `
+              <div class="tags">
+                ${art.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+
+        if (window.location.hash) {
+          const slug = window.location.hash.replace('#', '');
+          if (slug) viewArticle(slug);
+        }
+      } catch (err) {
+        container.innerHTML = '<p style="color:var(--text-muted);">Cargando despachos desde el repositorio...</p>';
+      }
+    }
+
+    async function viewArticle(slug) {
+      const modal = document.getElementById('article-modal');
+      const list = document.getElementById('articles-container');
+      const content = document.getElementById('modal-content');
+
+      try {
+        const res = await fetch(`/newspaper/articles/${slug}.json`);
+        if (!res.ok) throw new Error('Article not found');
+        const data = await res.json();
+        
+        content.innerHTML = `
+          <div class="article-meta">
+            <span class="article-date">${data.date}</span>
+            <span>·</span>
+            <span>${data.author}</span>
+          </div>
+          <h1 style="font-size:2rem; margin:0.75rem 0 1rem;">${data.title}</h1>
+          <div class="article-content">${data.html}</div>
+        `;
+        
+        window.location.hash = slug;
+        list.style.display = 'none';
+        modal.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('close-modal').addEventListener('click', () => {
+      document.getElementById('article-modal').classList.remove('active');
+      document.getElementById('articles-container').style.display = 'flex';
+      history.replaceState(null, null, ' ');
+    });
+
+    window.addEventListener('hashchange', () => {
+      const slug = window.location.hash.replace('#', '');
+      if (slug) viewArticle(slug);
+      else {
+        document.getElementById('article-modal').classList.remove('active');
+        document.getElementById('articles-container').style.display = 'flex';
+      }
+    });
+
+    loadArticles();
+  </script>
+</body>
+</html>

@@ -3,141 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EchOS</title>
+  <title>EchOS 1.0 — Rogex Laboratories</title>
+  <meta name="description" content="EchOS 1.0 by Rogex Laboratories — an independent operating system with a proprietary browser engine (Rogex Nova), the ECHO AI assistant (Navi 10), and a native IDE. Available in Complete, Minimal and Edge editions. GNU GPLv3.">
   <meta name="theme-color" content="#000000">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #000000;
-      color: #e6edf3;
-      font-family: ui-monospace, "SF Mono", Monaco, "Courier New", Courier, monospace;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 3rem 2rem;
-      position: relative;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Subtle Wired / CRT scanline overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%, 
-        rgba(0, 0, 0, 0.28) 50%
-      );
-      background-size: 100% 4px;
-      pointer-events: none;
-      z-index: 10;
-      opacity: 0.55;
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .title-wrapper {
-      text-align: center;
-    }
-
-    h1 {
-      font-size: clamp(3.5rem, 15vw, 9.5rem);
-      font-weight: 900;
-      letter-spacing: -0.05em;
-      line-height: 0.95;
-      text-transform: uppercase;
-      color: #ffffff;
-      text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-      user-select: none;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 0.45em;
-      height: 0.85em;
-      background: #00ff66;
-      margin-left: 0.08em;
-      vertical-align: baseline;
-      animation: blink 1.1s steps(2, start) infinite;
-      box-shadow: 0 0 14px rgba(0, 255, 102, 0.8);
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    footer {
-      font-size: clamp(0.9rem, 1.8vw, 1.05rem);
-      color: #8b949e;
-      text-align: center;
-      letter-spacing: -0.02em;
-    }
-
-    .contact {
-      display: inline-flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem 0.6rem;
-    }
-
-    a {
-      color: #00ff66;
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-
-    a:hover {
-      color: #ffffff;
-      text-shadow: 0 0 10px #00ff66;
-      text-decoration: underline;
-    }
-
-    .discord {
-      color: #f0f6fc;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 2rem 1.25rem;
-      }
-      .contact {
-        flex-direction: column;
-        gap: 0.35rem;
-      }
-    }
-  </style>
+  <link rel="canonical" href="https://rogexlaboratories.com/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="EchOS 1.0 — Rogex Laboratories">
+  <meta property="og:description" content="An independent operating system born under an eclipse. Proprietary stack, three editions: Complete, Minimal and Edge.">
+  <meta property="og:url" content="https://rogexlaboratories.com/">
+  <meta property="og:image" content="https://rogexlaboratories.com/favicon.svg">
+  <meta property="og:site_name" content="Rogex Laboratories">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="/">
+        <span class="brand-eclipse" aria-hidden="true"></span>
+        ROGEX&nbsp;LABORATORIES&nbsp;<small>/ EchOS</small>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" aria-current="page">Home</a></li>
+        <li><a href="/downloads.html">Downloads</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/privacy.html">Privacy</a></li>
+        <li><a href="/legal.html">Legal</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <main>
-    <div class="title-wrapper">
-      <h1>EchOS<span class="cursor"></span></h1>
-    </div>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="eclipse" role="img" aria-label="Solar eclipse ring glow"></div>
+      <h1>EchOS&nbsp;1.0</h1>
+      <p class="tagline">An operating system born in darkness. Built from scratch by Rogex Laboratories
+        — a complete desktop environment, a proprietary browser engine, and an AI that lives on your machine.
+        No cloud required. No telemetry. Ever.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/downloads.html">Download EchOS 1.0</a>
+        <a class="btn" href="/faq.html">Read the FAQ</a>
+      </div>
+    </section>
+
+    <!-- ============ EDITIONS ============ -->
+    <section class="section container" id="editions">
+      <span class="kicker">Editions</span>
+      <h2 class="section-title">Three ways to enter the eclipse</h2>
+      <p class="section-sub">One codebase, three shapes. Pick the one that matches your hardware and your day.</p>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <span class="badge">Complete Edition</span>
+          <h3>EchOS Complete</h3>
+          <p>The full experience. Everything the platform can do, nothing hidden.</p>
+          <ul>
+            <li>Full desktop with Eclipse Shell &amp; dock</li>
+            <li>Rogex Nova — proprietary web browser engine</li>
+            <li>ECHO AI assistant powered by Navi 10, fully offline</li>
+            <li>Native integrated IDE</li>
+            <li>Video &amp; image viewers out of the box</li>
+            <li>Runs on standard CPUs or neuromorphic processors (BrainChip Akida)</li>
+          </ul>
+          <p class="card-cta"><a class="btn btn-primary" href="/downloads.html#complete">Get Complete</a></p>
+        </article>
+
+        <article class="card">
+          <span class="badge">Minimal Edition</span>
+          <h3>EchOS Minimal</h3>
+          <p>Daily-use efficiency edition. Same desktop, same drivers — less weight.</p>
+          <ul>
+            <li>Identical desktop &amp; hardware drivers</li>
+            <li>No ECHO AI assistant</li>
+            <li>No bundled IDE</li>
+            <li>Tuned for everyday responsiveness</li>
+          </ul>
+          <p class="card-cta"><a class="btn" href="/downloads.html#minimal">Get Minimal</a></p>
+        </article>
+
+        <article class="card">
+          <span class="badge">Edge Edition</span>
+          <h3>EchOS Edge</h3>
+          <p>CLI-only build for IoT boards, robotics, drones and cameras.</p>
+          <ul>
+            <li>Command-line only footprint</li>
+            <li>Navi Mini — retrainable on-device edge model</li>
+            <li>Built-in <code>files</code> command: file browser + media viewer</li>
+            <li>Made for constrained and embedded targets</li>
+          </ul>
+          <p class="card-cta"><a class="btn" href="/downloads.html#edge">Get Edge</a></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="section container" id="stack">
+      <span class="kicker">Proprietary stack</span>
+      <h2 class="section-title">Everything built in-house</h2>
+      <p class="section-sub">EchOS is not a remix of existing distributions. Every layer below is engineered by
+        Rogex Laboratories from first principles.</p>
+
+      <div>
+        <div class="feature-row">
+          <div class="feature-icon" aria-hidden="true">◉</div>
+          <div>
+            <h3>EchOS Kernel</h3>
+            <p>A from-scratch kernel driving scheduling, memory, drivers and power across desktop-class CPUs
+              and neuromorphic silicon alike.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon" aria-hidden="true">▤</div>
+          <div>
+            <h3>Eclipse Shell — window server with dock</h3>
+            <p>Our window server renders the whole composited desktop. A macOS-style dock anchors your apps;
+              windows snap, blur and glow through the eclipse theme.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon" aria-hidden="true">◎</div>
+          <div>
+            <h3>Rogex Nova — proprietary browser engine</h3>
+            <p>Not a WebKit/Blink wrapper. Nova parses, lays out and renders the web itself, integrated directly
+              with the shell's security model.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon" aria-hidden="true">▶</div>
+          <div>
+            <h3>Native video pipeline</h3>
+            <p>Hardware-aware decoding and a custom image/video stack feed the bundled viewers — smooth playback
+              without foreign media frameworks.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon" aria-hidden="true">✦</div>
+          <div>
+            <h3>ECHO — the AI inside</h3>
+            <p>Powered by the Navi 10 model running entirely on-device. ECHO answers, automates and assists with
+              zero network dependency. On Akida NPUs it sips milliwatts; on standard CPUs it just works.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon" aria-hidden="true">⌘</div>
+          <div>
+            <h3>Native IDE</h3>
+            <p>Edit, build, debug and deploy for EchOS targets from within the OS itself — the same toolchain we use.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA STRIP ============ -->
+    <section class="section container" id="get-started">
+      <div class="card" style="text-align:center;">
+        <h2 class="section-title">Ready for totality?</h2>
+        <p style="margin-bottom:1.4rem;">Grab an image, flash it, boot into the dark.</p>
+        <p>
+          <a class="btn btn-primary" href="/downloads.html">Go to Downloads</a>
+          <a class="btn" href="https://github.com/knightslabs/echos" target="_blank" rel="noopener">Source on GitHub ↗</a>
+        </p>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <div class="contact">
-      <span>contact me on:</span>
-      <a href="https://x.com/navywakura" target="_blank" rel="noopener">x.com/navywakura</a>
-      <span>,</span>
-      <span>discord: <span class="discord">2006.kcc</span></span>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <p><span class="eclipse-mini" aria-hidden="true"></span><strong>Rogex Laboratories</strong> — a Knights Labs brand</p>
+        <small>EchOS 1.0 · Author: Roger Navarro · Licensed under GNU GPLv3</small>
+      </div>
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/downloads.html">Downloads</a></li>
+        <li><a href="/faq.html">FAQ</a></li>
+        <li><a href="/privacy.html">Privacy</a></li>
+        <li><a href="/legal.html">Legal</a></li>
+        <li><a href="https://github.com/knightslabs/echos" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
     </div>
   </footer>
+
 </body>
 </html>

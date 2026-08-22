@@ -1,0 +1,616 @@
+/* ============================================================
+   Rogex Laboratories — Eclipse Theme
+   Shared stylesheet for rogexlaboratories.com
+   Hand-written. No frameworks. No CDNs.
+   ============================================================ */
+
+:root {
+  --bg: #000000;
+  --bg-raised: #0a0a0f;
+  --bg-panel: #101017;
+  --border: #232330;
+  --text: #e6e9ef;
+  --text-dim: #9aa0ad;
+  --accent: #ff9d45;
+  --accent-soft: rgba(255, 157, 69, 0.14);
+  --corona-white: #fff4e2;
+  --radius: 10px;
+  --maxw: 1080px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Monaco, "Courier New", monospace;
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout shell ---------- */
+.site-header,
+main,
+.site-footer {
+  width: 100%;
+}
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main {
+  flex: 1;
+  padding-bottom: 4rem;
+}
+
+/* ---------- Header / Nav ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.9rem 1.5rem;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.brand-eclipse {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #000;
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 6px 1px rgba(255, 157, 69, 0.9),
+    0 0 16px 3px rgba(255, 157, 69, 0.45),
+    inset -3px -3px 6px rgba(255, 157, 69, 0.35);
+  flex-shrink: 0;
+}
+
+.brand small {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: color 0.15s ease;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  color: var(--accent);
+}
+
+/* ---------- Hero / eclipse visual ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 118%, rgba(255, 157, 69, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% -20%, rgba(255, 157, 69, 0.05), transparent 60%),
+    var(--bg);
+}
+
+.eclipse {
+  position: relative;
+  width: min(260px, 60vw);
+  height: min(260px, 60vw);
+  margin: 0 auto 3rem;
+  border-radius: 50%;
+  background: #000;
+  /* corona glow — pure CSS ring */
+  box-shadow:
+    0 0 18px 2px rgba(255, 244, 226, 0.95),
+    0 0 42px 8px rgba(255, 157, 69, 0.75),
+    0 0 110px 30px rgba(255, 157, 69, 0.32),
+    0 0 220px 70px rgba(255, 120, 30, 0.14),
+    inset 0 0 24px 6px rgba(255, 157, 69, 0.28);
+}
+
+/* inner disc occluding the sun */
+.eclipse::before {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 34%, #14141c 0%, #050508 55%, #000 100%);
+  box-shadow: inset 0 0 40px 12px rgba(0, 0, 0, 0.9);
+}
+
+/* thin chromosphere rim on the leading edge */
+.eclipse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 244, 226, 0.55) 0%, transparent 30%, transparent 68%, rgba(255, 157, 69, 0.75) 100%);
+  -webkit-mask: radial-gradient(circle, transparent 61%, #000 63%, #000 66%, transparent 68%);
+          mask: radial-gradient(circle, transparent 61%, #000 63%, #000 66%, transparent 68%);
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--corona-white);
+  text-shadow: 0 0 30px rgba(255, 157, 69, 0.35);
+}
+
+.hero .tagline {
+  margin-top: 1rem;
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--text-dim);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.hero-actions {
+  margin-top: 2.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  justify-content: center;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: var(--bg-raised);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 18px rgba(255, 157, 69, 0.25);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #ffb066, #ff9d45);
+  border-color: #ff9d45;
+  color: #140800;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  color: #140800;
+  box-shadow: 0 0 26px rgba(255, 157, 69, 0.5);
+}
+
+/* ---------- Sections ---------- */
+.section {
+  padding: 3.5rem 0 0;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  letter-spacing: -0.02em;
+  color: var(--corona-white);
+  margin-bottom: 0.4rem;
+}
+
+.section-sub {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  max-width: 62ch;
+}
+
+.kicker {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+/* ---------- Cards grid ---------- */
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 157, 69, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 157, 69, 0.08);
+}
+
+.card h3 {
+  color: var(--corona-white);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  color: var(--text-dim);
+  font-size: 0.93rem;
+}
+
+.card .badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(255, 157, 69, 0.35);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+.card ul {
+  list-style: none;
+  margin-top: 0.9rem;
+}
+
+.card ul li {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  padding-left: 1.1rem;
+  position: relative;
+  margin-bottom: 0.35rem;
+}
+
+.card ul li::before {
+  content: "◆";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.6rem;
+  top: 0.45em;
+}
+
+.card .card-cta {
+  margin-top: 1.2rem;
+}
+
+/* ---------- Feature list rows ---------- */
+.feature-row {
+  display: flex;
+  gap: 1.1rem;
+  padding: 1.3rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.feature-row:last-child {
+  border-bottom: none;
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--bg-panel);
+  border: 1px solid rgba(255, 157, 69, 0.4);
+  box-shadow: 0 0 12px rgba(255, 157, 69, 0.18), inset 0 0 8px rgba(255, 157, 69, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+
+.feature-row h3 {
+  color: var(--corona-white);
+  font-size: 1.02rem;
+  margin-bottom: 0.25rem;
+}
+
+.feature-row p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* ---------- Tables (downloads) ---------- */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 560px;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  color: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--bg-panel);
+}
+
+td {
+  color: var(--text-dim);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover td {
+  color: var(--text);
+  background: rgba(255, 157, 69, 0.04);
+}
+
+td a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+.sha {
+  font-size: 0.82rem;
+  opacity: 0.85;
+}
+
+/* ---------- FAQ ---------- */
+.faq-item {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 1.05rem 1.3rem;
+  color: var(--corona-white);
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::before {
+  content: "+";
+  color: var(--accent);
+  font-weight: 400;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  width: 1em;
+}
+
+.faq-item[open] summary::before {
+  content: "−";
+}
+
+.faq-item .faq-body {
+  padding: 0 1.3rem 1.2rem;
+  color: var(--text-dim);
+  font-size: 0.93rem;
+}
+
+.faq-item .faq-body code,
+p code, li code, td code {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.08rem 0.35rem;
+  font-size: 0.86em;
+  color: var(--accent);
+}
+
+/* ---------- Legal / prose ---------- */
+.prose h2 {
+  color: var(--corona-white);
+  font-size: 1.25rem;
+  margin: 2.2rem 0 0.7rem;
+}
+
+.prose p,
+.prose li {
+  color: var(--text-dim);
+  font-size: 0.94rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.lang-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 3rem 0;
+  position: relative;
+  overflow: visible;
+}
+
+.lang-divider::after {
+  content: "ESPAÑOL A CONTINUACIÓN / SPANISH BELOW";
+  position: absolute;
+  top: -0.75em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  color: var(--accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  padding: 0 0.8rem;
+  white-space: nowrap;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-raised);
+  padding: 2.2rem 1.5rem;
+  margin-top: 4rem;
+}
+
+.footer-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.footer-inner p,
+.footer-inner a,
+.footer-inner small {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.footer-inner a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer-inner a:hover {
+  text-decoration: underline;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  list-style: none;
+}
+
+.eclipse-mini {
+  display: inline-block;
+  vertical-align: middle;
+  width: 14px;
+  height: 14px;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background: #000;
+  box-shadow: 0 0 4px 1px rgba(255, 157, 69, 0.9), 0 0 10px 2px rgba(255, 157, 69, 0.35);
+}
+
+/* ---------- 404 page ---------- */
+.lost-eclipse {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 120%, rgba(255, 157, 69, 0.1), transparent 60%),
+    var(--bg);
+}
+
+.lost-eclipse .code {
+  font-size: clamp(4.5rem, 18vw, 11rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--corona-white);
+  text-shadow: 0 0 40px rgba(255, 157, 69, 0.4);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero {
+    padding: 4rem 1.25rem 3.5rem;
+  }
+
+  .feature-row {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}

@@ -4,5 +4,9 @@
   "buildCommand": "echo 'Static build complete'",
   "installCommand": "echo 'No dependencies needed'",
   "outputDirectory": ".",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/404.html", "status": 404 }
+  ]
 }

@@ -1064,3 +1064,72 @@ p code, li code, td code, .prose code {
     height: 2rem;
   }
 }
+
+/* ---------------- hero banner (real desktop capture) ---------------- */
+.hero-banner {
+  margin: 2.6rem auto 0;
+  max-width: 980px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 157, 69, 0.25);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  position: relative;
+}
+.hero-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 120%, rgba(255, 157, 69, 0.12), transparent 55%);
+  pointer-events: none;
+}
+.hero-banner figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.55rem 1rem;
+  font-size: 0.78rem;
+  color: rgba(240, 240, 246, 0.85);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.78));
+}
+
+/* ---------------- responsive: tablet + phone ---------------- */
+@media (max-width: 1024px) {
+  .container { padding: 0 1.25rem; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .nav { gap: 0.6rem; }
+  .nav-links { flex-wrap: wrap; gap: 0.15rem 0.9rem; font-size: 0.9rem; }
+  .hero h1 { font-size: 2.6rem; }
+  .hero-banner { margin-top: 2rem; }
+  .section { padding: 3rem 0; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { min-width: 640px; }
+  .doc-article { padding: 0; }
+  .doc-article h2 { font-size: 1.25rem; }
+}
+
+@media (max-width: 640px) {
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.1rem; }
+  .hero .tagline { font-size: 0.95rem; }
+  .hero-actions { flex-direction: column; width: 100%; max-width: 320px; margin-inline: auto; }
+  .hero-actions .btn { width: 100%; }
+  .hero-banner figcaption { font-size: 0.68rem; padding: 0.45rem 0.7rem; }
+  .section-title { font-size: 1.45rem; }
+  .section-sub { font-size: 0.92rem; }
+  .nav { padding: 0.7rem 1rem; }
+  .nav-links { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; text-align: center; }
+  .lang-toggle { margin-left: auto; }
+  .carousel { aspect-ratio: 16 / 10; }
+  .sha-code { max-width: 130px; }
+  .card { padding: 1.1rem 1.15rem; }
+  .prose, .doc-article { font-size: 0.94rem; }
+}

@@ -25,6 +25,15 @@ export default function Home() {
             {t('hero.ctaDocs')}
           </Link>
         </div>
+        <figure className="hero-banner">
+          <img
+            src="/shots/hero.jpg"
+            alt={t('hero.bannerAlt')}
+            loading="eager"
+            fetchpriority="high"
+          />
+          <figcaption>{t('hero.bannerCaption')}</figcaption>
+        </figure>
       </section>
 
       <section className="section container" id="editions">

@@ -49,6 +49,8 @@ export const esPart1 = {
       'Un sistema operativo nacido en la oscuridad. Construido desde cero por Rogex Laboratories — un entorno de escritorio completo, un motor de navegador propio y una IA que vive en tu máquina. Sin nube obligatoria. Sin telemetría. Nunca.',
     ctaDownload: 'Descargar EchOS 1.0',
     ctaDocs: 'Leer la documentación',
+    bannerAlt: 'Escritorio de EchOS Minimal 1.0 — dock con iconos de apps, Terminal ejecutando curl y ping sobre la red real, Calculator y Multimedia abiertos',
+    bannerCaption: 'EchOS Minimal 1.0 — escritorio real, red real. Build de preview.',
   },
 
   editions: {

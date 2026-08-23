@@ -48,6 +48,8 @@ export const en = {
       'An operating system born in darkness. Built from scratch by Rogex Laboratories — a complete desktop environment, a proprietary browser engine, and an AI that lives on your machine. No cloud required. No telemetry. Ever.',
     ctaDownload: 'Download EchOS 1.0',
     ctaDocs: 'Read the Docs',
+    bannerAlt: 'EchOS Minimal 1.0 desktop — dock with app icons, Terminal running curl and ping over the live network, Calculator and Multimedia open',
+    bannerCaption: 'EchOS Minimal 1.0 — real desktop, real network. Preview build.',
   },
 
   editions: {

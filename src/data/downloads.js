@@ -6,13 +6,13 @@ const GITHUB_RELEASE = 'https://github.com/knightslabs/echos/releases/tag/v1.0.0
 export const RELEASE_URL = GITHUB_RELEASE;
 
 export const SHA256_MAP = {
-  'EchOS-1.0.0-complete-metal.iso': 'bf90f1d64060ab66ff283fa285a4f7375af78cb6783e6f1f0d6192c56934d0f7',
-  'EchOS-1.0.0-complete-vm.iso': '79fc9b8f79c18bcd9be229730029f81af0a726affee5d8042c7a0f20d5bd0ddf',
-  'EchOS-1.0.0-edge-metal.iso': 'ae15f08d167a95e4b4c0ed1d9c10f70c73480d9c0c773adeebd96adb6e838410',
-  'EchOS-1.0.0-edge-vm.iso': '11c33ab45862e9ffd34843f5d86e22afb19160f87d85d1729655302708b405a0',
-  'EchOS-1.0.0-minimal-metal.iso': 'a00974541796275b8064feb16674ace801c34716300e446129223a37d350ecb4',
-  'EchOS-1.0.0-minimal-vm.iso': '149b5e47b4b854a6cf2d29ff10803e9381b4f37e3fc63062c21062e6f5bdff8d',
-  'EchOS-1.0.0-usb.img.gz': '0a1b13951def7669ee86b5131f2ec28e198e1bfedbcffa3706ca23828f71ae6b',
+  'EchOS-1.0.0-complete-metal.iso': '42988eb8f6fe95f43cc7ac3f2b08436789b835d6bbe1bc7acd228c4ea2bbeb60',
+  'EchOS-1.0.0-complete-vm.iso': '8b96d3cf43e71a9ed46e460315c81edf9be1ba379d8d6b484cc3e7402ca4ff32',
+  'EchOS-1.0.0-edge-metal.iso': '13a231b04412a4c87368fecbd06f9ad0c529d2ded367656818fd572ef1de8987',
+  'EchOS-1.0.0-edge-vm.iso': '6669dd4799fb2df01ee55ae3563de2543799dd04daa5ab8148ba3f6a91fd1550',
+  'EchOS-1.0.0-minimal-metal.iso': '3a197797cd4b7a3792094b5ed00e412c625adfe693471dd23802764334f727bf',
+  'EchOS-1.0.0-minimal-vm.iso': '61a2289c5e1042abea9e4328b4d10152e65926af9c441f8c43d83de9312dc91f',
+  'EchOS-1.0.0-usb.img.gz': 'dc3bed1c6b2809371471c6f620df4dfba7e346670886702c2636211b4d9d0c6d',
 };
 
 function fileRow(name, targetKey, format, size) {

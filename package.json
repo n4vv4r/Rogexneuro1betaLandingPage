@@ -6,7 +6,7 @@
   "description": "Rogex Laboratories — EchOS 1.0 ECLIPSE official website (Vite + React)",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/postbuild.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

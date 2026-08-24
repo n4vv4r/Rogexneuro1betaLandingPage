@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useI18n } from '../i18n';
 import { Reveal } from '../components/Reveal';
+import { MD_DOCS, MD_ORDER } from './DocsMd';
 
 export default function DocsLayout() {
   const { t } = useI18n();
@@ -16,10 +17,10 @@ export default function DocsLayout() {
                 {t('docsPage.onThisHub')}
               </NavLink>
             </li>
-            {['architecture', 'editions', 'echo', 'packages', 'install'].map((id) => (
+            {MD_ORDER.map((id) => (
               <li key={id}>
                 <NavLink to={`/docs/${id}`} className={({ isActive }) => (isActive ? 'active' : undefined)}>
-                  {t(`docsPage.pages.${id}.label`)}
+                  {MD_DOCS[id].title}
                 </NavLink>
               </li>
             ))}

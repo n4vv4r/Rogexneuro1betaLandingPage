@@ -6,7 +6,7 @@ import { Layout } from './components/Layout';
 import Home from './pages/Home';
 import Downloads from './pages/Downloads';
 import DocsLayout from './pages/DocsLayout';
-import { DocsHub, DocPage } from './pages/Docs';
+import { DocsMdHub, DocsMdPage } from "./pages/DocsMd";
 import Faq from './pages/Faq';
 import Privacy from './pages/Privacy';
 import Legal from './pages/Legal';
@@ -22,12 +22,10 @@ createRoot(document.getElementById('root')).render(
             <Route path="/" element={<Home />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/docs" element={<DocsLayout />}>
-              <Route index element={<DocsHub />} />
-              <Route path="architecture" element={<DocPage id="architecture" />} />
-              <Route path="editions" element={<DocPage id="editions" />} />
-              <Route path="echo" element={<DocPage id="echo" />} />
-              <Route path="packages" element={<DocPage id="packages" />} />
-              <Route path="install" element={<DocPage id="install" />} />
+              <Route index element={<DocsMdHub />} />
+              {["architecture","editions","echo","packages","packages-spec","video","install","roadmap"].map((id) => (
+                <Route key={id} path={id} element={<DocsMdPage id={id} />} />
+              ))}
             </Route>
             <Route path="/faq" element={<Faq />} />
             <Route path="/privacy" element={<Privacy />} />

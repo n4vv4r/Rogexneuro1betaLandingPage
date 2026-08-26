@@ -1,10 +1,9 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useI18n } from '../i18n';
-import { Reveal } from '../components/Reveal';
-import { MD_DOCS, MD_ORDER } from './DocsMd';
+import { DOC_GROUPS, docTitle } from '../content/docs-catalog';
 
 export default function DocsLayout() {
-  const { t } = useI18n();
+  const { lang, t } = useI18n();
 
   return (
     <section className="section container docs-layout">
@@ -17,14 +16,24 @@ export default function DocsLayout() {
                 {t('docsPage.onThisHub')}
               </NavLink>
             </li>
-            {MD_ORDER.map((id) => (
-              <li key={id}>
-                <NavLink to={`/docs/${id}`} className={({ isActive }) => (isActive ? 'active' : undefined)}>
-                  {MD_DOCS[id].title}
-                </NavLink>
-              </li>
-            ))}
           </ul>
+          {DOC_GROUPS.map((g) => (
+            <div key={g.id} className="docs-side-group">
+              <p className="docs-side-label">{g.label[lang] || g.label.en}</p>
+              <ul>
+                {g.ids.map((id) => (
+                  <li key={id}>
+                    <NavLink
+                      to={`/docs/${id}`}
+                      className={({ isActive }) => (isActive ? 'active' : undefined)}
+                    >
+                      {docTitle(id, lang)}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </aside>
 
         <div className="docs-content">

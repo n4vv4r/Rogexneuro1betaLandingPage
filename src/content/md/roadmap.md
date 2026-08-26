@@ -3,7 +3,23 @@
 Orden público que se puede fallar en público. Sin fechas del Eclipse:
 cada hito se cierra cuando se demuestra, no cuando se anuncia.
 
-## Ahora (1.0.0 — beta)
+## Ahora (2.0.0 Universal — consola)
+
+Línea nueva, ISO propia (`EchOS-2.0.0-universal-{vm,metal}.iso`):
+
+- Kernel Heap-0 compartido; edición por manifiesto `epk` (Minimal / Complete / Edge / Server).
+- TUI installer, LIVE, memtest, recovery.
+- CLI: `man`, `nano`, `termtheme`, `tree`, historial, Tab.
+- Red: `www`, `curl` (`-I -L -O -o -d -X -dom`), `wdl`, `ipconf`. Handshake TLS 1.3.
+- FHS soberano (`/users`, no `/home`). `epk` solo local.
+- Sonda PCI Akida AKD1000; LIF software si no hay placa.
+
+Pendiente en 2.0 (no es humo, es cola): cuerpo HTTPS de aplicación,
+daemons Server reales, NVMe, Wi-Fi, motor JS. Ver [límites](/docs/limits).
+
+Documentación de producto: [overview](/docs/overview).
+
+## Escritorio 1.0 (ECLIPSE — beta)
 
 - **Minimal + Edge**: publicación pública (30 de agosto de 2026).
 - **Nova**: TLS 1.2 en vivo; endurecer entrega del cuerpo HTTP
@@ -13,7 +29,7 @@ cada hito se cierra cuando se demuestra, no cuando se anuncia.
   (el sample `waterfall-sample.mp4` es la diana de prueba).
 - **Dev edition**: atajos completos para driving automatizado del shell.
 
-## Siguiente (1.1)
+## Siguiente (escritorio 1.1)
 
 - **Motor JS** (subconjunto ES): DOM API + event loop — desbloquea
   React/Vite SPAs en Nova.

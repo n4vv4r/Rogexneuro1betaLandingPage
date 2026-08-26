@@ -336,6 +336,14 @@ main > .page-fade > * {
           mask: radial-gradient(circle, transparent 61%, #000 63%, #000 66%, transparent 68%);
 }
 
+.hero-kicker {
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin: 0 0 0.7rem;
+}
+
 .hero h1 {
   font-size: clamp(2.4rem, 7vw, 4.2rem);
   font-weight: 900;
@@ -756,11 +764,211 @@ td a:hover {
 }
 
 /* ---------- Docs layout ---------- */
+.docs-layout.container {
+  max-width: 1180px;
+}
+
 .docs-body {
   display: grid;
-  grid-template-columns: 230px 1fr;
-  gap: 2.5rem;
+  grid-template-columns: 240px 1fr;
+  gap: 2.8rem;
   align-items: start;
+}
+
+.docs-hub-lead {
+  max-width: 62ch;
+}
+
+.docs-lead-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin: 1.6rem 0 2.4rem;
+}
+
+.docs-lead-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.5rem 1.5rem;
+  border-top: 2px solid var(--accent);
+}
+
+.docs-lead-card--muted {
+  border-top-color: var(--border);
+}
+
+.docs-lead-card h2 {
+  color: var(--corona-white);
+  font-size: 1.15rem;
+  margin: 0.45rem 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.docs-lead-card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+
+.docs-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(255, 157, 69, 0.45);
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+}
+
+.docs-badge--mute {
+  color: var(--text-dim);
+  border-color: var(--border);
+}
+
+.docs-group {
+  margin-bottom: 2.4rem;
+}
+
+.docs-group-title {
+  color: var(--corona-white);
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.docs-group-hint {
+  color: var(--text-dim);
+  font-size: 0.86rem;
+  margin-bottom: 1rem;
+}
+
+.docs-card-grid {
+  align-items: stretch;
+}
+
+.doc-card {
+  height: 100%;
+  min-height: 7.2rem;
+}
+
+.docs-side-group {
+  margin-top: 1.05rem;
+}
+
+.docs-side-label {
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 0.35rem 0.6rem;
+}
+
+.md-view {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+
+.md-view h1 {
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.md-view h2 {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.md-view h3 {
+  color: var(--corona-white);
+  font-size: 1.05rem;
+  margin: 1.6rem 0 0.45rem;
+}
+
+.md-view h1 + p,
+.md-view h1 + p + p {
+  color: var(--text);
+}
+
+.doc-article .doc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 2.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.1rem 0 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.md-view table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.md-view th,
+.md-view td {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.md-view th {
+  color: var(--corona-white);
+  background: var(--bg-panel);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.md-view tr:last-child td {
+  border-bottom: none;
+}
+
+.val-metrics {
+  align-items: stretch;
+}
+
+.val-metric-value {
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.val-metric h3 {
+  color: var(--corona-white);
+  margin-bottom: 0.4rem;
+}
+
+.val-metric-note {
+  color: var(--accent);
+  font-size: 0.88rem;
+  margin-top: 0.6rem;
+}
+
+.md-view blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.35rem 0 0.35rem 1rem;
+  margin: 1.1rem 0;
+  color: var(--corona-white);
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
 }
 
 .docs-sidebar {
@@ -1037,6 +1245,14 @@ p code, li code, td code, .prose code {
 
   .docs-sidebar {
     position: static;
+  }
+
+  .docs-lead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .md-view {
+    max-width: none;
   }
 }
 

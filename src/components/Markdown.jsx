@@ -68,11 +68,20 @@ function renderMd(src) {
       continue;
     }
 
-    const h = line.match(/^(#{1,4})\s+(.*)/);
+    const h = line.match(/^(#{1,5})\s+(.*)/);
     if (h) {
       const lvl = h[1].length;
-      const Tag = ["h1", "h2", "h3", "h4"][lvl - 1];
-      blocks.push(<Tag key={nk()}>{inline(h[2], nk())}</Tag>);
+      const Tag = ["h1", "h2", "h3", "h4", "h5"][lvl - 1];
+      const slug = h[2]
+        .toLowerCase()
+        .replace(/[`*_]/g, "")
+        .replace(/[^a-z0-9áéíóúñü]+/gi, "-")
+        .replace(/^-|-$/g, "");
+      blocks.push(
+        <Tag key={nk()} id={slug || undefined}>
+          {inline(h[2], nk())}
+        </Tag>
+      );
       i++;
       continue;
     }

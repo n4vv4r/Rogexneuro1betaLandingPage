@@ -3,17 +3,18 @@
 // without SPA rewrites. Vercel rewrites stay as the first mechanism.
 import { mkdirSync, copyFileSync, writeFileSync } from "node:fs";
 
+const docIds = [
+  "overview", "whats-new", "users", "curious", "technical", "research",
+  "install", "cli", "commands", "network", "epk", "editions", "faq-echos",
+  "heap-0", "neuromorphic", "filesystem", "limits", "building",
+  "architecture", "echo", "packages", "packages-spec", "video", "roadmap",
+];
+
 const routes = [
   "downloads",
+  "validation",
   "docs",
-  "docs/architecture",
-  "docs/editions",
-  "docs/echo",
-  "docs/packages",
-  "docs/packages-spec",
-  "docs/video",
-  "docs/install",
-  "docs/roadmap",
+  ...docIds.map((id) => `docs/${id}`),
   "faq",
   "privacy",
   "legal",

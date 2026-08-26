@@ -1,10 +1,14 @@
 # EchOS 1.0 — Architecture Documentation
 
-**Rogex Laboratories / Knights Labs · EchOS 1.0 "ECLIPSE" · rev 1.0 · 2026-08-22**
+**Rogex Laboratories / Knights Labs · EchOS 1.0 "ECLIPSE" · rev 1.1 · 2026-08-27**
 
-This document is the master architectural reference for EchOS 1.0 and its
-three editions. It follows the laboratory rule: *what is not built is labeled
-PLAN, never implied.*
+This is the architectural reference for **EchOS 1.0 ECLIPSE** (desktop
+editions Complete / Minimal / Edge). It is not the 2.0 Universal console.
+
+For the Heap-0 CLI line (LIVE, `epk`, `man`, TLS 1.3 client) start at
+[echOS 2.0 overview](/docs/overview) and [What's new vs 1.0](/docs/whats-new).
+
+Laboratory rule, unchanged: *what is not built is labeled PLAN, never implied.*
 
 ---
 

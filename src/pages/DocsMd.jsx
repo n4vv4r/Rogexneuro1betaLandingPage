@@ -1,121 +1,110 @@
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useI18n } from '../i18n';
 import { useSeo } from '../hooks/useSeo';
 import { Reveal } from '../components/Reveal';
 import { Markdown } from '../components/Markdown';
+import {
+  DOC_GROUPS,
+  MD_DOCS,
+  MD_ORDER,
+  docTitle,
+  docBlurb,
+  docSource,
+} from '../content/docs-catalog';
 
-import architectureMd from '../content/md/architecture.md?raw';
-import editionsMd from '../content/md/editions.md?raw';
-import echoMd from '../content/md/echo.md?raw';
-import videoMd from '../content/md/video.md?raw';
-import packagesSpecMd from '../content/md/packages-spec.md?raw';
-import packagesMd from '../content/md/packages.md?raw';
-import installMd from '../content/md/install.md?raw';
-import roadmapMd from '../content/md/roadmap.md?raw';
-
-export const MD_DOCS = {
-  architecture: {
-    title: 'Architecture',
-    blurb: 'Kernel, Eclipse Shell, Nova engine, media pipeline — how EchOS is built.',
-    src: architectureMd,
-  },
-  editions: {
-    title: 'Editions',
-    blurb: 'Complete, Minimal, Edge and Dev — one kernel, three+ product lines.',
-    src: editionsMd,
-  },
-  echo: {
-    title: 'ECHO AI',
-    blurb: 'Navi 10: datasets, A/B training contract, Lang / Code / Sys heads.',
-    src: echoMd,
-  },
-  packages: {
-    title: 'Packages',
-    blurb: 'The .rxp format, rx-pkg and the ten from-scratch core tools.',
-    src: packagesMd,
-  },
-  'packages-spec': {
-    title: 'Package spec',
-    blurb: 'Technical specification of the .rxp binary package format.',
-    src: packagesSpecMd,
-  },
-  video: {
-    title: 'Video pipeline',
-    blurb: 'MP4/H.264 status, sample asset and the 1.0.0 test target.',
-    src: videoMd,
-  },
-  install: {
-    title: 'Install guide',
-    blurb: 'QEMU, VirtualBox, USB and first boot — step by step.',
-    src: installMd,
-  },
-  roadmap: {
-    title: 'Roadmap',
-    blurb: 'What ships next, in order — no dates without ISOs.',
-    src: roadmapMd,
-  },
-};
-
-export const MD_ORDER = ['architecture', 'editions', 'install', 'echo', 'packages', 'packages-spec', 'video', 'roadmap'];
+export { MD_DOCS, MD_ORDER };
 
 export function DocsMdHub() {
+  const { lang, t } = useI18n();
   useSeo('/docs');
   return (
-    <>
+    <div className="docs-hub">
       <Reveal>
-        <span className="kicker">EchOS</span>
-        <h1 className="section-title">Documentation</h1>
-        <p className="section-sub">
-          Technical specs, architecture, how it works, how to use it and where
-          it is going — straight from the source tree, no marketing gloss.
-        </p>
+        <span className="kicker">{t('docsPage.kicker')}</span>
+        <h1 className="section-title">{t('docsPage.hubTitle')}</h1>
+        <p className="section-sub docs-hub-lead">{t('docsPage.hubSub')}</p>
       </Reveal>
+
       <Reveal>
-        <div className="grid grid-2">
-          {MD_ORDER.map((id, i) => (
-            <Reveal key={id} delay={i * 60}>
-              <Link to={`/docs/${id}`} className={`card doc-card doc-card--${id}`}>
-                <h3>{MD_DOCS[id].title}</h3>
-                <p>{MD_DOCS[id].blurb}</p>
-              </Link>
-            </Reveal>
-          ))}
+        <div className="docs-lead-grid">
+          <article className="docs-lead-card">
+            <span className="docs-badge">2.0</span>
+            <h2>{t('docsPage.lead20Title')}</h2>
+            <p>{t('docsPage.lead20Body')}</p>
+            <Link className="btn btn-primary" to="/docs/overview">
+              {t('docsPage.lead20Cta')}
+            </Link>
+          </article>
+          <article className="docs-lead-card docs-lead-card--muted">
+            <span className="docs-badge docs-badge--mute">1.0</span>
+            <h2>{t('docsPage.lead10Title')}</h2>
+            <p>{t('docsPage.lead10Body')}</p>
+            <Link className="btn" to="/docs/architecture">
+              {t('docsPage.lead10Cta')}
+            </Link>
+          </article>
         </div>
       </Reveal>
-    </>
+
+      {DOC_GROUPS.map((g) => (
+        <section key={g.id} className="docs-group">
+          <Reveal>
+            <h2 className="docs-group-title">{g.label[lang] || g.label.en}</h2>
+            <p className="docs-group-hint">{g.hint[lang] || g.hint.en}</p>
+          </Reveal>
+          <div className="grid grid-2 docs-card-grid">
+            {g.ids.map((id, i) => (
+              <Reveal key={id} delay={i * 40}>
+                <Link to={`/docs/${id}`} className={`card doc-card doc-card--${g.id}`}>
+                  <h3>{docTitle(id, lang)}</h3>
+                  <p>{docBlurb(id, lang)}</p>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
   );
 }
 
 export function DocsMdPage({ id }) {
+  const { lang, t } = useI18n();
   const doc = MD_DOCS[id];
-  useSeo(`/docs/${id}`, { title: doc ? `${doc.title} — EchOS Docs` : undefined });
+  useSeo(`/docs/${id}`, {
+    title: doc ? `${docTitle(id, lang)} — Rogex Laboratories` : undefined,
+    description: doc ? docBlurb(id, lang) : undefined,
+  });
   if (!doc) {
     return (
       <article className="prose">
         <p>
-          Unknown document. <Link to="/docs">Back to the docs hub.</Link>
+          {t('docsPage.unknown')}{' '}
+          <Link to="/docs">{t('docsPage.backToHub')}</Link>
         </p>
       </article>
     );
   }
+  const idx = MD_ORDER.indexOf(id);
+  const prev = MD_ORDER[idx - 1];
+  const next = MD_ORDER[idx + 1];
   return (
     <article className="doc-article">
       <p className="back-to-hub">
-        <Link to="/docs">← All docs</Link>
+        <Link to="/docs">{t('docsPage.backToHub')}</Link>
       </p>
-      <Markdown source={doc.src} />
+      <Markdown source={docSource(id, lang)} />
       <div className="doc-nav">
-        {(() => {
-          const idx = MD_ORDER.indexOf(id);
-          const prev = MD_ORDER[idx - 1];
-          const next = MD_ORDER[idx + 1];
-          return (
-            <>
-              {prev && <Link className="btn" to={`/docs/${prev}`}>← {MD_DOCS[prev].title}</Link>}
-              {next && <Link className="btn" to={`/docs/${next}`}>{MD_DOCS[next].title} →</Link>}
-            </>
-          );
-        })()}
+        {prev && (
+          <Link className="btn" to={`/docs/${prev}`}>
+            ← {docTitle(prev, lang)}
+          </Link>
+        )}
+        {next && (
+          <Link className="btn" to={`/docs/${next}`}>
+            {docTitle(next, lang)} →
+          </Link>
+        )}
       </div>
     </article>
   );

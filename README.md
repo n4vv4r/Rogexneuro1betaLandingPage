@@ -17,7 +17,7 @@ Sitio oficial: [www.rogexlaboratories.com](https://www.rogexlaboratories.com/)
 | **NAVI SNN 1→6.5** | Catálogo público | `/navi` — Q₆, WSP, 4.5, lab 5, tutor 6, RLC 6.5 |
 | **RXos neuromorphic fabric** | Niveles 1–2 cerrados | LIF Q16.16, STDP, bench 6/6; Nivel 3 Akida pendiente |
 | **RXos packages** | Canal vivo | `/rx-os/packages` — INDEX + `.rxc` + admin |
-| **Docs** | Públicos | `/docs/rxos/*.pdf` paper + hoja de ruta 4 niveles |
+| **Docs** | Públicos | `/docs` — echOS 2.0 Universal + referencia 1.0 ECLIPSE |
 
 Lanzamiento de suite proyectado: **diciembre 2026**.
 
@@ -40,7 +40,7 @@ Cada ruta pública tiene HTML estático post-build (`suite.html`, `newspaper.htm
 - `/navi` — catálogo NAVI SNN 1 → 5
 - `/rx-os` — rxOS 9 SMOKE + capturas + download
 - `/roadmap` — Eternal Eclipse: línea de tiempo honesta + kit de posts
-- `/docs` — visor markdown (tutorial, demo, bench, NAVI, teoría, impl)
+- `/docs` — visor markdown: echOS 2.0 (overview, install, CLI, red, Heap-0, límites) y 1.0 (arquitectura, ECHO, paquetes)
 - `/rx-os/packages` — catálogo público `.rxc` + tutorial (sin admin)
 - `/about` — lab, contacto, CTAs
 - `/newspaper` — Rogex Newspaper (también en subdominio)

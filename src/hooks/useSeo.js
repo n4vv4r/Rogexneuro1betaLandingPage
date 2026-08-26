@@ -18,6 +18,7 @@ const SEO_KEY_BY_PATH = {
   '/': 'meta.home',
   '/downloads': 'meta.downloads',
   '/docs': 'meta.docs',
+  '/validation': 'meta.validation',
   '/faq': 'meta.faq',
   '/privacy': 'meta.privacy',
   '/legal': 'meta.legal',
@@ -30,7 +31,7 @@ export function useSeo(path, override = {}) {
 
   useEffect(() => {
     const baseTitle = t(`${key}.title`);
-    const title = override.title ? `${override.title} — ${baseTitle}` : baseTitle;
+    const title = override.title || baseTitle;
     const description = override.description || t(`${key}.desc`);
     const url = `https://rogexlaboratories.com${path === '*' ? '/404' : path}`;
 

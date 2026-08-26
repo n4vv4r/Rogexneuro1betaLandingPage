@@ -6,7 +6,8 @@ import { Layout } from './components/Layout';
 import Home from './pages/Home';
 import Downloads from './pages/Downloads';
 import DocsLayout from './pages/DocsLayout';
-import { DocsMdHub, DocsMdPage } from "./pages/DocsMd";
+import { DocsMdHub, DocsMdPage, MD_ORDER } from "./pages/DocsMd";
+import Validation from './pages/Validation';
 import Faq from './pages/Faq';
 import Privacy from './pages/Privacy';
 import Legal from './pages/Legal';
@@ -23,10 +24,11 @@ createRoot(document.getElementById('root')).render(
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/docs" element={<DocsLayout />}>
               <Route index element={<DocsMdHub />} />
-              {["architecture","editions","echo","packages","packages-spec","video","install","roadmap"].map((id) => (
+              {MD_ORDER.map((id) => (
                 <Route key={id} path={id} element={<DocsMdPage id={id} />} />
               ))}
             </Route>
+            <Route path="/validation" element={<Validation />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/legal" element={<Legal />} />

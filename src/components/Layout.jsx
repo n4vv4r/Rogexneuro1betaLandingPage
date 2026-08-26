@@ -35,6 +35,7 @@ function Navbar() {
     { to: '/', key: 'nav.home', end: true },
     { to: '/downloads', key: 'nav.downloads' },
     { to: '/docs', key: 'nav.docs' },
+    { to: '/validation', key: 'nav.validation' },
     { to: '/faq', key: 'nav.faq' },
     { to: '/privacy', key: 'nav.privacy' },
     { to: '/legal', key: 'nav.legal' },
@@ -44,7 +45,7 @@ function Navbar() {
       <nav className="nav" aria-label={t('nav.ariaMain')}>
         <Link className="brand" to="/">
           <span className="brand-eclipse" aria-hidden="true" />
-          ROGEX&nbsp;LABORATORIES&nbsp;<small>/ EchOS</small>
+          ROGEX&nbsp;LABORATORIES&nbsp;<small>/ echOS 2.0</small>
         </Link>
         <ul className="nav-links">
           {links.map((link) => (
@@ -67,6 +68,7 @@ function Footer() {
     { to: '/', key: 'nav.home', end: true },
     { to: '/downloads', key: 'nav.downloads' },
     { to: '/docs', key: 'nav.docs' },
+    { to: '/validation', key: 'nav.validation' },
     { to: '/faq', key: 'nav.faq' },
     { to: '/privacy', key: 'nav.privacy' },
     { to: '/legal', key: 'nav.legal' },

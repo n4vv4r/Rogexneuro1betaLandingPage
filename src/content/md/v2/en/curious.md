@@ -21,14 +21,11 @@ still had Aero leftovers, and cyberpunk green ate the framebuffer.
 
 2.0 is cruel on purpose. Either there is text or there is no product.
 
-## The Braille logo
+## The logo
 
-The echofetch droplet is Unicode U+2800–U+28FF. It always rendered in a
-Linux terminal. On the OS, `console_putc` used to drop `c >= 0x80`. I
-decode Braille into 2×4 dots in the 8×16 cell. If you see the logo left
-of the specs, that is it.
-
-The boot banner is FIGlet. Two marks: machine banner, system card.
+The echofetch droplet is free-to-use Unicode Braille. The boot banner
+is FIGlet. Empty cells instead of a logo means a serial that does not
+paint UTF-8.
 
 ## OpenBSD, without being OpenBSD
 

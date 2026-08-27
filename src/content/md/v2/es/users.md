@@ -28,9 +28,8 @@ ipconf
 tree
 ```
 
-`echofetch` pinta el logo (puntos Braille) a la izquierda y las specs a
-la derecha. En el framebuffer del OS se ve; es el logo oficial. No es
-un ASCII copiado de internet.
+`echofetch` pinta el logo a la izquierda y las specs a la derecha.
+El arte es de uso libre.
 
 ## Archivos
 

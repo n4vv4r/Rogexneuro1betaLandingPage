@@ -24,7 +24,10 @@ export const legalEn = [
           "Navi 10" and "Navi Mini", together with the eclipse logo, are trademarks or trade dress of their owner.
           Trademark rights are not licensed by the GPLv3 and may not be used to imply endorsement or origin.
         </li>
-        <li>The visual design, texts and graphics of this website are © Rogex Laboratories unless stated otherwise.</li>
+        <li>
+          The visual design, texts and graphics of this website are © Rogex Laboratories unless stated otherwise.
+          Some terminal art (ASCII / Braille) is free to use.
+        </li>
       </ul>
     ),
   },

@@ -23,16 +23,11 @@ framebuffer.
 
 2.0 es cruel a propósito. O hay texto o no hay producto.
 
-## El logo Braille
+## El logo
 
-El droplet de echofetch es Unicode U+2800–U+28FF. En un terminal Linux
-se veía. En el OS no: `console_putc` tiraba todo `c >= 0x80`. Lo arreglé
-decodificando Braille a puntos 2×4 en el glifo 8×16. Si ves el logo a
-la izquierda de las specs, es eso. Si ves huecos, estás en un serial
+El droplet de echofetch es Braille Unicode de uso libre. El banner de
+boot es FIGlet. Si ves huecos en lugar del logo, estás en un serial
 que no pinta UTF-8.
-
-No es FIGlet. El banner de boot *sí* es FIGlet. Son dos marcas: banner
-de máquina, tarjeta de sistema.
 
 ## OpenBSD, sin ser OpenBSD
 

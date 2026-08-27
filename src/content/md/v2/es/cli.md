@@ -53,11 +53,8 @@ HTML/Rust. Ctrl+W guarda. Esc sale. `pico` es el mismo binario.
 
 ## Logo y banner
 
-- **Banner de boot:** FIGlet `echOS`, bloque de estado `[echOS]`.
-- **echofetch:** droplet Braille a la izquierda, specs a la derecha.
-
-Si el logo no se ve en el OS y sí en tu GNOME Terminal, es el bug
-viejo de `c >= 0x80`. En 2.0 está decodificado.
+- **Banner de boot:** FIGlet `echOS`.
+- **echofetch:** logo Braille de uso libre a la izquierda, specs a la derecha.
 
 ## `man`
 

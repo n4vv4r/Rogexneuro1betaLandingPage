@@ -85,8 +85,8 @@ export const MD_DOCS = {
   curious: {
     title: { en: 'For the curious', es: 'Para curiosos' },
     blurb: {
-      en: 'Why a console, Braille logo, OpenBSD names, no fake NPUs.',
-      es: 'Por qué consola, logo Braille, nombres OpenBSD, ningún NPU falso.',
+      en: 'Why a console, OpenBSD names, no fake NPUs.',
+      es: 'Por qué consola, nombres OpenBSD, ningún NPU falso.',
     },
     src: v2('curious'),
   },

@@ -27,7 +27,7 @@ export const legalEs = [
         </li>
         <li>
           El diseño visual, los textos y los gráficos de este sitio web son © Rogex Laboratories salvo indicación en
-          contrario.
+          contrario. Parte del arte de terminal (ASCII / Braille) es de uso libre.
         </li>
       </ul>
     ),

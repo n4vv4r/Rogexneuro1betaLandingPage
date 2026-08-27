@@ -51,11 +51,8 @@ Ctrl+W saves. Esc exits. `pico` is the same binary.
 
 ## Logo and banner
 
-- **Boot banner:** FIGlet `echOS`, `[echOS]` status block.
-- **echofetch:** Braille droplet on the left, specs on the right.
-
-If the logo is missing on the OS and present in GNOME Terminal, that was
-the old `c >= 0x80` bug. Fixed in 2.0.
+- **Boot banner:** FIGlet `echOS`.
+- **echofetch:** free-to-use Braille logo on the left, specs on the right.
 
 ## `man`
 

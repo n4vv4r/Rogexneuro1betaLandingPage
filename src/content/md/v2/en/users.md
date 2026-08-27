@@ -28,8 +28,8 @@ ipconf
 tree
 ```
 
-`echofetch` paints the official droplet (Braille dots) on the left and the
-specs on the right.
+`echofetch` paints the logo on the left and the specs on the right.
+The art is free to use.
 
 ## Files
 

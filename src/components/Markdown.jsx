@@ -1,14 +1,40 @@
 /* Markdown viewer — hand-rolled parser (no dependencies), EchOS style.
    Supports: # headings, ``` fences, - lists, 1. lists, > quotes, tables,
-   **bold**, *italic*, `code`, [links](url), --- rules, blank-line paragraphs. */
-import { Link } from 'react-router-dom';
+   **bold**, *italic*, `code`, [links](url), --- rules, blank-line paragraphs.
+
+   A line that merely *starts* with `#` (hex colours, #GP, preprocessor) is
+   not a heading. Treating it as one and then skipping it in the paragraph
+   scanner used to spin forever and freeze every browser on /docs. */
+import { Component } from "react";
+import { Link } from "react-router-dom";
+
+const RE_HEADING = /^(#{1,6})\s+(.*)$/;
+const RE_UL = /^\s*[-*]\s+/;
+const RE_OL = /^\s*\d+\.\s+/;
+const RE_HR = /^---+\s*$/;
+const RE_TABLE_SEP = /^\s*\|[\s:|-]+\|\s*$/;
+
+function asText(src) {
+  if (typeof src === "string") return src;
+  if (src && typeof src === "object" && typeof src.default === "string") return src.default;
+  return src == null ? "" : String(src);
+}
+
+function isFence(s) {
+  return s.trimStart().startsWith("```");
+}
 
 function inline(text, keyBase) {
   const out = [];
   let rest = text;
   let k = 0;
   const re = /(`[^`]+`)|(\*\*[^*]+\*\*)|(\*[^*\n]+\*)|(\[[^\]]+\]\([^)\s]+\))/;
+  let guard = 0;
   while (rest.length) {
+    if (++guard > rest.length + 8) {
+      out.push(rest);
+      break;
+    }
     const m = rest.match(re);
     if (!m || m.index === undefined) {
       out.push(rest);
@@ -16,6 +42,10 @@ function inline(text, keyBase) {
     }
     if (m.index > 0) out.push(rest.slice(0, m.index));
     const tok = m[0];
+    if (!tok.length) {
+      out.push(rest);
+      break;
+    }
     const key = `${keyBase}-${k++}`;
     if (tok.startsWith("`")) {
       out.push(<code key={key}>{tok.slice(1, -1)}</code>);
@@ -45,21 +75,36 @@ function inline(text, keyBase) {
   return out;
 }
 
-function renderMd(src) {
-  const lines = src.split("\n");
+function isBlockStart(s) {
+  return (
+    isFence(s) ||
+    RE_HEADING.test(s) ||
+    RE_UL.test(s) ||
+    RE_OL.test(s) ||
+    s.startsWith(">") ||
+    RE_HR.test(s)
+  );
+}
+
+export function renderMd(src) {
+  const lines = asText(src).split("\n");
   const blocks = [];
   let i = 0;
   let key = 0;
   const nk = () => `b${key++}`;
+  const limit = lines.length * 8 + 32;
+  let steps = 0;
 
   while (i < lines.length) {
+    if (++steps > limit) break;
+    const start = i;
     const line = lines[i];
 
-    if (line.startsWith("```")) {
+    if (isFence(line)) {
       const code = [];
       i++;
-      while (i < lines.length && !lines[i].startsWith("```")) code.push(lines[i++]);
-      i++;
+      while (i < lines.length && !isFence(lines[i])) code.push(lines[i++]);
+      if (i < lines.length) i++;
       blocks.push(
         <pre key={nk()} className="md-code">
           <code>{code.join("\n")}</code>
@@ -68,10 +113,10 @@ function renderMd(src) {
       continue;
     }
 
-    const h = line.match(/^(#{1,5})\s+(.*)/);
+    const h = line.match(RE_HEADING);
     if (h) {
-      const lvl = h[1].length;
-      const Tag = ["h1", "h2", "h3", "h4", "h5"][lvl - 1];
+      const lvl = Math.min(h[1].length, 6);
+      const Tag = ["h1", "h2", "h3", "h4", "h5", "h6"][lvl - 1];
       const slug = h[2]
         .toLowerCase()
         .replace(/[`*_]/g, "")
@@ -86,20 +131,20 @@ function renderMd(src) {
       continue;
     }
 
-    if (/^\s*[-*]\s+/.test(line)) {
+    if (RE_UL.test(line)) {
       const items = [];
-      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
-        items.push(<li key={nk()}>{inline(lines[i].replace(/^\s*[-*]\s+/, ""), nk())}</li>);
+      while (i < lines.length && RE_UL.test(lines[i])) {
+        items.push(<li key={nk()}>{inline(lines[i].replace(RE_UL, ""), nk())}</li>);
         i++;
       }
       blocks.push(<ul key={nk()}>{items}</ul>);
       continue;
     }
 
-    if (/^\s*\d+\.\s+/.test(line)) {
+    if (RE_OL.test(line)) {
       const items = [];
-      while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
-        items.push(<li key={nk()}>{inline(lines[i].replace(/^\s*\d+\.\s+/, ""), nk())}</li>);
+      while (i < lines.length && RE_OL.test(lines[i])) {
+        items.push(<li key={nk()}>{inline(lines[i].replace(RE_OL, ""), nk())}</li>);
         i++;
       }
       blocks.push(<ol key={nk()}>{items}</ol>);
@@ -116,7 +161,7 @@ function renderMd(src) {
       continue;
     }
 
-    if (line.includes("|") && i + 1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+    if (line.includes("|") && i + 1 < lines.length && RE_TABLE_SEP.test(lines[i + 1])) {
       const cells = (r) =>
         r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
       const head = cells(line);
@@ -140,7 +185,7 @@ function renderMd(src) {
       continue;
     }
 
-    if (/^---+\s*$/.test(line)) {
+    if (RE_HR.test(line)) {
       blocks.push(<hr key={nk()} />);
       i++;
       continue;
@@ -152,23 +197,51 @@ function renderMd(src) {
     }
 
     const para = [];
-    while (
-      i < lines.length &&
-      lines[i].trim() !== "" &&
-      !lines[i].startsWith("#") &&
-      !lines[i].startsWith("```") &&
-      !/^\s*[-*]\s+/.test(lines[i]) &&
-      !/^\s*\d+\.\s+/.test(lines[i]) &&
-      !lines[i].startsWith(">") &&
-      !/^---+\s*$/.test(lines[i])
-    ) {
+    while (i < lines.length && lines[i].trim() !== "" && !isBlockStart(lines[i])) {
       para.push(lines[i++]);
     }
-    blocks.push(<p key={nk()}>{inline(para.join(" "), nk())}</p>);
+    if (para.length) {
+      blocks.push(<p key={nk()}>{inline(para.join(" "), nk())}</p>);
+    }
+
+    if (i === start) {
+      blocks.push(<p key={nk()}>{inline(line, nk())}</p>);
+      i++;
+    }
   }
   return blocks;
 }
 
+class MdBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { failed: false };
+  }
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    if (this.state.failed) {
+      return (
+        <article className="prose md-view">
+          <p>This document failed to render. Pick another page from the sidebar.</p>
+        </article>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export function Markdown({ source }) {
-  return <article className="prose md-view">{renderMd(source)}</article>;
+  let body;
+  try {
+    body = renderMd(source);
+  } catch {
+    body = <p>This document failed to render. Pick another page from the sidebar.</p>;
+  }
+  return (
+    <MdBoundary>
+      <article className="prose md-view">{body}</article>
+    </MdBoundary>
+  );
 }

@@ -88,12 +88,22 @@ export function DocsMdPage({ id }) {
   const idx = MD_ORDER.indexOf(id);
   const prev = MD_ORDER[idx - 1];
   const next = MD_ORDER[idx + 1];
+  const source = docSource(id, lang);
   return (
     <article className="doc-article">
       <p className="back-to-hub">
         <Link to="/docs">{t('docsPage.backToHub')}</Link>
       </p>
-      <Markdown source={docSource(id, lang)} />
+      {source ? (
+        <Markdown source={source} />
+      ) : (
+        <article className="prose">
+          <p>
+            {t('docsPage.unknown')}{' '}
+            <Link to="/docs">{t('docsPage.backToHub')}</Link>
+          </p>
+        </article>
+      )}
       <div className="doc-nav">
         {prev && (
           <Link className="btn" to={`/docs/${prev}`}>

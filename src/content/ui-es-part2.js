@@ -48,6 +48,28 @@ export const esPart2 = {
     },
   },
 
+  packagesPage: {
+    title: 'Paquetes',
+    tagline: 'El canal público de epk. Archivos RXP1 que puedes guardar en el navegador o bajar desde echOS con www on.',
+    badge: 'Canal vivo',
+    howTitle: 'Ya no es solo local',
+    howBody: 'La ISO sigue llevando un catálogo para LIVE. Los ficheros viven aquí. Descarga un .rxp, o desde la consola:',
+    howCode: 'www on\nepk get rg\n# saved /tmp/rg-2.0.0.rxp',
+    docsLink: 'epk en Docs',
+    kicker: 'INDEX',
+    listTitle: 'Todos los paquetes',
+    listSub: 'Formato RXP1. SHA-256 en INDEX.json. RXFS en el unikernel es 64 KiB por fichero — los .rxp grandes se quedan en este sitio.',
+    error: 'No se pudo cargar INDEX.json.',
+    table: {
+      name: 'Nombre',
+      version: 'Versión',
+      edition: 'Edición',
+      size: 'Tamaño',
+      desc: 'Descripción',
+      file: 'Descarga',
+    },
+  },
+
   docsPage: {
     kicker: 'Notas de laboratorio',
     hubTitle: 'Documentación',

@@ -9,6 +9,10 @@ export const esPart1 = {
       title: 'Descargas — echOS 2.0 Universal — Rogex Laboratories',
       desc: 'echOS 2.0 Universal es una sola edición pública. La ISO se retiene hasta medir BrainChip Akida en hardware real. Las sumas viajarán con el drop.',
     },
+    packages: {
+      title: 'Paquetes — echOS epk / RXP1 — Rogex Laboratories',
+      desc: 'Canal público de paquetes echOS. Descarga .rxp aquí, o desde el OS: www on && epk get <name>.',
+    },
     validation: {
       title: 'Validación — echOS + Akida — Rogex Laboratories',
       desc: 'El listón de publicación de echOS 2.0: energía, latencia, dispersión, deriva Heap-0 y datasets abiertos. Sin cifras de silicio hasta que Akida esté en el banco.',
@@ -38,6 +42,7 @@ export const esPart1 = {
   nav: {
     home: 'Inicio',
     downloads: 'Descargas',
+    packages: 'Paquetes',
     docs: 'Documentación',
     validation: 'Validación',
     faq: 'FAQ',
@@ -79,7 +84,7 @@ export const esPart1 = {
       'Kernel Heap-0 compartido — la edición se aplica al instalar, no son cuatro ELF',
       'LIVE / memtest / recovery en GRUB; q salta el wizard',
       'man, nano, curl, wdl, ipconf en consola',
-      'epk no abre sockets',
+      'epk get baja .rxp de /packages cuando www está on',
       'PCI 1e7c:bca1 se sonda; sin placa → LIF software, nunca un NPU falso',
     ],
     cta: 'Descargas (retenidas)',
@@ -96,7 +101,7 @@ export const esPart1 = {
       { icon: '⌘', title: 'Contrato de consola', text: 'Liberation Mono, termtheme, man, nano. El CLI es el producto — no un fallback de un escritorio.' },
       { icon: '◎', title: 'Red como herramienta', text: 'www, curl, wdl, ipconf. HTTP/1.0, SNI, TLS 1.3 ofertado. Un socket. Sin teatro Wi-Fi.' },
       { icon: '✦', title: 'Camino de spikes', text: 'Tejido de eventos + PRISMA 5 SNN en software. Akida es un PCI que sondamos, no un render en una diapositiva.' },
-      { icon: '▤', title: 'epk local', text: 'El catálogo viaja en la ISO. El OS no llama a casa por paquetes.' },
+      { icon: '▤', title: 'canal epk', text: 'La ISO sigue llevando un catálogo. El árbol vivo es https://www.rogexlaboratories.com/packages — descarga en el navegador o `epk get`.' },
     ],
   },
 

@@ -1,0 +1,296 @@
+{
+  "channel": "https://www.rogexlaboratories.com/packages",
+  "format": "RXP1",
+  "kernel": "2.0.0",
+  "note": "Download in a browser, or from echOS: www on && epk get <name>",
+  "packages": [
+    {
+      "name": "echos-base",
+      "version": "2.0.0",
+      "file": "echos-base-2.0.0.rxp",
+      "size": 340,
+      "sha256": "30b44d739db1ba586ef9e42ab495e298e336c622e874d87a907afec98947ed38",
+      "desc": "kernel + Heap-0 + ROSH + epk",
+      "edition": "all"
+    },
+    {
+      "name": "echos-shell",
+      "version": "2.0.0",
+      "file": "echos-shell-2.0.0.rxp",
+      "size": 341,
+      "sha256": "ed60a37b668a97143cd286fa7219d3fd802e998cfa55effc0bf71bb1d9a3b942",
+      "desc": "doas rcctl pfctl disk tools",
+      "edition": "all"
+    },
+    {
+      "name": "echofetch",
+      "version": "2.0.0",
+      "file": "echofetch-2.0.0.rxp",
+      "size": 3414,
+      "sha256": "6ad9108f1267087571bcbc5740e3a237cf1536defb8d682a99ac8cdfaa86c444",
+      "desc": "system card + droplet",
+      "edition": "all"
+    },
+    {
+      "name": "echos-cli",
+      "version": "2.0.0",
+      "file": "echos-cli-2.0.0.rxp",
+      "size": 329,
+      "sha256": "e3476bb5fdca1e74f585f2d29e434d92552b3b36f69b95ba1fc87bc93c0b0dd8",
+      "desc": "extended CLI suite",
+      "edition": "complete,server"
+    },
+    {
+      "name": "echos-dev",
+      "version": "2.0.0",
+      "file": "echos-dev-2.0.0.rxp",
+      "size": 348,
+      "sha256": "3c80f4b23695f2ba0e5209ffca835f2ec321d3ed6af1e69e816526645c82575f",
+      "desc": "compilers / interpreters (text)",
+      "edition": "complete"
+    },
+    {
+      "name": "echos-diag",
+      "version": "2.0.0",
+      "file": "echos-diag-2.0.0.rxp",
+      "size": 351,
+      "sha256": "969555006805b829dc4c3760776d1d8a0d212c28cf722e32850eb5c26c9993f2",
+      "desc": "echofetch memtest prisma5",
+      "edition": "complete,server,edge"
+    },
+    {
+      "name": "tcc",
+      "version": "0.9.27",
+      "file": "tcc-0.9.27.rxp",
+      "size": 318,
+      "sha256": "d34ca2c2a6235a896dcd57c777af642ec219a5619807703171cc2e91ac554a98",
+      "desc": "TinyCC native C compiler",
+      "edition": "complete"
+    },
+    {
+      "name": "make",
+      "version": "2.0.0",
+      "file": "make-2.0.0.rxp",
+      "size": 311,
+      "sha256": "dc7931a90f18df46cacbd763752f195f86184707a42c1a82ff94c321c9dd40ce",
+      "desc": "Complete make subset",
+      "edition": "complete"
+    },
+    {
+      "name": "epk-build",
+      "version": "2.0.0",
+      "file": "epk-build-2.0.0.rxp",
+      "size": 308,
+      "sha256": "cf2a66488ed9bb5b4d82ac7a4c96651c872a465e563193beb53db1c49ce3de79",
+      "desc": "RXP1 packer",
+      "edition": "complete"
+    },
+    {
+      "name": "python314",
+      "version": "3.14.7",
+      "file": "python314-3.14.7.rxp",
+      "size": 330,
+      "sha256": "88443f05a191a8bba616c17a5ae198a29bfc2fb2414b8a778584f12ae5008eca",
+      "desc": "static CPython 3.14.7",
+      "edition": "complete"
+    },
+    {
+      "name": "quickjs",
+      "version": "2024",
+      "file": "quickjs-2024.rxp",
+      "size": 328,
+      "sha256": "931e4d5aca09ab15451f54884a572ad9f2b47dd03992685d7a1e4dcfe2ed51f4",
+      "desc": "embedded JS engine <2 MiB",
+      "edition": "complete"
+    },
+    {
+      "name": "nasm",
+      "version": "2.16",
+      "file": "nasm-2.16.rxp",
+      "size": 287,
+      "sha256": "16453cd215a914fcb89a95d3b61f6caaa256bc92181fd095cc6e22f29e24bf1c",
+      "desc": "assembler",
+      "edition": "complete"
+    },
+    {
+      "name": "rustc-echos",
+      "version": "1.85",
+      "file": "rustc-echos-1.85.rxp",
+      "size": 328,
+      "sha256": "cdf025efa2f451aafd2a03bfdda04ae2aeb7bc94d90bdc89d4cb4a6a9f102a0e",
+      "desc": "rustc custom target",
+      "edition": "complete"
+    },
+    {
+      "name": "echos-npu",
+      "version": "2.0.0",
+      "file": "echos-npu-2.0.0.rxp",
+      "size": 332,
+      "sha256": "cab12c77560a34512df5b4eb12573fadd3a1ec3ca1d248c9b2d54a2fc51218fc",
+      "desc": "Akida AKD1000 SNN runtime",
+      "edition": "edge"
+    },
+    {
+      "name": "echos-io",
+      "version": "2.0.0",
+      "file": "echos-io-2.0.0.rxp",
+      "size": 315,
+      "sha256": "bab4d0d81dd91ed51c422e375b7b10b06982c62582e0438e58f4429814166691",
+      "desc": "static I/O drivers",
+      "edition": "edge"
+    },
+    {
+      "name": "echos-akida",
+      "version": "2.0.0",
+      "file": "echos-akida-2.0.0.rxp",
+      "size": 346,
+      "sha256": "cee10e8bb0e9bda8b1cb7be117befa3d2a32204726313b90c87ff99ddfbedc94",
+      "desc": "AKD1000 PCIe/MMIO reservation",
+      "edition": "edge"
+    },
+    {
+      "name": "echos-net",
+      "version": "2.0.0",
+      "file": "echos-net-2.0.0.rxp",
+      "size": 332,
+      "sha256": "57d0f5e38eb44815a8ae6bbeabf13ee40b82e1eba70c7e2fdee343806e35c9ac",
+      "desc": "async bare-metal network",
+      "edition": "server"
+    },
+    {
+      "name": "echos-httpd",
+      "version": "2.0.0",
+      "file": "echos-httpd-2.0.0.rxp",
+      "size": 326,
+      "sha256": "8777d1ac5a60b68acc0e029fc5c00bc34d4827de9ed9afc76024b2e63c1e1590",
+      "desc": "native HTTP daemon",
+      "edition": "server"
+    },
+    {
+      "name": "echos-ftpd",
+      "version": "2.0.0",
+      "file": "echos-ftpd-2.0.0.rxp",
+      "size": 321,
+      "sha256": "8ddf19b012d44f7c5a69b347a3649766744cfdf9020f659cb9d590b0c61bea3f",
+      "desc": "native FTP daemon",
+      "edition": "server"
+    },
+    {
+      "name": "echos-sshd",
+      "version": "2.0.0",
+      "file": "echos-sshd-2.0.0.rxp",
+      "size": 321,
+      "sha256": "a24d96d9b8c0ff70ea3d2ae001423c9cb97e522334856db296d33d59f5810963",
+      "desc": "native SSH daemon",
+      "edition": "server"
+    },
+    {
+      "name": "echos-pqc",
+      "version": "2.0.0",
+      "file": "echos-pqc-2.0.0.rxp",
+      "size": 316,
+      "sha256": "897fc0d0d49ea9c27cde7d3f77dbf422d2d88ec8f400961c066e187f1a851aa0",
+      "desc": "ROGEX-PQC tunnel",
+      "edition": "server"
+    },
+    {
+      "name": "rg",
+      "version": "2.0.0",
+      "file": "rg-2.0.0.rxp",
+      "size": 6964,
+      "sha256": "60597e21512be24b5bf8a7ee70fff4acf2306055ba02b4e1ac251b2e34714414",
+      "desc": "recursive text search",
+      "edition": "all"
+    },
+    {
+      "name": "fd",
+      "version": "2.0.0",
+      "file": "fd-2.0.0.rxp",
+      "size": 5178,
+      "sha256": "053474ec6ba37e9805023e198a072bc93088f59f3cb047d4f802ab63d968d0cf",
+      "desc": "filename glob finder",
+      "edition": "all"
+    },
+    {
+      "name": "bat",
+      "version": "2.0.0",
+      "file": "bat-2.0.0.rxp",
+      "size": 4302,
+      "sha256": "81f866f7abe214a8af0abbd82ad5acac338c56e0f400365c90e2dfdf525da8a9",
+      "desc": "cat with numbers / ranges",
+      "edition": "all"
+    },
+    {
+      "name": "eza",
+      "version": "2.0.0",
+      "file": "eza-2.0.0.rxp",
+      "size": 6423,
+      "sha256": "1548b833b29fcf9282ac2570e707a647153cf6ee4e4ce94f3c06744620b652a6",
+      "desc": "directory listing",
+      "edition": "all"
+    },
+    {
+      "name": "z",
+      "version": "2.0.0",
+      "file": "z-2.0.0.rxp",
+      "size": 8601,
+      "sha256": "02eee60c14d4953bef696a1b7ce1b908d93e1d9adbf3a1c8db049cee7e8d17dd",
+      "desc": "frecency cd",
+      "edition": "all"
+    },
+    {
+      "name": "unp",
+      "version": "2.0.0",
+      "file": "unp-2.0.0.rxp",
+      "size": 19188,
+      "sha256": "1a9d07a31f689703a98c96cf86cb52aa3368175481d5b69db7d12a61814c9ea9",
+      "desc": "unpack tar/zip/rxp",
+      "edition": "all"
+    },
+    {
+      "name": "dust",
+      "version": "2.0.0",
+      "file": "dust-2.0.0.rxp",
+      "size": 6354,
+      "sha256": "7993802ab450823bc621bff80dc2b991a3de4025631ff991efc51afd15009003",
+      "desc": "disk usage tree",
+      "edition": "all"
+    },
+    {
+      "name": "duf",
+      "version": "2.0.0",
+      "file": "duf-2.0.0.rxp",
+      "size": 4860,
+      "sha256": "0fcf461574a587bb4a9cbbc3e83f5ba6b2be9170e363701581edf5b4fb260675",
+      "desc": "filesystem overview",
+      "edition": "all"
+    },
+    {
+      "name": "hyperfine",
+      "version": "2.0.0",
+      "file": "hyperfine-2.0.0.rxp",
+      "size": 4469,
+      "sha256": "5a126db81e20833a1f57415a6c6dc083d6df573be2263f9a737d7934c5fd6c0d",
+      "desc": "command benchmark",
+      "edition": "all"
+    },
+    {
+      "name": "localsend",
+      "version": "2.0.0",
+      "file": "localsend-2.0.0.rxp",
+      "size": 10393,
+      "sha256": "f9bf8277e3f4a041b0d61bb77e89faf80d5fc015db92dd618fdfd031b6630264",
+      "desc": "LAN file transfer",
+      "edition": "all"
+    },
+    {
+      "name": "rx-pkg",
+      "version": "2.0.0",
+      "file": "rx-pkg-2.0.0.rxp",
+      "size": 30661,
+      "sha256": "c811241eeb11055f41eb097acb2c2d2144ae453622c6bb039aca812b98e752d5",
+      "desc": "RXP1 packer",
+      "edition": "complete"
+    }
+  ]
+}

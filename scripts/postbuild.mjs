@@ -12,6 +12,8 @@ const docIds = [
 
 const routes = [
   "downloads",
+  "packages",
+  "rx-os/packages",
   "validation",
   "docs",
   ...docIds.map((id) => `docs/${id}`),

@@ -17,6 +17,8 @@ function setMeta(selector, attr, value) {
 const SEO_KEY_BY_PATH = {
   '/': 'meta.home',
   '/downloads': 'meta.downloads',
+  '/packages': 'meta.packages',
+  '/rx-os/packages': 'meta.packages',
   '/docs': 'meta.docs',
   '/validation': 'meta.validation',
   '/faq': 'meta.faq',

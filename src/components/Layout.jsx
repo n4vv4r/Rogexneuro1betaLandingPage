@@ -34,6 +34,7 @@ function Navbar() {
   const links = [
     { to: '/', key: 'nav.home', end: true },
     { to: '/downloads', key: 'nav.downloads' },
+    { to: '/packages', key: 'nav.packages' },
     { to: '/docs', key: 'nav.docs' },
     { to: '/validation', key: 'nav.validation' },
     { to: '/faq', key: 'nav.faq' },
@@ -67,6 +68,7 @@ function Footer() {
   const links = [
     { to: '/', key: 'nav.home', end: true },
     { to: '/downloads', key: 'nav.downloads' },
+    { to: '/packages', key: 'nav.packages' },
     { to: '/docs', key: 'nav.docs' },
     { to: '/validation', key: 'nav.validation' },
     { to: '/faq', key: 'nav.faq' },

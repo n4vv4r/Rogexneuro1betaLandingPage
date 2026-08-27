@@ -8,6 +8,10 @@ export const en = {
       title: 'Downloads — echOS 2.0 Universal — Rogex Laboratories',
       desc: 'echOS 2.0 Universal is a single public edition. The ISO is held until BrainChip Akida is measured on real silicon. Checksums will ship with the drop.',
     },
+    packages: {
+      title: 'Packages — echOS epk / RXP1 — Rogex Laboratories',
+      desc: 'Public echOS package channel. Download .rxp files here, or from the OS: www on && epk get <name>.',
+    },
     validation: {
       title: 'Validation — echOS + Akida — Rogex Laboratories',
       desc: 'The publication bar for echOS 2.0: energy, latency, sparsity, Heap-0 drift and open datasets. No silicon numbers until Akida is in the lab.',
@@ -37,6 +41,7 @@ export const en = {
   nav: {
     home: 'Home',
     downloads: 'Downloads',
+    packages: 'Packages',
     docs: 'Docs',
     validation: 'Validation',
     faq: 'FAQ',
@@ -78,7 +83,7 @@ export const en = {
       'Shared Heap-0 kernel — edition applied at install, not four ELFs',
       'LIVE / memtest / recovery in GRUB; q skips the wizard',
       'man, nano, curl, wdl, ipconf on the console',
-      'epk never opens a socket',
+      'epk get pulls .rxp from /packages when www is on',
       'PCI 1e7c:bca1 probed; no board → software LIF, never a fake NPU',
     ],
     cta: 'Downloads (held)',
@@ -95,7 +100,7 @@ export const en = {
       { icon: '⌘', title: 'Console contract', text: 'Liberation Mono, termtheme, man pages, nano. The CLI is the product — not a fallback from a desktop.' },
       { icon: '◎', title: 'Network as a tool', text: 'www, curl, wdl, ipconf. HTTP/1.0, SNI, TLS 1.3 offered. One socket. No Wi-Fi theatre.' },
       { icon: '✦', title: 'Spiking path', text: 'Event fabric + PRISMA 5 SNN in software. Akida is a PCI device we probe, not a render in a slide.' },
-      { icon: '▤', title: 'Local epk', text: 'Catalogue rides in the ISO. The OS does not phone home for packages.' },
+      { icon: '▤', title: 'epk channel', text: 'The ISO still carries a catalog. The live tree is https://www.rogexlaboratories.com/packages — browser download or `epk get`.' },
     ],
   },
 
@@ -163,6 +168,28 @@ export const en = {
       title: 'Checksums travel with the image',
       body1: 'The public drop will include SHA256SUMS.txt. Verify before you flash:',
       body2: 'A mismatch means you stop. No image, no sum — that is the honest state today.',
+    },
+  },
+
+  packagesPage: {
+    title: 'Packages',
+    tagline: 'The public epk channel. RXP1 files you can save in a browser or pull from echOS with www on.',
+    badge: 'Live channel',
+    howTitle: 'Not local-only anymore',
+    howBody: 'The ISO still carries a catalog for LIVE. The files themselves live here. Download a .rxp, or from the console:',
+    howCode: 'www on\nepk get rg\n# saved /tmp/rg-2.0.0.rxp',
+    docsLink: 'epk in Docs',
+    kicker: 'INDEX',
+    listTitle: 'All packages',
+    listSub: 'Format RXP1. SHA-256 is in INDEX.json. RXFS on the unikernel is 64 KiB per file — large .rxp stay on this site.',
+    error: 'Could not load INDEX.json.',
+    table: {
+      name: 'Name',
+      version: 'Version',
+      edition: 'Edition',
+      size: 'Size',
+      desc: 'Description',
+      file: 'Download',
     },
   },
 

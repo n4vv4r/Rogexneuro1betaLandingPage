@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import Head from "./components/Head.jsx";
 import Nav from "./components/Nav.jsx";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
@@ -18,14 +19,18 @@ export default function App() {
 
   if (docsHost) {
     return (
-      <Routes>
-        <Route path="/*" element={<Docs />} />
-      </Routes>
+      <>
+        <Head />
+        <Routes>
+          <Route path="/*" element={<Docs />} />
+        </Routes>
+      </>
     );
   }
 
   return (
     <>
+      <Head />
       <Nav path={loc.pathname} />
       <Routes>
         <Route path="/" element={<Home />} />

@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /sitemap.xml
+Allow: /og.png
 Disallow: /echos
 Disallow: /prisma
+
+Sitemap: https://www.rogexlaboratories.com/sitemap.xml

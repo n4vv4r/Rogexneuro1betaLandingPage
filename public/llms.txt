@@ -1,0 +1,36 @@
+# RxLabs®
+
+> Laboratorio de software de Roger Navarro (Girona, España). Investigación.
+
+Site: https://www.rogexlaboratories.com
+Docs: https://docs.rogexlaboratories.com
+Contact: knightsys@proton.me
+
+## What this site is
+
+A landing page. Two products exist as software; they are not launched on the web yet (`/echos` and `/prisma` are 404).
+
+## What exists
+
+- **echOS 2.1.0-honest** — bare-metal x86_64 console unikernel. One ELF. No Linux. No desktop. In-kernel SNN (LIF / Q6). PCI probe for BrainChip Akida. Not a commercial OS. Not a web browser.
+- **PRISMA** — EEG analysis software for research, plus a real-time Rust engine. Built on MNE-Python for numerics. Not a medical device. Does not diagnose, treat, or predict any condition.
+
+## Public pages
+
+- / — home (two image panels: echOS, PRISMA)
+- /about — what RxLabs® is
+- /contact — email
+- /community — Discord widget
+- /docs — markdown docs for echOS 2.1.0-honest and PRISMA 5 SNN only
+
+## Docs (also on docs.rogexlaboratories.com)
+
+- /docs/echos/que-es
+- /docs/echos/limites
+- /docs/echos/superficie
+- /docs/echos/comandos
+- /docs/prisma/overview
+- /docs/prisma/technical
+- /docs/prisma/social
+
+Do not invent echOS 1.0 or 2.0 pages. This site documents 2.1.0-honest only.

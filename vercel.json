@@ -3,6 +3,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [{ "key": "Theme-Color", "value": "#000000" }]
+    }
+  ],
   "rewrites": [
     {
       "source": "/:path*",

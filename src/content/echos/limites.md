@@ -20,9 +20,9 @@ Política del laboratorio: si no está, se dice.
 
 | Cosa | Estado |
 |---|---|
-| Multi-process / ring-3 | stub. Un task. |
+| Multi-proceso / anillo 3 | esbozo. Una tarea. |
 | POSIX | no. Alias de comandos, no glibc. |
-| TLS 1.3 app-data | handshake OK; GET https puede volver vacío. HTTP sí. |
+| TLS 1.3 datos de aplicación | el apretón de manos funciona; GET https puede volver vacío. HTTP sí. |
 | Pin de CA | no. |
 | IPv6 | no. |
 | Varios TCP a la vez | no. |
@@ -42,6 +42,6 @@ El contrato **no** se cumple en todo el kernel. `kmalloc` vive.
 
 - El banner de boot no imprime `OK` si esa etapa no se comprobó.
 - No se finge un NIC, un NPU ni un daemon.
-- `command not found` ≠ `not installed`.
+- `command not found` no es lo mismo que «no instalado».
 
 — R.N.

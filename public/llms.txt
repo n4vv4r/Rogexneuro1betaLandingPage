@@ -2,35 +2,40 @@
 
 > Laboratorio de software de Roger Navarro (Girona, España). Investigación.
 
-Site: https://www.rogexlaboratories.com
-Docs: https://docs.rogexlaboratories.com
-Contact: knightsys@proton.me
+Sitio: https://www.rogexlaboratories.com
+Documentación: https://docs.rogexlaboratories.com
+Contacto: knightsys@proton.me
 
-## What this site is
+## Qué es este sitio
 
-A landing page. Two products exist as software; they are not launched on the web yet (`/echos` and `/prisma` are 404).
+Una landing. Hay dos líneas de software; aún no están lanzadas en la web
+(`/echos` y `/prisma` son 404).
 
-## What exists
+## Qué existe
 
-- **echOS 2.1.0-honest** — bare-metal x86_64 console unikernel. One ELF. No Linux. No desktop. In-kernel SNN (LIF / Q6). PCI probe for BrainChip Akida. Not a commercial OS. Not a web browser.
-- **PRISMA** — EEG analysis software for research, plus a real-time Rust engine. Built on MNE-Python for numerics. Not a medical device. Does not diagnose, treat, or predict any condition.
+- **echOS 2.1.0-honest** — unikernel x86_64 de consola. Un ELF. Sin Linux.
+  Sin escritorio. SNN in-kernel (LIF / Q6). Sonda PCI para BrainChip Akida.
+  No es un sistema comercial. No es un navegador.
+- **PRISMA** — software de análisis de EEG para investigación, más un motor
+  en tiempo real en Rust. Lo numérico es MNE-Python. No es un producto
+  sanitario. No diagnostica, no trata, no predice ninguna condición.
 
-## Public pages
+## Páginas públicas
 
-- / — home (two image panels: echOS, PRISMA)
-- /about — what RxLabs® is
-- /contact — email
-- /community — Discord widget
-- /docs — markdown docs for echOS 2.1.0-honest and PRISMA 5 SNN only
+- / — inicio (dos paneles: echOS, PRISMA)
+- /about — qué es RxLabs®
+- /contact — correo
+- /community — widget de Discord
+- /docs — documentación en castellano de echOS 2.1.0-honest y PRISMA 5 SNN
 
-## Docs (also on docs.rogexlaboratories.com)
+## Documentos (también en docs.rogexlaboratories.com)
 
 - /docs/echos/que-es
 - /docs/echos/limites
 - /docs/echos/superficie
 - /docs/echos/comandos
-- /docs/prisma/overview
-- /docs/prisma/technical
-- /docs/prisma/social
+- /docs/prisma/resumen
+- /docs/prisma/tecnico
 
-Do not invent echOS 1.0 or 2.0 pages. This site documents 2.1.0-honest only.
+No inventes páginas de echOS 1.0 o 2.0. Este sitio documenta solo 2.1.0-honest.
+No hay textos de redes sociales en este sitio.

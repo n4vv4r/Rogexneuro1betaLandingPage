@@ -38,6 +38,9 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/community" element={<Community />} />
+        <Route path="/docs/prisma/social" element={<Navigate to="/docs/prisma/resumen" replace />} />
+        <Route path="/docs/prisma/overview" element={<Navigate to="/docs/prisma/resumen" replace />} />
+        <Route path="/docs/prisma/technical" element={<Navigate to="/docs/prisma/tecnico" replace />} />
         <Route path="/docs/*" element={<Docs />} />
         <Route path="/echos" element={<NotFound />} />
         <Route path="/prisma" element={<NotFound />} />

@@ -6,8 +6,7 @@ import echosLim from "../content/echos/limites.md?raw";
 import echosSup from "../content/echos/superficie.md?raw";
 import echosCmd from "../content/echos/comandos.md?raw";
 import prismaOv from "../content/prisma/overview.md?raw";
-import prismaTe from "../content/prisma/technical.md?raw";
-import prismaSo from "../content/prisma/social.md?raw";
+import prismaTe from "../content/prisma/tecnico.md?raw";
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -16,9 +15,8 @@ const CATALOG = [
   { group: "echOS 2.1.0-honest", id: "echos/limites", title: "Límites", src: echosLim },
   { group: "echOS 2.1.0-honest", id: "echos/superficie", title: "Superficie", src: echosSup },
   { group: "echOS 2.1.0-honest", id: "echos/comandos", title: "Comandos", src: echosCmd },
-  { group: "PRISMA 5 SNN", id: "prisma/overview", title: "Overview", src: prismaOv },
-  { group: "PRISMA 5 SNN", id: "prisma/technical", title: "Technical", src: prismaTe },
-  { group: "PRISMA 5 SNN", id: "prisma/social", title: "Social", src: prismaSo },
+  { group: "PRISMA 5 SNN", id: "prisma/resumen", title: "Resumen", src: prismaOv },
+  { group: "PRISMA 5 SNN", id: "prisma/tecnico", title: "Técnico", src: prismaTe },
 ];
 
 function groups() {
@@ -41,6 +39,12 @@ export default function Docs() {
     let p = loc.pathname.replace(/\/+$/, "");
     if (!docsHost) p = p.replace(/^\/docs/, "");
     p = p.replace(/^\//, "");
+    const alias = {
+      "prisma/social": "prisma/resumen",
+      "prisma/overview": "prisma/resumen",
+      "prisma/technical": "prisma/tecnico",
+    };
+    if (alias[p]) p = alias[p];
     return p || CATALOG[0].id;
   }, [loc.pathname, docsHost]);
 

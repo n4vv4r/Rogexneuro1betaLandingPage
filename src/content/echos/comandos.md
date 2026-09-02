@@ -74,7 +74,7 @@ prisma5 [alpha|null|stress]    # drive sintético del cubo Q6
 neuro / neurocpu [software|akida]
 ```
 
-## OpenBSD-ish
+## Estilo OpenBSD
 
 ```text
 rcctl enable|disable|status|start|stop   # flags; no hay daemons

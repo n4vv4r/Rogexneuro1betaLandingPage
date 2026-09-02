@@ -8,7 +8,7 @@ export const SITE = {
   image: "/og.png",
   imageW: 1200,
   imageH: 480,
-  imageAlt: "RxLabs® — echOS and PRISMA",
+  imageAlt: "RxLabs® — echOS y PRISMA",
   twitter: "",
 };
 
@@ -62,21 +62,16 @@ export const PAGES = [
     description: "Lista de comandos de echOS 2.1.0-honest.",
   },
   {
-    path: "/docs/prisma/overview",
-    title: "PRISMA — overview",
+    path: "/docs/prisma/resumen",
+    title: "PRISMA — resumen",
     description:
       "Software de análisis de EEG para investigación. No es un producto sanitario.",
   },
   {
-    path: "/docs/prisma/technical",
-    title: "PRISMA — technical",
+    path: "/docs/prisma/tecnico",
+    title: "PRISMA — técnico",
     description:
-      "PRISMA Engine and analysis layer. Research software, not a medical device.",
-  },
-  {
-    path: "/docs/prisma/social",
-    title: "PRISMA — social",
-    description: "Textos públicos de PRISMA. Uso en investigación.",
+      "Motor y capa de análisis de PRISMA. Software de investigación, no un producto sanitario.",
   },
   {
     path: "/echos",

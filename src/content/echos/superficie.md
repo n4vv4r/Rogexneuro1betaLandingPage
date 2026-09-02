@@ -3,7 +3,7 @@
 Cada nombre en `help` / `epk list` / `man` lleva una etiqueta:
 
 - **REAL** — el unikernel hace ese trabajo.
-- **NOTA** — el nombre existe; el trabajo es un flag, un dump o un re-dispatch.
+- **NOTA** — el nombre existe; el trabajo es un flag, un volcado o un reenvío.
 - **AUSENTE** — fuera de Tab y de `help`.
 
 ## Comandos
@@ -39,5 +39,5 @@ Notas de host: tcc, python, rustc, httpd, sshd, … No arrancan un proceso.
 
 ## Ausentes
 
-tcc / python / git in-OS, sshd/httpd reales, navi/echo-in-OS, navegador,
-loihi, htop/tmux, Wi-Fi, NVMe driver, UEFI.
+tcc / python / git en el unikernel, sshd/httpd reales, navi/echo en el OS,
+navegador, loihi, htop/tmux, Wi-Fi, controlador NVMe, UEFI.

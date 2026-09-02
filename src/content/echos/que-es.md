@@ -6,7 +6,7 @@ debajo. No hay busybox. No hay systemd. La máquina *es* el programa.
 No es un sistema comercial. No es un navegador. Está pensado para
 software neuromórfico y robótica.
 
-> Console unikernel. Neuromorphic software. Akida when the card exists.
+> Unikernel de consola. Software neuromórfico. Akida cuando hay placa.
 
 ## Qué es, en una frase
 
@@ -16,7 +16,7 @@ SNN in-kernel — sin ventana, sin dock, sin mentir sobre el hardware.
 
 ## Qué no es
 
-- No es un desktop.
+- No es un escritorio.
 - No es Alpine, OpenBSD, Haiku ni un Linux embebido.
 - No es un producto para navegar por internet. `curl` baja bytes.
 - No hay Echo AI en esta ISO.

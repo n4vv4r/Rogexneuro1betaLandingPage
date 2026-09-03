@@ -1,13 +1,31 @@
 import { Link } from "react-router-dom";
+import { SITE } from "../site.js";
 
-export default function Nav({ path }) {
+const WWW = SITE.url.replace(/\/$/, "");
+
+export default function Nav({ path, docsHost = false }) {
   const here = path === "/" ? "/" : path.replace(/\/$/, "");
-  const on = (to) => (to === "/" ? here === "/" : here === to || here.startsWith(`${to}/`));
-  const item = (to, label) => (
-    <Link to={to} className={on(to) ? "is-active" : ""}>
-      {label}
-    </Link>
-  );
+  const on = (to) => {
+    if (docsHost) return to === "/docs";
+    if (to === "/") return here === "/";
+    return here === to || here.startsWith(`${to}/`);
+  };
+  const item = (to, label) => {
+    const href = `${WWW}${to === "/" ? "/" : to}`;
+    const cls = on(to) ? "is-active" : "";
+    if (docsHost || to === "/docs") {
+      return (
+        <a href={href} className={cls}>
+          {label}
+        </a>
+      );
+    }
+    return (
+      <Link to={to} className={cls}>
+        {label}
+      </Link>
+    );
+  };
 
   return (
     <nav className="nav" aria-label="RxLabs">

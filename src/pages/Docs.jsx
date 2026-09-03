@@ -64,7 +64,7 @@ export default function Docs() {
   };
 
   return (
-    <main className={docsHost ? "page" : "page"} style={docsHost ? { paddingTop: 0 } : undefined}>
+    <main className="page">
       <div className="docs">
         <aside className="docs-side">
           {groups().map((g) => (

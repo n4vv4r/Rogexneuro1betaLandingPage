@@ -9,12 +9,21 @@
       "headers": [{ "key": "Theme-Color", "value": "#000000" }]
     }
   ],
-  "rewrites": [
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "docs.rogexlaboratories.com" }],
+      "destination": "https://www.rogexlaboratories.com/docs",
+      "permanent": true
+    },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "docs.rogexlaboratories.com" }],
-      "destination": "/index.html"
-    },
+      "destination": "https://www.rogexlaboratories.com/docs/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

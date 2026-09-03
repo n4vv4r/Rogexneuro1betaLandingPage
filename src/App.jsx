@@ -21,6 +21,7 @@ export default function App() {
     return (
       <>
         <Head />
+        <Nav path={loc.pathname} docsHost />
         <Routes>
           <Route path="/*" element={<Docs />} />
         </Routes>

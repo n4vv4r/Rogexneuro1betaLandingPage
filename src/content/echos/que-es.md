@@ -1,4 +1,4 @@
-# echOS 2.1.0-honest
+# echOS
 
 Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. No hay Linux
 debajo. No hay busybox. No hay systemd. La máquina *es* el programa.

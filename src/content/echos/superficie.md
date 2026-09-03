@@ -1,4 +1,4 @@
-# Superficie pública — echOS 2.1.0-honest
+# Superficie pública — echOS
 
 Cada nombre en `help` / `epk list` / `man` lleva una etiqueta:
 

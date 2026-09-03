@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.1.0",
   "type": "module",
-  "description": "RxLabs® — landing. echOS 2.1.0-honest and PRISMA.",
+  "description": "RxLabs® — landing. echOS 2.1.0-honest, PRISMA and echoAI.",
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/postbuild.mjs",

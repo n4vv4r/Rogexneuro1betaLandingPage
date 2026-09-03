@@ -1,0 +1,778 @@
+# RxLabs® — texto completo para modelos
+
+> Laboratorio de investigación de Roger Navarro (Girona). Software real, cifras medidas.
+> Fuente: docs públicas. Sitio: https://www.rogexlaboratories.com
+
+---
+
+
+<!-- src/content/lab/ecosistema.md -->
+
+# El laboratorio
+
+Rogex Laboratories / Knights Labs. Una persona. Tres líneas.
+
+No hay un binario que las una. Hay un mismo método: enteros en el
+camino caliente, eventos en vez de sondeo, memoria estática, y no
+fingir hardware que no está en la mesa.
+
+| Línea | Qué es | Hoy |
+|---|---|---|
+| **echOS** | Unikernel de consola. Un ELF. 2.1.0-honest. | Arranca en QEMU y en metal. |
+| **PRISMA Engine** | EEG a spikes, Rust, microsegundos. | 0.1.0 se mide. P5 es hoja de ruta. |
+| **echoAI** | Agente de dos relojes. | Laboratorio verde. CORTEX-1 verde. |
+
+## Dónde se tocan
+
+echOS y echoAI comparten el paquete **WSP de 16 bytes**. El contrato
+es el mismo; los procesos no. echoAI corre en el host. No va dentro
+de la ISO.
+
+PRISMA y echOS hablan el mismo vocabulario de sonda Akida. No hay
+binding en el kernel todavía.
+
+PRISMA y echoAI no se importan. Uno mira una señal continua. El otro
+decide en un mundo discreto.
+
+## Akida
+
+Aparece como stub o sonda. Sin placa, se dice ausente.
+
+— R.N.
+
+---
+
+<!-- src/content/echoai/que-es.md -->
+
+# echoAI
+
+Un agente de dos relojes.
+
+El reloj rápido ve, recuerda, predice, actúa y aprende. Enteros. Un
+paquete de 16 bytes. Sin modelo de lenguaje en el bucle.
+
+El reloj lento —cuando está enchufado— propone. Una hipótesis. Nunca
+un hecho.
+
+Hoy el animal funciona con la corteza apagada. Esta semana la corteza,
+todavía un script de veinte líneas, **cambió una decisión** que el
+rápido no podía tomar. CORTEX-1 está verde.
+
+```
+percibir → recordar → predecir → actuar → consecuencia → aprender
+```
+
+## Tres canales
+
+| Canal | Pregunta | Dónde vive |
+|---|---|---|
+| Representación | ¿qué ocurre? | WSP, 16 bytes |
+| Epistemología | ¿lo sé? | CAM + VERIFY |
+| Control | ¿qué hago? | Q + gate |
+
+La memoria de lo visto y la política de lo que hago son tablas distintas.
+
+## Lo que ya está medido
+
+Anillo de 32 casillas. Misma semilla. Se puede volver a correr.
+
+| Qué | Número |
+|---|---|
+| Tras aprender, en una trampa | approach pierde (`[-12, +5, 0]`) |
+| Preguntar una vez vs no preguntar | **+80** / **−80** |
+| Pensar poco | ATTEND despierta **36 de 256** turnos |
+| Hechos inventados | **0** |
+| CORTEX-1, letrero en español | córtex **+16**, rápido **0**. En la trampa, avoid. |
+
+El pasillo (otro mundo, cinco casillas): se lleva lo aprendido. Donde
+el mapa cambió, se equivoca y se entera equivocándose.
+
+## CORTEX-1 — el letrero
+
+Dos mundos. La misma casilla, el mismo paquete de 16 bytes, la misma
+fila de política en cero. Lo único distinto es una frase:
+
+- *AMBAR: entra. El siguiente sitio es el premio.*
+- *AMBAR: no entres. El siguiente sitio es una trampa.*
+
+El rápido no lee español. Espera. El córtex lee el letrero y propone
+UNIR o TEMER. El cuerpo se mueve. El premio se cobra. La trampa se
+esquiva.
+
+CAM guarda el letrero del mundo, no los átomos de la respuesta.
+*Había un letrero.*
+
+En CI no hay un modelo de cuatro mil millones de parámetros. Hay un
+script. El cable es el claim. El modelo viene después.
+
+## El neocórtex
+
+El enchufe existe: `NAVI_CORTEX_CMD`. Un proceso local. JSON entra,
+una línea de átomos sale. La prosa se tira.
+
+El plan es colgar **Qwen3-4B-Instruct** (cuantizado, Q4, en esta
+máquina si cabe) con gramática. Misma puerta. Cuatro números cuando
+corra: latencia, tokens por segundo, cuántas veces el parser lo
+rechaza, y si de verdad gana al rápido.
+
+Hasta entonces el stub ya gana en el letrero.
+
+— R.N.
+
+---
+
+<!-- src/content/echoai/piezas.md -->
+
+# echoAI — las piezas
+
+Si ayuda, cada caja tiene un primo en un sistema nervioso. Analogía de
+trabajo. El código no finge anatomía.
+
+## WSP — el impulso
+
+16 bytes. Origen, relación, destino, tiempo, seis enteros de tono.
+Es el único cable. Lo que no cabe en 16 bytes no entra en el
+pensamiento.
+
+Como el potencial de acción: la misma moneda, de la piel al mapa.
+echOS habla el mismo paquete. echoAI lo importa.
+
+## CAM — lo que pasó
+
+4.096 ranuras. Lo visto. Un extracto o nada. VERIFY pide dos cosas:
+que el patrón se parezca lo bastante *y* que haya extracto.
+
+Cerca del hipocampo: episodios, no hábitos. No es la política.
+
+## T — a dónde voy si hago esto
+
+El mapa. Si en *s* hago *a*, ¿adónde caigo? Cuenta, conflictos,
+confianza 0–3.
+
+Cerca del cerebelo: el cuerpo se mueve mejor cuando anticipa. Un solo
+susto de mapa, en el anillo, cuando la trampa cambió de casilla.
+
+## Q — qué hago
+
+Tres acciones. Acercarse, apartarse, esperar. Enteros. Aprende del
+pago.
+
+Cerca de los ganglios basales: no razona la frase, elige el gesto.
+
+## GATE — el veto
+
+OK, MODIFY, BLOCK. El córtex propone. El gate decide.
+
+Cerca del tronco: puedes querer y no te dejan.
+
+## ATTEND — cuándo gastar corteza
+
+Un predicado entero. Primera vez, sin extracto, novedad, política
+plana, mapa vacío. En el anillo despierta 36 de 256 turnos.
+
+Cerca de la atención: el neocórtex es caro.
+
+## PREGUNTAR y el oráculo
+
+Preguntar no mueve al bicho. Emite un paquete, alguien **fuera** del
+mundo responde, VERIFY mira si eso es testimonio, y solo entonces la
+física cambia.
+
+Cerca de los sentidos: no te contestas a ti mismo.
+
+## Córtex — la hipótesis
+
+Recibe el turno. Devuelve 16 bytes o silencio. Prosa → rechazo.
+UNIR, TEMER, OBSERVAR se vuelven propuesta de acción.
+
+Cerca del neocórtex: lenguaje, hipótesis. No escribe CAM. CORTEX-1:
+un letrero en español, el rápido ciego, el córtex mueve el cuerpo.
+El 4B, cuando quepa, se cuelga del mismo enchufe.
+
+## La placa
+
+Log de cada turno. Ocho bloques. Hecho / hipótesis / error. El GIF
+de la home es una corrida real de 352 turnos, córtex apagado.
+
+— R.N.
+
+---
+
+<!-- src/content/echoai/ruta.md -->
+
+# echoAI — hoja de ruta
+
+Orden. Sin fecha si no hay artefacto.
+
+## Hecho
+
+Anillo. Preguntar. ATTEND. Pasillo. Placa. CORTEX-1 (el letrero mueve
+el cuerpo).
+
+## Siguiente
+
+1. **Qwen 4B como neocórtex.** Mismo enchufe (`NAVI_CORTEX_CMD` +
+   gramática). Latencia, tok/s, rechazo del parser, CortexROI. En este
+   portátil, Q4. Si pagina, se escribe y se sigue.
+2. **Mundo grande.** Grafo, 256–4096 sitios, tres acciones. Conservar
+   T/CAM al cambiar el mapa.
+3. **Anti-alias.** Que mil sitios parecidos no llenen la CAM ni mezclen
+   trampa con premio.
+4. **Sleep.** Compactar de noche, sin modelo. Cuando el mundo ya no
+   quepa. En 32 casillas no sirve.
+5. **Conflicto → ATTEND.** Q alto y T mal despierta corteza. Las piezas
+   ya están.
+6. **Cuerpo.** El mismo agente, mundo tipo robot. Lidar después. Cámara
+   después.
+7. **Akida.** Software vs simulador. 0 placas: no bloquea lo de arriba.
+
+— R.N.
+
+---
+
+<!-- src/content/echos/que-es.md -->
+
+# echOS
+
+Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. No hay Linux
+debajo. No hay busybox. No hay systemd. La máquina *es* el programa.
+
+No es un sistema comercial. No es un navegador. Está pensado para
+software neuromórfico y robótica.
+
+> Unikernel de consola. Software neuromórfico. Akida cuando hay placa.
+
+## Qué es, en una frase
+
+Una consola JetBrains / Liberation Mono sobre framebuffer (o VGA texto),
+con ROSH, `epk` local, pila IPv4/DNS/TCP/HTTP, y un tejido de eventos /
+SNN in-kernel — sin ventana, sin dock, sin mentir sobre el hardware.
+
+## Qué no es
+
+- No es un escritorio.
+- No es Alpine, OpenBSD, Haiku ni un Linux embebido.
+- No es un producto para navegar por internet. `curl` baja bytes.
+- No hay Echo AI en esta ISO.
+
+## Piezas que importan
+
+| Pieza | Qué es |
+|---|---|
+| Heap-0 | Layout estático en BSS. `kmalloc` 512 KiB sigue existiendo y se dice. |
+| RXFS | FS nativo, 64 ficheros × 64 KiB. |
+| `epk` | Notas en RXFS. `epk list` = lo que el kernel tiene. `--lab` = host. |
+| LIVE | Arranca en RAM. Minimal. |
+| SNN | Cubo Q6 de 64 células LIF, `prisma5` sintético, `bench-snn`. |
+| Akida | Sonda PCI `1e7c:bca1`. Sin placa = software LIF. |
+
+## Superficie honesta
+
+Un extraño arranca LIVE, escribe `help` y no puede acusar de teatro.
+`rcctl start` no finge un daemon. `doas` no aísla. `pfctl` no filtra.
+`tcc` / `python` / `sshd` no están en Tab.
+
+— R.N.
+
+---
+
+<!-- src/content/echos/limites.md -->
+
+# Límites — lo que no hago
+
+Política del laboratorio: si no está, se dice.
+
+## Hardware
+
+| Cosa | Estado |
+|---|---|
+| WiFi | no. PCI se lista. Cero driver. |
+| NVMe | clase `01:08` en `hwprobe`. Sin driver. SATA AHCI / IDE / virtio-blk sí. |
+| UEFI nativo | no. BIOS/CSM / SeaBIOS. |
+| USB HID | no como input de diario. PS/2 teclado y ratón. |
+| Audio | no. |
+| GPU accel | no. LFB. |
+| Akida | probe PCI. Sin placa = software LIF. Sin blob BrainChip. |
+| Loihi | fuera de 2.1. Cero interfaz. |
+| ARM64 kernel | el ELF de la ISO Universal es x86_64. |
+
+## Software
+
+| Cosa | Estado |
+|---|---|
+| Multi-proceso / anillo 3 | esbozo. Una tarea. |
+| POSIX | no. Alias de comandos, no glibc. |
+| TLS 1.3 datos de aplicación | el apretón de manos funciona; GET https puede volver vacío. HTTP sí. |
+| Pin de CA | no. |
+| IPv6 | no. |
+| Varios TCP a la vez | no. |
+| sshd/httpd/ftpd reales | flags `rcctl`. No hay daemons. |
+| `doas` aislamiento | no. Un mapa de memoria. |
+| RXFS | 64 × 64 KiB. |
+| Compiladores en LIVE | ausentes. `epk list --lab` = notas de host. |
+| Navegador / JS | no. `curl` baja bytes. |
+| Persistencia LIVE | no, a propósito. |
+| Uso comercial como OS general | no. Laboratorio / robótica / SNN. |
+
+## Heap-0
+
+El contrato **no** se cumple en todo el kernel. `kmalloc` vive.
+
+## Lo que sí firmo
+
+- El banner de boot no imprime `OK` si esa etapa no se comprobó.
+- No se finge un NIC, un NPU ni un daemon.
+- `command not found` no es lo mismo que «no instalado».
+
+— R.N.
+
+---
+
+<!-- src/content/prisma/overview.md -->
+
+# PRISMA
+
+**Software de análisis de EEG. Uso en investigación — no es un producto sanitario.**
+
+---
+
+## Qué es, en una frase
+
+PRISMA abre una grabación de EEG, la limpia, la analiza y te dice si lo que
+encontraste **aguanta un examen serio** o no.
+
+---
+
+## Para quién
+
+- Quien graba EEG y no quiere escribir código para mirarlo
+- Quien ya usa MNE-Python o EEGLAB y quiere un flujo reproducible encima
+- Quien enseña electrofisiología y necesita que el alumno vea la señal, no un script
+- Quien construye BCI o neurofeedback y necesita procesar en tiempo real
+
+---
+
+## Qué hace
+
+**Abre casi cualquier cosa.** BrainVision, EDF/EDF+, BDF de BioSemi, GDF,
+Neuroscan CNT, EEGLAB, FIF. Arrastras el archivo y ves lo que hay dentro:
+canales, frecuencia, marcadores, y también las decisiones que tuvo que tomar
+el lector por su cuenta.
+
+**Limpia la señal, explicándose.** Filtros, re-referenciación, detección de
+canales malos **sobre toda la sesión** — y te dice *por qué* marcó cada uno.
+ICA para quitar parpadeos y músculo, con sus etiquetas y sus advertencias:
+los componentes musculares se señalan pero no se eliminan sin que tú lo pidas.
+
+**Analiza.** ERP, espectro de potencia, tiempo-frecuencia, conectividad
+funcional, y localización de fuentes con vista 3D del cerebro.
+
+**Repite el trabajo por ti.** Escribes los pasos una vez en un archivo y se
+aplican igual a 1 sujeto o a 73. Cada corrida guarda qué versión de qué
+programa hizo qué, con qué parámetros: dentro de un año sabrás exactamente
+cómo saliste de A a B.
+
+**Y lo que casi nadie hace: te dice cuándo NO tienes nada.**
+
+---
+
+## Lo que nos diferencia de verdad
+
+Cualquier programa te calcula un valor de p. PRISMA responde a la pregunta
+difícil: **¿esto sobreviviría a una revisión?**
+
+Cuando pides varias comparaciones, PRISMA las corrige **como familia** — no
+una a una. Si añades una métrica exploratoria más, el listón sube, como debe
+ser. Y marca, por separado:
+
+- Si el resultado depende de **unos pocos puntos extremos**
+- Si **desaparece** al controlar un factor de confusión obvio
+- Si tu muestra **nunca tuvo potencia** para detectar eso, y cuántos sujetos harían falta
+
+Termina con una frase clara y un veredicto: **defendible sí o no**.
+
+**Por qué existe esto.** La hipótesis principal de este proyecto — que
+calibrar el umbral por sujeto predecía el comportamiento — se probó contra dos
+datasets públicos independientes y **no replicó**. En vez de esconderlo, la
+disciplina que hizo falta para descubrirlo es ahora parte del producto.
+
+`defendible: no` es el resultado **normal** de una exploración honesta. No es
+un error del programa.
+
+---
+
+## Cómo sabemos que funciona
+
+Con datos públicos reales, no con demos preparadas.
+
+Sobre **ds006018** (tarea Flanker, 73 sujetos), procesados los 73 sin un solo
+fallo, PRISMA recuperó **dos efectos ya establecidos en la literatura**:
+la respuesta ERP de conflicto y el theta mediofrontal. Descartó correctamente
+30 de 32 clústeres candidatos. Y en el tercer análisis, conectividad, dijo
+claramente: **aquí no hay nada**.
+
+Que no encuentre efecto en los tres es precisamente lo que lo hace fiable.
+
+---
+
+## Las dos mitades
+
+**PRISMA** — la aplicación de escritorio y la capa de análisis. Seis paneles:
+Sesión, Señal, Preproceso, Análisis, Grupo, Límites. Tema claro y oscuro.
+
+**PRISMA ENGINE** — un motor de tiempo real escrito en Rust, con **1,8
+microsegundos** de latencia media y cero reservas de memoria en el camino
+crítico. En vez de analizar ventanas fijas, convierte la señal en impulsos y
+procesa evento a evento. Es un binario único, sin nada que instalar.
+
+Se usan juntas o por separado.
+
+---
+
+## Lo que NO hace
+
+Está escrito en la propia aplicación, en un panel llamado **Límites**, porque
+una herramienta que solo enumera sus virtudes no es honesta:
+
+- **No es un producto sanitario.** No diagnostica ni predice nada.
+- **La localización de fuentes usa una cabeza plantilla**, no la resonancia de
+  tu sujeto: cuenta con 1-2 cm de error.
+- **La conectividad entre electrodos está contaminada** por conducción de
+  volumen. Para afirmar interacción, usa las medidas robustas que incluye.
+- **Un clúster significativo no localiza con precisión.** Sus bordes no son
+  los límites del efecto.
+- **El etiquetado automático de ICA es una sugerencia**, no un veredicto.
+- **Todavía no puedes enchufar un casco y verlo en vivo** sin un script
+  puente. Ése era el objetivo original y aún no está.
+
+---
+
+## Requisitos
+
+Linux de 64 bits (prácticamente cualquiera desde 2020). El motor no necesita
+instalar nada. La capa de análisis necesita Python 3.10 o superior.
+
+Construido sobre MNE-Python, la biblioteca estándar de la comunidad de
+electrofisiología.
+
+---
+
+## Estado
+
+**Todavía no está a la venta.** El software funciona y está probado; lo que
+falta es el papeleo — licencia, forma de pago, contacto de soporte — y la
+función que era el objetivo original: conectar un casco y verlo analizado en
+directo.
+
+---
+
+<!-- src/content/prisma/tecnico.md -->
+
+# PRISMA — documentación técnica
+
+**Versión 0.1.0 · Linux x86_64 · software de investigación, no es un producto sanitario.**
+
+Este documento describe qué hace el programa, cómo lo hace, y dónde no hay
+que fiarse. Cada cifra se midió en esta máquina o sobre datos públicos; nada
+está estimado ni proyectado. Donde una función es delgada, o una afirmación
+se probó y falló, se dice aquí.
+
+---
+
+## 1. Qué es
+
+Dos capas que viajan juntas y se pueden usar por separado.
+
+**PRISMA ENGINE** — núcleo de EEG en tiempo real, orientado a eventos,
+escrito en Rust (~8.100 líneas). En vez de hacer FFT sobre ventanas fijas,
+codifica la señal en impulsos y la procesa evento a evento.
+
+**PRISMA 5 SNN** — capa clásica de análisis e interfaz de escritorio, en
+Python (~5.500 líneas) sobre MNE-Python. Suite de EEG fuera de línea:
+limpieza, ERP, espectro, conectividad, localización de fuentes, pipelines
+reproducibles y estadística de grupo.
+
+Están separadas a propósito. El motor no depende de Python y corre solo;
+la capa de análisis corre sin el motor. El puente es una función que le
+pasa la señal limpia al motor.
+
+---
+
+## 2. Cómo funciona el motor
+
+```
+señal → modulación delta → LIF (SIMD) → STDP → predicción → telemetría
+```
+
+**Modulación delta.** Solo se emite un impulso cuando la señal se mueve más
+que un umbral adaptativo θ_adp. Un canal en silencio no produce eventos: el
+trabajo es proporcional a cuánto cambia la señal, no a la frecuencia de
+muestreo.
+
+**Capa LIF.** Neuronas leaky integrate-and-fire integran el flujo de
+impulsos, vectorizadas con AVX2, y caen a código escalar si el CPU no lo
+tiene.
+
+**STDP.** La plasticidad según el tiempo de los impulsos ajusta los pesos
+sinápticos a partir del orden pre / post.
+
+**Codificación predictiva.** Se compara la tasa observada con una tasa
+esperada; un desajuste grande sube el SPEI y marca un *posible artefacto*
+(parpadeo, músculo, un cable). No es un detector clínico de eventos.
+
+### Rendimiento medido
+
+En esta máquina (`--headless --bench-samples 200000`), 32 canales:
+
+| | |
+|---|---|
+| Latencia media del camino caliente | **1,81 µs** |
+| Peor latencia observada | 43,9 µs (en 200.000 muestras) |
+| Caudal | ~183.000 muestras/s, un núcleo |
+| Reserva de memoria en el camino caliente | **cero**, por construcción — solo búferes fijos |
+| Tamaño del binario | 9,0 MB, sin runtime que instalar |
+
+En un sistema en tiempo real importa la peor cifra, y se publica junto a
+la media, no en su lugar.
+
+### Acondicionamiento de la señal
+
+Apagado por defecto. Alterar la señal en silencio cambiaría también cada
+métrica respecto a una corrida anterior.
+
+- Notch (50/60 Hz), paso alto, paso bajo — biquads RBJ, estado f64
+- Re-referenciación: media común (sin canales malos) o canales con nombre
+- Detección de canales malos sobre **toda la sesión**, no una ventana de
+  vista previa
+
+Los filtros aquí son **IIR causal de una pasada**: desplazan la fase con
+la frecuencia. No compares latencias ERP medidas con ellos contra
+herramientas de fase cero.
+
+### Entrada en vivo
+
+El motor escucha un socket TCP simple: una línea JSON de cabecera y luego
+muestras `float32` intercaladas por canal. Cualquier cosa que abra un
+socket puede alimentarlo. Un script puente reenvía cualquier flujo LSL, y
+puede generar señal sintética para probar el camino en vivo sin hardware.
+
+**Por qué no hay LSL nativo, con honestidad:** `lsl-core` (Rust puro) es
+GPL-3.0, incompatible con un binario cerrado; las bindings oficiales
+necesitan un `liblsl` cuyo código embebido ya no compila contra glibc
+moderna. El socket genérico deja el binario sin dependencias y acepta más
+productores.
+
+---
+
+## 3. Cómo funciona la capa de análisis
+
+Todos los métodos numéricos son de MNE-Python, scipy o mne-connectivity.
+**No se reimplementa nada numérico.** ICA y localización de fuentes, en
+particular, son trabajo numérico de investigación con décadas de
+validación; reescribirlos añadiría riesgo y no restaría nada. Lo que
+añade PRISMA es el flujo de trabajo, el pipeline declarativo, la etapa de
+grupo, la capa de integridad y un límite documentado al lado de cada
+método.
+
+### Importación
+
+| Formato | Lector | Comprobado en |
+|---|---|---|
+| BrainVision `.vhdr` | MNE | ds006018, ds007655 (reales) |
+| EDF / EDF+ | MNE | ida y vuelta + real |
+| BDF (BioSemi) | MNE | escrito con pyedflib |
+| GDF | MNE | BCI Competition IV 2a (real) |
+| Neuroscan CNT | MNE | grabaciones de prueba de MNE |
+| EEGLAB `.set`, FIF | MNE | ida y vuelta |
+
+**Un fallo real que salió aquí:** a veces la cabecera de Neuroscan no dice
+el ancho de muestra, y leer 16 bits como 32 (o al revés) no lanza error:
+decodifica en silencio una señal de otra forma y lee la tabla de eventos
+en el offset equivocado. PRISMA prueba los dos anchos, se queda con el
+que da amplitudes fisiológicamente plausibles y anota la decisión. Si los
+dos parecen plausibles, se niega y pregunta, en vez de adivinar.
+
+### Limpieza
+
+- **Filtros**: fase cero (ida y vuelta) por defecto fuera de línea; hay un
+  modo causal para reproducir lo que hace el motor en vivo.
+- **Canales malos**: barrido de toda la sesión con criterios PREP (plano,
+  desviación robusta, ruido de alta frecuencia, correlación por ventanas
+  con vecinos), informando *por qué* se marcó cada uno. Estadística
+  robusta en todo, para que un canal saturado no esconda otro.
+- **Interpolación**: splines esféricos (Perrin et al., 1989).
+- **ICA**: Infomax extendido / FastICA / Picard, con etiquetado
+  automático. Los parpadeos usan un canal EOG o un proxy frontal. **No se
+  intentan componentes cardíacos sin un canal ECG de verdad** — no hay un
+  detector fiable solo con EEG, así que no se inventa. Los musculares se
+  etiquetan pero no se quitan salvo que lo pidas: en datos reales el
+  detector marcó 11 de 20.
+
+### Análisis
+
+Epoching con nombres de evento legibles, corrección de línea base, media
+ERP y medida de picos; PSD (Welch/multitaper), potencia por banda,
+frecuencia alfa individual; tiempo-frecuencia (Morlet, multitaper,
+Stockwell, STFT) y ERD/ERS; conectividad (coh, imcoh, plv, ciplv, ppc,
+pli, wpli); localización de fuentes (sLORETA, dSPM, eLORETA, MNE,
+beamformer LCMV).
+
+### Pipelines reproducibles
+
+Un YAML lista los pasos; corren sobre un archivo, un glob o un dataset
+BIDS entero. Quince tipos de paso: `montage, filter, bad_channels,
+interpolate, reference, ica, epochs, baseline, erp, psd, tfr,
+connectivity, sources, engine, save_raw`.
+
+Cada corrida escribe `pipeline_summary.json` con la especificación, cada
+versión de paquete, y por sujeto los parámetros, tiempos y resultado de
+cada paso. Un sujeto que falla se anota y el lote sigue.
+
+### Etapa de grupo
+
+El pipeline por sujeto escribe a disco; la etapa de grupo lo lee y
+**nunca recalcula un sujeto**. Volver a lanzar la estadística con otros
+parámetros cuesta segundos, no otra pasada sobre los datos.
+
+- **ERP**: permutación de clústeres espacio-temporal sobre canales × tiempo
+- **Tiempo-frecuencia**: clústeres sobre frecuencia × tiempo × canales
+  *a la vez*, para que un efecto que se extiende a bandas vecinas sea un
+  hallazgo, no varios
+- **Conectividad**: tests emparejados por enlace con FDR (solo el
+  triángulo superior — contar una matriz simétrica dos veces diluiría la
+  corrección), más el Network-Based Statistic (Zalesky et al., 2010) para
+  subredes conexas
+
+---
+
+## 4. La capa de integridad
+
+Esta parte no existe en otras suites de EEG, y el motivo no es
+halagador: la afirmación principal de este proyecto — que calibrar el
+umbral por sujeto predice el comportamiento — se probó contra dos
+datasets públicos independientes y **no replicó**. La disciplina que
+hizo falta para descubrirlo es ahora código.
+
+`integrity_report` toma una *familia* de tests y, en una pasada:
+
+1. **Corrige sobre toda la familia**, no por test. Añadir una métrica
+   exploratoria más sube el listón, como debe ser.
+2. **Marca resultados que dependen de extremos** — un hueco grande
+   Pearson/Spearman significa que el resultado lineal se apoya en unos
+   pocos puntos.
+3. **Marca resultados que desaparecen bajo un confusor** (correlación
+   parcial).
+4. **Marca tests sin potencia**, y dice cuántos sujetos harían falta.
+5. **Saca de la familia los tests no computables (NaN)** en vez de dejar
+   que corrompan el resto de p corregidas — un fallo que ocurrió de
+   verdad aquí, ahora una garantía.
+6. Termina con `defensible: true/false` y una frase llana.
+
+`defensible: false` es el resultado normal de una exploración honesta,
+no un error.
+
+---
+
+## 5. Contra qué se ha comprobado
+
+**135 tests automáticos.** La grabación sintética que usan la mayoría
+tiene verdad de suelo plantada — alfa occipital, parpadeos, zumbido de
+red, un canal muerto, un canal saturado, respuestas N1/P3 — y los tests
+comprueban que cada etapa *recupera lo plantado*, no solo que corre.
+
+Los métodos estadísticos se prueban **en los dos sentidos**: tienen que
+encontrar un efecto plantado en el sitio exacto, **y no encontrar nada
+en ruido apareado**. Un módulo estadístico validado solo con casos
+positivos no vale nada.
+
+### Sobre datos públicos reales
+
+**ds006018** (tarea Flanker, 73 sujetos, actiCHamp, 500 Hz), los 73
+procesados sin un solo fallo. Tres tests de grupo sobre la misma
+corrida:
+
+| Test | Resultado |
+|---|---|
+| ERP (canales × tiempo) | 2 de 18 clústeres significativos, p = 0,0005, 0,18–0,80 s, 22 canales centro-parietales |
+| Tiempo-frecuencia | 2 de 32 significativos: theta mediofrontal 4–18 Hz (p = 0,0010) y desincronización alfa/beta (p = 0,043) |
+| Conectividad (wPLI theta) | **Nada.** Ningún enlace sobrevive FDR en 325 pruebas; el NBS encuentra 3 componentes candidatos, ninguno significativo |
+
+Dos efectos Flanker ya establecidos recuperados, 30 de 32 clústeres
+candidatos rechazados, y un negativo claro en el tercero. Una suite que
+encontrara efecto en los tres no sería creíble.
+
+**BCI Competition IV 2a** (GDF, Graz, imaginería motora) — pipeline
+completo, 288 epochs, 72 por clase, sin errores.
+
+---
+
+## 6. Límites
+
+**No es un producto sanitario.** Software de investigación. No
+diagnostica, no trata ni predice ninguna condición, y no está validado
+para ningún uso clínico.
+
+**La localización de fuentes usa una cabeza plantilla.** fsaverage, no
+la resonancia del sujeto, con un co-registro de plantilla. El error de
+localización es del orden de 1–2 cm. Informa los mapas como basados en
+plantilla.
+
+**La conectividad en espacio de sensores está contaminada por
+conducción de volumen.** Dos electrodos cercanos ven la misma fuente y
+mostrarán coherencia o PLV altas sin interacción entre ellos. Para
+afirmar interacción usa wPLI o coherencia imaginaria.
+
+**La permutación de clústeres localiza poco.** Un clúster significativo
+quiere decir que las condiciones difieren *en algún sitio* de la
+ventana. Sus bordes no son los límites del efecto, y un efecto fuerte se
+extiende a canales vecinos por diseño.
+
+**El Network-Based Statistic depende de su umbral.** Fíjalo antes de
+mirar, y declara el valor usado.
+
+**El etiquetado automático de ICA es una sugerencia**, no un veredicto.
+
+**La calibración por sujeto del motor no está validada.** Adapta el
+codificador a la señal que tiene delante. Que eso mejore un resultado
+aguas abajo se probó contra dos datasets públicos independientes con
+paradigmas distintos y no replicó. No se afirma nada más.
+
+**El backend Akida (neuromórfico) es un esbozo de simulación.** No hay
+placa física ni cifras de energía medidas.
+
+**No hay controladores nativos de casco.** La entrada en vivo va por el
+protocolo TCP genérico o el script puente LSL. Enchufar un casco y verlo
+analizado en directo — el objetivo original — no está construido.
+
+**El render 3D de verdad necesita un contexto GPU/OpenGL.** No hay
+alternativa por software.
+
+**No hay deshacer en la interfaz.** El preproceso edita una copia en
+memoria; recarga la grabación para empezar de cero.
+
+---
+
+## 7. Requisitos
+
+**Motor**: Linux x86_64, glibc 2.30 o más nueva (2019 — cubre Ubuntu
+20.04+, Debian 11+, RHEL/Rocky 9+, Fedora 31+, Arch, Mint 20+). Sus
+únicas dependencias dinámicas son bibliotecas de sistema; OpenGL se
+carga bajo demanda, así que también corre en un servidor sin pantalla.
+
+**Capa de análisis**: Python 3.10+. Extras opcionales añaden la
+interfaz de escritorio (PySide6) y el render 3D real (PyVista/VTK).
+
+Construido sobre MNE-Python (BSD-3-Clause), NumPy, SciPy, scikit-learn,
+matplotlib y mne-connectivity.
+
+---
+
+## 8. Estado
+
+El motor, la capa de análisis, la estadística y la interfaz funcionan y
+están comprobados. Falta el papeleo — una licencia de verdad, una vía de
+pago, un contacto de soporte — y la función que era el punto del
+ejercicio: enchufar un casco y verlo analizado en directo, sin un script
+puente en medio.
+
+---

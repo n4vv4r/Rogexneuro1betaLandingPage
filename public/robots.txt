@@ -1,9 +1,34 @@
 User-agent: *
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
 Allow: /sitemap.xml
 Allow: /og.png
+Allow: /docs
+Allow: /media/
 Disallow: /echos
 Disallow: /prisma
+Disallow: /echoai
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
 
 Sitemap: https://www.rogexlaboratories.com/sitemap.xml

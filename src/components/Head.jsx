@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { SITE, abs, pageFor } from "../site.js";
+import { SITE, abs, pageFor, jsonLd } from "../site.js";
 
 function upsert(selector, attrs) {
   let el = document.head.querySelector(selector);
@@ -50,8 +50,10 @@ export default function Head() {
     upsert('meta[name="color-scheme"]', { name: "color-scheme", content: "dark" });
     upsert('meta[name="robots"]', {
       name: "robots",
-      content: page.noindex ? "noindex, nofollow" : "index, follow",
+      content: page.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large",
     });
+    upsert('meta[name="author"]', { name: "author", content: SITE.author });
+    upsert('meta[name="citation_author"]', { name: "citation_author", content: SITE.author });
 
     const og = {
       "og:type": "website",
@@ -82,6 +84,15 @@ export default function Head() {
 
     upsertLink("canonical", url);
     upsertLink("image_src", img);
+
+    let ld = document.getElementById("rxlabs-ld");
+    if (!ld) {
+      ld = document.createElement("script");
+      ld.id = "rxlabs-ld";
+      ld.type = "application/ld+json";
+      document.head.appendChild(ld);
+    }
+    ld.textContent = JSON.stringify(jsonLd(page));
   }, [loc.pathname, docsHost]);
 
   return null;

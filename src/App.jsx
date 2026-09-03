@@ -44,6 +44,7 @@ export default function App() {
         <Route path="/docs/*" element={<Docs />} />
         <Route path="/echos" element={<NotFound />} />
         <Route path="/prisma" element={<NotFound />} />
+        <Route path="/echoai" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

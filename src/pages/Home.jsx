@@ -17,6 +17,7 @@ export default function Home() {
     <main className="home">
       <Carousel slides={ECHOS} label="echOS" />
       <Carousel slides={PRISMA} label="PRISMA" />
+      <Carousel gif="/media/echoai/board.gif" label="echoAI" />
     </main>
   );
 }

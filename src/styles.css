@@ -75,7 +75,7 @@ button { font-family: inherit; }
   height: 100%;
   padding-top: var(--nav-h);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   overflow: hidden;
 }
 
@@ -186,22 +186,27 @@ button { font-family: inherit; }
 /* —— docs —— */
 .docs {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 220px minmax(0, 40rem);
+  justify-content: center;
+  column-gap: 4rem;
+  max-width: 58rem;
+  margin: 0 auto;
+  padding: 48px 32px 120px;
   min-height: calc(100vh - var(--nav-h));
 }
 
 .docs-side {
-  border-right: 1px solid #1a1a1a;
-  padding: 28px 20px 64px;
+  padding: 6px 4px 48px 0;
 }
 
 .docs-side h2 {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #8a8a8a;
-  margin: 22px 0 8px;
+  margin: 28px 0 10px;
+  padding: 0 12px;
 }
 
 .docs-side h2:first-child { margin-top: 0; }
@@ -213,16 +218,22 @@ button { font-family: inherit; }
   background: none;
   border: 0;
   color: #cfcfcf;
-  padding: 5px 0;
+  padding: 8px 12px;
+  margin-bottom: 2px;
   font-size: 13px;
   cursor: pointer;
+  border-radius: 4px;
 }
 
-.docs-side button.is-on { color: #fff; }
+.docs-side button:hover { color: #fff; }
+
+.docs-side button.is-on {
+  color: #fff;
+  background: #141414;
+}
 
 .docs-body {
-  padding: 36px 48px 96px;
-  max-width: 52rem;
+  padding: 4px 0 48px;
   overflow-wrap: anywhere;
 }
 
@@ -278,15 +289,17 @@ button { font-family: inherit; }
   .page, .home { padding-top: 84px; }
   .home {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
   }
   .docs {
     grid-template-columns: 1fr;
+    padding: 28px 18px 80px;
+    column-gap: 0;
   }
   .docs-side {
-    border-right: 0;
+    padding: 0 0 20px;
+    margin-bottom: 28px;
     border-bottom: 1px solid #1a1a1a;
-    padding-bottom: 16px;
   }
-  .docs-body { padding: 24px 18px 64px; }
+  .docs-body { padding: 8px 0 48px; }
 }

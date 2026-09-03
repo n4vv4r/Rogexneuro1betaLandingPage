@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { PAGES, SITE, abs } from "../src/site.js";
+import { PAGES, SITE, abs, jsonLd } from "../src/site.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -15,6 +15,8 @@ function strip(html) {
     .replace(/<meta name="msapplication-TileColor"[^>]*>/g, "")
     .replace(/<meta name="color-scheme"[^>]*>/g, "")
     .replace(/<meta name="robots"[^>]*>/g, "")
+    .replace(/<meta name="author"[^>]*>/g, "")
+    .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, "")
     .replace(/<link rel="canonical"[^>]*>/g, "")
     .replace(/<link rel="image_src"[^>]*>/g, "")
     .replace(/<meta property="og:[^"]+"[^>]*>/g, "")
@@ -33,6 +35,8 @@ function inject(html, page) {
     <meta name="msapplication-TileColor" content="${SITE.theme}" />
     <meta name="color-scheme" content="dark" />
     <meta name="robots" content="${robots}" />
+    <meta name="author" content="${esc(SITE.author)}" />
+    <script type="application/ld+json">${JSON.stringify(jsonLd(page))}</script>
     <link rel="canonical" href="${url}" />
     <link rel="image_src" href="${img}" />
     <meta property="og:type" content="website" />

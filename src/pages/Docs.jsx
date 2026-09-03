@@ -7,16 +7,24 @@ import echosSup from "../content/echos/superficie.md?raw";
 import echosCmd from "../content/echos/comandos.md?raw";
 import prismaOv from "../content/prisma/overview.md?raw";
 import prismaTe from "../content/prisma/tecnico.md?raw";
+import echoaiQue from "../content/echoai/que-es.md?raw";
+import echoaiPie from "../content/echoai/piezas.md?raw";
+import echoaiRuta from "../content/echoai/ruta.md?raw";
+import labEco from "../content/lab/ecosistema.md?raw";
 
 marked.setOptions({ gfm: true, breaks: false });
 
 const CATALOG = [
-  { group: "echOS 2.1.0-honest", id: "echos/que-es", title: "Qué es", src: echosQue },
-  { group: "echOS 2.1.0-honest", id: "echos/limites", title: "Límites", src: echosLim },
-  { group: "echOS 2.1.0-honest", id: "echos/superficie", title: "Superficie", src: echosSup },
-  { group: "echOS 2.1.0-honest", id: "echos/comandos", title: "Comandos", src: echosCmd },
-  { group: "PRISMA 5 SNN", id: "prisma/resumen", title: "Resumen", src: prismaOv },
-  { group: "PRISMA 5 SNN", id: "prisma/tecnico", title: "Técnico", src: prismaTe },
+  { group: "El laboratorio", id: "lab/ecosistema", title: "Tres líneas", src: labEco },
+  { group: "echoAI", id: "echoai/que-es", title: "Qué es", src: echoaiQue },
+  { group: "echoAI", id: "echoai/piezas", title: "Las piezas", src: echoaiPie },
+  { group: "echoAI", id: "echoai/ruta", title: "Hoja de ruta", src: echoaiRuta },
+  { group: "echOS", id: "echos/que-es", title: "Qué es", src: echosQue },
+  { group: "echOS", id: "echos/limites", title: "Límites", src: echosLim },
+  { group: "echOS", id: "echos/superficie", title: "Superficie", src: echosSup },
+  { group: "echOS", id: "echos/comandos", title: "Comandos", src: echosCmd },
+  { group: "PRISMA", id: "prisma/resumen", title: "Resumen", src: prismaOv },
+  { group: "PRISMA", id: "prisma/tecnico", title: "Técnico", src: prismaTe },
 ];
 
 function groups() {

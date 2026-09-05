@@ -10,11 +10,13 @@ import prismaTe from "../content/prisma/tecnico.md?raw";
 import echoaiQue from "../content/echoai/que-es.md?raw";
 import echoaiPie from "../content/echoai/piezas.md?raw";
 import echoaiEcho1 from "../content/echoai/echo1.md?raw";
+import echoaiResultados from "../content/echoai/resultados.md?raw";
 import echoaiProceso from "../content/echoai/proceso.md?raw";
 import echoaiRuta from "../content/echoai/ruta.md?raw";
 import echoaiHardware from "../content/echoai/hardware.md?raw";
 import echoaiLimites from "../content/echoai/limites.md?raw";
 import labEco from "../content/lab/ecosistema.md?raw";
+import Echo1Results from "./Echo1Results.jsx";
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -23,6 +25,7 @@ const CATALOG = [
   { group: "echoAI", id: "echoai/que-es", title: "Qué es", src: echoaiQue },
   { group: "echoAI", id: "echoai/piezas", title: "Arquitectura", src: echoaiPie },
   { group: "echoAI", id: "echoai/echo1", title: "ECHO-1", src: echoaiEcho1 },
+  { group: "echoAI", id: "echoai/resultados", title: "Resultados", src: echoaiResultados },
   { group: "echoAI", id: "echoai/proceso", title: "Cómo se construyó", src: echoaiProceso },
   { group: "echoAI", id: "echoai/ruta", title: "ECHO-2 → ECHO-3", src: echoaiRuta },
   { group: "echoAI", id: "echoai/hardware", title: "Hardware previsto", src: echoaiHardware },
@@ -110,10 +113,14 @@ export default function Docs() {
             </div>
           ))}
         </aside>
-        <article
-          className="docs-body"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        {doc.id === "echoai/resultados" ? (
+          <Echo1Results />
+        ) : (
+          <article
+            className="docs-body"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        )}
       </div>
     </main>
   );

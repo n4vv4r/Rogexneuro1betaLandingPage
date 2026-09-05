@@ -12,6 +12,7 @@ const docs = [
   ["echoai/que-es", "echoai/que-es.md"],
   ["echoai/piezas", "echoai/piezas.md"],
   ["echoai/echo1", "echoai/echo1.md"],
+  ["echoai/resultados", "echoai/resultados.md"],
   ["echoai/proceso", "echoai/proceso.md"],
   ["echoai/ruta", "echoai/ruta.md"],
   ["echoai/hardware", "echoai/hardware.md"],

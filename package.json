@@ -5,6 +5,7 @@
   "type": "module",
   "description": "RxLabs® — landing. echOS 2.1.0-honest, PRISMA and echoAI.",
   "scripts": {
+    "data:echo1": "node scripts/export-echo1-benchmark.mjs",
     "predev": "node scripts/sync-docs.mjs",
     "dev": "vite",
     "prebuild": "node scripts/sync-docs.mjs",

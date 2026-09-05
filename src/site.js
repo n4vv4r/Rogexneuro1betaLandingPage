@@ -105,6 +105,12 @@ export const PAGES = [
       "Cadena completa de ECHO-1: SELF, ROOM, objetos, abrir, conflicto, narración, patrones y transferencia. 488 pruebas y +128 agregado.",
   },
   {
+    path: "/docs/echoai/resultados",
+    title: "ECHO-1 — resultados y benchmark",
+    description:
+      "Resultados visuales de ECHO-1: aprendizaje por turno, patrones 80/80, transferencia +128, conflicto cortical, capacidades y datos reproducibles.",
+  },
+  {
     path: "/docs/echoai/proceso",
     title: "echoAI — cómo se construyó",
     description:

@@ -40,6 +40,7 @@ Akida, preview de PRISMA). Eso es laboratorio, no vaporware.
 - [echoAI — qué es](https://www.rogexlaboratories.com/docs/echoai/que-es): ciclo, cifras, CORTEX-1, neocórtex
 - [echoAI — arquitectura](https://www.rogexlaboratories.com/docs/echoai/piezas): WSP, CAM, T, PatternMemory, Q, gate, ATTEND, córtex y placa
 - [ECHO-1 — cierre](https://www.rogexlaboratories.com/docs/echoai/echo1): cadena de capacidades, cifras y reproducción
+- [ECHO-1 — resultados](https://www.rogexlaboratories.com/docs/echoai/resultados): gráficas, diagramas, reproductor de turnos y datos del benchmark
 - [Cómo se construyó](https://www.rogexlaboratories.com/docs/echoai/proceso): slices, controles, revisión adversarial y mutantes
 - [ECHO-2 → ECHO-3](https://www.rogexlaboratories.com/docs/echoai/ruta): supervivencia, objetos, cámara, LiDAR y drones al edge
 - [Hardware previsto](https://www.rogexlaboratories.com/docs/echoai/hardware): escalera de compra y función de cada componente

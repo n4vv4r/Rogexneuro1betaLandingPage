@@ -1,31 +1,28 @@
 # Cómo se construyó
 
-echoAI se construye como laboratorio experimental: una afirmación pequeña, un
-control causal, un informe propio y una puerta que debe poder decir que no.
+echoAI se desarrolla en RxLabs como un programa de ingeniería experimental:
+cada avance parte de una afirmación acotada, incorpora un control causal,
+produce evidencia propia y termina en una puerta que debe poder decir que no.
 
-## Responsabilidades
+## Dirección y trazabilidad
 
-| Rol | Responsabilidad |
-|---|---|
-| Roger Navarro | dirección del producto, invariantes, operación local, aceptación final |
-| Arquitectura y revisión con IA | convertir objetivos en slices, buscar falsos verdes y redactar el siguiente contrato |
-| Claude Code | implementar un slice acotado y su banco |
-| Operador humano | ejecutar modelos y hardware local que CI no debe descargar ni fingir |
+Roger Navarro dirige el producto y su arquitectura, fija los invariantes,
+opera el laboratorio y acepta o rechaza cada fase. La evolución técnica queda
+trazada en especificaciones, código, pruebas, informes y commits reproducibles.
 
-Durante ECHO-1 colaboraron Grok y ChatGPT Codex en arquitectura y revisión, y
-Claude Opus mediante Claude Code en implementación. Esa cooperación no es una
-autoridad: la autoridad final son el código, los controles y los resultados
-reproducibles.
+Las herramientas auxiliares del proceso interno no forman parte de la
+evidencia publicada. Las afirmaciones públicas se sostienen únicamente en el
+comportamiento del sistema, sus controles y resultados reproducibles.
 
 ## El ciclo de trabajo
 
 ```text
-objetivo → hipótesis causal → prompt acotado → implementación
-         → banco y controles → revisión adversarial → contraejemplo
-         → endurecer o rechazar → siguiente slice
+objetivo → invariante → hipótesis causal → especificación acotada
+         → implementación → banco y controles → contraejemplo
+         → endurecer o rechazar → siguiente incremento
 ```
 
-Cada slice tiene un KPI principal. No se permite arreglar un experimento
+Cada incremento tiene un KPI principal. No se permite arreglar un experimento
 moviendo la recompensa, hardcodeando el nombre del mundo o rebajando una
 condición después de ver el resultado.
 

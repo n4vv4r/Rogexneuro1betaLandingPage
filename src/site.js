@@ -14,6 +14,13 @@ export const SITE = {
   author: "Roger Navarro",
 };
 
+export const ECHOAI_OG = {
+  image: "/media/echoai/opengraph/echoai.png",
+  imageW: 1200,
+  imageH: 480,
+  imageAlt: "ECHO-AI — RxLabs®",
+};
+
 export const PAGES = [
   {
     path: "/",
@@ -155,6 +162,16 @@ export function abs(path) {
   if (!path) return SITE.url;
   if (path.startsWith("http")) return path;
   return SITE.url.replace(/\/$/, "") + (path.startsWith("/") ? path : `/${path}`);
+}
+
+export function imageFor(page) {
+  const source = page?.path?.startsWith("/docs/echoai/") ? ECHOAI_OG : SITE;
+  return {
+    url: abs(source.image),
+    width: source.imageW,
+    height: source.imageH,
+    alt: source.imageAlt,
+  };
 }
 
 export function jsonLd(page) {

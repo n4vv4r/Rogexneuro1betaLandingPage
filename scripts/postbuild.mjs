@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { PAGES, SITE, abs, jsonLd } from "../src/site.js";
+import { PAGES, SITE, abs, imageFor, jsonLd } from "../src/site.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -25,7 +25,7 @@ function strip(html) {
 
 function inject(html, page) {
   const url = abs(page.path);
-  const img = abs(SITE.image);
+  const image = imageFor(page);
   const robots = page.noindex ? "noindex, nofollow" : "index, follow";
   html = strip(html);
   const block = `
@@ -38,24 +38,24 @@ function inject(html, page) {
     <meta name="author" content="${esc(SITE.author)}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd(page))}</script>
     <link rel="canonical" href="${url}" />
-    <link rel="image_src" href="${img}" />
+    <link rel="image_src" href="${image.url}" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${esc(SITE.name)}" />
     <meta property="og:locale" content="${SITE.locale}" />
     <meta property="og:title" content="${esc(page.title)}" />
     <meta property="og:description" content="${esc(page.description)}" />
     <meta property="og:url" content="${url}" />
-    <meta property="og:image" content="${img}" />
-    <meta property="og:image:secure_url" content="${img}" />
+    <meta property="og:image" content="${image.url}" />
+    <meta property="og:image:secure_url" content="${image.url}" />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="${SITE.imageW}" />
-    <meta property="og:image:height" content="${SITE.imageH}" />
-    <meta property="og:image:alt" content="${esc(SITE.imageAlt)}" />
+    <meta property="og:image:width" content="${image.width}" />
+    <meta property="og:image:height" content="${image.height}" />
+    <meta property="og:image:alt" content="${esc(image.alt)}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(page.title)}" />
     <meta name="twitter:description" content="${esc(page.description)}" />
-    <meta name="twitter:image" content="${img}" />
-    <meta name="twitter:image:alt" content="${esc(SITE.imageAlt)}" />
+    <meta name="twitter:image" content="${image.url}" />
+    <meta name="twitter:image:alt" content="${esc(image.alt)}" />
 `;
 
   return html

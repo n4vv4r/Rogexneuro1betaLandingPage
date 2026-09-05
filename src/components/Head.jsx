@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { SITE, abs, pageFor, jsonLd } from "../site.js";
+import { SITE, abs, imageFor, pageFor, jsonLd } from "../site.js";
 
 function upsert(selector, attrs) {
   let el = document.head.querySelector(selector);
@@ -35,7 +35,7 @@ export default function Head() {
       : loc.pathname;
     const page = pageFor(path);
     const url = abs(page.path);
-    const img = abs(SITE.image);
+    const image = imageFor(page);
 
     document.title = page.title;
     document.documentElement.lang = "es";
@@ -62,12 +62,12 @@ export default function Head() {
       "og:title": page.title,
       "og:description": page.description,
       "og:url": url,
-      "og:image": img,
-      "og:image:secure_url": img,
+      "og:image": image.url,
+      "og:image:secure_url": image.url,
       "og:image:type": "image/png",
-      "og:image:width": String(SITE.imageW),
-      "og:image:height": String(SITE.imageH),
-      "og:image:alt": SITE.imageAlt,
+      "og:image:width": String(image.width),
+      "og:image:height": String(image.height),
+      "og:image:alt": image.alt,
     };
     for (const [k, v] of Object.entries(og)) {
       upsert(`meta[property="${k}"]`, { property: k, content: v });
@@ -79,11 +79,11 @@ export default function Head() {
       name: "twitter:description",
       content: page.description,
     });
-    upsert('meta[name="twitter:image"]', { name: "twitter:image", content: img });
-    upsert('meta[name="twitter:image:alt"]', { name: "twitter:image:alt", content: SITE.imageAlt });
+    upsert('meta[name="twitter:image"]', { name: "twitter:image", content: image.url });
+    upsert('meta[name="twitter:image:alt"]', { name: "twitter:image:alt", content: image.alt });
 
     upsertLink("canonical", url);
-    upsertLink("image_src", img);
+    upsertLink("image_src", image.url);
 
     let ld = document.getElementById("rxlabs-ld");
     if (!ld) {

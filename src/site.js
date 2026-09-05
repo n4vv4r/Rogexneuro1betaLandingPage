@@ -40,11 +40,6 @@ export const PAGES = [
     description: "Contacto de RxLabs®: knightsys@proton.me — Roger Navarro, Girona.",
   },
   {
-    path: "/community",
-    title: "Comunidad — RxLabs®",
-    description: "Discord de RxLabs®. Laboratorio de investigación: echOS, PRISMA, echoAI.",
-  },
-  {
     path: "/docs",
     title: "Documentación — RxLabs®",
     description:

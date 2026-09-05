@@ -4,7 +4,6 @@ import Nav from "./components/Nav.jsx";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
-import Community from "./pages/Community.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Docs from "./pages/Docs.jsx";
 
@@ -38,7 +37,6 @@ export default function App() {
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/community" element={<Community />} />
         <Route path="/docs/prisma/social" element={<Navigate to="/docs/prisma/resumen" replace />} />
         <Route path="/docs/prisma/overview" element={<Navigate to="/docs/prisma/resumen" replace />} />
         <Route path="/docs/prisma/technical" element={<Navigate to="/docs/prisma/tecnico" replace />} />

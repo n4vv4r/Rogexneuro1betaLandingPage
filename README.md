@@ -3,7 +3,7 @@
 Landing de [rogexlaboratories.com](https://www.rogexlaboratories.com).
 
 - `/` dos cuadrados: echOS · PRISMA
-- `/about` `/contact` `/community`
+- `/about` `/contact`
 - `/docs` (también `docs.rogexlaboratories.com`) — echOS, PRISMA y echoAI, en castellano
 - echoAI documenta arquitectura, cierre ECHO-1, proceso experimental,
   roadmap ECHO-2/ECHO-3, hardware previsto y límites

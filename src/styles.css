@@ -157,17 +157,6 @@ button { font-family: inherit; }
   border-bottom: 1px solid #fff;
 }
 
-.community {
-  display: flex;
-  justify-content: center;
-  padding: 48px 16px 80px;
-}
-
-.community iframe {
-  border: 0;
-  background: #000;
-}
-
 .gone {
   min-height: calc(100% - var(--nav-h));
   display: grid;

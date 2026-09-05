@@ -32,7 +32,6 @@ export default function Nav({ path, docsHost = false }) {
       <div className="nav-cluster">
         {item("/contact", "Contacto")}
         {item("/about", "Qué es RxLabs®")}
-        {item("/community", "Comunidad")}
         {item("/docs", "Docs")}
       </div>
       <div className="nav-cluster">

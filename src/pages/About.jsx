@@ -21,9 +21,10 @@ export default function About() {
         </p>
         <p>
           <strong>echoAI</strong> — agente de dos relojes. El rápido ve,
-          recuerda, predice, actúa y aprende. El lento propone. CORTEX-1
-          verde: un letrero en español ya mueve el cuerpo. El 4B se cuelga
-          del mismo enchufe.
+          recuerda, predice, actúa y aprende. El lento propone. ECHO-1 está
+          cerrado: objetos, operaciones, conflicto, narración, patrones y
+          transferencia entre tres mundos. Siguiente: supervivencia autónoma
+          y robótica al edge.
         </p>
         <p className="meta">knightsys@proton.me</p>
       </article>

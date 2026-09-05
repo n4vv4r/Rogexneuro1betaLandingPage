@@ -19,13 +19,13 @@ export const PAGES = [
     path: "/",
     title: "RxLabs® — laboratorio de investigación",
     description:
-      "Laboratorio de software de Roger Navarro (Girona). Tres líneas reales y medidas: echOS (unikernel que arranca), PRISMA (motor de EEG en microsegundos) y echoAI (agente de dos relojes, CORTEX-1 verde). Investigación, no humo.",
+      "Laboratorio de software de Roger Navarro (Girona). echOS, PRISMA y echoAI: ECHO-1 cerrado, transferencia causal entre mundos y una ruta verificable hacia robótica autónoma al edge.",
   },
   {
     path: "/about",
     title: "Qué es RxLabs®",
     description:
-      "RxLabs® es el laboratorio de Roger Navarro, 20 años, Girona. echOS, PRISMA y echoAI: código que corre, números que se pueden volver a medir.",
+      "RxLabs® es el laboratorio de Roger Navarro, Girona. echOS, PRISMA y echoAI: código que corre, límites publicados y números que se pueden volver a medir.",
   },
   {
     path: "/contact",
@@ -82,25 +82,49 @@ export const PAGES = [
     path: "/docs/lab/ecosistema",
     title: "El laboratorio — RxLabs®",
     description:
-      "Tres líneas reales: echOS, PRISMA, echoAI. Comparten WSP de 16 bytes y la sonda Akida. Investigación medida en Girona.",
+      "Tres líneas reales: echOS, PRISMA y echoAI. Código ejecutable, límites publicados y una ruta desde ECHO-1 hacia robótica al edge.",
   },
   {
     path: "/docs/echoai/que-es",
     title: "echoAI — RxLabs®",
     description:
-      "Agente de dos relojes. CORTEX-1 verde: letrero en español, córtex +16, rápido 0. Preguntar +80 vs −80. ATTEND 36/256. Laboratorio, cifras reproducibles.",
+      "Agente situado de dos relojes. ECHO-1 cerrado: memoria, objetos, patrones y transferencia causal entre tres mundos, con el córtex apagado por defecto.",
   },
   {
     path: "/docs/echoai/piezas",
-    title: "echoAI — las piezas",
+    title: "echoAI — arquitectura",
     description:
-      "WSP 16 B, CAM 4096, T, Q[4096][3], gate, ATTEND, oráculo, córtex. Cada pieza medida. El 4B se cuelga del enchufe que ya existe.",
+      "WSP 16 B, CAM 4096, T, PatternMemory, Q, gate, ATTEND y córtex opcional. Un bus, tres canales y contratos medidos.",
+  },
+  {
+    path: "/docs/echoai/echo1",
+    title: "ECHO-1 — cierre",
+    description:
+      "Cadena completa de ECHO-1: SELF, ROOM, objetos, abrir, conflicto, narración, patrones y transferencia. 488 pruebas y +128 agregado.",
+  },
+  {
+    path: "/docs/echoai/proceso",
+    title: "echoAI — cómo se construyó",
+    description:
+      "Proceso experimental de echoAI: un KPI por slice, controles causales, revisión adversarial, mutantes e informes reproducibles.",
   },
   {
     path: "/docs/echoai/ruta",
-    title: "echoAI — hoja de ruta",
+    title: "echoAI — ECHO-2 y ECHO-3",
     description:
-      "Hecho: anillo, preguntar, pasillo, placa, CORTEX-1. Siguiente: Qwen3-4B local, mundo grande, sleep, cuerpo, Akida.",
+      "Hoja de ruta desde ECHO-1 hacia supervivencia autónoma, reconocimiento de objetos y robótica física con cámara, LiDAR y drones al edge.",
+  },
+  {
+    path: "/docs/echoai/hardware",
+    title: "echoAI — hardware previsto",
+    description:
+      "Plataforma candidata hacia ECHO-3: Crazyflie, X500/Pixhawk, Jetson, OAK-D, TFmini-S, Livox Mid-360 y Akida opcional.",
+  },
+  {
+    path: "/docs/echoai/limites",
+    title: "echoAI — límites",
+    description:
+      "Qué no demuestra ECHO-1 y qué debe verificarse antes de robótica: sensores, deadlines, failsafes, HIL, energía y hardware ausente.",
   },
   {
     path: "/echos",

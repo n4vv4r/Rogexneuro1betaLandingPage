@@ -1,74 +1,77 @@
 # echoAI
 
-Un agente de dos relojes.
+echoAI es un agente situado de dos relojes. No es un chatbot y no es un
+modelo de lenguaje con herramientas.
 
-El reloj rápido ve, recuerda, predice, actúa y aprende. Enteros. Un
-paquete de 16 bytes. Sin modelo de lenguaje en el bucle.
+El reloj rápido percibe, recuerda, predice, actúa y aprende usando tablas y
+enteros. El reloj lento, cuando se conecta, puede leer lenguaje y proponer una
+hipótesis. El gate conserva la última palabra y ninguna propuesta del córtex se
+convierte por sí sola en un hecho.
 
-El reloj lento —cuando está enchufado— propone. Una hipótesis. Nunca
-un hecho.
-
-Hoy el animal funciona con la corteza apagada. Esta semana la corteza,
-todavía un script de veinte líneas, **cambió una decisión** que el
-rápido no podía tomar. CORTEX-1 está verde.
-
-```
+```text
 percibir → recordar → predecir → actuar → consecuencia → aprender
+                                      ↑
+                          hipótesis lenta, sólo cuando ATTEND la solicita
 ```
 
-## Tres canales
+## Estado actual
+
+**ECHO-1 quedó cerrado el 5 de septiembre de 2026.** La suite canónica
+termina con 488 pruebas correctas y un `expectedFailure` explícito: WALK-1
+sin el resto entero opt-in. No se oculta como verde.
+
+ECHO-1 demuestra que el mismo animal:
+
+- conserva CAM, Q, T y PatternMemory al cruzar mundos;
+- distingue cambios propios de cambios del entorno;
+- aprende a transportar un objeto y a abrir un recipiente;
+- despierta el córtex después de una contradicción conocida, no antes;
+- narra lo ocurrido sin que la narración pueda modificar el animal;
+- aprende una regularidad temporal que T de un paso no puede representar;
+- obtiene una ventaja causal frente a controles nuevos o sólo envejecidos.
+
+El cierre de transferencia usa tres mundos. En las dos fronteras medidas, el
+animal transferido obtiene `208 vs 152` (`+56`) y `224 vs 152` (`+72`). La
+ganancia agregada es `+128`. No intervienen un LLM ni etiquetas humanas.
+
+## Tres canales que no se mezclan
 
 | Canal | Pregunta | Dónde vive |
 |---|---|---|
-| Representación | ¿qué ocurre? | WSP, 16 bytes |
-| Epistemología | ¿lo sé? | CAM + VERIFY |
+| Representación | ¿qué ocurre? | WSP de 16 bytes |
+| Epistemología | ¿lo sé? | CAM + VERIFY + extracto |
 | Control | ¿qué hago? | Q + gate |
 
-La memoria de lo visto y la política de lo que hago son tablas distintas.
+CAM registra lo que ocurrió. Q aprende lo que conviene hacer. T predice el
+resultado de una acción. Que una frase suene convincente no cambia ninguno de
+esos contratos.
 
-## Lo que ya está medido
+## Cifras que se pueden volver a medir
 
-Anillo de 32 casillas. Misma semilla. Se puede volver a correr.
-
-| Qué | Número |
+| Banco | Resultado |
 |---|---|
-| Tras aprender, en una trampa | approach pierde (`[-12, +5, 0]`) |
-| Preguntar una vez vs no preguntar | **+80** / **−80** |
-| Pensar poco | ATTEND despierta **36 de 256** turnos |
-| Hechos inventados | **0** |
-| CORTEX-1, letrero en español | córtex **+16**, rápido **0**. En la trampa, avoid. |
+| Anillo, política aprendida ante amenaza | `[-12, +5, 0]` |
+| Preguntar frente a no preguntar | `+80` frente a `-80` |
+| ATTEND con córtex habilitado | 36 despertares de 256 turnos |
+| SIGN-C, decisión que el rápido no resolvía | córtex `+16`, rápido `0` |
+| TALK-1 | 496/496 cláusulas; 256/256 registros |
+| PATTERN-0 | 80/80 frente a T 40/80 |
+| XFER-1 | `+56` y `+72` en fronteras independientes |
+| Hechos falsos / ranuras destruidas | `0 / 0` |
 
-El pasillo (otro mundo, cinco casillas): se lleva lo aprendido. Donde
-el mapa cambió, se equivoca y se entera equivocándose.
+La ejecución principal mantiene el córtex apagado. Qwen3-4B se probó aparte,
+local y cuantizado, detrás del mismo enchufe y de una gramática de salida. En
+SIGN-C resolvió los dos ejemplos canónicos, 4 de 6 paráfrasis que el stub no
+resolvía y produjo `CortexROI +16`; dos amenazas no canónicas equivocadas
+quedan registradas como deuda de seguridad, no escondidas.
 
-## CORTEX-1 — el letrero
+## Qué significa y qué no
 
-Dos mundos. La misma casilla, el mismo paquete de 16 bytes, la misma
-fila de política en cero. Lo único distinto es una frase:
+Es evidencia de memoria, control, predicción, composición y transferencia en
+mundos sintéticos. No es todavía un robot, no demuestra percepción visual y no
+autoriza a poner un modelo generativo en el control de motores.
 
-- *AMBAR: entra. El siguiente sitio es el premio.*
-- *AMBAR: no entres. El siguiente sitio es una trampa.*
-
-El rápido no lee español. Espera. El córtex lee el letrero y propone
-UNIR o TEMER. El cuerpo se mueve. El premio se cobra. La trampa se
-esquiva.
-
-CAM guarda el letrero del mundo, no los átomos de la respuesta.
-*Había un letrero.*
-
-En CI no hay un modelo de cuatro mil millones de parámetros. Hay un
-script. El cable es el claim. El modelo viene después.
-
-## El neocórtex
-
-El enchufe existe: `NAVI_CORTEX_CMD`. Un proceso local. JSON entra,
-una línea de átomos sale. La prosa se tira.
-
-El plan es colgar **Qwen3-4B-Instruct** (cuantizado, Q4, en esta
-máquina si cabe) con gramática. Misma puerta. Cuatro números cuando
-corra: latencia, tokens por segundo, cuántas veces el parser lo
-rechaza, y si de verdad gana al rápido.
-
-Hasta entonces el stub ya gana en el letrero.
+ECHO-2 llevará el mismo contrato a supervivencia autónoma y reconocimiento de
+objetos. ECHO-3 lo conectará con sensores y un cuerpo físico en el edge.
 
 — R.N.

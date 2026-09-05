@@ -9,7 +9,11 @@ import prismaOv from "../content/prisma/overview.md?raw";
 import prismaTe from "../content/prisma/tecnico.md?raw";
 import echoaiQue from "../content/echoai/que-es.md?raw";
 import echoaiPie from "../content/echoai/piezas.md?raw";
+import echoaiEcho1 from "../content/echoai/echo1.md?raw";
+import echoaiProceso from "../content/echoai/proceso.md?raw";
 import echoaiRuta from "../content/echoai/ruta.md?raw";
+import echoaiHardware from "../content/echoai/hardware.md?raw";
+import echoaiLimites from "../content/echoai/limites.md?raw";
 import labEco from "../content/lab/ecosistema.md?raw";
 
 marked.setOptions({ gfm: true, breaks: false });
@@ -17,8 +21,12 @@ marked.setOptions({ gfm: true, breaks: false });
 const CATALOG = [
   { group: "El laboratorio", id: "lab/ecosistema", title: "Tres líneas", src: labEco },
   { group: "echoAI", id: "echoai/que-es", title: "Qué es", src: echoaiQue },
-  { group: "echoAI", id: "echoai/piezas", title: "Las piezas", src: echoaiPie },
-  { group: "echoAI", id: "echoai/ruta", title: "Hoja de ruta", src: echoaiRuta },
+  { group: "echoAI", id: "echoai/piezas", title: "Arquitectura", src: echoaiPie },
+  { group: "echoAI", id: "echoai/echo1", title: "ECHO-1", src: echoaiEcho1 },
+  { group: "echoAI", id: "echoai/proceso", title: "Cómo se construyó", src: echoaiProceso },
+  { group: "echoAI", id: "echoai/ruta", title: "ECHO-2 → ECHO-3", src: echoaiRuta },
+  { group: "echoAI", id: "echoai/hardware", title: "Hardware previsto", src: echoaiHardware },
+  { group: "echoAI", id: "echoai/limites", title: "Límites", src: echoaiLimites },
   { group: "echOS", id: "echos/que-es", title: "Qué es", src: echosQue },
   { group: "echOS", id: "echos/limites", title: "Límites", src: echosLim },
   { group: "echOS", id: "echos/superficie", title: "Superficie", src: echosSup },

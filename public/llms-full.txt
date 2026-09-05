@@ -5,232 +5,666 @@
 
 ---
 
-
-<!-- src/content/lab/ecosistema.md -->
+<!-- src/content/lab/ecosistema.md · /docs/lab/ecosistema -->
 
 # El laboratorio
 
-Rogex Laboratories / Knights Labs. Una persona. Tres líneas.
+Rogex Laboratories / RxLabs. Laboratorio independiente en Girona. Tres líneas
+de investigación, con código ejecutable y límites publicados.
 
-No hay un binario que las una. Hay un mismo método: enteros en el
-camino caliente, eventos en vez de sondeo, memoria estática, y no
-fingir hardware que no está en la mesa.
+No hay un binario que las una. Comparten un método: camino caliente pequeño,
+eventos en vez de sondeo cuando aporta valor, memoria acotada y ninguna
+afirmación de hardware que no esté en la mesa.
 
-| Línea | Qué es | Hoy |
+| Línea | Qué es | Estado |
 |---|---|---|
-| **echOS** | Unikernel de consola. Un ELF. 2.1.0-honest. | Arranca en QEMU y en metal. |
-| **PRISMA Engine** | EEG a spikes, Rust, microsegundos. | 0.1.0 se mide. P5 es hoja de ruta. |
-| **echoAI** | Agente de dos relojes. | Laboratorio verde. CORTEX-1 verde. |
+| **echOS** | Unikernel x86_64 de consola, un ELF | 2.1.0-honest; arranca en QEMU y metal |
+| **PRISMA Engine** | EEG a eventos, Rust y análisis reproducible | Engine 0.1.0 medido; no es producto sanitario |
+| **echoAI** | Agente situado de dos relojes | ECHO-1 cerrado; ECHO-2 en diseño |
 
 ## Dónde se tocan
 
-echOS y echoAI comparten el paquete **WSP de 16 bytes**. El contrato
-es el mismo; los procesos no. echoAI corre en el host. No va dentro
-de la ISO.
+echOS y echoAI comparten el contrato **WSP de 16 bytes**. No comparten proceso:
+echoAI corre actualmente en host y no está dentro de la ISO.
 
-PRISMA y echOS hablan el mismo vocabulario de sonda Akida. No hay
-binding en el kernel todavía.
+PRISMA y echOS usan el vocabulario de una futura sonda neuromórfica. PRISMA y
+echoAI no se importan: uno analiza una señal continua; el otro aprende a actuar
+en un mundo discreto.
 
-PRISMA y echoAI no se importan. Uno mira una señal continua. El otro
-decide en un mundo discreto.
+## Estado de echoAI
 
-## Akida
+ECHO-1 integra memoria episódica, política, modelo del mundo, cuerpo, objetos,
+operaciones, lenguaje acotado, narración póstuma, patrones temporales y
+transferencia. Su cierre reproduce 488 pruebas correctas, un fallo esperado
+documentado y ganancias de transferencia de `+56` y `+72`.
 
-Aparece como stub o sonda. Sin placa, se dice ausente.
+ECHO-2 está planificado para reconocimiento de objetos, homeostasis y
+supervivencia entre vidas. ECHO-3 trasladará esas capacidades a robótica al
+edge: primero simulación y HIL; después cámara, LiDAR y un dron controlado por
+PX4/Pixhawk.
+
+## Hardware
+
+No hay AKD1000 en el laboratorio. Akida aparece únicamente como sonda, stub o
+hardware futuro. Si se incorpora, se publicarán medidas propias y no cifras
+heredadas de un folleto.
 
 — R.N.
 
 ---
 
-<!-- src/content/echoai/que-es.md -->
+<!-- src/content/echoai/que-es.md · /docs/echoai/que-es -->
 
 # echoAI
 
-Un agente de dos relojes.
+echoAI es un agente situado de dos relojes. No es un chatbot y no es un
+modelo de lenguaje con herramientas.
 
-El reloj rápido ve, recuerda, predice, actúa y aprende. Enteros. Un
-paquete de 16 bytes. Sin modelo de lenguaje en el bucle.
+El reloj rápido percibe, recuerda, predice, actúa y aprende usando tablas y
+enteros. El reloj lento, cuando se conecta, puede leer lenguaje y proponer una
+hipótesis. El gate conserva la última palabra y ninguna propuesta del córtex se
+convierte por sí sola en un hecho.
 
-El reloj lento —cuando está enchufado— propone. Una hipótesis. Nunca
-un hecho.
-
-Hoy el animal funciona con la corteza apagada. Esta semana la corteza,
-todavía un script de veinte líneas, **cambió una decisión** que el
-rápido no podía tomar. CORTEX-1 está verde.
-
-```
+```text
 percibir → recordar → predecir → actuar → consecuencia → aprender
+                                      ↑
+                          hipótesis lenta, sólo cuando ATTEND la solicita
 ```
 
-## Tres canales
+## Estado actual
+
+**ECHO-1 quedó cerrado el 5 de septiembre de 2026.** La suite canónica
+termina con 488 pruebas correctas y un `expectedFailure` explícito: WALK-1
+sin el resto entero opt-in. No se oculta como verde.
+
+ECHO-1 demuestra que el mismo animal:
+
+- conserva CAM, Q, T y PatternMemory al cruzar mundos;
+- distingue cambios propios de cambios del entorno;
+- aprende a transportar un objeto y a abrir un recipiente;
+- despierta el córtex después de una contradicción conocida, no antes;
+- narra lo ocurrido sin que la narración pueda modificar el animal;
+- aprende una regularidad temporal que T de un paso no puede representar;
+- obtiene una ventaja causal frente a controles nuevos o sólo envejecidos.
+
+El cierre de transferencia usa tres mundos. En las dos fronteras medidas, el
+animal transferido obtiene `208 vs 152` (`+56`) y `224 vs 152` (`+72`). La
+ganancia agregada es `+128`. No intervienen un LLM ni etiquetas humanas.
+
+## Tres canales que no se mezclan
 
 | Canal | Pregunta | Dónde vive |
 |---|---|---|
-| Representación | ¿qué ocurre? | WSP, 16 bytes |
-| Epistemología | ¿lo sé? | CAM + VERIFY |
+| Representación | ¿qué ocurre? | WSP de 16 bytes |
+| Epistemología | ¿lo sé? | CAM + VERIFY + extracto |
 | Control | ¿qué hago? | Q + gate |
 
-La memoria de lo visto y la política de lo que hago son tablas distintas.
+CAM registra lo que ocurrió. Q aprende lo que conviene hacer. T predice el
+resultado de una acción. Que una frase suene convincente no cambia ninguno de
+esos contratos.
 
-## Lo que ya está medido
+## Cifras que se pueden volver a medir
 
-Anillo de 32 casillas. Misma semilla. Se puede volver a correr.
-
-| Qué | Número |
+| Banco | Resultado |
 |---|---|
-| Tras aprender, en una trampa | approach pierde (`[-12, +5, 0]`) |
-| Preguntar una vez vs no preguntar | **+80** / **−80** |
-| Pensar poco | ATTEND despierta **36 de 256** turnos |
-| Hechos inventados | **0** |
-| CORTEX-1, letrero en español | córtex **+16**, rápido **0**. En la trampa, avoid. |
+| Anillo, política aprendida ante amenaza | `[-12, +5, 0]` |
+| Preguntar frente a no preguntar | `+80` frente a `-80` |
+| ATTEND con córtex habilitado | 36 despertares de 256 turnos |
+| SIGN-C, decisión que el rápido no resolvía | córtex `+16`, rápido `0` |
+| TALK-1 | 496/496 cláusulas; 256/256 registros |
+| PATTERN-0 | 80/80 frente a T 40/80 |
+| XFER-1 | `+56` y `+72` en fronteras independientes |
+| Hechos falsos / ranuras destruidas | `0 / 0` |
 
-El pasillo (otro mundo, cinco casillas): se lleva lo aprendido. Donde
-el mapa cambió, se equivoca y se entera equivocándose.
+La ejecución principal mantiene el córtex apagado. Qwen3-4B se probó aparte,
+local y cuantizado, detrás del mismo enchufe y de una gramática de salida. En
+SIGN-C resolvió los dos ejemplos canónicos, 4 de 6 paráfrasis que el stub no
+resolvía y produjo `CortexROI +16`; dos amenazas no canónicas equivocadas
+quedan registradas como deuda de seguridad, no escondidas.
 
-## CORTEX-1 — el letrero
+## Qué significa y qué no
 
-Dos mundos. La misma casilla, el mismo paquete de 16 bytes, la misma
-fila de política en cero. Lo único distinto es una frase:
+Es evidencia de memoria, control, predicción, composición y transferencia en
+mundos sintéticos. No es todavía un robot, no demuestra percepción visual y no
+autoriza a poner un modelo generativo en el control de motores.
 
-- *AMBAR: entra. El siguiente sitio es el premio.*
-- *AMBAR: no entres. El siguiente sitio es una trampa.*
-
-El rápido no lee español. Espera. El córtex lee el letrero y propone
-UNIR o TEMER. El cuerpo se mueve. El premio se cobra. La trampa se
-esquiva.
-
-CAM guarda el letrero del mundo, no los átomos de la respuesta.
-*Había un letrero.*
-
-En CI no hay un modelo de cuatro mil millones de parámetros. Hay un
-script. El cable es el claim. El modelo viene después.
-
-## El neocórtex
-
-El enchufe existe: `NAVI_CORTEX_CMD`. Un proceso local. JSON entra,
-una línea de átomos sale. La prosa se tira.
-
-El plan es colgar **Qwen3-4B-Instruct** (cuantizado, Q4, en esta
-máquina si cabe) con gramática. Misma puerta. Cuatro números cuando
-corra: latencia, tokens por segundo, cuántas veces el parser lo
-rechaza, y si de verdad gana al rápido.
-
-Hasta entonces el stub ya gana en el letrero.
+ECHO-2 llevará el mismo contrato a supervivencia autónoma y reconocimiento de
+objetos. ECHO-3 lo conectará con sensores y un cuerpo físico en el edge.
 
 — R.N.
 
 ---
 
-<!-- src/content/echoai/piezas.md -->
+<!-- src/content/echoai/piezas.md · /docs/echoai/piezas -->
 
-# echoAI — las piezas
+# echoAI — arquitectura
 
-Si ayuda, cada caja tiene un primo en un sistema nervioso. Analogía de
-trabajo. El código no finge anatomía.
+Las analogías biológicas ayudan a leer el diseño, pero el código no finge
+anatomía. Cada pieza tiene un contrato comprobable.
 
-## WSP — el impulso
+## WSP — el único bus
 
-16 bytes. Origen, relación, destino, tiempo, seis enteros de tono.
-Es el único cable. Lo que no cabe en 16 bytes no entra en el
-pensamiento.
+Un paquete fijo de 16 bytes: origen, relación, destino, tiempo, seis enteros de
+estado y campos de dominio. Es la misma representación desde percepción hasta
+acción. No existe un segundo bus para Pattern, el córtex o la narración.
 
-Como el potencial de acción: la misma moneda, de la piel al mapa.
-echOS habla el mismo paquete. echoAI lo importa.
+## CAM — episodios verificados
 
-## CAM — lo que pasó
+4.096 ranuras, sin LRU destructivo. VERIFY necesita similitud suficiente y un
+extracto entregado por el mundo. Una hipótesis del córtex nunca se escribe como
+hecho. En todos los cierres de ECHO-1, `destroyed=0` y `false_facts=0`.
 
-4.096 ranuras. Lo visto. Un extracto o nada. VERIFY pide dos cosas:
-que el patrón se parezca lo bastante *y* que haya extracto.
+## T — modelo de un paso
 
-Cerca del hipocampo: episodios, no hábitos. No es la política.
+`T(s,a)` conserva el sucesor dominante, el número de observaciones y los
+conflictos. KCC impide que una observación aislada borre lo aprendido. Cuando
+el mundo contradice una predicción conocida, la contradicción puede despertar
+ATTEND en el turno siguiente.
 
-## T — a dónde voy si hago esto
+## PatternMemory — contexto temporal
 
-El mapa. Si en *s* hago *a*, ¿adónde caigo? Cuenta, conflictos,
-confianza 0–3.
+PATTERN-0 añade el estado anterior al contexto: `(prev, actual, acción)`. Usa
+una tabla fija, direccionamiento abierto y enteros. Una regla sólo se ofrece
+cuando está madura y no ha sido contradicha; si no hay regla, la predicción cae
+a T.
 
-Cerca del cerebelo: el cuerpo se mueve mejor cuando anticipa. Un solo
-susto de mapa, en el anillo, cuando la trampa cambió de casilla.
+Está apagada por defecto y comparte exactamente el canal de observación de T.
+En el riff de prueba obtiene 80/80 predicciones frente a 40/80 de T.
 
-## Q — qué hago
+## Q — política
 
-Tres acciones. Acercarse, apartarse, esperar. Enteros. Aprende del
-pago.
+Q es una tabla `int8` separada de CAM. El banco por defecto tiene tres acciones:
+acercarse, apartarse y esperar. OPEN-1 demuestra que un mundo puede optar por
+una cuarta acción, abrir, sin cambiar el contrato del anillo.
 
-Cerca de los ganglios basales: no razona la frase, elige el gesto.
+El aprendizaje usa consecuencias enteras. El resto de división que permite
+propagar crédito más lejos es opt-in; WALK-1 sin ese resto permanece rojo y
+documentado.
 
-## GATE — el veto
+## Cuerpo y mundo
 
-OK, MODIFY, BLOCK. El córtex propone. El gate decide.
+El agente no es su mapa. CUERPO-1 introdujo pose y orientación; SELF-1 separó
+el desplazamiento producido por el motor del producido por el suelo. ROOM-1
+añadió frames externos sin gastar el campo `domain` del WSP.
 
-Cerca del tronco: puedes querer y no te dejan.
+OBJ-1 y OPEN-1 distinguen estar en un sitio, transportar una cosa y ejecutar
+la operación física necesaria para entregarla.
 
-## ATTEND — cuándo gastar corteza
+## Gate — control y veto
 
-Un predicado entero. Primera vez, sin extracto, novedad, política
-plana, mapa vacío. En el anillo despierta 36 de 256 turnos.
+Toda propuesta termina en `OK`, `MODIFY` o `BLOCK`. El gate puede convertir una
+espera en evitación ante una amenaza o bloquear una acción. El córtex propone;
+el gate decide; el autopiloto físico conservará además sus propios failsafes.
 
-Cerca de la atención: el neocórtex es caro.
+## ATTEND y córtex
 
-## PREGUNTAR y el oráculo
+ATTEND decide cuándo vale la pena gastar el reloj lento: novedad, falta de
+extracto, baja confianza, mapa desconocido o contradicción confirmada. El
+córtex recibe un turno serializado y devuelve un WSP válido o silencio. La
+prosa libre se rechaza.
 
-Preguntar no mueve al bicho. Emite un paquete, alguien **fuera** del
-mundo responde, VERIFY mira si eso es testimonio, y solo entonces la
-física cambia.
+SIGN-C demostró la latencia causal correcta: el mundo contradice T, el animal
+despierta una vez por `conflict`, y la propuesta se consume al turno siguiente.
+El registro de consumo ya muestra atención apagada.
 
-Cerca de los sentidos: no te contestas a ti mismo.
+## TALK — narración póstuma
 
-## Córtex — la hipótesis
+TALK-1 traduce el diario después de la escena. Lee, valida y narra, pero no
+importa el animal ni abre vías de escritura. Su auditor independiente compara
+las dieciséis cláusulas de cada subtítulo con el registro original.
 
-Recibe el turno. Devuelve 16 bytes o silencio. Prosa → rechazo.
-UNIR, TEMER, OBSERVAR se vuelven propuesta de acción.
+## Instrumentación
 
-Cerca del neocórtex: lenguaje, hipótesis. No escribe CAM. CORTEX-1:
-un letrero en español, el rápido ciego, el córtex mueve el cuerpo.
-El 4B, cuando quepa, se cuelga del mismo enchufe.
+La placa web representa el diario de turnos y puede seguirlo en vivo mediante
+polling local. Es observabilidad, nunca una entrada de control. El GIF de la
+home procede de una corrida real.
 
-## La placa
+## Hardware futuro
 
-Log de cada turno. Ocho bloques. Hecho / hipótesis / error. El GIF
-de la home es una corrida real de 352 turnos, córtex apagado.
-
-— R.N.
-
----
-
-<!-- src/content/echoai/ruta.md -->
-
-# echoAI — hoja de ruta
-
-Orden. Sin fecha si no hay artefacto.
-
-## Hecho
-
-Anillo. Preguntar. ATTEND. Pasillo. Placa. CORTEX-1 (el letrero mueve
-el cuerpo).
-
-## Siguiente
-
-1. **Qwen 4B como neocórtex.** Mismo enchufe (`NAVI_CORTEX_CMD` +
-   gramática). Latencia, tok/s, rechazo del parser, CortexROI. En este
-   portátil, Q4. Si pagina, se escribe y se sigue.
-2. **Mundo grande.** Grafo, 256–4096 sitios, tres acciones. Conservar
-   T/CAM al cambiar el mapa.
-3. **Anti-alias.** Que mil sitios parecidos no llenen la CAM ni mezclen
-   trampa con premio.
-4. **Sleep.** Compactar de noche, sin modelo. Cuando el mundo ya no
-   quepa. En 32 casillas no sirve.
-5. **Conflicto → ATTEND.** Q alto y T mal despierta corteza. Las piezas
-   ya están.
-6. **Cuerpo.** El mismo agente, mundo tipo robot. Lidar después. Cámara
-   después.
-7. **Akida.** Software vs simulador. 0 placas: no bloquea lo de arriba.
+Hoy echoAI corre en host y no hay AKD1000 en el laboratorio. Un acelerador
+neuromórfico futuro se trataría como coprocesador perceptivo o head acotado,
+nunca como VERIFY, memoria soberana o piloto.
 
 — R.N.
 
 ---
 
-<!-- src/content/echos/que-es.md -->
+<!-- src/content/echoai/echo1.md · /docs/echoai/echo1 -->
+
+# ECHO-1 — cierre
+
+ECHO-1 es la primera integración completa del animal. No es una puntuación
+única: es una cadena de capacidades en la que cada paso conserva los candados
+anteriores.
+
+```text
+SELF-1 → ROOM-1 → GUI-3 → GUI-3.5 → OBJ-1 → OPEN-1
+       → SIGN-C → TALK-1 → PATTERN-0 → XFER-1
+```
+
+## Base situada
+
+Antes de ECHO-1 se cerraron el anillo de aprendizaje, la pregunta externa,
+ATTEND, el modelo T, el gate, el cuerpo 2D, el crédito entero, el cubo 3D y la
+atribución entre movimiento propio y movimiento del mundo.
+
+El banco principal continúa funcionando sin córtex y sin hardware
+neuromórfico. Sus candados siguen siendo WSP de 16 bytes, CAM de 4.096
+ranuras, tres acciones por defecto, `destroyed=0`, `false_facts=0` y cero
+llamadas al córtex.
+
+## Cadena de capacidades
+
+| Slice | Qué añadió | Evidencia de cierre |
+|---|---|---|
+| SELF-1 | yo frente al movimiento del mundo | offset motor 1 frente a 0; T 56 frente a 46 |
+| ROOM-1 | dos habitaciones y frame externo | 324 sitios, 162 paquetes, transferencia 64 frente a 0 |
+| GUI-3.5 | volumen 3D y diario vivo | 27 posiciones × 6 orientaciones; `--live` no detiene el animal |
+| OBJ-1b | transportar X hasta Y | 51 entregas; control 0; dejar el objeto no cobra |
+| OPEN-1 | operación física nueva | 46 entregas, 47 aperturas; control de tres acciones 0 |
+| SIGN-C | contradicción conocida despierta lenguaje | una llamada; propuesta al turno siguiente; ROI `+16` |
+| TALK-1c | narración póstuma independiente | 496/496 cláusulas; 256/256 registros; cero escrituras causales |
+| PATTERN-0b | regularidad contextual | 80/80 frente a T 40/80; examen congelado |
+| XFER-1d | mismo animal en tres mundos | ganancias `+56` y `+72`; agregado `+128` |
+
+## SIGN-C y el modelo local
+
+La contradicción sólo existe después de actuar: T predice un sucesor y el
+mundo entrega otro. El origen tenía una predicción conocida, margen de política
+suficiente y un letrero real; entonces se arma un latch de un turno. En el
+siguiente turno se consume la propuesta sin afirmar que la atención sigue
+encendida.
+
+El stub determinista demuestra el cable en CI. Una ejecución separada con
+Qwen3-4B-Instruct Q4_K_M, servida localmente, dio:
+
+```text
+8 llamadas · 0 rechazos · 6/8 respuestas correctas
+4/6 paráfrasis frente a 0/6 del stub
+dos canónicos correctos · CortexROI +16 · false_facts 0
+```
+
+La gramática específica de acción permite `UNIR`, `TEMER`, `OBSERVAR` o
+`NONE`, siempre como relación local. La gramática general permanece intacta.
+Las dos amenazas no canónicas equivocadas siguen visibles en el informe.
+
+## PATTERN-0
+
+T sólo puede guardar una respuesta para `(estado, acción)`. El riff necesita
+saber de dónde venía el cuerpo:
+
+```text
+... B → A → C → A → B → A → C → A ...
+```
+
+PatternMemory usa `(previo, actual, acción)` y predice los dos sucesores de A.
+El examen contiene cuatro rotaciones independientes, no aprende durante la
+prueba y mantiene los desconocidos en el denominador. El control sin contexto
+colapsa exactamente sobre T.
+
+## XFER-1
+
+Un solo objeto Agent conserva las mismas instancias de CAM, Q, T y
+PatternMemory al cruzar tres físicas. Cada frontera se compara con un animal
+nuevo y con otro que ha vivido el mismo número de turnos sin recibir la
+regularidad útil.
+
+| Frontera | Transferido | Nuevo | Ganancia | Control de edad |
+|---|---:|---:|---:|---:|
+| B | 208 | 152 | +56 | 152 → +0 |
+| C | 224 | 152 | +72 | 152 → +0 |
+
+Antes de caminar en el mundo nuevo, la memoria transferida resuelve 96/96
+contextos; las memorias nueva y envejecida declaran 96 desconocidos. La
+ablación usa la misma CAM para aislar PatternMemory: entrenada 96, vacía 0,
+cero escrituras.
+
+XFER-1 pasó cuatro rondas de endurecimiento del certificado. La puerta final
+recomputa protocolos, recorridos, denominadores, ablación y canal desde las
+filas; no cree los resúmenes del propio informe. El informe contiene 51
+mutantes requeridos, todos muertos.
+
+## Cierre reproducible
+
+```bash
+cd /ruta/al/repo/RXos
+PYTHONPATH=. python3 -m echoai.nexus0.xfer1
+PYTHONPATH=. python3 -m echoai.tests.test_nexus0
+```
+
+Resultado auditado: `xfer1 rc=0`, `green=true`, 488 pruebas correctas y un
+fallo esperado documentado.
+
+— R.N.
+
+---
+
+<!-- src/content/echoai/proceso.md · /docs/echoai/proceso -->
+
+# Cómo se construyó
+
+echoAI se construye como laboratorio experimental: una afirmación pequeña, un
+control causal, un informe propio y una puerta que debe poder decir que no.
+
+## Responsabilidades
+
+| Rol | Responsabilidad |
+|---|---|
+| Roger Navarro | dirección del producto, invariantes, operación local, aceptación final |
+| Arquitectura y revisión con IA | convertir objetivos en slices, buscar falsos verdes y redactar el siguiente contrato |
+| Claude Code | implementar un slice acotado y su banco |
+| Operador humano | ejecutar modelos y hardware local que CI no debe descargar ni fingir |
+
+Durante ECHO-1 colaboraron Grok y ChatGPT Codex en arquitectura y revisión, y
+Claude Opus mediante Claude Code en implementación. Esa cooperación no es una
+autoridad: la autoridad final son el código, los controles y los resultados
+reproducibles.
+
+## El ciclo de trabajo
+
+```text
+objetivo → hipótesis causal → prompt acotado → implementación
+         → banco y controles → revisión adversarial → contraejemplo
+         → endurecer o rechazar → siguiente slice
+```
+
+Cada slice tiene un KPI principal. No se permite arreglar un experimento
+moviendo la recompensa, hardcodeando el nombre del mundo o rebajando una
+condición después de ver el resultado.
+
+## Verde no significa “el script terminó”
+
+Un informe verde sólo vale si su predicado puede discrepar de él. Por eso la
+revisión intenta construir certificados contradictorios:
+
+- contadores resumen que no coinciden con las filas;
+- tres controles iguales entre sí pero todos configurados de forma incorrecta;
+- acciones del gate atribuidas por error al córtex;
+- desconocidos eliminados del denominador;
+- una ablación que cambia también la percepción y deja de aislar la memoria;
+- mutantes futuros vivos ocultos por un listado cerrado;
+- una narración que comparte tablas con su propio auditor.
+
+TALK-1 necesitó tres cierres y XFER-1 cuatro. Las cifras causales no cambiaron;
+se endureció la evidencia hasta que esos falsos verdes dejaron de pasar.
+
+## Controles habituales
+
+1. **Transfer frente a scratch.** Mismo protocolo, distinta experiencia.
+2. **Control de edad.** Mismos turnos, sin la regularidad que se quiere medir.
+3. **Ablación perceptualmente emparejada.** Cambia una memoria, no la entrada.
+4. **Held-out congelado.** El examen no llama a `observe()`.
+5. **Mutación.** Cada candado debe matar al menos una alteración que antes
+   podría haber pasado.
+6. **Regresión.** El anillo y los informes anteriores conservan sus cifras.
+
+## Disciplina de arquitectura
+
+- Un solo bus WSP de 16 bytes.
+- CAM, Q y T son estructuras diferentes.
+- Cero coma flotante en la decisión rápida.
+- El córtex está apagado por defecto y sólo propone.
+- Una hipótesis nunca se escribe como hecho.
+- La narración sucede después y no vuelve al animal.
+- Un mundo nuevo cambia la física, no el código del agente.
+- Hardware ausente se declara ausente.
+
+## Reproducibilidad
+
+Cada fase escribe un informe separado en `echoai/lab/`. Los bancos canónicos
+no requieren red, pesos de modelo ni placa. Las ejecuciones con Qwen se guardan
+como informes de operador y no sustituyen la suite determinista.
+
+El estado publicado de ECHO-1 corresponde a 488 pruebas correctas, un
+`expectedFailure` conocido y los informes verdes de ROOM-1, OBJ-1, OPEN-1,
+SIGN-C, TALK-1, PATTERN-0 y XFER-1.
+
+— R.N.
+
+---
+
+<!-- src/content/echoai/ruta.md · /docs/echoai/ruta -->
+
+# Hoja de ruta — ECHO-2 y ECHO-3
+
+ECHO-1 está cerrado. Lo siguiente no consiste en agrandar el mapa ni en dejar
+que un LLM conduzca. El objetivo empresarial es robótica autónoma en el edge,
+con drones como plataforma principal.
+
+Todo elemento de esta página es **plan** hasta que exista su banco, su informe
+y su cierre.
+
+## ECHO-2 — un animal que mantiene su viabilidad
+
+ECHO-2 seguirá en simulación controlada. Añadirá necesidades internas,
+identidad de objetos y vidas completas sin romper el rápido entero.
+
+| Slice | Pregunta que debe cerrar |
+|---|---|
+| VITA-1 | ¿un estado homeostático `H` vive en el Agent, baja con el tiempo y termina un episodio al llegar a cero? |
+| PATTERN-1 | ¿reconoce un mismo objeto o categoría a través de observaciones, posiciones y contextos distintos sin usar su id como respuesta? |
+| FOOD-1 | ¿descubre por consecuencias qué objeto restaura `H` y cuál lo reduce, sin `if hambre: comer`? |
+| SURV-1 | ¿la experiencia conservada entre vidas aumenta la mediana de supervivencia frente a resetear Q/T/CAM? |
+| SHIFT-S | ¿se adapta cuando cambian riesgos o recursos sin borrar la memoria a mano? |
+| STREAM-1 | ¿opera durante un flujo largo con frames externos y alias medido? |
+| SLEEP-2 | ¿consolida episodios en reglas sin destruir CAM ni llamar al córtex? |
+| GEN-1 | ¿un entero heredable reduce el tiempo de aprendizaje sin copiar Q al descendiente? |
+| HEAT-1 | ¿una segunda necesidad crea un trade-off real después de cerrar supervivencia con una sola? |
+
+### Supervivencia no es una recompensa por seguir vivo
+
+`H` será una restricción de viabilidad, no `reward += 1`. La recompensa seguirá
+enseñando política local; `H` decidirá si existe un turno siguiente. La muerte
+cerrará una vida y reiniciará cuerpo y homeostasis, pero el experimento
+comparará conservar memoria con borrarla.
+
+PATTERN-1 es la puerta hacia objetos reales: primero debe demostrar identidad y
+categoría sin píxeles ni sensores ruidosos. ECHO-3 conectará esa capacidad a
+observaciones físicas.
+
+## ECHO-3 — percepción y cuerpo físico
+
+ECHO-3 trasladará el agente a un companion computer de un dron. El autopiloto
+mantendrá estabilización, actitud y failsafes; echoAI escogerá objetivos y
+acciones de alto nivel a través del gate.
+
+| Slice | Resultado esperado |
+|---|---|
+| SIM-3 | la misma misión en simulación, software-in-the-loop y hardware-in-the-loop |
+| SENSOR-1 | cámara estéreo, IMU y LiDAR sincronizados con timestamps y fallos explícitos |
+| GROUND-1 | convertir observaciones físicas en estados WSP sin abrir un segundo bus |
+| PATTERN-1R | asociar vistas y clusters 3D al mismo objeto aprendido en ECHO-2 |
+| FUSION-1 | cámara y LiDAR aportan evidencia independiente; la discrepancia reduce confianza |
+| DYNAMIC-1 | detectar objetos móviles y predecir trayectorias a corto plazo |
+| POWER-1 | medir vatios y energía por misión; despertar cómputo pesado sólo cuando aporta valor |
+| SAFE-1 | desconexiones, sensores congelados y propuestas erróneas no pueden saltarse el gate ni el autopiloto |
+| DRONE-3 | misión completa en jaula y entorno controlado: inspeccionar, evitar, volver y aterrizar |
+
+### Papel de Akida, si llega al laboratorio
+
+Un AKD1000 podría funcionar como percepción dispersa siempre activa:
+clasificación de regiones, novedad, movimiento o prefiltrado de nubes de
+puntos. Su salida serían identificadores y confianzas enteras que entrarían por
+el adaptador sensorial existente.
+
+No sería el cerebro completo, no escribiría CAM, no decidiría VERIFY y no
+mandaría motores. Jetson conservaría fusión compleja, instrumentación y modelos
+de desarrollo; Pixhawk conservaría el control de vuelo.
+
+Antes de atribuirle una capacidad se exigirán driver real, modelo compilado para
+AKD1000 y medidas propias de potencia y latencia. Las capacidades publicadas
+para generaciones Akida posteriores no se atribuirán automáticamente al
+AKD1000.
+
+## Demostración objetivo
+
+Un dron despega en un entorno controlado, inspecciona una ruta, reconoce
+objetos persistentes, detecta que un paso aprendido ha cambiado, evita un
+obstáculo móvil, decide volver por energía disponible y aterriza en una zona
+alternativa. Todo el control crítico permanece local y ninguna conexión a la
+nube es necesaria.
+
+La demo sólo será verde si también supera pérdida de cámara, pérdida de LiDAR,
+reinicio del companion computer, salida neuronal errónea y retirada completa
+del acelerador opcional.
+
+— R.N.
+
+---
+
+<!-- src/content/echoai/hardware.md · /docs/echoai/hardware -->
+
+# Hardware previsto
+
+Esta es la plataforma de desarrollo propuesta para avanzar hacia ECHO-3. No es
+un inventario del laboratorio: salvo que se indique lo contrario, son compras
+candidatas.
+
+## Escalera de pruebas
+
+### 1. Banco y dron pequeño
+
+- [**Crazyflie 2.1 Brushless**](https://store.bitcraze.io/products/crazyflie-2-1-brushless)
+  con [Flow Deck](https://store.bitcraze.io/products/flow-deck-v2) para
+  experimentar en interior con poco riesgo y control de posición básico.
+- Hélices, baterías, cargador, repuestos y una jaula o red de seguridad.
+- Medidor de potencia USB-C y registrador independiente.
+
+Su función es validar mensajes, latencia, watchdog y pérdida de enlace. No debe
+cargar el stack final de sensores.
+
+### 2. Plataforma de integración
+
+- [**Holybro X500 V2**](https://holybro.com/products/px4-development-kit-x500-v2)
+  con **Pixhawk 6C** y GPS M10 como cuerpo abierto para desarrollo PX4.
+- **RadioMaster TX16S** y receptor ELRS para control manual y abortos.
+- Kill switch físico, telemetría independiente, baterías y cargador balanceado.
+
+Pixhawk estabiliza y conserva los failsafes. echoAI corre como lógica de alto
+nivel en un companion computer y nunca sustituye el control de vuelo duro.
+
+### 3. Computación y visión
+
+- [**Jetson Orin Nano Super Developer Kit**](https://developer.nvidia.com/embedded/jetson-orin-nano-super-developer-kit)
+  para fusión, modelos de desarrollo, registros y ROS 2/PX4.
+- [**Luxonis OAK-D Pro con OV9782 y foco fijo**](https://shop.luxonis.com/products/oak-d-pro)
+  para RGB, estéreo, profundidad e IMU; el global shutter es preferible para
+  movimiento y vibración.
+- Almacenamiento NVMe, ventilación, convertidores DC regulados y cableado corto.
+
+El kit Jetson sirve para desarrollo, no se asume automáticamente como hardware
+de producción.
+
+### 4. Distancia y geometría
+
+- **Benewake TFmini-S** como telémetro económico para primeras pruebas de altura
+  o distancia frontal.
+- [**Livox Mid-360**](https://www.livoxtech.com/mid-360/specs) para ECHO-3:
+  nube de puntos 3D, campo horizontal de 360° e IMU integrada.
+
+El LiDAR no reemplaza la cámara: geometría y apariencia deben fallar de forma
+independiente y poder contradecirse.
+
+### 5. Neuromórfico opcional
+
+- [**BrainChip AKD1000**](https://brainchip.com/dev-tools/) PCIe o M.2, sólo si
+  se dispone de hardware, driver compatible y toolchain reproducible.
+
+Su primer banco sería percepción siempre activa frente a CPU/Jetson sobre el
+mismo dataset: exactitud, latencia P99, potencia real y degradación al
+desconectarlo. No se aceptarán TOPS de folleto como sustituto de esa medida.
+
+## Orden recomendado de compra
+
+1. Seguridad, radio, baterías y Crazyflie.
+2. Jetson y OAK-D para construir el pipeline en mesa.
+3. X500/Pixhawk para SITL, HIL y jaula.
+4. TFmini-S para integración temprana de distancia.
+5. Mid-360 cuando SENSOR-1 y SAFE-1 ya tengan banco.
+6. AKD1000 cuando exista una tarea perceptiva pequeña que pueda compararse con
+   un baseline y no bloquee el roadmap.
+
+## Condición de uso
+
+Ningún componente nuevo entra directamente en motores. La ruta es siempre:
+
+```text
+sensor → adaptador → estado WSP → memoria/predicción → gate
+       → orden de alto nivel → autopiloto → actuadores
+```
+
+Primero simulación, después hardware-in-the-loop, luego jaula y sólo finalmente
+un entorno exterior autorizado.
+
+— R.N.
+
+---
+
+<!-- src/content/echoai/limites.md · /docs/echoai/limites -->
+
+# echoAI — límites
+
+La política del laboratorio es separar resultados, planes e hipótesis.
+
+## Lo que ECHO-1 no demuestra
+
+- No es inteligencia general ni una persona artificial.
+- No reconoce objetos en imágenes reales.
+- No hace SLAM, control de vuelo ni navegación certificada.
+- No opera todavía con ruido, viento, latencia física o sensores incompletos.
+- No demuestra supervivencia autónoma; eso pertenece a ECHO-2.
+- No contiene un AKD1000 ni otro NPU físico.
+- No convierte el rendimiento de un mundo sintético en una afirmación de
+  seguridad robótica.
+
+## Deuda visible
+
+WALK-1 sin resto entero no propaga valor hasta el objetivo y permanece como
+`expectedFailure`. La variante opt-in CREDIT-1 sí camina, pero no se cambió el
+algoritmo por defecto.
+
+El Qwen local acertó los ejemplos canónicos de SIGN-C y ganó al stub en
+paráfrasis, pero eligió `approach` en dos amenazas no canónicas y recibió
+`-16`. Eso demuestra por qué su salida es una propuesta y no una orden segura.
+
+CAM tiene 4.096 ranuras y no usa LRU. Los mundos actuales todavía son pequeños;
+SLEEP-2 sólo se justificará cuando exista presión de memoria medida.
+
+## Condiciones para robótica
+
+Antes de volar, ECHO-3 deberá demostrar:
+
+- deadlines y latencia P99 bajo carga;
+- sincronización y caducidad de sensores;
+- watchdog, retorno y aterrizaje ante pérdida del companion computer;
+- veto independiente ante observaciones contradictorias;
+- límites de batería, masa, temperatura y vibración;
+- registro reproducible de cada decisión;
+- simulación, HIL y jaula antes de campo abierto;
+- cumplimiento de la normativa aplicable y operación humana de emergencia.
+
+Un modelo neuronal, un LLM o un NPU no será la única barrera contra una
+colisión. El autopiloto y los mecanismos de seguridad permanecen separados.
+
+## Akida
+
+No hay AKD1000 en el laboratorio. Las cifras de consumo o aprendizaje del
+fabricante no son resultados de RxLabs. Si llega una placa, se publicarán
+compatibilidad, modelo exacto, toolchain, potencia medida y comparación contra
+CPU/Jetson antes de hablar de ventaja.
+
+## Estado de las palabras
+
+- **Hecho:** existe informe reproducible y puerta verde.
+- **Rojo medido:** el experimento corre y no alcanza el KPI.
+- **Plan:** orden propuesto; todavía no es una capacidad.
+- **Ausente:** no existe en el laboratorio.
+
+— R.N.
+
+---
+
+<!-- src/content/echos/que-es.md · /docs/echos/que-es -->
 
 # echOS
 
@@ -276,7 +710,7 @@ Un extraño arranca LIVE, escribe `help` y no puede acusar de teatro.
 
 ---
 
-<!-- src/content/echos/limites.md -->
+<!-- src/content/echos/limites.md · /docs/echos/limites -->
 
 # Límites — lo que no hago
 
@@ -328,7 +762,144 @@ El contrato **no** se cumple en todo el kernel. `kmalloc` vive.
 
 ---
 
-<!-- src/content/prisma/overview.md -->
+<!-- src/content/echos/superficie.md · /docs/echos/superficie -->
+
+# Superficie pública — echOS
+
+Cada nombre en `help` / `epk list` / `man` lleva una etiqueta:
+
+- **REAL** — el unikernel hace ese trabajo.
+- **NOTA** — el nombre existe; el trabajo es un flag, un volcado o un reenvío.
+- **AUSENTE** — fuera de Tab y de `help`.
+
+## Comandos
+
+| Comando | Etiqueta | Qué hace |
+|---------|----------|----------|
+| help about status mem uptime power bench devices env | REAL | kernel / benchmark |
+| clear reboot halt | REAL | consola / reset |
+| ls cd pwd cat write rm cp mv mkdir rmdir tree | REAL | RXFS |
+| head tail less grep find du df nano history | REAL | RXFS |
+| date tz kbd termtheme | REAL | reloj, mapa, paleta |
+| man apropos | REAL | páginas embebidas |
+| echofetch hwprobe live whoami uname hostname echo | REAL | identidad / PCI |
+| www curl wget dns tls ping nics ipconf trace nmap | REAL | IPv4; HTTPS puede cuerpo vacío |
+| wired chat say | REAL | L2 0x88B5 |
+| epk echos-install install save load format partition | REAL | notas RXFS / disco |
+| gpt | NOTA | writer GPT sin CRC32 válido |
+| doas | NOTA | un espacio de direcciones; no aísla |
+| rcctl | NOTA | flags; no hay daemons |
+| pfctl | NOTA | boolean RAM; no filtra |
+| neuro neurocpu prisma5 bench-snn | REAL | SNN in-kernel; Akida = sonda PCI |
+
+## `epk list` (público)
+
+echos-base, echos-shell, echofetch, echos-diag, echos-net, echos-npu,
+echos-io, echos-akida.
+
+`epk install` escribe un texto en RXFS, no un ELF.
+
+## `epk list --lab`
+
+Notas de host: tcc, python, rustc, httpd, sshd, … No arrancan un proceso.
+
+## Ausentes
+
+tcc / python / git en el unikernel, sshd/httpd reales, navi/echo en el OS,
+navegador, loihi, htop/tmux, Wi-Fi, controlador NVMe, UEFI.
+
+---
+
+<!-- src/content/echos/comandos.md · /docs/echos/comandos -->
+
+# Comandos
+
+La lista viva está en `CMD_NAMES`. Tab lee eso. Para flags: `man <cmd>`.
+
+## Orientación
+
+```text
+help            lista corta
+man / manual    páginas
+apropos / man -k
+echofetch       tarjeta + logo
+about / status / live
+```
+
+## Sistema
+
+```text
+mem [map]       Heap-0 / PMM
+uptime
+date / time     date set YYYY-MM-DD HH:MM:SS
+uname / hostname
+whoami / id
+echo
+env [K] [V]
+power [s]       RAPL si el CPU es Intel y no #GP
+reboot / halt
+clear / cls
+doas <cmd>      un espacio de direcciones; no aísla
+```
+
+## Ficheros
+
+```text
+ls cd pwd cat write rm cp mv mkdir rmdir tree
+head tail less grep find
+nano history
+```
+
+## Disco
+
+```text
+df du
+partition cfdisk gpt disklabel
+format <dev> yes
+install / reinstall / echos-install
+save / load
+```
+
+## Red
+
+```text
+www on|off|status
+curl / wdl / wget
+ipconf  nics  dns  tls  ping  traceroute  nmap
+wired / chat / say
+```
+
+No hay navegador. `curl` baja bytes.
+
+## Paquetes
+
+```text
+epk list | list --lab | info | install | remove | apply
+```
+
+`epk list` son notas del kernel. `epk list --lab` son notas de host.
+
+## Neuromórfico
+
+```text
+hwprobe
+bench / bench-snn
+prisma5 [alpha|null|stress]    # drive sintético del cubo Q6
+neuro / neurocpu [software|akida]
+```
+
+## Estilo OpenBSD
+
+```text
+rcctl enable|disable|status|start|stop   # flags; no hay daemons
+pfctl -e|-d|-f|-s|-sr                    # boolean RAM; no filtra
+```
+
+— R.N.
+
+---
+
+<!-- src/content/prisma/overview.md · /docs/prisma/resumen -->
 
 # PRISMA
 
@@ -466,7 +1037,7 @@ directo.
 
 ---
 
-<!-- src/content/prisma/tecnico.md -->
+<!-- src/content/prisma/tecnico.md · /docs/prisma/tecnico -->
 
 # PRISMA — documentación técnica
 
@@ -774,5 +1345,3 @@ están comprobados. Falta el papeleo — una licencia de verdad, una vía de
 pago, un contacto de soporte — y la función que era el punto del
 ejercicio: enchufar un casco y verlo analizado en directo, sin un script
 puente en medio.
-
----

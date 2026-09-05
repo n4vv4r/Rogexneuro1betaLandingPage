@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import echosQue from "../content/echos/que-es.md?raw";
@@ -48,6 +48,10 @@ function groups() {
 export default function Docs() {
   const loc = useLocation();
   const nav = useNavigate();
+  const [sideOpen, setSideOpen] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.matchMedia("(min-width: 861px)").matches;
+  });
   const docsHost = typeof window !== "undefined"
     && window.location.hostname === "docs.rogexlaboratories.com";
 
@@ -69,12 +73,27 @@ export default function Docs() {
 
   const open = (id) => {
     nav(docsHost ? `/${id}` : `/docs/${id}`);
+    if (typeof window !== "undefined"
+      && window.matchMedia("(max-width: 860px)").matches) {
+      setSideOpen(false);
+    }
   };
 
   return (
     <main className="page">
-      <div className="docs">
-        <aside className="docs-side">
+      <div className={`docs${sideOpen ? "" : " is-side-hidden"}`}>
+        <div className="docs-toolbar">
+          <button
+            type="button"
+            className="docs-toggle"
+            aria-controls="docs-index"
+            aria-expanded={sideOpen}
+            onClick={() => setSideOpen((value) => !value)}
+          >
+            {sideOpen ? "Ocultar índice" : "Mostrar índice"}
+          </button>
+        </div>
+        <aside id="docs-index" className="docs-side" hidden={!sideOpen}>
           {groups().map((g) => (
             <div key={g.name}>
               <h2>{g.name}</h2>

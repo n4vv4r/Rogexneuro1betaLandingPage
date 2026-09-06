@@ -7,6 +7,13 @@ const WWW = SITE.url.replace(/\/$/, "");
 const LABELS = {
   es: { contact: "Contacto", about: "Qué es RxLabs®", docs: "Docs", pending: "aún no" },
   en: { contact: "Contact", about: "About RxLabs®", docs: "Docs", pending: "not yet" },
+  ca: { contact: "Contacte", about: "Què és RxLabs®", docs: "Docs", pending: "encara no" },
+};
+
+const FLAGS = {
+  es: "/media/openmoji/spain.svg",
+  en: "/media/openmoji/england.svg",
+  ca: "/media/openmoji/catalunya.svg",
 };
 
 export default function Nav({ path, docsHost = false, language = "es" }) {
@@ -32,7 +39,7 @@ export default function Nav({ path, docsHost = false, language = "es" }) {
     return <Link to={target} className={cls}>{label}</Link>;
   };
 
-  const languageItem = (targetLanguage, flag, label) => {
+  const languageItem = (targetLanguage, label) => {
     const target = localizedPath(path, targetLanguage);
     const props = {
       className: `lang-option${language === targetLanguage ? " is-current" : ""}`,
@@ -43,9 +50,9 @@ export default function Nav({ path, docsHost = false, language = "es" }) {
       title: label,
     };
     return docsHost ? (
-      <a href={target} {...props}>{flag}</a>
+      <a href={target} {...props}><img src={FLAGS[targetLanguage]} alt="" /></a>
     ) : (
-      <Link to={target} {...props}>{flag}</Link>
+      <Link to={target} {...props}><img src={FLAGS[targetLanguage]} alt="" /></Link>
     );
   };
 
@@ -61,9 +68,10 @@ export default function Nav({ path, docsHost = false, language = "es" }) {
         <span className="nav-dead" title={labels.pending}>PRISMA</span>
         <span className="nav-dead" title={labels.pending}>echoAI</span>
         {item("/", "Home")}
-        <span className="lang-switch" role="group" aria-label={language === "en" ? "Language" : "Idioma"}>
-          {languageItem("es", "🇪🇸", "Español")}
-          {languageItem("en", "🇬🇧", "English")}
+        <span className="lang-switch" role="group" aria-label={language === "en" ? "Language" : language === "ca" ? "Idioma" : "Idioma"}>
+          {languageItem("es", "Español")}
+          {languageItem("en", "English")}
+          {languageItem("ca", "Català")}
         </span>
       </div>
     </nav>

@@ -29,10 +29,12 @@ function inject(html, page) {
   const url = abs(page.path);
   const image = imageFor(page);
   const robots = page.noindex ? "noindex, nofollow" : "index, follow";
-  const language = page.lang === "en" ? "en" : "es";
-  const locales = language === "en"
-    ? { current: SITE.localeAlt, alternate: SITE.locale }
-    : { current: SITE.locale, alternate: SITE.localeAlt };
+  const language = page.lang === "en" ? "en" : page.lang === "ca" ? "ca" : "es";
+  const localeByLanguage = { es: SITE.locale, en: SITE.localeAlt, ca: SITE.localeCa };
+  const localeAlternates = Object.entries(localeByLanguage)
+    .filter(([code]) => code !== language)
+    .map(([, locale]) => `    <meta property="og:locale:alternate" content="${locale}" />`)
+    .join("\n");
   const alternate = alternatePaths(page.path);
   html = strip(html);
   const block = `
@@ -47,12 +49,13 @@ function inject(html, page) {
     <link rel="canonical" href="${url}" />
     <link rel="alternate" hreflang="es" href="${abs(alternate.es)}" />
     <link rel="alternate" hreflang="en" href="${abs(alternate.en)}" />
+    <link rel="alternate" hreflang="ca" href="${abs(alternate.ca)}" />
     <link rel="alternate" hreflang="x-default" href="${abs(alternate.es)}" />
     <link rel="image_src" href="${image.url}" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${esc(SITE.name)}" />
-    <meta property="og:locale" content="${locales.current}" />
-    <meta property="og:locale:alternate" content="${locales.alternate}" />
+    <meta property="og:locale" content="${localeByLanguage[language]}" />
+${localeAlternates}
     <meta property="og:title" content="${esc(page.title)}" />
     <meta property="og:description" content="${esc(page.description)}" />
     <meta property="og:url" content="${url}" />

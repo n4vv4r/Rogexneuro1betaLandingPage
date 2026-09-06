@@ -31,6 +31,21 @@ import enEchoaiRuta from "../content/en/echoai/ruta.md?raw";
 import enEchoaiHardware from "../content/en/echoai/hardware.md?raw";
 import enEchoaiLimites from "../content/en/echoai/limites.md?raw";
 import enLabEco from "../content/en/lab/ecosistema.md?raw";
+import caEchosQue from "../content/ca/echos/que-es.md?raw";
+import caEchosLim from "../content/ca/echos/limites.md?raw";
+import caEchosSup from "../content/ca/echos/superficie.md?raw";
+import caEchosCmd from "../content/ca/echos/comandos.md?raw";
+import caPrismaOv from "../content/ca/prisma/overview.md?raw";
+import caPrismaTe from "../content/ca/prisma/tecnico.md?raw";
+import caEchoaiQue from "../content/ca/echoai/que-es.md?raw";
+import caEchoaiPie from "../content/ca/echoai/piezas.md?raw";
+import caEchoaiEcho1 from "../content/ca/echoai/echo1.md?raw";
+import caEchoaiResultados from "../content/ca/echoai/resultados.md?raw";
+import caEchoaiProceso from "../content/ca/echoai/proceso.md?raw";
+import caEchoaiRuta from "../content/ca/echoai/ruta.md?raw";
+import caEchoaiHardware from "../content/ca/echoai/hardware.md?raw";
+import caEchoaiLimites from "../content/ca/echoai/limites.md?raw";
+import caLabEco from "../content/ca/lab/ecosistema.md?raw";
 import Echo1Results from "./Echo1Results.jsx";
 
 marked.setOptions({ gfm: true, breaks: false });
@@ -71,6 +86,24 @@ const EN_CATALOG = [
   { group: "PRISMA", id: "prisma/tecnico", title: "Technical", src: enPrismaTe },
 ];
 
+const CA_CATALOG = [
+  { group: "El laboratori", id: "lab/ecosistema", title: "Tres línies", src: caLabEco },
+  { group: "echoAI", id: "echoai/que-es", title: "Què és", src: caEchoaiQue },
+  { group: "echoAI", id: "echoai/piezas", title: "Arquitectura", src: caEchoaiPie },
+  { group: "echoAI", id: "echoai/echo1", title: "ECHO-1", src: caEchoaiEcho1 },
+  { group: "echoAI", id: "echoai/resultados", title: "Resultats", src: caEchoaiResultados },
+  { group: "echoAI", id: "echoai/proceso", title: "Com es va construir", src: caEchoaiProceso },
+  { group: "echoAI", id: "echoai/ruta", title: "ECHO-2 → ECHO-3", src: caEchoaiRuta },
+  { group: "echoAI", id: "echoai/hardware", title: "Maquinari previst", src: caEchoaiHardware },
+  { group: "echoAI", id: "echoai/limites", title: "Límits", src: caEchoaiLimites },
+  { group: "echOS", id: "echos/que-es", title: "Què és", src: caEchosQue },
+  { group: "echOS", id: "echos/limites", title: "Límits", src: caEchosLim },
+  { group: "echOS", id: "echos/superficie", title: "Superfície", src: caEchosSup },
+  { group: "echOS", id: "echos/comandos", title: "Ordres", src: caEchosCmd },
+  { group: "PRISMA", id: "prisma/resumen", title: "Resum", src: caPrismaOv },
+  { group: "PRISMA", id: "prisma/tecnico", title: "Tècnic", src: caPrismaTe },
+];
+
 function groups(catalog) {
   const out = [];
   for (const d of catalog) {
@@ -90,11 +123,11 @@ export default function Docs({ language = "es" }) {
   });
   const docsHost = typeof window !== "undefined"
     && window.location.hostname === "docs.rogexlaboratories.com";
-  const catalog = language === "en" ? EN_CATALOG : CATALOG;
+  const catalog = language === "en" ? EN_CATALOG : language === "ca" ? CA_CATALOG : CATALOG;
 
   const slug = useMemo(() => {
     let p = loc.pathname.replace(/\/+$/, "");
-    p = p.replace(/^\/en(?=\/|$)/, "");
+    p = p.replace(/^\/(?:en|ca)(?=\/|$)/, "");
     if (!docsHost) p = p.replace(/^\/docs/, "");
     p = p.replace(/^\//, "");
     const alias = {
@@ -110,7 +143,7 @@ export default function Docs({ language = "es" }) {
   const html = useMemo(() => marked.parse(doc.src || ""), [doc]);
 
   const open = (id) => {
-    const prefix = language === "en" ? "/en" : "";
+    const prefix = language === "es" ? "" : `/${language}`;
     nav(docsHost ? `${prefix}/${id}` : `${prefix}/docs/${id}`);
     if (typeof window !== "undefined"
       && window.matchMedia("(max-width: 860px)").matches) {
@@ -130,8 +163,8 @@ export default function Docs({ language = "es" }) {
             onClick={() => setSideOpen((value) => !value)}
           >
             {sideOpen
-              ? language === "en" ? "Hide index" : "Ocultar índice"
-              : language === "en" ? "Show index" : "Mostrar índice"}
+              ? language === "en" ? "Hide index" : language === "ca" ? "Amaga l'índex" : "Ocultar índice"
+              : language === "en" ? "Show index" : language === "ca" ? "Mostra l'índex" : "Mostrar índice"}
           </button>
         </div>
         <aside id="docs-index" className="docs-side" hidden={!sideOpen}>

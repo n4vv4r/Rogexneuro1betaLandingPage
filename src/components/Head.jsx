@@ -33,6 +33,18 @@ function upsertAlternate(hrefLang, href) {
   el.setAttribute("href", href);
 }
 
+function replaceOgLocaleAlternates(language) {
+  const locales = { es: SITE.locale, en: SITE.localeAlt, ca: SITE.localeCa };
+  document.head.querySelectorAll('meta[property="og:locale:alternate"]').forEach((el) => el.remove());
+  for (const [code, locale] of Object.entries(locales)) {
+    if (code === language) continue;
+    const el = document.createElement("meta");
+    el.setAttribute("property", "og:locale:alternate");
+    el.setAttribute("content", locale);
+    document.head.appendChild(el);
+  }
+}
+
 export default function Head() {
   const loc = useLocation();
   const docsHost =
@@ -42,7 +54,8 @@ export default function Head() {
   useEffect(() => {
     const path = docsPagePath(loc.pathname, docsHost);
     const page = pageFor(path);
-    const language = page.lang === "en" ? "en" : "es";
+    const language = page.lang === "en" ? "en" : page.lang === "ca" ? "ca" : "es";
+    const locales = { es: SITE.locale, en: SITE.localeAlt, ca: SITE.localeCa };
     const alternates = alternatePaths(page.path);
     const url = abs(page.path);
     const image = imageFor(page);
@@ -68,8 +81,7 @@ export default function Head() {
     const og = {
       "og:type": "website",
       "og:site_name": SITE.name,
-      "og:locale": language === "en" ? SITE.localeAlt : SITE.locale,
-      "og:locale:alternate": language === "en" ? SITE.locale : SITE.localeAlt,
+      "og:locale": locales[language],
       "og:title": page.title,
       "og:description": page.description,
       "og:url": url,
@@ -83,6 +95,7 @@ export default function Head() {
     for (const [k, v] of Object.entries(og)) {
       upsert(`meta[property="${k}"]`, { property: k, content: v });
     }
+    replaceOgLocaleAlternates(language);
 
     upsert('meta[name="twitter:card"]', { name: "twitter:card", content: "summary_large_image" });
     upsert('meta[name="twitter:title"]', { name: "twitter:title", content: page.title });
@@ -97,6 +110,7 @@ export default function Head() {
     upsertLink("image_src", image.url);
     upsertAlternate("es", abs(alternates.es));
     upsertAlternate("en", abs(alternates.en));
+    upsertAlternate("ca", abs(alternates.ca));
     upsertAlternate("x-default", abs(alternates.es));
 
     let ld = document.getElementById("rxlabs-ld");

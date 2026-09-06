@@ -7,6 +7,7 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const publicDir = path.join(root, "public");
 const contentDir = path.join(root, "src", "content");
 const englishPublicDir = path.join(publicDir, "en");
+const catalanPublicDir = path.join(publicDir, "ca");
 
 const docs = [
   ["lab/ecosistema", "lab/ecosistema.md"],
@@ -63,23 +64,46 @@ const englishFull = [
 fs.mkdirSync(englishPublicDir, { recursive: true });
 fs.writeFileSync(path.join(englishPublicDir, "llms-full.txt"), `${englishFull.trimEnd()}\n`);
 
+const catalanFull = [
+  "# RxLabs® — text complet per a models",
+  "",
+  "> Laboratori de recerca de Roger Navarro a Girona. Programari real, xifres mesurades.",
+  `> Font: documentació pública. Lloc: ${SITE.url}/ca`,
+  "",
+  ...docs.flatMap(([slug, file]) => [
+    "---",
+    "",
+    `<!-- src/content/ca/${file} · /ca/docs/${slug} -->`,
+    "",
+    fs.readFileSync(path.join(contentDir, "ca", file), "utf8").trim(),
+    "",
+  ]),
+].join("\n");
+
+fs.mkdirSync(catalanPublicDir, { recursive: true });
+fs.writeFileSync(path.join(catalanPublicDir, "llms-full.txt"), `${catalanFull.trimEnd()}\n`);
+
 const lastmod = "2026-09-06";
 const indexable = PAGES.filter((page) => !page.noindex);
 const urls = indexable.map((page) => {
-  const priority = page.path === "/" ? "1.0"
-    : page.path === "/docs" || page.path === "/docs/echoai/que-es" ? "0.9"
-      : page.path.startsWith("/docs/") ? "0.8" : "0.7";
+  const base = page.path.replace(/^\/(?:en|ca)(?=\/|$)/, "") || "/";
+  const priority = base === "/" ? "1.0"
+    : base === "/docs" || base === "/docs/echoai/que-es" ? "0.9"
+      : base.startsWith("/docs/") ? "0.8" : "0.7";
   return `  <url><loc>${SITE.url}${page.path === "/" ? "/" : page.path}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority></url>`;
 });
 
 for (const [slug] of docs) {
   urls.push(`  <url><loc>${SITE.docsUrl}/${slug}</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
   urls.push(`  <url><loc>${SITE.docsUrl}/en/${slug}</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
+  urls.push(`  <url><loc>${SITE.docsUrl}/ca/${slug}</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
 }
 urls.push(`  <url><loc>${SITE.url}/llms.txt</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
 urls.push(`  <url><loc>${SITE.url}/llms-full.txt</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
 urls.push(`  <url><loc>${SITE.url}/en/llms.txt</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
 urls.push(`  <url><loc>${SITE.url}/en/llms-full.txt</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
+urls.push(`  <url><loc>${SITE.url}/ca/llms.txt</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
+urls.push(`  <url><loc>${SITE.url}/ca/llms-full.txt</loc><lastmod>${lastmod}</lastmod><priority>0.7</priority></url>`);
 
 const sitemap = [
   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
@@ -90,4 +114,4 @@ const sitemap = [
 ].join("\n");
 
 fs.writeFileSync(path.join(publicDir, "sitemap.xml"), sitemap);
-console.log(`docs: synced ${docs.length * 2} documents and ${urls.length} URLs`);
+console.log(`docs: synced ${docs.length * 3} documents and ${urls.length} URLs`);

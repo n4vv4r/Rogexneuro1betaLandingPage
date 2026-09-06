@@ -79,10 +79,16 @@ button { font-family: inherit; }
   height: 27px;
   border: 1px solid #282828;
   border-radius: 4px;
-  font-size: 15px;
   line-height: 1;
   opacity: 0.5;
   box-shadow: none;
+}
+
+.nav .lang-option img {
+  display: block;
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
 }
 
 .nav .lang-option:hover,
@@ -788,7 +794,8 @@ button { font-family: inherit; }
   .nav a, .nav .nav-dead { font-size: 12px; }
   .nav-products { justify-content: flex-end; }
   .nav-products .nav-dead { display: none; }
-  .nav .lang-option { width: 25px; height: 25px; font-size: 14px; }
+  .nav .lang-option { width: 25px; height: 25px; }
+  .nav .lang-option img { width: 19px; height: 19px; }
   .page, .home { padding-top: 84px; }
   .home {
     grid-template-columns: 1fr;

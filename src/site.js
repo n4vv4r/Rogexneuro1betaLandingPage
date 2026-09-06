@@ -4,12 +4,14 @@ export const SITE = {
   docsUrl: "https://docs.rogexlaboratories.com",
   locale: "es_ES",
   localeAlt: "en_US",
+  localeCa: "ca_ES",
   theme: "#000000",
   image: "/og.png",
   imageW: 1200,
   imageH: 480,
   imageAlt: "RxLabs® — laboratorio de investigación. echOS, PRISMA y echoAI.",
   imageAltEn: "RxLabs® — research laboratory. echOS, PRISMA and echoAI.",
+  imageAltCa: "RxLabs® — laboratori de recerca. echOS, PRISMA i echoAI.",
   twitter: "",
   email: "knightsys@proton.me",
   author: "Roger Navarro",
@@ -231,6 +233,82 @@ const EN_META = {
   "/echoai": ["404 — RxLabs®", "Not found."],
 };
 
+const CA_META = {
+  "/": [
+    "RxLabs® — laboratori de recerca",
+    "Laboratori de programari de Roger Navarro a Girona. echOS, PRISMA i echoAI: ECHO-1 tancat, transferència causal entre mons i una ruta verificable cap a la robòtica autònoma a l'edge.",
+  ],
+  "/about": [
+    "Què és RxLabs®",
+    "RxLabs® és el laboratori de Roger Navarro a Girona. echOS, PRISMA i echoAI: codi que s'executa, límits publicats i xifres que es poden tornar a mesurar.",
+  ],
+  "/contact": ["Contacte — RxLabs®", "Contacte de RxLabs®: knightsys@proton.me — Roger Navarro, Girona."],
+  "/docs": [
+    "Documentació — RxLabs®",
+    "Documentació pública del laboratori: echOS, PRISMA i echoAI. Xifres mesurades, superfície honesta i codi que arrenca.",
+  ],
+  "/docs/echos/que-es": [
+    "echOS — RxLabs®",
+    "Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. Arrenca en QEMU i en metall. SNN al nucli (LIF / Q6). Laboratori de recerca, programari real.",
+  ],
+  "/docs/echos/limites": [
+    "Límits — echOS",
+    "El que echOS no fa, documentat pel laboratori. Wi-Fi, UEFI natiu, àudio i acceleració GPU són absents. Akida és una sonda PCI; sense placa usa LIF per programari.",
+  ],
+  "/docs/echos/superficie": [
+    "Superfície — echOS",
+    "Ordres d'echOS etiquetades REAL, NOTA o ABSENT. La superfície no promet més del que ofereix el binari.",
+  ],
+  "/docs/echos/comandos": ["Ordres — echOS", "Mapa d'ordres d'echOS. Tab llegeix CMD_NAMES. Feu servir man <cmd> per als flags."],
+  "/docs/prisma/resumen": [
+    "PRISMA — RxLabs®",
+    "Programari d'anàlisi d'EEG per a recerca. Motor de temps real en Rust amb latència mesurada d'1,4–3,0 µs. No és un producte sanitari.",
+  ],
+  "/docs/prisma/tecnico": [
+    "PRISMA — documentació tècnica",
+    "PRISMA Engine 0.1.0: modulació delta → LIF AVX2 → STDP. Sense reserves de heap al camí calent. Xifres de banc mesurades en una màquina, no afirmacions de fullet. Programari de recerca.",
+  ],
+  "/docs/lab/ecosistema": [
+    "El laboratori — RxLabs®",
+    "Tres línies reals de treball: echOS, PRISMA i echoAI. Codi executable, límits publicats i una ruta des d'ECHO-1 cap a la robòtica a l'edge.",
+  ],
+  "/docs/echoai/que-es": [
+    "echoAI — RxLabs®",
+    "Agent situat de dos rellotges. ECHO-1 tancat: memòria, objectes, patrons i transferència causal entre tres mons, amb el còrtex apagat per defecte.",
+  ],
+  "/docs/echoai/piezas": [
+    "echoAI — arquitectura",
+    "WSP de 16 bytes, CAM 4096, T, PatternMemory, Q, gate, ATTEND i còrtex opcional. Un bus, tres canals i contractes mesurats.",
+  ],
+  "/docs/echoai/echo1": [
+    "ECHO-1 — tancament",
+    "Cadena completa d'ECHO-1: SELF, ROOM, objectes, obertura, conflicte, narració, patrons i transferència. 488 proves i un guany agregat de +128.",
+  ],
+  "/docs/echoai/resultados": [
+    "ECHO-1 — resultats i benchmark",
+    "Resultats visuals d'ECHO-1: aprenentatge torn a torn, patrons 80/80, transferència +128, conflicte cortical, capacitats i dades reproduïbles.",
+  ],
+  "/docs/echoai/proceso": [
+    "echoAI — com es va construir",
+    "Procés experimental d'echoAI: un KPI per slice, controls causals, revisió adversarial, mutants i informes reproduïbles.",
+  ],
+  "/docs/echoai/ruta": [
+    "echoAI — ECHO-2 i ECHO-3",
+    "Full de ruta d'ECHO-1 cap a supervivència autònoma, reconeixement d'objectes i robòtica física amb càmera, LiDAR i drons a l'edge.",
+  ],
+  "/docs/echoai/hardware": [
+    "echoAI — maquinari previst",
+    "Plataforma candidata per a ECHO-3: Crazyflie, X500/Pixhawk, Jetson, OAK-D, TFmini-S, Livox Mid-360 i Akida opcional.",
+  ],
+  "/docs/echoai/limites": [
+    "echoAI — límits",
+    "Què no demostra ECHO-1 i què cal verificar abans de la robòtica: sensors, deadlines, failsafes, HIL, energia i maquinari absent.",
+  ],
+  "/echos": ["404 — RxLabs®", "No trobat."],
+  "/prisma": ["404 — RxLabs®", "No trobat."],
+  "/echoai": ["404 — RxLabs®", "No trobat."],
+};
+
 const spanishPages = ES_PAGES.map((page) => ({ ...page, lang: "es" }));
 const englishPages = ES_PAGES.map((page) => {
   const [title, description] = EN_META[page.path];
@@ -243,7 +321,18 @@ const englishPages = ES_PAGES.map((page) => {
   };
 });
 
-export const PAGES = [...spanishPages, ...englishPages];
+const catalanPages = ES_PAGES.map((page) => {
+  const [title, description] = CA_META[page.path];
+  return {
+    ...page,
+    path: page.path === "/" ? "/ca" : `/ca${page.path}`,
+    title,
+    description,
+    lang: "ca",
+  };
+});
+
+export const PAGES = [...spanishPages, ...englishPages, ...catalanPages];
 
 export function pageFor(pathname) {
   const p = (pathname || "/").replace(/\/+$/, "") || "/";
@@ -262,12 +351,14 @@ export function imageFor(page) {
     url: abs(source.image),
     width: source.imageW,
     height: source.imageH,
-    alt: page?.lang === "en" && source === SITE ? SITE.imageAltEn : source.imageAlt,
+    alt: source === SITE
+      ? page?.lang === "en" ? SITE.imageAltEn : page?.lang === "ca" ? SITE.imageAltCa : SITE.imageAlt
+      : source.imageAlt,
   };
 }
 
 export function jsonLd(page) {
-  const language = page?.lang === "en" ? "en" : "es";
+  const language = page?.lang === "en" ? "en" : page?.lang === "ca" ? "ca" : "es";
   const org = {
     "@context": "https://schema.org",
     "@type": ["Organization", "ResearchOrganization"],
@@ -284,7 +375,9 @@ export function jsonLd(page) {
     founder: { "@type": "Person", name: SITE.author },
     description: language === "en"
       ? "Software research laboratory. echOS, PRISMA and echoAI: running code and measured numbers."
-      : "Laboratorio de investigación de software. echOS, PRISMA y echoAI: código que corre, números medidos.",
+      : language === "ca"
+        ? "Laboratori de recerca de programari. echOS, PRISMA i echoAI: codi que s'executa i xifres mesurades."
+        : "Laboratorio de investigación de software. echOS, PRISMA y echoAI: código que corre, números medidos.",
   };
   if (!page || page.noindex) return org;
   return {

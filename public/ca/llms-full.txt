@@ -1,0 +1,1374 @@
+# RxLabs® — text complet per a models
+
+> Laboratori de recerca de Roger Navarro a Girona. Programari real, xifres mesurades.
+> Font: documentació pública. Lloc: https://www.rogexlaboratories.com/ca
+
+---
+
+<!-- src/content/ca/lab/ecosistema.md · /ca/docs/lab/ecosistema -->
+
+# El laboratori
+
+Rogex Laboratories / RxLabs. Laboratori independent a Girona. Tres línies de
+recerca, amb codi executable i límits publicats.
+
+No hi ha cap binari que les uneixi. Comparteixen un mètode: camí calent petit,
+esdeveniments en comptes de sondeig quan aporta valor, memòria acotada i cap
+afirmació de maquinari que no sigui sobre la taula.
+
+| Línia | Què és | Estat |
+|---|---|---|
+| **echOS** | Unikernel x86_64 de consola, un ELF | 2.1.0-honest; arrenca en QEMU i en metall |
+| **PRISMA Engine** | EEG a esdeveniments, Rust i anàlisi reproduïble | Engine 0.1.0 mesurat; no és un producte sanitari |
+| **echoAI** | Agent situat de dos rellotges | ECHO-1 tancat; ECHO-2 en disseny |
+
+## On es toquen
+
+echOS i echoAI comparteixen el contracte **WSP de 16 bytes**. No comparteixen
+procés: actualment echoAI s'executa en host i no és dins de la ISO.
+
+PRISMA i echOS fan servir el vocabulari d'una futura sonda neuromòrfica. PRISMA
+i echoAI no s'importen: l'un analitza un senyal continu; l'altre aprèn a actuar
+en un món discret.
+
+## Estat d'echoAI
+
+ECHO-1 integra memòria episòdica, política, model del món, cos, objectes,
+operacions, llenguatge acotat, narració pòstuma, patrons temporals i
+transferència. El seu tancament reprodueix 488 proves correctes, una fallada
+esperada documentada i guanys de transferència de `+56` i `+72`.
+
+ECHO-2 està planificat per al reconeixement d'objectes, l'homeòstasi i la
+supervivència entre vides. ECHO-3 traslladarà aquestes capacitats a la robòtica
+a l'edge: primer simulació i HIL; després càmera, LiDAR i un dron controlat per
+PX4/Pixhawk.
+
+## Maquinari
+
+No hi ha cap AKD1000 al laboratori. Akida apareix únicament com a sonda, stub o
+maquinari futur. Si s'hi incorpora, es publicaran mesures pròpies i no xifres
+heretades d'un fullet.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/que-es.md · /ca/docs/echoai/que-es -->
+
+# echoAI
+
+echoAI és un agent situat de dos rellotges. No és un chatbot ni un model de
+llenguatge amb eines.
+
+El rellotge ràpid percep, recorda, prediu, actua i aprèn fent servir taules i
+enters. El rellotge lent, quan es connecta, pot llegir llenguatge i proposar una
+hipòtesi. El gate conserva l'última paraula i cap proposta del còrtex no es
+converteix per si sola en un fet.
+
+```text
+percebre → recordar → predir → actuar → conseqüència → aprendre
+                                      ↑
+                       hipòtesi lenta, només quan ATTEND la demana
+```
+
+## Estat actual
+
+**ECHO-1 va quedar tancat el 5 de setembre de 2026.** La suite canònica acaba
+amb 488 proves correctes i un `expectedFailure` explícit: WALK-1 sense la resta
+entera opt-in. No s'amaga com a verd.
+
+ECHO-1 demostra que el mateix animal:
+
+- conserva CAM, Q, T i PatternMemory quan travessa mons;
+- distingeix els canvis propis dels canvis de l'entorn;
+- aprèn a transportar un objecte i a obrir un recipient;
+- desperta el còrtex després d'una contradicció coneguda, no abans;
+- narra el que ha passat sense que la narració pugui modificar l'animal;
+- aprèn una regularitat temporal que la T d'un pas no pot representar;
+- obté un avantatge causal davant de controls nous o només envellits.
+
+El tancament de transferència fa servir tres mons. A les dues fronteres
+mesurades, l'animal transferit obté `208 vs 152` (`+56`) i `224 vs 152` (`+72`).
+El guany agregat és `+128`. No hi intervenen cap LLM ni etiquetes humanes.
+
+## Tres canals que no es barregen
+
+| Canal | Pregunta | On viu |
+|---|---|---|
+| Representació | què passa? | WSP de 16 bytes |
+| Epistemologia | ho sé? | CAM + VERIFY + extracte |
+| Control | què faig? | Q + gate |
+
+CAM registra el que ha passat. Q aprèn què convé fer. T prediu el resultat
+d'una acció. Que una frase soni convincent no canvia cap d'aquests contractes.
+
+## Xifres que es poden tornar a mesurar
+
+| Banc | Resultat |
+|---|---|
+| Anell, política apresa davant d'una amenaça | `[-12, +5, 0]` |
+| Preguntar davant de no preguntar | `+80` davant de `-80` |
+| ATTEND amb el còrtex habilitat | 36 despertars de 256 torns |
+| SIGN-C, decisió que el ràpid no resolia | còrtex `+16`, ràpid `0` |
+| TALK-1 | 496/496 clàusules; 256/256 registres |
+| PATTERN-0 | 80/80 davant de T 40/80 |
+| XFER-1 | `+56` i `+72` en fronteres independents |
+| Fets falsos / ranures destruïdes | `0 / 0` |
+
+L'execució principal manté el còrtex apagat. Qwen3-4B es va provar a part,
+localment i quantitzat, darrere del mateix connector i d'una gramàtica de
+sortida. A SIGN-C va resoldre els dos exemples canònics, 4 de 6 paràfrasis que
+l'stub no resolia i va produir `CortexROI +16`; dues amenaces no canòniques
+errònies queden registrades com a deute de seguretat, no amagades.
+
+## Què significa i què no
+
+És evidència de memòria, control, predicció, composició i transferència en mons
+sintètics. Encara no és un robot, no demostra percepció visual i no autoritza a
+posar un model generatiu en el control de motors.
+
+ECHO-2 portarà el mateix contracte a la supervivència autònoma i al
+reconeixement d'objectes. ECHO-3 el connectarà amb sensors i un cos físic a
+l'edge.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/piezas.md · /ca/docs/echoai/piezas -->
+
+# echoAI — arquitectura
+
+Les analogies biològiques ajuden a llegir el disseny, però el codi no fingeix
+anatomia. Cada peça té un contracte comprovable.
+
+## WSP — l'únic bus
+
+Un paquet fix de 16 bytes: origen, relació, destinació, temps, sis enters d'estat
+i camps de domini. És la mateixa representació des de la percepció fins a
+l'acció. No existeix un segon bus per a Pattern, el còrtex o la narració.
+
+## CAM — episodis verificats
+
+4.096 ranures, sense LRU destructiu. VERIFY necessita prou similitud i un
+extracte lliurat pel món. Una hipòtesi del còrtex mai no s'escriu com a fet. En
+tots els tancaments d'ECHO-1, `destroyed=0` i `false_facts=0`.
+
+## T — model d'un pas
+
+`T(s,a)` conserva el successor dominant, el nombre d'observacions i els
+conflictes. KCC impedeix que una observació aïllada esborri el que s'ha après.
+Quan el món contradiu una predicció coneguda, la contradicció pot despertar
+ATTEND al torn següent.
+
+## PatternMemory — context temporal
+
+PATTERN-0 afegeix l'estat anterior al context: `(anterior, actual, acció)`. Fa
+servir una taula fixa, adreçament obert i enters. Una regla només s'ofereix quan
+és madura i no ha estat contradita; si no hi ha regla, la predicció cau a T.
+
+Està apagada per defecte i comparteix exactament el canal d'observació de T. Al
+riff de prova obté 80/80 prediccions davant de 40/80 de T.
+
+## Q — política
+
+Q és una taula `int8` separada de CAM. El banc per defecte té tres accions:
+apropar-se, apartar-se i esperar. OPEN-1 demostra que un món pot optar per una
+quarta acció, obrir, sense canviar el contracte de l'anell.
+
+L'aprenentatge fa servir conseqüències enteres. La resta de divisió que permet
+propagar el crèdit més lluny és opt-in; WALK-1 sense aquesta resta continua
+vermell i documentat.
+
+## Cos i món
+
+L'agent no és el seu mapa. BODY-1 va introduir posició i orientació; SELF-1 va
+separar el desplaçament produït pel motor del produït pel terra. ROOM-1 va
+afegir frames externs sense gastar el camp `domain` del WSP.
+
+OBJ-1 i OPEN-1 distingeixen ser en un lloc, transportar una cosa i executar
+l'operació física necessària per lliurar-la.
+
+## Gate — control i veto
+
+Tota proposta acaba en `OK`, `MODIFY` o `BLOCK`. El gate pot convertir una
+espera en evitació davant d'una amenaça o bloquejar una acció. El còrtex
+proposa; el gate decideix; l'autopilot físic conservarà, a més, els seus propis
+failsafes.
+
+## ATTEND i còrtex
+
+ATTEND decideix quan val la pena gastar el rellotge lent: novetat, manca
+d'extracte, baixa confiança, mapa desconegut o contradicció confirmada. El
+còrtex rep un torn serialitzat i retorna un WSP vàlid o silenci. La prosa lliure
+es rebutja.
+
+SIGN-C va demostrar la latència causal correcta: el món contradiu T, l'animal
+es desperta una vegada per `conflict` i la proposta es consumeix al torn
+següent. El registre de consum ja mostra l'atenció apagada.
+
+## TALK — narració pòstuma
+
+TALK-1 tradueix el diari després de l'escena. Llegeix, valida i narra, però no
+importa l'animal ni obre vies d'escriptura. El seu auditor independent compara
+les setze clàusules de cada subtítol amb el registre original.
+
+## Instrumentació
+
+La placa web representa el diari de torns i el pot seguir en viu mitjançant
+polling local. És observabilitat, mai una entrada de control. El GIF de la home
+prové d'una execució real.
+
+## Maquinari futur
+
+Avui echoAI s'executa en host i no hi ha cap AKD1000 al laboratori. Un futur
+accelerador neuromòrfic es tractaria com a coprocessador perceptiu o head
+acotat, mai com a VERIFY, memòria sobirana o pilot.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/echo1.md · /ca/docs/echoai/echo1 -->
+
+# ECHO-1 — tancament
+
+ECHO-1 és la primera integració completa de l'animal. No és una puntuació
+única: és una cadena de capacitats en què cada pas conserva els cadenats
+anteriors.
+
+```text
+SELF-1 → ROOM-1 → GUI-3 → GUI-3.5 → OBJ-1 → OPEN-1
+       → SIGN-C → TALK-1 → PATTERN-0 → XFER-1
+```
+
+## Base situada
+
+Abans d'ECHO-1 es van tancar l'anell d'aprenentatge, la pregunta externa,
+ATTEND, el model T, el gate, el cos 2D, el crèdit enter, el cub 3D i
+l'atribució entre moviment propi i moviment del món.
+
+El banc principal continua funcionant sense còrtex i sense maquinari
+neuromòrfic. Els seus cadenats continuen sent WSP de 16 bytes, CAM de 4.096
+ranures, tres accions per defecte, `destroyed=0`, `false_facts=0` i zero crides
+al còrtex.
+
+## Cadena de capacitats
+
+| Slice | Què hi va afegir | Evidència de tancament |
+|---|---|---|
+| SELF-1 | jo davant del moviment del món | offset motor 1 davant de 0; T 56 davant de 46 |
+| ROOM-1 | dues habitacions i frame extern | 324 llocs, 162 paquets, transferència 64 davant de 0 |
+| GUI-3.5 | volum 3D i diari viu | 27 posicions × 6 orientacions; `--live` no atura l'animal |
+| OBJ-1b | transportar X fins a Y | 51 lliuraments; control 0; deixar l'objecte no cobra |
+| OPEN-1 | operació física nova | 46 lliuraments, 47 obertures; control de tres accions 0 |
+| SIGN-C | una contradicció coneguda desperta llenguatge | una crida; proposta al torn següent; ROI `+16` |
+| TALK-1c | narració pòstuma independent | 496/496 clàusules; 256/256 registres; zero escriptures causals |
+| PATTERN-0b | regularitat contextual | 80/80 davant de T 40/80; examen congelat |
+| XFER-1d | el mateix animal en tres mons | guanys `+56` i `+72`; agregat `+128` |
+
+## SIGN-C i el model local
+
+La contradicció només existeix després d'actuar: T prediu un successor i el món
+en lliura un altre. L'origen tenia una predicció coneguda, prou marge de
+política i un cartell real; aleshores s'arma un latch d'un torn. Al torn següent
+es consumeix la proposta sense afirmar que l'atenció continua encesa.
+
+L'stub determinista demostra el cable a CI. Una execució separada amb
+Qwen3-4B-Instruct Q4_K_M, servida localment, va donar:
+
+```text
+8 crides · 0 rebutjos · 6/8 respostes correctes
+4/6 paràfrasis davant de 0/6 de l'stub
+dos canònics correctes · CortexROI +16 · false_facts 0
+```
+
+La gramàtica específica d'acció permet `UNIR`, `TEMER`, `OBSERVAR` o `NONE`,
+sempre com a relació local. La gramàtica general continua intacta. Les dues
+amenaces no canòniques equivocades continuen visibles a l'informe.
+
+## PATTERN-0
+
+T només pot desar una resposta per a `(estat, acció)`. El riff necessita saber
+d'on venia el cos:
+
+```text
+... B → A → C → A → B → A → C → A ...
+```
+
+PatternMemory fa servir `(anterior, actual, acció)` i prediu els dos successors
+d'A. L'examen conté quatre rotacions independents, no aprèn durant la prova i
+manté els desconeguts al denominador. El control sense context col·lapsa
+exactament sobre T.
+
+## XFER-1
+
+Un sol objecte Agent conserva les mateixes instàncies de CAM, Q, T i
+PatternMemory quan travessa tres físiques. Cada frontera es compara amb un
+animal nou i amb un altre que ha viscut el mateix nombre de torns sense rebre
+la regularitat útil.
+
+| Frontera | Transferit | Nou | Guany | Control d'edat |
+|---|---:|---:|---:|---:|
+| B | 208 | 152 | +56 | 152 → +0 |
+| C | 224 | 152 | +72 | 152 → +0 |
+
+Abans de caminar pel món nou, la memòria transferida resol 96/96 contextos; les
+memòries nova i envellida declaren 96 desconeguts. L'ablació fa servir la
+mateixa CAM per aïllar PatternMemory: entrenada 96, buida 0, zero escriptures.
+
+XFER-1 va passar quatre rondes d'enduriment del certificat. La porta final
+recalcula protocols, recorreguts, denominadors, ablació i canal a partir de les
+files; no creu els resums del mateix informe. L'informe conté 51 mutants
+requerits, tots morts.
+
+## Tancament reproduïble
+
+```bash
+cd /ruta/al/repo/RXos
+PYTHONPATH=. python3 -m echoai.nexus0.xfer1
+PYTHONPATH=. python3 -m echoai.tests.test_nexus0
+```
+
+Resultat auditat: `xfer1 rc=0`, `green=true`, 488 proves correctes i una fallada
+esperada documentada.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/resultados.md · /ca/docs/echoai/resultados -->
+
+# ECHO-1 — resultats
+
+Aquesta pàgina converteix els informes de tancament en una lectura visual de
+l'agent. És un **benchmark canònic determinista d'acceptació**: mesura
+capacitats i controls causals, no compara echoAI amb un LLM ni demostra encara
+un robot físic.
+
+## Llegenda mínima
+
+| Terme | Significat |
+|---|---|
+| WSP | paquet compartit de 16 bytes que representa el que s'ha percebut |
+| CAM | memòria episòdica; conserva el que ha passat amb evidència verificable |
+| Q | taula que puntua apropar-se, evitar i esperar en cada estat |
+| T | model que prediu l'estat següent per a una acció |
+| PatternMemory | context addicional quan una transició d'un pas és ambigua |
+| gate | porta que accepta, modifica o bloqueja una proposta |
+| ATTEND | condició que pot despertar el rellotge lent |
+| còrtex | rellotge lent opcional; proposa, no controla directament el cos |
+| δ | diferència entre el que s'esperava i la conseqüència observada |
+| scratch | control que comença des de zero amb el mateix protocol |
+| held-out | examen congelat els casos del qual no es fan servir per aprendre |
+| ROI | recompensa addicional davant del control en la mateixa finestra |
+
+## Xifres principals
+
+- La política davant del perill passa de `[0,0,0]` a `[-12,+5,0]` per a
+  apropar-se, evitar i esperar.
+- T arriba al 99,68 % sobre 312 torns amb predicció coneguda.
+- PATTERN-0 passa de 40/80 amb T a 80/80 amb context: +40 encerts.
+- XFER-1 obté 208 davant de 152 a B i 224 davant de 152 a C: guany agregat +128.
+- SIGN-C produeix una única crida per conflicte i +16 davant de 0 del control.
+- TALK-1 conserva 496/496 clàusules i no escriu causalment sobre l'agent.
+- Integritat: `false_facts=0`, `destroyed=0` i zero crides corticals al banc
+  principal.
+
+La versió web incorpora gràfiques de línies i barres, un diagrama del cicle de
+decisió i un reproductor dels 352 torns de la traça canònica. Les dades es poden
+descarregar com a JSON i inclouen les empremtes SHA-256 dels informes d'origen.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/proceso.md · /ca/docs/echoai/proceso -->
+
+# Com es va construir
+
+echoAI es desenvolupa a RxLabs com un programa d'enginyeria experimental: cada
+avenç parteix d'una afirmació acotada, incorpora un control causal, produeix
+evidència pròpia i acaba en una porta que ha de poder dir que no.
+
+## Direcció i traçabilitat
+
+Roger Navarro dirigeix el producte i la seva arquitectura, fixa els invariants,
+opera el laboratori i accepta o rebutja cada fase. L'evolució tècnica queda
+traçada en especificacions, codi, proves, informes i commits reproduïbles.
+
+Les eines auxiliars del procés intern no formen part de l'evidència publicada.
+Les afirmacions públiques se sostenen únicament en el comportament del sistema,
+els seus controls i els resultats reproduïbles.
+
+## El cicle de treball
+
+```text
+objectiu → invariant → hipòtesi causal → especificació acotada
+         → implementació → banc i controls → contraexemple
+         → endurir o rebutjar → increment següent
+```
+
+Cada increment té un KPI principal. No es permet arreglar un experiment movent
+la recompensa, codificant el nom del món de manera fixa o rebaixant una
+condició després de veure el resultat.
+
+## Verd no significa «l'script ha acabat»
+
+Un informe verd només val si el seu predicat pot discrepar-ne. Per això la
+revisió intenta construir certificats contradictoris:
+
+- comptadors resum que no coincideixen amb les files;
+- tres controls iguals entre si però tots configurats incorrectament;
+- accions del gate atribuïdes per error al còrtex;
+- desconeguts eliminats del denominador;
+- una ablació que també canvia la percepció i deixa d'aïllar la memòria;
+- mutants futurs vius amagats per una llista tancada;
+- una narració que comparteix taules amb el seu propi auditor.
+
+TALK-1 va necessitar tres tancaments i XFER-1, quatre. Les xifres causals no van
+canviar; es va endurir l'evidència fins que aquests falsos verds van deixar de
+passar.
+
+## Controls habituals
+
+1. **Transfer davant de scratch.** Mateix protocol, experiència diferent.
+2. **Control d'edat.** Mateixos torns, sense la regularitat que es vol mesurar.
+3. **Ablació perceptivament aparellada.** Canvia una memòria, no l'entrada.
+4. **Held-out congelat.** L'examen no crida `observe()`.
+5. **Mutació.** Cada cadenat ha de matar almenys una alteració que abans podria
+   haver passat.
+6. **Regressió.** L'anell i els informes anteriors conserven les seves xifres.
+
+## Disciplina d'arquitectura
+
+- Un sol bus WSP de 16 bytes.
+- CAM, Q i T són estructures diferents.
+- Zero coma flotant a la decisió ràpida.
+- El còrtex està apagat per defecte i només proposa.
+- Una hipòtesi mai no s'escriu com a fet.
+- La narració passa després i no torna a l'animal.
+- Un món nou canvia la física, no el codi de l'agent.
+- El maquinari absent es declara absent.
+
+## Reproductibilitat
+
+Cada fase escriu un informe separat a `echoai/lab/`. Els bancs canònics no
+requereixen xarxa, pesos de model ni placa. Les execucions amb Qwen es desen
+com a informes d'operador i no substitueixen la suite determinista.
+
+L'estat publicat d'ECHO-1 correspon a 488 proves correctes, un
+`expectedFailure` conegut i els informes verds de ROOM-1, OBJ-1, OPEN-1,
+SIGN-C, TALK-1, PATTERN-0 i XFER-1.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/ruta.md · /ca/docs/echoai/ruta -->
+
+# Full de ruta — ECHO-2 i ECHO-3
+
+ECHO-1 està tancat. El següent no consisteix a engrandir el mapa ni a deixar
+que un LLM condueixi. L'objectiu empresarial és la robòtica autònoma a l'edge,
+amb els drons com a plataforma principal.
+
+Tot element d'aquesta pàgina és **pla** fins que existeixin el seu banc, el seu
+informe i el seu tancament.
+
+## ECHO-2 — un animal que manté la viabilitat
+
+ECHO-2 continuarà en simulació controlada. Afegirà necessitats internes,
+identitat d'objectes i vides completes sense trencar el camí ràpid enter.
+
+| Slice | Pregunta que ha de tancar |
+|---|---|
+| VITA-1 | Un estat homeostàtic `H` viu a l'Agent, baixa amb el temps i acaba un episodi quan arriba a zero? |
+| PATTERN-1 | Reconeix el mateix objecte o categoria a través d'observacions, posicions i contextos diferents sense fer servir el seu id com a resposta? |
+| FOOD-1 | Descobreix per les conseqüències quin objecte restaura `H` i quin el redueix, sense `if gana: menjar`? |
+| SURV-1 | L'experiència conservada entre vides augmenta la mediana de supervivència davant de reiniciar Q/T/CAM? |
+| SHIFT-S | S'adapta quan canvien els riscos o els recursos sense esborrar la memòria a mà? |
+| STREAM-1 | Opera durant un flux llarg amb frames externs i alias mesurat? |
+| SLEEP-2 | Consolida episodis en regles sense destruir CAM ni cridar el còrtex? |
+| GEN-1 | Un enter heretable redueix el temps d'aprenentatge sense copiar Q al descendent? |
+| HEAT-1 | Una segona necessitat crea un trade-off real després de tancar la supervivència amb una de sola? |
+
+### La supervivència no és una recompensa per continuar viu
+
+`H` serà una restricció de viabilitat, no `reward += 1`. La recompensa
+continuarà ensenyant política local; `H` decidirà si existeix un torn següent.
+La mort tancarà una vida i reiniciarà cos i homeòstasi, però l'experiment
+compararà conservar la memòria amb esborrar-la.
+
+PATTERN-1 és la porta cap als objectes reals: primer ha de demostrar identitat i
+categoria sense píxels ni sensors sorollosos. ECHO-3 connectarà aquesta
+capacitat amb observacions físiques.
+
+## ECHO-3 — percepció i cos físic
+
+ECHO-3 traslladarà l'agent a un companion computer d'un dron. L'autopilot
+mantindrà l'estabilització, l'actitud i els failsafes; echoAI escollirà objectius
+i accions d'alt nivell a través del gate.
+
+| Slice | Resultat esperat |
+|---|---|
+| SIM-3 | la mateixa missió en simulació, software-in-the-loop i hardware-in-the-loop |
+| SENSOR-1 | càmera estèreo, IMU i LiDAR sincronitzats amb timestamps i fallades explícites |
+| GROUND-1 | convertir observacions físiques en estats WSP sense obrir un segon bus |
+| PATTERN-1R | associar vistes i clústers 3D amb el mateix objecte après a ECHO-2 |
+| FUSION-1 | càmera i LiDAR aporten evidència independent; la discrepància redueix la confiança |
+| DYNAMIC-1 | detectar objectes mòbils i predir trajectòries a curt termini |
+| POWER-1 | mesurar watts i energia per missió; despertar còmput pesant només quan aporta valor |
+| SAFE-1 | desconnexions, sensors congelats i propostes errònies no poden saltar-se el gate ni l'autopilot |
+| DRONE-3 | missió completa en gàbia i entorn controlat: inspeccionar, evitar, tornar i aterrar |
+
+### Paper d'Akida, si arriba al laboratori
+
+Un AKD1000 podria funcionar com a percepció dispersa sempre activa:
+classificació de regions, novetat, moviment o prefiltratge de núvols de punts.
+La seva sortida serien identificadors i confiances enteres que entrarien per
+l'adaptador sensorial existent.
+
+No seria el cervell complet, no escriuria CAM, no decidiria VERIFY ni manaria
+motors. Jetson conservaria la fusió complexa, la instrumentació i els models de
+desenvolupament; Pixhawk conservaria el control de vol.
+
+Abans d'atribuir-li una capacitat s'exigiran un driver real, un model compilat
+per a AKD1000 i mesures pròpies de potència i latència. Les capacitats
+publicades per a generacions posteriors d'Akida no s'atribuiran automàticament
+a l'AKD1000.
+
+## Demostració objectiu
+
+Un dron s'enlaira en un entorn controlat, inspecciona una ruta, reconeix
+objectes persistents, detecta que un pas après ha canviat, evita un obstacle
+mòbil, decideix tornar segons l'energia disponible i aterra en una zona
+alternativa. Tot el control crític continua local i no cal cap connexió al
+núvol.
+
+La demo només serà verda si també supera la pèrdua de càmera, la pèrdua de
+LiDAR, el reinici del companion computer, una sortida neuronal errònia i la
+retirada completa de l'accelerador opcional.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/hardware.md · /ca/docs/echoai/hardware -->
+
+# Maquinari previst
+
+Aquesta és la plataforma de desenvolupament proposada per avançar cap a
+ECHO-3. No és un inventari del laboratori: tret que s'indiqui el contrari, són
+compres candidates.
+
+## Escala de proves
+
+### 1. Banc i dron petit
+
+- [**Crazyflie 2.1 Brushless**](https://store.bitcraze.io/products/crazyflie-2-1-brushless)
+  amb [Flow Deck](https://store.bitcraze.io/products/flow-deck-v2) per
+  experimentar en interior amb poc risc i control bàsic de posició.
+- Hèlixs, bateries, carregador, recanvis i una gàbia o xarxa de seguretat.
+- Mesurador de potència USB-C i registrador independent.
+
+La seva funció és validar missatges, latència, watchdog i pèrdua d'enllaç. No
+ha de carregar l'stack final de sensors.
+
+### 2. Plataforma d'integració
+
+- [**Holybro X500 V2**](https://holybro.com/products/px4-development-kit-x500-v2)
+  amb **Pixhawk 6C** i GPS M10 com a cos obert per al desenvolupament PX4.
+- **RadioMaster TX16S** i receptor ELRS per a control manual i avortaments.
+- Kill switch físic, telemetria independent, bateries i carregador balancejat.
+
+Pixhawk estabilitza i conserva els failsafes. echoAI s'executa com a lògica
+d'alt nivell en un companion computer i mai no substitueix el control de vol
+dur.
+
+### 3. Computació i visió
+
+- [**Jetson Orin Nano Super Developer Kit**](https://developer.nvidia.com/embedded/jetson-orin-nano-super-developer-kit)
+  per a fusió, models de desenvolupament, registres i ROS 2/PX4.
+- [**Luxonis OAK-D Pro amb OV9782 i focus fix**](https://shop.luxonis.com/products/oak-d-pro)
+  per a RGB, estèreo, profunditat i IMU; el global shutter és preferible per al
+  moviment i la vibració.
+- Emmagatzematge NVMe, ventilació, convertidors DC regulats i cablejat curt.
+
+El kit Jetson serveix per al desenvolupament; no s'assumeix automàticament com
+a maquinari de producció.
+
+### 4. Distància i geometria
+
+- **Benewake TFmini-S** com a telèmetre econòmic per a primeres proves d'altura
+  o distància frontal.
+- [**Livox Mid-360**](https://www.livoxtech.com/mid-360/specs) per a ECHO-3:
+  núvol de punts 3D, camp horitzontal de 360° i IMU integrada.
+
+El LiDAR no substitueix la càmera: geometria i aparença han de poder fallar de
+manera independent i contradir-se.
+
+### 5. Neuromòrfic opcional
+
+- [**BrainChip AKD1000**](https://brainchip.com/dev-tools/) PCIe o M.2, només
+  si es disposa del maquinari, un driver compatible i una toolchain reproduïble.
+
+El seu primer banc seria percepció sempre activa davant de CPU/Jetson sobre el
+mateix dataset: exactitud, latència P99, potència real i degradació en
+desconnectar-lo. No s'acceptaran TOPS de fullet com a substitut d'aquesta mesura.
+
+## Ordre recomanat de compra
+
+1. Seguretat, ràdio, bateries i Crazyflie.
+2. Jetson i OAK-D per construir el pipeline sobre taula.
+3. X500/Pixhawk per a SITL, HIL i gàbia.
+4. TFmini-S per a integració primerenca de distància.
+5. Mid-360 quan SENSOR-1 i SAFE-1 ja tinguin banc.
+6. AKD1000 quan existeixi una tasca perceptiva petita que es pugui comparar amb
+   un baseline i que no bloquegi el full de ruta.
+
+## Condició d'ús
+
+Cap component nou no entra directament als motors. La ruta és sempre:
+
+```text
+sensor → adaptador → estat WSP → memòria/predicció → gate
+       → ordre d'alt nivell → autopilot → actuadors
+```
+
+Primer simulació, després hardware-in-the-loop, tot seguit gàbia i només
+finalment un entorn exterior autoritzat.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/limites.md · /ca/docs/echoai/limites -->
+
+# echoAI — límits
+
+La política del laboratori és separar resultats, plans i hipòtesis.
+
+## El que ECHO-1 no demostra
+
+- No és intel·ligència general ni una persona artificial.
+- No reconeix objectes en imatges reals.
+- No fa SLAM, control de vol ni navegació certificada.
+- Encara no opera amb soroll, vent, latència física o sensors incomplets.
+- No demostra supervivència autònoma; això pertany a ECHO-2.
+- No conté cap AKD1000 ni cap altre NPU físic.
+- No converteix el rendiment d'un món sintètic en una afirmació de seguretat
+  robòtica.
+
+## Deute visible
+
+WALK-1 sense resta entera no propaga valor fins a l'objectiu i continua com a
+`expectedFailure`. La variant opt-in CREDIT-1 sí que camina, però no es va
+canviar l'algoritme per defecte.
+
+El Qwen local va encertar els exemples canònics de SIGN-C i va superar l'stub
+en paràfrasis, però va triar `approach` en dues amenaces no canòniques i va
+rebre `-16`. Això demostra per què la seva sortida és una proposta i no una
+ordre segura.
+
+CAM té 4.096 ranures i no fa servir LRU. Els mons actuals encara són petits;
+SLEEP-2 només es justificarà quan hi hagi pressió de memòria mesurada.
+
+## Condicions per a la robòtica
+
+Abans de volar, ECHO-3 haurà de demostrar:
+
+- deadlines i latència P99 sota càrrega;
+- sincronització i caducitat dels sensors;
+- watchdog, retorn i aterratge davant la pèrdua del companion computer;
+- veto independent davant d'observacions contradictòries;
+- límits de bateria, massa, temperatura i vibració;
+- registre reproduïble de cada decisió;
+- simulació, HIL i gàbia abans de camp obert;
+- compliment de la normativa aplicable i operació humana d'emergència.
+
+Un model neuronal, un LLM o un NPU no serà l'única barrera contra una col·lisió.
+L'autopilot i els mecanismes de seguretat continuen separats.
+
+## Akida
+
+No hi ha cap AKD1000 al laboratori. Les xifres de consum o aprenentatge del
+fabricant no són resultats de RxLabs. Si arriba una placa, es publicaran la
+compatibilitat, el model exacte, la toolchain, la potència mesurada i la
+comparació amb CPU/Jetson abans de parlar d'avantatge.
+
+## Estat de les paraules
+
+- **Fet:** existeixen un informe reproduïble i una porta verda.
+- **Vermell mesurat:** l'experiment s'executa i no arriba al KPI.
+- **Pla:** ordre proposat; encara no és una capacitat.
+- **Absent:** no existeix al laboratori.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echos/que-es.md · /ca/docs/echos/que-es -->
+
+# echOS
+
+Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. No hi ha Linux a sota.
+No hi ha BusyBox. No hi ha systemd. La màquina *és* el programa.
+
+No és un sistema comercial. No és un navegador. Està pensat per a programari
+neuromòrfic i robòtica.
+
+> Unikernel de consola. Programari neuromòrfic. Akida quan hi ha placa.
+
+## Què és, en una frase
+
+Una consola JetBrains / Liberation Mono sobre framebuffer (o text VGA), amb
+ROSH, `epk` local, pila IPv4/DNS/TCP/HTTP i un teixit d'esdeveniments / SNN al
+nucli — sense finestra, sense dock i sense mentir sobre el maquinari.
+
+## Què no és
+
+- No és un escriptori.
+- No és Alpine, OpenBSD, Haiku ni un Linux encastat.
+- No és un producte per navegar per internet. `curl` baixa bytes.
+- No hi ha Echo AI en aquesta ISO.
+
+## Peces que importen
+
+| Peça | Què és |
+|---|---|
+| Heap-0 | Layout estàtic a BSS. `kmalloc` de 512 KiB continua existint i es declara. |
+| RXFS | FS natiu, 64 fitxers × 64 KiB. |
+| `epk` | Notes a RXFS. `epk list` = el que té el nucli. `--lab` = host. |
+| LIVE | Arrenca en RAM. Mínim. |
+| SNN | Cub Q6 de 64 cèl·lules LIF, `prisma5` sintètic, `bench-snn`. |
+| Akida | Sonda PCI `1e7c:bca1`. Sense placa = LIF per programari. |
+
+## Superfície honesta
+
+Un desconegut arrenca LIVE, escriu `help` i no pot acusar-lo de teatre.
+`rcctl start` no fingeix un dimoni. `doas` no aïlla. `pfctl` no filtra.
+`tcc` / `python` / `sshd` no són a Tab.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echos/limites.md · /ca/docs/echos/limites -->
+
+# Límits — el que no faig
+
+Política del laboratori: si no hi és, es diu.
+
+## Maquinari
+
+| Cosa | Estat |
+|---|---|
+| Wi-Fi | no. PCI es llista. Zero drivers. |
+| NVMe | classe `01:08` a `hwprobe`. Sense driver. SATA AHCI / IDE / virtio-blk sí. |
+| UEFI natiu | no. BIOS/CSM / SeaBIOS. |
+| USB HID | no com a entrada de diari. Teclat i ratolí PS/2. |
+| Àudio | no. |
+| Acceleració GPU | no. LFB. |
+| Akida | sonda PCI. Sense placa = LIF per programari. Sense blob BrainChip. |
+| Loihi | fora de 2.1. Zero interfícies. |
+| Nucli ARM64 | l'ELF de la ISO Universal és x86_64. |
+
+## Programari
+
+| Cosa | Estat |
+|---|---|
+| Multiprocés / anell 3 | esbós. Una tasca. |
+| POSIX | no. Àlies d'ordres, no glibc. |
+| Dades d'aplicació TLS 1.3 | la negociació funciona; GET https pot tornar buit. HTTP sí. |
+| Pin de CA | no. |
+| IPv6 | no. |
+| Diversos TCP alhora | no. |
+| sshd/httpd/ftpd reals | flags `rcctl`. No hi ha dimonis. |
+| Aïllament `doas` | no. Un mapa de memòria. |
+| RXFS | 64 × 64 KiB. |
+| Compiladors a LIVE | absents. `epk list --lab` = notes de host. |
+| Navegador / JS | no. `curl` baixa bytes. |
+| Persistència LIVE | no, expressament. |
+| Ús comercial com a SO general | no. Laboratori / robòtica / SNN. |
+
+## Heap-0
+
+El contracte **no** es compleix a tot el nucli. `kmalloc` existeix.
+
+## El que sí que signo
+
+- El bàner d'arrencada no imprimeix `OK` si aquella etapa no s'ha comprovat.
+- No es fingeix un NIC, un NPU ni un dimoni.
+- `command not found` no és el mateix que «no instal·lat».
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echos/superficie.md · /ca/docs/echos/superficie -->
+
+# Superfície pública — echOS
+
+Cada nom a `help` / `epk list` / `man` porta una etiqueta:
+
+- **REAL** — l'unikernel fa aquesta feina.
+- **NOTA** — el nom existeix; la feina és un flag, un bolcat o un reenviament.
+- **ABSENT** — fora de Tab i de `help`.
+
+## Ordres
+
+| Ordre | Etiqueta | Què fa |
+|-------|----------|--------|
+| help about status mem uptime power bench devices env | REAL | nucli / benchmark |
+| clear reboot halt | REAL | consola / reset |
+| ls cd pwd cat write rm cp mv mkdir rmdir tree | REAL | RXFS |
+| head tail less grep find du df nano history | REAL | RXFS |
+| date tz kbd termtheme | REAL | rellotge, mapa, paleta |
+| man apropos | REAL | pàgines encastades |
+| echofetch hwprobe live whoami uname hostname echo | REAL | identitat / PCI |
+| www curl wget dns tls ping nics ipconf trace nmap | REAL | IPv4; HTTPS pot tenir el cos buit |
+| wired chat say | REAL | L2 0x88B5 |
+| epk echos-install install save load format partition | REAL | notes RXFS / disc |
+| gpt | NOTA | writer GPT sense CRC32 vàlid |
+| doas | NOTA | un espai d'adreces; no aïlla |
+| rcctl | NOTA | flags; no hi ha dimonis |
+| pfctl | NOTA | booleà RAM; no filtra |
+| neuro neurocpu prisma5 bench-snn | REAL | SNN al nucli; Akida = sonda PCI |
+
+## `epk list` (públic)
+
+echos-base, echos-shell, echofetch, echos-diag, echos-net, echos-npu,
+echos-io, echos-akida.
+
+`epk install` escriu un text a RXFS, no un ELF.
+
+## `epk list --lab`
+
+Notes de host: tcc, python, rustc, httpd, sshd, … No arrenquen cap procés.
+
+## Absents
+
+tcc / python / git a l'unikernel, sshd/httpd reals, navi/echo al SO,
+navegador, loihi, htop/tmux, Wi-Fi, controlador NVMe, UEFI.
+
+---
+
+<!-- src/content/ca/echos/comandos.md · /ca/docs/echos/comandos -->
+
+# Ordres
+
+La llista viva és a `CMD_NAMES`. Tab la llegeix. Per als flags: `man <cmd>`.
+
+## Orientació
+
+```text
+help            llista curta
+man / manual    pàgines
+apropos / man -k
+echofetch       targeta + logo
+about / status / live
+```
+
+## Sistema
+
+```text
+mem [map]       Heap-0 / PMM
+uptime
+date / time     date set YYYY-MM-DD HH:MM:SS
+uname / hostname
+whoami / id
+echo
+env [K] [V]
+power [s]       RAPL si la CPU és Intel i no fa #GP
+reboot / halt
+clear / cls
+doas <cmd>      un espai d'adreces; no aïlla
+```
+
+## Fitxers
+
+```text
+ls cd pwd cat write rm cp mv mkdir rmdir tree
+head tail less grep find
+nano history
+```
+
+## Disc
+
+```text
+df du
+partition cfdisk gpt disklabel
+format <dev> yes
+install / reinstall / echos-install
+save / load
+```
+
+## Xarxa
+
+```text
+www on|off|status
+curl / wdl / wget
+ipconf  nics  dns  tls  ping  traceroute  nmap
+wired / chat / say
+```
+
+No hi ha navegador. `curl` baixa bytes.
+
+## Paquets
+
+```text
+epk list | list --lab | info | install | remove | apply
+```
+
+`epk list` són notes del nucli. `epk list --lab` són notes de host.
+
+## Neuromòrfic
+
+```text
+hwprobe
+bench / bench-snn
+prisma5 [alpha|null|stress]    # drive sintètic del cub Q6
+neuro / neurocpu [software|akida]
+```
+
+## Estil OpenBSD
+
+```text
+rcctl enable|disable|status|start|stop   # flags; no hi ha dimonis
+pfctl -e|-d|-f|-s|-sr                    # booleà RAM; no filtra
+```
+
+— R.N.
+
+---
+
+<!-- src/content/ca/prisma/overview.md · /ca/docs/prisma/resumen -->
+
+# PRISMA
+
+**Programari d'anàlisi d'EEG. Ús en recerca — no és un producte sanitari.**
+
+---
+
+## Què és, en una frase
+
+PRISMA obre un enregistrament d'EEG, el neteja, l'analitza i et diu si el que
+has trobat **aguanta un examen seriós** o no.
+
+---
+
+## Per a qui
+
+- Qui enregistra EEG i no vol escriure codi per mirar-lo
+- Qui ja fa servir MNE-Python o EEGLAB i vol un flux reproduïble al damunt
+- Qui ensenya electrofisiologia i necessita que l'alumne vegi el senyal, no un script
+- Qui construeix BCI o neurofeedback i necessita processament en temps real
+
+---
+
+## Què fa
+
+**Obre gairebé qualsevol cosa.** BrainVision, EDF/EDF+, BDF de BioSemi, GDF,
+Neuroscan CNT, EEGLAB, FIF. Arrossegues el fitxer i veus què hi ha dins: canals,
+freqüència, marcadors i també les decisions que el lector ha hagut de prendre
+pel seu compte.
+
+**Neteja el senyal i s'explica.** Filtres, rereferenciació, detecció de canals
+dolents **sobre tota la sessió** — i et diu *per què* n'ha marcat cadascun. ICA
+per treure parpelleigs i múscul, amb les seves etiquetes i advertiments: els
+components musculars es marquen però no s'eliminen si no ho demanes.
+
+**Analitza.** ERP, espectre de potència, temps-freqüència, connectivitat
+funcional i localització de fonts amb vista 3D del cervell.
+
+**Repeteix la feina per tu.** Escrius els passos una vegada en un fitxer i
+s'apliquen igual a 1 subjecte o a 73. Cada execució desa quina versió de quin
+programa ha fet què i amb quins paràmetres: d'aquí a un any sabràs exactament
+com vas arribar d'A a B.
+
+**I el que gairebé ningú fa: et diu quan NO tens res.**
+
+---
+
+## El que ens diferencia de debò
+
+Qualsevol programa et calcula un valor p. PRISMA respon la pregunta difícil:
+**això sobreviuria a una revisió?**
+
+Quan demanes diverses comparacions, PRISMA les corregeix **com a família** — no
+una a una. Si hi afegeixes una mètrica exploratòria més, el llistó puja, com ha
+de ser. I marca, per separat:
+
+- Si el resultat depèn d'**uns quants punts extrems**
+- Si **desapareix** en controlar un factor de confusió evident
+- Si la mostra **mai no ha tingut potència** per detectar allò, i quants
+  subjectes caldrien
+
+Acaba amb una frase clara i un veredicte: **defensable sí o no**.
+
+**Per què existeix això.** La hipòtesi principal d'aquest projecte — que
+calibrar el llindar per subjecte predeia el comportament — es va provar amb dos
+datasets públics independents i **no es va replicar**. En comptes d'amagar-ho,
+la disciplina necessària per descobrir-ho ara forma part del producte.
+
+`defendible: no` és el resultat **normal** d'una exploració honesta. No és un
+error del programa.
+
+---
+
+## Com sabem que funciona
+
+Amb dades públiques reals, no amb demos preparades.
+
+Sobre **ds006018** (tasca Flanker, 73 subjectes), processats tots 73 sense cap
+fallada, PRISMA va recuperar **dos efectes ja establerts a la literatura**: la
+resposta ERP de conflicte i la theta migfrontal. Va descartar correctament 30 de
+32 clústers candidats. I en la tercera anàlisi, connectivitat, va dir clarament:
+**aquí no hi ha res**.
+
+Que no trobi efecte en totes tres és precisament el que el fa fiable.
+
+---
+
+## Les dues meitats
+
+**PRISMA** — l'aplicació d'escriptori i la capa d'anàlisi. Sis panells: Sessió,
+Senyal, Preprocessament, Anàlisi, Grup i Límits. Tema clar i fosc.
+
+**PRISMA ENGINE** — un motor de temps real escrit en Rust, amb **1,8
+microsegons** de latència mitjana i zero reserves de memòria al camí crític. En
+comptes d'analitzar finestres fixes, converteix el senyal en impulsos i processa
+esdeveniment a esdeveniment. És un binari únic, sense res a instal·lar.
+
+Es fan servir juntes o per separat.
+
+---
+
+## El que NO fa
+
+Està escrit a la mateixa aplicació, en un panell anomenat **Límits**, perquè una
+eina que només enumera les seves virtuts no és honesta:
+
+- **No és un producte sanitari.** No diagnostica ni prediu res.
+- **La localització de fonts fa servir un cap plantilla**, no la ressonància
+  del subjecte: compta amb 1–2 cm d'error.
+- **La connectivitat entre elèctrodes està contaminada** per conducció de
+  volum. Per afirmar interacció, fes servir les mesures robustes incloses.
+- **Un clúster significatiu no localitza amb precisió.** Les seves vores no són
+  els límits de l'efecte.
+- **L'etiquetatge automàtic d'ICA és un suggeriment**, no un veredicte.
+- **Encara no pots connectar-hi un casc i veure'l en viu** sense un script
+  pont. Aquest era l'objectiu original i encara no hi és.
+
+---
+
+## Requisits
+
+Linux de 64 bits (pràcticament qualsevol des de 2020). El motor no necessita
+instal·lar res. La capa d'anàlisi necessita Python 3.10 o superior.
+
+Construït sobre MNE-Python, la biblioteca estàndard de la comunitat
+d'electrofisiologia.
+
+---
+
+## Estat
+
+**Encara no és a la venda.** El programari funciona i està provat; el que falta
+és la paperassa — llicència, forma de pagament, contacte de suport — i la
+funció que era l'objectiu original: connectar-hi un casc i veure'l analitzat en
+directe.
+
+---
+
+<!-- src/content/ca/prisma/tecnico.md · /ca/docs/prisma/tecnico -->
+
+# PRISMA — documentació tècnica
+
+**Versió 0.1.0 · Linux x86_64 · programari de recerca, no és un producte sanitari.**
+
+Aquest document descriu què fa el programa, com ho fa i on no se n'ha de
+confiar. Cada xifra s'ha mesurat en aquesta màquina o sobre dades públiques; res
+no és estimat ni projectat. Quan una funció és prima, o una afirmació s'ha
+provat i ha fallat, es diu aquí.
+
+---
+
+## 1. Què és
+
+Dues capes que viatgen juntes i es poden fer servir per separat.
+
+**PRISMA ENGINE** — nucli d'EEG en temps real, orientat a esdeveniments, escrit
+en Rust (~8.100 línies). En comptes de fer FFT sobre finestres fixes, codifica
+el senyal en impulsos i el processa esdeveniment a esdeveniment.
+
+**PRISMA 5 SNN** — capa clàssica d'anàlisi i interfície d'escriptori, en Python
+(~5.500 línies) sobre MNE-Python. Suite d'EEG fora de línia: neteja, ERP,
+espectre, connectivitat, localització de fonts, pipelines reproduïbles i
+estadística de grup.
+
+Estan separades expressament. El motor no depèn de Python i funciona sol; la
+capa d'anàlisi funciona sense el motor. El pont és una funció que passa el
+senyal net al motor.
+
+---
+
+## 2. Com funciona el motor
+
+```
+senyal → modulació delta → LIF (SIMD) → STDP → predicció → telemetria
+```
+
+**Modulació delta.** Només s'emet un impuls quan el senyal es mou més que un
+llindar adaptatiu θ_adp. Un canal en silenci no produeix esdeveniments: la feina
+és proporcional a quant canvia el senyal, no a la freqüència de mostreig.
+
+**Capa LIF.** Neurones leaky integrate-and-fire integren el flux d'impulsos,
+vectoritzades amb AVX2, i cauen a codi escalar si la CPU no en té.
+
+**STDP.** La plasticitat segons el temps dels impulsos ajusta els pesos
+sinàptics a partir de l'ordre pre / post.
+
+**Codificació predictiva.** Es compara la taxa observada amb una taxa esperada;
+un desajust gran apuja l'SPEI i marca un *possible artefacte* (parpelleig,
+múscul, un cable). No és un detector clínic d'esdeveniments.
+
+### Rendiment mesurat
+
+En aquesta màquina (`--headless --bench-samples 200000`), 32 canals:
+
+| | |
+|---|---|
+| Latència mitjana del camí calent | **1,81 µs** |
+| Pitjor latència observada | 43,9 µs (en 200.000 mostres) |
+| Cabal | ~183.000 mostres/s, un nucli |
+| Reserva de memòria al camí calent | **zero**, per construcció — només búfers fixos |
+| Mida del binari | 9,0 MB, sense runtime per instal·lar |
+
+En un sistema en temps real importa la pitjor xifra, i es publica al costat de
+la mitjana, no en lloc seu.
+
+### Condicionament del senyal
+
+Apagat per defecte. Alterar el senyal en silenci també canviaria cada mètrica
+respecte d'una execució anterior.
+
+- Notch (50/60 Hz), passaalt, passabaix — biquads RBJ, estat f64
+- Rereferenciació: mitjana comuna (sense canals dolents) o canals amb nom
+- Detecció de canals dolents sobre **tota la sessió**, no una finestra de vista prèvia
+
+Els filtres d'aquí són **IIR causals d'una passada**: desplacen la fase segons
+la freqüència. No comparis latències ERP mesurades amb aquests filtres amb eines
+de fase zero.
+
+### Entrada en viu
+
+El motor escolta un sòcol TCP simple: una línia JSON de capçalera i després
+mostres `float32` intercalades per canal. Qualsevol cosa que obri un sòcol el pot
+alimentar. Un script pont reenvia qualsevol flux LSL i pot generar senyal
+sintètic per provar el camí en viu sense maquinari.
+
+**Per què no hi ha LSL natiu, amb honestedat:** `lsl-core` (Rust pur) és
+GPL-3.0, incompatible amb un binari tancat; els bindings oficials necessiten un
+`liblsl` el codi encastat del qual ja no compila amb glibc moderna. El sòcol
+genèric deixa el binari sense dependències i accepta més productors.
+
+---
+
+## 3. Com funciona la capa d'anàlisi
+
+Tots els mètodes numèrics són de MNE-Python, SciPy o mne-connectivity. **No es
+reimplementa res numèric.** ICA i localització de fonts, en particular, són
+feina numèrica de recerca amb dècades de validació; reescriure-les afegiria
+risc i no restaria res. PRISMA hi afegeix el flux de treball, el pipeline
+declaratiu, l'etapa de grup, la capa d'integritat i un límit documentat al costat
+de cada mètode.
+
+### Importació
+
+| Format | Lector | Comprovat amb |
+|---|---|---|
+| BrainVision `.vhdr` | MNE | ds006018, ds007655 (reals) |
+| EDF / EDF+ | MNE | anada i tornada + real |
+| BDF (BioSemi) | MNE | escrit amb pyedflib |
+| GDF | MNE | BCI Competition IV 2a (real) |
+| Neuroscan CNT | MNE | enregistraments de prova de MNE |
+| EEGLAB `.set`, FIF | MNE | anada i tornada |
+
+**Una fallada real que va sortir aquí:** de vegades la capçalera de Neuroscan
+no diu l'amplada de mostra, i llegir 16 bits com a 32 (o al revés) no llança cap
+error: descodifica en silenci un senyal amb una altra forma i llegeix la taula
+d'esdeveniments a l'offset equivocat. PRISMA prova totes dues amplades, conserva
+la que dona amplituds fisiològicament plausibles i anota la decisió. Si totes
+dues semblen plausibles, es nega i pregunta, en comptes d'endevinar.
+
+### Neteja
+
+- **Filtres**: fase zero (anada i tornada) per defecte fora de línia; hi ha un
+  mode causal per reproduir el que fa el motor en viu.
+- **Canals dolents**: escombratge de tota la sessió amb criteris PREP (pla,
+  desviació robusta, soroll d'alta freqüència, correlació per finestres amb
+  veïns), informant de *per què* se n'ha marcat cadascun. Estadística robusta a
+  tot arreu, perquè un canal saturat no n'amagui un altre.
+- **Interpolació**: splines esfèrics (Perrin et al., 1989).
+- **ICA**: Infomax estès / FastICA / Picard, amb etiquetatge automàtic. Els
+  parpelleigs fan servir un canal EOG o un proxy frontal. **No s'intenten
+  components cardíacs sense un canal ECG real** — no hi ha cap detector fiable
+  només amb EEG, de manera que no se n'inventa cap. Els musculars s'etiqueten
+  però no s'eliminen si no ho demanes: en dades reals el detector en va marcar
+  11 de 20.
+
+### Anàlisi
+
+Epoching amb noms d'esdeveniment llegibles, correcció de línia base, mitjana ERP
+i mesura de pics; PSD (Welch/multitaper), potència per banda, freqüència alfa
+individual; temps-freqüència (Morlet, multitaper, Stockwell, STFT) i ERD/ERS;
+connectivitat (coh, imcoh, plv, ciplv, ppc, pli, wpli); localització de fonts
+(sLORETA, dSPM, eLORETA, MNE, beamformer LCMV).
+
+### Pipelines reproduïbles
+
+Un YAML llista els passos; s'executen sobre un fitxer, un glob o un dataset
+BIDS sencer. Quinze tipus de pas: `montage, filter, bad_channels, interpolate,
+reference, ica, epochs, baseline, erp, psd, tfr, connectivity, sources, engine,
+save_raw`.
+
+Cada execució escriu `pipeline_summary.json` amb l'especificació, cada versió
+de paquet i, per subjecte, els paràmetres, temps i resultat de cada pas. Un
+subjecte que falla s'anota i el lot continua.
+
+### Etapa de grup
+
+El pipeline per subjecte escriu a disc; l'etapa de grup ho llegeix i **mai no
+recalcula un subjecte**. Tornar a llançar l'estadística amb altres paràmetres
+costa segons, no una altra passada sobre les dades.
+
+- **ERP**: permutació de clústers espaciotemporals sobre canals × temps
+- **Temps-freqüència**: clústers sobre freqüència × temps × canals *alhora*,
+  perquè un efecte que s'estén a bandes veïnes sigui una troballa, no diverses
+- **Connectivitat**: tests aparellats per enllaç amb FDR (només el triangle
+  superior — comptar una matriu simètrica dues vegades diluiria la correcció),
+  més el Network-Based Statistic (Zalesky et al., 2010) per a subxarxes connexes
+
+---
+
+## 4. La capa d'integritat
+
+Aquesta part no existeix en altres suites d'EEG, i el motiu no és afalagador:
+l'afirmació principal d'aquest projecte — que calibrar el llindar per subjecte
+prediu el comportament — es va provar amb dos datasets públics independents i
+**no es va replicar**. La disciplina necessària per descobrir-ho ara és codi.
+
+`integrity_report` pren una *família* de tests i, en una passada:
+
+1. **Corregeix sobre tota la família**, no per test. Afegir una mètrica
+   exploratòria més apuja el llistó, com ha de ser.
+2. **Marca resultats que depenen d'extrems** — un buit gran Pearson/Spearman
+   significa que el resultat lineal es recolza en uns quants punts.
+3. **Marca resultats que desapareixen sota un confusor** (correlació parcial).
+4. **Marca tests sense potència** i diu quants subjectes caldrien.
+5. **Treu de la família els tests no computables (NaN)** en comptes de deixar
+   que corrompin la resta de valors p corregits — una fallada real, ara una
+   garantia.
+6. Acaba amb `defensible: true/false` i una frase plana.
+
+`defensible: false` és el resultat normal d'una exploració honesta, no un error.
+
+---
+
+## 5. Contra què s'ha comprovat
+
+**135 tests automàtics.** L'enregistrament sintètic que fa servir la majoria té
+veritat de base plantada — alfa occipital, parpelleigs, brunzit de xarxa, un
+canal mort, un canal saturat, respostes N1/P3 — i els tests comproven que cada
+etapa *recupera el que s'ha plantat*, no només que s'executa.
+
+Els mètodes estadístics es proven **en tots dos sentits**: han de trobar un
+efecte plantat al lloc exacte **i no trobar res en soroll aparellat**. Un mòdul
+estadístic validat només amb casos positius no val res.
+
+### Sobre dades públiques reals
+
+**ds006018** (tasca Flanker, 73 subjectes, actiCHamp, 500 Hz), tots 73
+processats sense cap fallada. Tres tests de grup sobre la mateixa execució:
+
+| Test | Resultat |
+|---|---|
+| ERP (canals × temps) | 2 de 18 clústers significatius, p = 0,0005, 0,18–0,80 s, 22 canals centroparietals |
+| Temps-freqüència | 2 de 32 significatius: theta migfrontal 4–18 Hz (p = 0,0010) i desincronització alfa/beta (p = 0,043) |
+| Connectivitat (wPLI theta) | **Res.** Cap enllaç sobreviu FDR en 325 proves; l'NBS troba 3 components candidats, cap de significatiu |
+
+Dos efectes Flanker ja establerts recuperats, 30 de 32 clústers candidats
+rebutjats i un negatiu clar a la tercera anàlisi. Una suite que trobés efecte en
+totes tres no seria creïble.
+
+**BCI Competition IV 2a** (GDF, Graz, imaginació motora) — pipeline complet,
+288 epochs, 72 per classe, sense errors.
+
+---
+
+## 6. Límits
+
+**No és un producte sanitari.** Programari de recerca. No diagnostica, no tracta
+ni prediu cap condició, i no està validat per a cap ús clínic.
+
+**La localització de fonts fa servir un cap plantilla.** fsaverage, no la
+ressonància del subjecte, amb un coregistre de plantilla. L'error de localització
+és de l'ordre d'1–2 cm. Informa els mapes com a basats en plantilla.
+
+**La connectivitat en espai de sensors està contaminada per conducció de
+volum.** Dos elèctrodes propers veuen la mateixa font i mostraran coherència o
+PLV altes sense interacció. Per afirmar interacció, fes servir wPLI o coherència
+imaginària.
+
+**La permutació de clústers localitza poc.** Un clúster significatiu vol dir que
+les condicions difereixen *en algun lloc* de la finestra. Les seves vores no són
+els límits de l'efecte, i un efecte fort s'estén a canals veïns per disseny.
+
+**El Network-Based Statistic depèn del seu llindar.** Fixa'l abans de mirar i
+declara el valor que has fet servir.
+
+**L'etiquetatge automàtic d'ICA és un suggeriment**, no un veredicte.
+
+**La calibració per subjecte del motor no està validada.** Adapta el codificador
+al senyal que té al davant. Es va provar si això millorava un resultat posterior
+amb dos datasets públics independents de paradigmes diferents i no es va
+replicar. No s'afirma res més.
+
+**El backend Akida (neuromòrfic) és un esbós de simulació.** No hi ha placa
+física ni xifres d'energia mesurades.
+
+**No hi ha controladors natius de casc.** L'entrada en viu va pel protocol TCP
+genèric o l'script pont LSL. Connectar-hi un casc i veure'l analitzat en directe
+— l'objectiu original — no està construït.
+
+**El render 3D real necessita un context GPU/OpenGL.** No hi ha alternativa per
+programari.
+
+**No hi ha desfer a la interfície.** El preprocessament edita una còpia en
+memòria; torna a carregar l'enregistrament per començar de zero.
+
+---
+
+## 7. Requisits
+
+**Motor**: Linux x86_64, glibc 2.30 o més nova (2019 — inclou Ubuntu 20.04+,
+Debian 11+, RHEL/Rocky 9+, Fedora 31+, Arch, Mint 20+). Les úniques dependències
+dinàmiques són biblioteques del sistema; OpenGL es carrega sota demanda, de
+manera que també funciona en un servidor sense pantalla.
+
+**Capa d'anàlisi**: Python 3.10+. Extres opcionals afegeixen la interfície
+d'escriptori (PySide6) i el render 3D real (PyVista/VTK).
+
+Construït sobre MNE-Python (BSD-3-Clause), NumPy, SciPy, scikit-learn,
+matplotlib i mne-connectivity.
+
+---
+
+## 8. Estat
+
+El motor, la capa d'anàlisi, l'estadística i la interfície funcionen i estan
+comprovats. Falta la paperassa — una llicència de debò, una via de pagament, un
+contacte de suport — i la funció que era el punt de l'exercici: connectar-hi un
+casc i veure'l analitzat en directe, sense un script pont pel mig.

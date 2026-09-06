@@ -37,20 +37,28 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/en" element={<Home />} />
+        <Route path="/ca" element={<Home />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/en/home" element={<Navigate to="/en" replace />} />
+        <Route path="/ca/home" element={<Navigate to="/ca" replace />} />
         <Route path="/about" element={<About language="es" />} />
         <Route path="/en/about" element={<About language="en" />} />
+        <Route path="/ca/about" element={<About language="ca" />} />
         <Route path="/contact" element={<Contact language="es" />} />
         <Route path="/en/contact" element={<Contact language="en" />} />
+        <Route path="/ca/contact" element={<Contact language="ca" />} />
         <Route path="/docs/prisma/social" element={<Navigate to="/docs/prisma/resumen" replace />} />
         <Route path="/docs/prisma/overview" element={<Navigate to="/docs/prisma/resumen" replace />} />
         <Route path="/docs/prisma/technical" element={<Navigate to="/docs/prisma/tecnico" replace />} />
         <Route path="/en/docs/prisma/social" element={<Navigate to="/en/docs/prisma/resumen" replace />} />
         <Route path="/en/docs/prisma/overview" element={<Navigate to="/en/docs/prisma/resumen" replace />} />
         <Route path="/en/docs/prisma/technical" element={<Navigate to="/en/docs/prisma/tecnico" replace />} />
+        <Route path="/ca/docs/prisma/social" element={<Navigate to="/ca/docs/prisma/resumen" replace />} />
+        <Route path="/ca/docs/prisma/overview" element={<Navigate to="/ca/docs/prisma/resumen" replace />} />
+        <Route path="/ca/docs/prisma/technical" element={<Navigate to="/ca/docs/prisma/tecnico" replace />} />
         <Route path="/docs/*" element={<Docs language="es" />} />
         <Route path="/en/docs/*" element={<Docs language="en" />} />
+        <Route path="/ca/docs/*" element={<Docs language="ca" />} />
         <Route path="/echos" element={<NotFound language="es" />} />
         <Route path="/prisma" element={<NotFound language="es" />} />
         <Route path="/echoai" element={<NotFound language="es" />} />

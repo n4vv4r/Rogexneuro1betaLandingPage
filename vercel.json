@@ -11,6 +11,18 @@
   ],
   "redirects": [
     {
+      "source": "/ca",
+      "has": [{ "type": "host", "value": "docs.rogexlaboratories.com" }],
+      "destination": "https://www.rogexlaboratories.com/ca/docs",
+      "permanent": true
+    },
+    {
+      "source": "/ca/:path*",
+      "has": [{ "type": "host", "value": "docs.rogexlaboratories.com" }],
+      "destination": "https://www.rogexlaboratories.com/ca/docs/:path*",
+      "permanent": true
+    },
+    {
       "source": "/en",
       "has": [{ "type": "host", "value": "docs.rogexlaboratories.com" }],
       "destination": "https://www.rogexlaboratories.com/en/docs",

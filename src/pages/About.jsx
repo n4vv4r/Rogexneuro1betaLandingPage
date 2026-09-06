@@ -13,6 +13,13 @@ const COPY = {
     prisma: "EEG analysis software for research. Real-time engine in Rust. Analysis layer built on MNE-Python. Not a medical device.",
     echoai: "two-clock situated agent. The fast clock sees, remembers, predicts, acts and learns. The slow clock proposes. ECHO-1 is closed: objects, operations, conflict, narration, patterns and transfer across three worlds. Next: autonomous survival and edge robotics.",
   },
+  ca: {
+    intro: "Laboratori de programari de Roger Navarro. 20 anys. Girona, Catalunya.",
+    lines: "Tres línies de treball, totes tres ja en marxa.",
+    echos: "unikernel x86_64 de consola. Versió 2.1.0-honest. Un ELF. Sense Linux. Sense escriptori. SNN al nucli (LIF / Q6). Sonda PCI per a Akida.",
+    prisma: "programari d'anàlisi d'EEG per a recerca. Motor de temps real en Rust. Capa d'anàlisi sobre MNE-Python. No és un producte sanitari.",
+    echoai: "agent situat de dos rellotges. El ràpid veu, recorda, prediu, actua i aprèn. El lent proposa. ECHO-1 està tancat: objectes, operacions, conflicte, narració, patrons i transferència entre tres mons. Següent: supervivència autònoma i robòtica a l'edge.",
+  },
 };
 
 export default function About({ language = "es" }) {

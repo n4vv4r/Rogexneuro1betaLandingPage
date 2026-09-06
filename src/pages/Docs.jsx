@@ -16,6 +16,21 @@ import echoaiRuta from "../content/echoai/ruta.md?raw";
 import echoaiHardware from "../content/echoai/hardware.md?raw";
 import echoaiLimites from "../content/echoai/limites.md?raw";
 import labEco from "../content/lab/ecosistema.md?raw";
+import enEchosQue from "../content/en/echos/que-es.md?raw";
+import enEchosLim from "../content/en/echos/limites.md?raw";
+import enEchosSup from "../content/en/echos/superficie.md?raw";
+import enEchosCmd from "../content/en/echos/comandos.md?raw";
+import enPrismaOv from "../content/en/prisma/overview.md?raw";
+import enPrismaTe from "../content/en/prisma/tecnico.md?raw";
+import enEchoaiQue from "../content/en/echoai/que-es.md?raw";
+import enEchoaiPie from "../content/en/echoai/piezas.md?raw";
+import enEchoaiEcho1 from "../content/en/echoai/echo1.md?raw";
+import enEchoaiResultados from "../content/en/echoai/resultados.md?raw";
+import enEchoaiProceso from "../content/en/echoai/proceso.md?raw";
+import enEchoaiRuta from "../content/en/echoai/ruta.md?raw";
+import enEchoaiHardware from "../content/en/echoai/hardware.md?raw";
+import enEchoaiLimites from "../content/en/echoai/limites.md?raw";
+import enLabEco from "../content/en/lab/ecosistema.md?raw";
 import Echo1Results from "./Echo1Results.jsx";
 
 marked.setOptions({ gfm: true, breaks: false });
@@ -38,9 +53,27 @@ const CATALOG = [
   { group: "PRISMA", id: "prisma/tecnico", title: "Técnico", src: prismaTe },
 ];
 
-function groups() {
+const EN_CATALOG = [
+  { group: "The laboratory", id: "lab/ecosistema", title: "Three lines", src: enLabEco },
+  { group: "echoAI", id: "echoai/que-es", title: "What it is", src: enEchoaiQue },
+  { group: "echoAI", id: "echoai/piezas", title: "Architecture", src: enEchoaiPie },
+  { group: "echoAI", id: "echoai/echo1", title: "ECHO-1", src: enEchoaiEcho1 },
+  { group: "echoAI", id: "echoai/resultados", title: "Results", src: enEchoaiResultados },
+  { group: "echoAI", id: "echoai/proceso", title: "How it was built", src: enEchoaiProceso },
+  { group: "echoAI", id: "echoai/ruta", title: "ECHO-2 → ECHO-3", src: enEchoaiRuta },
+  { group: "echoAI", id: "echoai/hardware", title: "Planned hardware", src: enEchoaiHardware },
+  { group: "echoAI", id: "echoai/limites", title: "Limitations", src: enEchoaiLimites },
+  { group: "echOS", id: "echos/que-es", title: "What it is", src: enEchosQue },
+  { group: "echOS", id: "echos/limites", title: "Limitations", src: enEchosLim },
+  { group: "echOS", id: "echos/superficie", title: "Surface", src: enEchosSup },
+  { group: "echOS", id: "echos/comandos", title: "Commands", src: enEchosCmd },
+  { group: "PRISMA", id: "prisma/resumen", title: "Overview", src: enPrismaOv },
+  { group: "PRISMA", id: "prisma/tecnico", title: "Technical", src: enPrismaTe },
+];
+
+function groups(catalog) {
   const out = [];
-  for (const d of CATALOG) {
+  for (const d of catalog) {
     const last = out[out.length - 1];
     if (!last || last.name !== d.group) out.push({ name: d.group, items: [d] });
     else last.items.push(d);
@@ -48,7 +81,7 @@ function groups() {
   return out;
 }
 
-export default function Docs() {
+export default function Docs({ language = "es" }) {
   const loc = useLocation();
   const nav = useNavigate();
   const [sideOpen, setSideOpen] = useState(() => {
@@ -57,9 +90,11 @@ export default function Docs() {
   });
   const docsHost = typeof window !== "undefined"
     && window.location.hostname === "docs.rogexlaboratories.com";
+  const catalog = language === "en" ? EN_CATALOG : CATALOG;
 
   const slug = useMemo(() => {
     let p = loc.pathname.replace(/\/+$/, "");
+    p = p.replace(/^\/en(?=\/|$)/, "");
     if (!docsHost) p = p.replace(/^\/docs/, "");
     p = p.replace(/^\//, "");
     const alias = {
@@ -68,14 +103,15 @@ export default function Docs() {
       "prisma/technical": "prisma/tecnico",
     };
     if (alias[p]) p = alias[p];
-    return p || CATALOG[0].id;
-  }, [loc.pathname, docsHost]);
+    return p || catalog[0].id;
+  }, [loc.pathname, docsHost, catalog]);
 
-  const doc = CATALOG.find((d) => d.id === slug) || CATALOG[0];
+  const doc = catalog.find((d) => d.id === slug) || catalog[0];
   const html = useMemo(() => marked.parse(doc.src || ""), [doc]);
 
   const open = (id) => {
-    nav(docsHost ? `/${id}` : `/docs/${id}`);
+    const prefix = language === "en" ? "/en" : "";
+    nav(docsHost ? `${prefix}/${id}` : `${prefix}/docs/${id}`);
     if (typeof window !== "undefined"
       && window.matchMedia("(max-width: 860px)").matches) {
       setSideOpen(false);
@@ -93,11 +129,13 @@ export default function Docs() {
             aria-expanded={sideOpen}
             onClick={() => setSideOpen((value) => !value)}
           >
-            {sideOpen ? "Ocultar índice" : "Mostrar índice"}
+            {sideOpen
+              ? language === "en" ? "Hide index" : "Ocultar índice"
+              : language === "en" ? "Show index" : "Mostrar índice"}
           </button>
         </div>
         <aside id="docs-index" className="docs-side" hidden={!sideOpen}>
-          {groups().map((g) => (
+          {groups(catalog).map((g) => (
             <div key={g.name}>
               <h2>{g.name}</h2>
               {g.items.map((d) => (
@@ -114,7 +152,7 @@ export default function Docs() {
           ))}
         </aside>
         {doc.id === "echoai/resultados" ? (
-          <Echo1Results />
+          <Echo1Results language={language} />
         ) : (
           <article
             className="docs-body"

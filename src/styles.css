@@ -65,6 +65,36 @@ button { font-family: inherit; }
   opacity: 0.55;
 }
 
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 2px;
+}
+
+.nav .lang-option {
+  display: inline-grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border: 1px solid #282828;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 1;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.nav .lang-option:hover,
+.nav .lang-option:focus-visible,
+.nav .lang-option.is-current {
+  border-color: #777;
+  opacity: 1;
+  text-decoration: none;
+}
+
+.nav .lang-option.is-current { border-color: #fff; }
+
 .page {
   padding-top: var(--nav-h);
   min-height: 100%;
@@ -756,6 +786,9 @@ button { font-family: inherit; }
     gap: 10px;
   }
   .nav a, .nav .nav-dead { font-size: 12px; }
+  .nav-products { justify-content: flex-end; }
+  .nav-products .nav-dead { display: none; }
+  .nav .lang-option { width: 25px; height: 25px; font-size: 14px; }
   .page, .home { padding-top: 84px; }
   .home {
     grid-template-columns: 1fr;

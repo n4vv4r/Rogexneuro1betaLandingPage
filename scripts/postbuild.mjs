@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PAGES, SITE, abs, imageFor, jsonLd } from "../src/site.js";
+import { alternatePaths } from "../src/i18n.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -18,6 +19,7 @@ function strip(html) {
     .replace(/<meta name="author"[^>]*>/g, "")
     .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, "")
     .replace(/<link rel="canonical"[^>]*>/g, "")
+    .replace(/<link rel="alternate"[^>]*>/g, "")
     .replace(/<link rel="image_src"[^>]*>/g, "")
     .replace(/<meta property="og:[^"]+"[^>]*>/g, "")
     .replace(/<meta name="twitter:[^"]+"[^>]*>/g, "");
@@ -27,6 +29,11 @@ function inject(html, page) {
   const url = abs(page.path);
   const image = imageFor(page);
   const robots = page.noindex ? "noindex, nofollow" : "index, follow";
+  const language = page.lang === "en" ? "en" : "es";
+  const locales = language === "en"
+    ? { current: SITE.localeAlt, alternate: SITE.locale }
+    : { current: SITE.locale, alternate: SITE.localeAlt };
+  const alternate = alternatePaths(page.path);
   html = strip(html);
   const block = `
     <title>${esc(page.title)}</title>
@@ -38,10 +45,14 @@ function inject(html, page) {
     <meta name="author" content="${esc(SITE.author)}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd(page))}</script>
     <link rel="canonical" href="${url}" />
+    <link rel="alternate" hreflang="es" href="${abs(alternate.es)}" />
+    <link rel="alternate" hreflang="en" href="${abs(alternate.en)}" />
+    <link rel="alternate" hreflang="x-default" href="${abs(alternate.es)}" />
     <link rel="image_src" href="${image.url}" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${esc(SITE.name)}" />
-    <meta property="og:locale" content="${SITE.locale}" />
+    <meta property="og:locale" content="${locales.current}" />
+    <meta property="og:locale:alternate" content="${locales.alternate}" />
     <meta property="og:title" content="${esc(page.title)}" />
     <meta property="og:description" content="${esc(page.description)}" />
     <meta property="og:url" content="${url}" />
@@ -59,6 +70,7 @@ function inject(html, page) {
 `;
 
   return html
+    .replace(/<html lang="[^"]*">/, `<html lang="${language}">`)
     .replace(/<title>[\s\S]*?<\/title>/, "")
     .replace(/<meta name="description"[^>]*>/, "")
     .replace(/<meta name="theme-color"[^>]*>/, "")

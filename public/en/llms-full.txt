@@ -1,0 +1,1359 @@
+# RxLabs® — complete text for models
+
+> Roger Navarro's research laboratory in Girona. Real software, measured figures.
+> Source: public documentation. Site: https://www.rogexlaboratories.com/en
+
+---
+
+<!-- src/content/en/lab/ecosistema.md · /en/docs/lab/ecosistema -->
+
+# The laboratory
+
+Rogex Laboratories / RxLabs. An independent laboratory in Girona. Three lines
+of research, with executable code and published limitations.
+
+There is no single binary joining them. They share a method: a small hot path,
+events instead of polling when they add value, bounded memory, and no hardware
+claim for equipment that is not on the bench.
+
+| Line | What it is | Status |
+|---|---|---|
+| **echOS** | An x86_64 console unikernel, one ELF | 2.1.0-honest; boots in QEMU and on bare metal |
+| **PRISMA Engine** | EEG to events, Rust and reproducible analysis | Engine 0.1.0 measured; not a medical device |
+| **echoAI** | Two-clock situated agent | ECHO-1 closed; ECHO-2 in design |
+
+## Where they meet
+
+echOS and echoAI share the **16-byte WSP** contract. They do not share a
+process: echoAI currently runs on a host and is not inside the ISO.
+
+PRISMA and echOS use the vocabulary of a future neuromorphic probe. PRISMA and
+echoAI do not import one another: one analyses a continuous signal; the other
+learns to act in a discrete world.
+
+## echoAI status
+
+ECHO-1 integrates episodic memory, policy, a world model, body, objects,
+operations, bounded language, post-hoc narration, temporal patterns and
+transfer. Its closure reproduces 488 passing tests, one documented expected
+failure, and transfer gains of `+56` and `+72`.
+
+ECHO-2 is planned around object recognition, homeostasis and survival across
+lives. ECHO-3 will move those capabilities to edge robotics: simulation and
+HIL first, then camera, LiDAR and a drone controlled by PX4/Pixhawk.
+
+## Hardware
+
+There is no AKD1000 in the laboratory. Akida appears only as a probe, stub or
+future hardware. If one is added, our own measurements will be published
+instead of figures inherited from a brochure.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/que-es.md · /en/docs/echoai/que-es -->
+
+# echoAI
+
+echoAI is a two-clock situated agent. It is not a chatbot and it is not a
+language model with tools.
+
+The fast clock perceives, remembers, predicts, acts and learns using tables and
+integers. When connected, the slow clock can read language and propose a
+hypothesis. The gate retains the final say, and no cortex proposal becomes a
+fact by itself.
+
+```text
+perceive → remember → predict → act → consequence → learn
+                                      ↑
+                      slow hypothesis, only when requested by ATTEND
+```
+
+## Current status
+
+**ECHO-1 was closed on 5 September 2026.** The canonical suite ends with 488
+passing tests and one explicit `expectedFailure`: WALK-1 without the opt-in
+integer remainder. It is not hidden as green.
+
+ECHO-1 demonstrates that the same animal:
+
+- preserves CAM, Q, T and PatternMemory when crossing between worlds;
+- distinguishes its own changes from changes in the environment;
+- learns to carry an object and open a container;
+- wakes the cortex after a known contradiction, not before it;
+- narrates what happened without allowing the narration to modify the animal;
+- learns a temporal regularity that one-step T cannot represent;
+- gains a causal advantage over new or merely aged controls.
+
+The transfer closure uses three worlds. At the two measured boundaries, the
+transferred animal scores `208 vs 152` (`+56`) and `224 vs 152` (`+72`). The
+aggregate gain is `+128`. No LLM or human labels are involved.
+
+## Three channels that do not mix
+
+| Channel | Question | Where it lives |
+|---|---|---|
+| Representation | What is happening? | 16-byte WSP |
+| Epistemology | Do I know it? | CAM + VERIFY + extract |
+| Control | What should I do? | Q + gate |
+
+CAM records what happened. Q learns what is worth doing. T predicts the result
+of an action. A convincing-sounding sentence changes none of those contracts.
+
+## Figures that can be measured again
+
+| Bench | Result |
+|---|---|
+| Ring, learned policy in the face of danger | `[-12, +5, 0]` |
+| Asking versus not asking | `+80` versus `-80` |
+| ATTEND with the cortex enabled | 36 wakes in 256 turns |
+| SIGN-C, decision the fast clock could not solve | cortex `+16`, fast `0` |
+| TALK-1 | 496/496 clauses; 256/256 records |
+| PATTERN-0 | 80/80 versus T 40/80 |
+| XFER-1 | `+56` and `+72` at independent boundaries |
+| False facts / destroyed slots | `0 / 0` |
+
+The main run keeps the cortex disabled. Qwen3-4B was tested separately, locally
+and quantised, behind the same plug and an output grammar. In SIGN-C it solved
+both canonical examples, 4 of 6 paraphrases the stub could not solve, and
+produced `CortexROI +16`; two wrong non-canonical threat answers remain recorded
+as safety debt rather than hidden.
+
+## What this does and does not mean
+
+This is evidence of memory, control, prediction, composition and transfer in
+synthetic worlds. It is not yet a robot, does not demonstrate visual perception,
+and does not authorise placing a generative model in motor control.
+
+ECHO-2 will take the same contract into autonomous survival and object
+recognition. ECHO-3 will connect it to sensors and a physical body at the edge.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/piezas.md · /en/docs/echoai/piezas -->
+
+# echoAI — architecture
+
+Biological analogies help explain the design, but the code does not pretend to
+be anatomy. Every component has a testable contract.
+
+## WSP — the only bus
+
+A fixed 16-byte packet: source, relation, destination, time, six state integers
+and domain fields. It is the same representation from perception to action.
+There is no second bus for Pattern, the cortex or narration.
+
+## CAM — verified episodes
+
+4,096 slots, with no destructive LRU. VERIFY requires sufficient similarity
+and an extract delivered by the world. A cortex hypothesis is never written as
+a fact. Across every ECHO-1 closure, `destroyed=0` and `false_facts=0`.
+
+## T — one-step model
+
+`T(s,a)` retains the dominant successor, number of observations and conflicts.
+KCC prevents one isolated observation from erasing what was learned. When the
+world contradicts a known prediction, the contradiction can wake ATTEND for the
+next turn.
+
+## PatternMemory — temporal context
+
+PATTERN-0 adds the previous state to the context: `(previous, current, action)`.
+It uses a fixed table, open addressing and integers. A rule is offered only
+when mature and uncontradicted; if no rule exists, prediction falls back to T.
+
+It is disabled by default and shares exactly T's observation channel. In the
+test riff it obtains 80/80 predictions against T's 40/80.
+
+## Q — policy
+
+Q is an `int8` table separate from CAM. The default bench has three actions:
+approach, move away and wait. OPEN-1 demonstrates that a world may opt into a
+fourth action, open, without changing the ring contract.
+
+Learning uses integer consequences. The division remainder that lets credit
+travel farther is opt-in; WALK-1 without that remainder stays red and documented.
+
+## Body and world
+
+The agent is not its map. BODY-1 introduced pose and orientation; SELF-1
+separated displacement produced by the motor from displacement produced by the
+ground. ROOM-1 added external frames without consuming the WSP `domain` field.
+
+OBJ-1 and OPEN-1 distinguish being in a place, carrying an object and executing
+the physical operation required to deliver it.
+
+## Gate — control and veto
+
+Every proposal ends in `OK`, `MODIFY` or `BLOCK`. The gate can turn waiting into
+avoidance in the face of a threat, or block an action. The cortex proposes; the
+gate decides; a physical autopilot will also retain its own failsafes.
+
+## ATTEND and cortex
+
+ATTEND decides when the slow clock is worth spending: novelty, missing extract,
+low confidence, unknown map or confirmed contradiction. The cortex receives a
+serialised turn and returns a valid WSP or silence. Free prose is rejected.
+
+SIGN-C demonstrated the correct causal latency: the world contradicts T, the
+animal wakes once for `conflict`, and the proposal is consumed on the following
+turn. The consumption record already shows attention as off.
+
+## TALK — post-hoc narration
+
+TALK-1 translates the log after the scene. It reads, validates and narrates, but
+does not import the animal or open write paths. Its independent auditor compares
+all sixteen clauses in every subtitle with the original record.
+
+## Instrumentation
+
+The web board renders the turn log and can follow it live through local polling.
+It is observability, never a control input. The home-page GIF comes from a real
+run.
+
+## Future hardware
+
+Today echoAI runs on a host and there is no AKD1000 in the laboratory. A future
+neuromorphic accelerator would be treated as a perceptual coprocessor or bounded
+head, never as VERIFY, sovereign memory or pilot.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/echo1.md · /en/docs/echoai/echo1 -->
+
+# ECHO-1 — closure
+
+ECHO-1 is the animal's first complete integration. It is not a single score:
+it is a chain of capabilities in which every step preserves the earlier locks.
+
+```text
+SELF-1 → ROOM-1 → GUI-3 → GUI-3.5 → OBJ-1 → OPEN-1
+       → SIGN-C → TALK-1 → PATTERN-0 → XFER-1
+```
+
+## Situated foundation
+
+Before ECHO-1, the learning ring, external query, ATTEND, the T model, gate, 2D
+body, integer credit, 3D cube and attribution between self-motion and world
+motion were closed.
+
+The main bench continues to work without a cortex and without neuromorphic
+hardware. Its locks remain a 16-byte WSP, 4,096-slot CAM, three default actions,
+`destroyed=0`, `false_facts=0` and zero cortex calls.
+
+## Capability chain
+
+| Slice | What it added | Closure evidence |
+|---|---|---|
+| SELF-1 | self versus world motion | motor offset 1 versus 0; T 56 versus 46 |
+| ROOM-1 | two rooms and external frame | 324 sites, 162 packets, transfer 64 versus 0 |
+| GUI-3.5 | 3D volume and live log | 27 positions × 6 orientations; `--live` does not stop the animal |
+| OBJ-1b | carrying X to Y | 51 deliveries; control 0; dropping the object earns nothing |
+| OPEN-1 | new physical operation | 46 deliveries, 47 openings; three-action control 0 |
+| SIGN-C | known contradiction wakes language | one call; proposal on next turn; ROI `+16` |
+| TALK-1c | independent post-hoc narration | 496/496 clauses; 256/256 records; zero causal writes |
+| PATTERN-0b | contextual regularity | 80/80 versus T 40/80; frozen exam |
+| XFER-1d | same animal in three worlds | gains `+56` and `+72`; aggregate `+128` |
+
+## SIGN-C and the local model
+
+The contradiction only exists after acting: T predicts one successor and the
+world delivers another. The origin had a known prediction, sufficient policy
+margin and a real sign; a one-turn latch is then armed. The proposal is consumed
+on the next turn without claiming that attention remains on.
+
+The deterministic stub proves the connection in CI. A separate run with
+Qwen3-4B-Instruct Q4_K_M, served locally, produced:
+
+```text
+8 calls · 0 rejections · 6/8 correct responses
+4/6 paraphrases versus the stub's 0/6
+both canonical cases correct · CortexROI +16 · false_facts 0
+```
+
+The action-specific grammar allows `UNIR`, `TEMER`, `OBSERVAR` or `NONE`, always
+as a local relation. The general grammar remains intact. Both wrong
+non-canonical threat answers remain visible in the report.
+
+## PATTERN-0
+
+T can only retain one answer for `(state, action)`. The riff needs to know where
+the body came from:
+
+```text
+... B → A → C → A → B → A → C → A ...
+```
+
+PatternMemory uses `(previous, current, action)` and predicts both successors of
+A. The exam contains four independent rotations, does not learn during testing,
+and keeps unknowns in the denominator. The control without context collapses
+exactly onto T.
+
+## XFER-1
+
+One Agent object preserves the same CAM, Q, T and PatternMemory instances while
+crossing three different physics. At every boundary it is compared with a new
+animal and another animal that has lived for the same number of turns without
+receiving the useful regularity.
+
+| Boundary | Transferred | New | Gain | Age control |
+|---|---:|---:|---:|---:|
+| B | 208 | 152 | +56 | 152 → +0 |
+| C | 224 | 152 | +72 | 152 → +0 |
+
+Before walking in the new world, transferred memory resolves 96/96 contexts;
+new and aged memories declare 96 unknowns. The ablation uses the same CAM to
+isolate PatternMemory: trained 96, empty 0, zero writes.
+
+XFER-1 went through four rounds of certificate hardening. The final gate
+recomputes protocols, walks, denominators, ablation and channel from the rows;
+it does not trust summaries written by the report itself. The report contains
+51 required mutants, all killed.
+
+## Reproducible closure
+
+```bash
+cd /path/to/repo/RXos
+PYTHONPATH=. python3 -m echoai.nexus0.xfer1
+PYTHONPATH=. python3 -m echoai.tests.test_nexus0
+```
+
+Audited result: `xfer1 rc=0`, `green=true`, 488 passing tests and one documented
+expected failure.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/resultados.md · /en/docs/echoai/resultados -->
+
+# ECHO-1 — results
+
+This page turns the closure reports into a visual reading of the agent. It is a
+**deterministic canonical acceptance benchmark**: it measures capabilities and
+causal controls, does not compare echoAI with an LLM, and does not yet
+demonstrate a physical robot.
+
+## Minimal legend
+
+| Term | Meaning |
+|---|---|
+| WSP | shared 16-byte packet representing what was perceived |
+| CAM | episodic memory; retains what happened with verifiable evidence |
+| Q | table scoring approach, avoid and wait in each state |
+| T | model predicting the next state for an action |
+| PatternMemory | additional context when a one-step transition is ambiguous |
+| gate | final gate that accepts, modifies or blocks a proposal |
+| ATTEND | condition that may wake the slow clock |
+| cortex | optional slow clock; proposes, never directly controls the body |
+| δ | difference between the expected and observed consequence |
+| scratch | control starting from zero under the same protocol |
+| held-out | frozen exam whose cases are not used for learning |
+| ROI | additional reward over the control in the same window |
+
+## Main figures
+
+- The policy in the face of danger changes from `[0,0,0]` to `[-12,+5,0]`
+  for approach, avoid and wait.
+- T reaches 99.68% over 312 turns with a known prediction.
+- PATTERN-0 goes from 40/80 with T to 80/80 with context: +40 correct answers.
+- XFER-1 scores 208 versus 152 in B and 224 versus 152 in C: an aggregate
+  gain of +128.
+- SIGN-C produces one conflict call and +16 against the control's 0.
+- TALK-1 preserves 496/496 clauses and makes no causal writes to the agent.
+- Integrity: `false_facts=0`, `destroyed=0` and zero cortical calls in the
+  main bench.
+
+The web version includes line and bar charts, a decision-cycle diagram and a
+player for all 352 turns of the canonical trace. The data can be downloaded as
+JSON and includes the SHA-256 fingerprints of its source reports.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/proceso.md · /en/docs/echoai/proceso -->
+
+# How it was built
+
+echoAI is developed at RxLabs as an experimental engineering programme: every
+advance begins with a bounded claim, includes a causal control, produces its own
+evidence and ends at a gate that must be able to say no.
+
+## Direction and traceability
+
+Roger Navarro directs the product and its architecture, establishes the
+invariants, operates the laboratory and accepts or rejects each phase. Technical
+evolution is traced through specifications, code, tests, reports and
+reproducible commits.
+
+Auxiliary tools from the internal process are not part of the published
+evidence. Public claims rest solely on system behaviour, controls and
+reproducible results.
+
+## The work cycle
+
+```text
+objective → invariant → causal hypothesis → bounded specification
+          → implementation → bench and controls → counterexample
+          → harden or reject → next increment
+```
+
+Every increment has one primary KPI. An experiment may not be repaired by
+moving the reward, hard-coding a world's name or weakening a condition after
+seeing the result.
+
+## Green does not mean “the script finished”
+
+A green report is valuable only if its predicate can disagree with it. Review
+therefore tries to construct contradictory certificates:
+
+- summary counters that do not match their rows;
+- three controls that agree with one another but are all configured incorrectly;
+- gate actions wrongly credited to the cortex;
+- unknowns removed from the denominator;
+- an ablation that also changes perception and no longer isolates memory;
+- future live mutants hidden by a closed list;
+- narration that shares tables with its own auditor.
+
+TALK-1 needed three closures and XFER-1 four. The causal figures did not change;
+the evidence was hardened until those false greens could no longer pass.
+
+## Regular controls
+
+1. **Transfer versus scratch.** Same protocol, different experience.
+2. **Age control.** Same number of turns, without the regularity being measured.
+3. **Perceptually matched ablation.** Change one memory, not the input.
+4. **Frozen held-out set.** The exam never calls `observe()`.
+5. **Mutation.** Every lock must kill at least one alteration that might
+   otherwise have passed.
+6. **Regression.** The ring and previous reports retain their figures.
+
+## Architectural discipline
+
+- A single 16-byte WSP bus.
+- CAM, Q and T are different structures.
+- No floating point in the fast decision path.
+- The cortex is disabled by default and only proposes.
+- A hypothesis is never written as a fact.
+- Narration happens afterwards and does not return to the animal.
+- A new world changes physics, not agent code.
+- Absent hardware is declared absent.
+
+## Reproducibility
+
+Every phase writes a separate report under `echoai/lab/`. Canonical benches do
+not require a network, model weights or a board. Runs with Qwen are retained as
+operator reports and do not replace the deterministic suite.
+
+The published ECHO-1 state corresponds to 488 passing tests, one known
+`expectedFailure`, and green ROOM-1, OBJ-1, OPEN-1, SIGN-C, TALK-1, PATTERN-0
+and XFER-1 reports.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/ruta.md · /en/docs/echoai/ruta -->
+
+# Roadmap — ECHO-2 and ECHO-3
+
+ECHO-1 is closed. What follows is not about making the map larger or letting an
+LLM drive. The business objective is autonomous edge robotics, with drones as
+the primary platform.
+
+Every item on this page is a **plan** until its bench, report and closure exist.
+
+## ECHO-2 — an animal that maintains viability
+
+ECHO-2 will remain in controlled simulation. It will add internal needs, object
+identity and complete lives without breaking the integer fast path.
+
+| Slice | Question it must close |
+|---|---|
+| VITA-1 | Does a homeostatic state `H` live in the Agent, fall over time and end an episode at zero? |
+| PATTERN-1 | Does it recognise the same object or category across different observations, positions and contexts without using its id as the answer? |
+| FOOD-1 | Does it discover through consequences which object restores `H` and which reduces it, without `if hungry: eat`? |
+| SURV-1 | Does experience retained across lives increase median survival versus resetting Q/T/CAM? |
+| SHIFT-S | Does it adapt when risks or resources change without manually clearing memory? |
+| STREAM-1 | Does it operate through a long stream with external frames and measured aliasing? |
+| SLEEP-2 | Does it consolidate episodes into rules without destroying CAM or calling the cortex? |
+| GEN-1 | Does an inheritable integer reduce learning time without copying Q into the descendant? |
+| HEAT-1 | Does a second need create a real trade-off after survival is closed with one? |
+
+### Survival is not a reward for remaining alive
+
+`H` will be a viability constraint, not `reward += 1`. Reward will continue to
+teach local policy; `H` will decide whether a next turn exists. Death will end a
+life and reset body and homeostasis, while the experiment compares retaining
+memory with erasing it.
+
+PATTERN-1 is the gate towards real objects: it must first demonstrate identity
+and category without pixels or noisy sensors. ECHO-3 will connect that capability
+to physical observations.
+
+## ECHO-3 — perception and physical body
+
+ECHO-3 will move the agent onto a drone companion computer. The autopilot will
+retain stabilisation, attitude control and failsafes; echoAI will select goals
+and high-level actions through the gate.
+
+| Slice | Expected result |
+|---|---|
+| SIM-3 | the same mission in simulation, software-in-the-loop and hardware-in-the-loop |
+| SENSOR-1 | stereo camera, IMU and LiDAR synchronised with timestamps and explicit faults |
+| GROUND-1 | convert physical observations into WSP states without opening a second bus |
+| PATTERN-1R | associate views and 3D clusters with the same object learned in ECHO-2 |
+| FUSION-1 | camera and LiDAR provide independent evidence; disagreement reduces confidence |
+| DYNAMIC-1 | detect moving objects and predict short-term trajectories |
+| POWER-1 | measure watts and energy per mission; wake heavy compute only when it adds value |
+| SAFE-1 | disconnections, frozen sensors and wrong proposals cannot bypass the gate or autopilot |
+| DRONE-3 | complete mission in a cage and controlled environment: inspect, avoid, return and land |
+
+### Role of Akida, if it reaches the laboratory
+
+An AKD1000 could act as sparse always-on perception: region classification,
+novelty, movement or point-cloud prefiltering. Its output would be integer
+identifiers and confidence values entering through the existing sensor adapter.
+
+It would not be the complete brain, would not write CAM, would not decide VERIFY
+and would not command motors. Jetson would retain complex fusion,
+instrumentation and development models; Pixhawk would retain flight control.
+
+Before attributing a capability to it, a real driver, a model compiled for
+AKD1000 and our own power and latency measurements would be required.
+Capabilities published for later Akida generations will not automatically be
+attributed to AKD1000.
+
+## Target demonstration
+
+A drone takes off in a controlled environment, inspects a route, recognises
+persistent objects, detects that a learned passage has changed, avoids a moving
+obstacle, decides to return based on available energy, and lands in an
+alternative area. All critical control remains local and no cloud connection is
+required.
+
+The demo will only be green if it also survives loss of camera, loss of LiDAR,
+companion-computer restart, incorrect neural output and complete removal of the
+optional accelerator.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/hardware.md · /en/docs/echoai/hardware -->
+
+# Planned hardware
+
+This is the proposed development platform for moving towards ECHO-3. It is not
+an inventory of the laboratory: unless stated otherwise, these are candidate
+purchases.
+
+## Test ladder
+
+### 1. Bench and small drone
+
+- [**Crazyflie 2.1 Brushless**](https://store.bitcraze.io/products/crazyflie-2-1-brushless)
+  with a [Flow Deck](https://store.bitcraze.io/products/flow-deck-v2) for low-risk
+  indoor experiments and basic position control.
+- Propellers, batteries, charger, spares and a safety cage or net.
+- USB-C power meter and independent logger.
+
+Its job is to validate messages, latency, watchdog and link loss. It is not
+expected to carry the final sensor stack.
+
+### 2. Integration platform
+
+- [**Holybro X500 V2**](https://holybro.com/products/px4-development-kit-x500-v2)
+  with **Pixhawk 6C** and M10 GPS as an open body for PX4 development.
+- **RadioMaster TX16S** and an ELRS receiver for manual control and aborts.
+- Physical kill switch, independent telemetry, batteries and balanced charger.
+
+Pixhawk stabilises the aircraft and retains the failsafes. echoAI runs as
+high-level logic on a companion computer and never replaces hard flight control.
+
+### 3. Compute and vision
+
+- [**Jetson Orin Nano Super Developer Kit**](https://developer.nvidia.com/embedded/jetson-orin-nano-super-developer-kit)
+  for fusion, development models, logs and ROS 2/PX4.
+- [**Luxonis OAK-D Pro with OV9782 and fixed focus**](https://shop.luxonis.com/products/oak-d-pro)
+  for RGB, stereo, depth and IMU; global shutter is preferable under motion and
+  vibration.
+- NVMe storage, cooling, regulated DC converters and short cables.
+
+The Jetson kit is for development; it is not automatically assumed to be
+production hardware.
+
+### 4. Range and geometry
+
+- **Benewake TFmini-S** as an economical rangefinder for early altitude or
+  forward-distance tests.
+- [**Livox Mid-360**](https://www.livoxtech.com/mid-360/specs) for ECHO-3: a 3D
+  point cloud, 360° horizontal field of view and integrated IMU.
+
+LiDAR does not replace the camera: geometry and appearance must be able to fail
+independently and contradict one another.
+
+### 5. Optional neuromorphic hardware
+
+- [**BrainChip AKD1000**](https://brainchip.com/dev-tools/) over PCIe or M.2,
+  only if the hardware, a compatible driver and a reproducible toolchain are
+  available.
+
+Its first bench would compare always-on perception against CPU/Jetson on the
+same dataset: accuracy, P99 latency, real power and degradation when removed.
+Brochure TOPS will not substitute for those measurements.
+
+## Recommended purchase order
+
+1. Safety equipment, radio, batteries and Crazyflie.
+2. Jetson and OAK-D to build the pipeline on a bench.
+3. X500/Pixhawk for SITL, HIL and cage testing.
+4. TFmini-S for early range integration.
+5. Mid-360 once SENSOR-1 and SAFE-1 have a bench.
+6. AKD1000 when a small perceptual task exists that can be compared against a
+   baseline and does not block the roadmap.
+
+## Condition of use
+
+No new component connects directly to motors. The route is always:
+
+```text
+sensor → adapter → WSP state → memory/prediction → gate
+       → high-level command → autopilot → actuators
+```
+
+Simulation first, then hardware-in-the-loop, then a cage, and only finally an
+authorised outdoor environment.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/limites.md · /en/docs/echoai/limites -->
+
+# echoAI — limitations
+
+The laboratory's policy is to separate results, plans and hypotheses.
+
+## What ECHO-1 does not demonstrate
+
+- It is not general intelligence or an artificial person.
+- It does not recognise objects in real images.
+- It does not perform SLAM, flight control or certified navigation.
+- It does not yet operate with noise, wind, physical latency or incomplete sensors.
+- It does not demonstrate autonomous survival; that belongs to ECHO-2.
+- It does not contain an AKD1000 or another physical NPU.
+- It does not turn performance in a synthetic world into a robotics safety claim.
+
+## Visible debt
+
+WALK-1 without an integer remainder does not propagate value all the way to the
+goal and remains an `expectedFailure`. The opt-in CREDIT-1 variant does walk,
+but the default algorithm was not changed.
+
+The local Qwen solved SIGN-C's canonical examples and beat the stub on
+paraphrases, but selected `approach` for two non-canonical threats and received
+`-16`. This demonstrates why its output is a proposal rather than a safe order.
+
+CAM has 4,096 slots and does not use LRU. Current worlds are still small;
+SLEEP-2 will only be justified once measured memory pressure exists.
+
+## Conditions for robotics
+
+Before flying, ECHO-3 must demonstrate:
+
+- deadlines and P99 latency under load;
+- sensor synchronisation and expiry;
+- watchdog, return and landing after loss of the companion computer;
+- independent veto under contradictory observations;
+- battery, mass, temperature and vibration limits;
+- a reproducible log of every decision;
+- simulation, HIL and cage tests before open-field operation;
+- compliance with applicable regulations and emergency human operation.
+
+A neural model, an LLM or an NPU will not be the only barrier against a
+collision. The autopilot and safety mechanisms remain separate.
+
+## Akida
+
+There is no AKD1000 in the laboratory. Manufacturer power or learning figures
+are not RxLabs results. If a board arrives, compatibility, exact model,
+toolchain, measured power and a comparison against CPU/Jetson will be published
+before any advantage is claimed.
+
+## Status vocabulary
+
+- **Fact:** a reproducible report and a green gate exist.
+- **Measured red:** the experiment runs and does not reach its KPI.
+- **Plan:** proposed order; not yet a capability.
+- **Absent:** does not exist in the laboratory.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echos/que-es.md · /en/docs/echos/que-es -->
+
+# echOS
+
+An x86_64 console unikernel. One ELF. GRUB Multiboot2. There is no Linux
+underneath. No BusyBox. No systemd. The machine *is* the program.
+
+It is not a commercial operating system. It is not a browser. It is designed
+for neuromorphic software and robotics.
+
+> Console unikernel. Neuromorphic software. Akida when a board exists.
+
+## In one sentence
+
+A JetBrains / Liberation Mono console over a framebuffer (or VGA text), with
+ROSH, local `epk`, an IPv4/DNS/TCP/HTTP stack, and an in-kernel event fabric / SNN
+— no window, no dock, and no pretending about the hardware.
+
+## What it is not
+
+- It is not a desktop.
+- It is not Alpine, OpenBSD, Haiku or embedded Linux.
+- It is not a product for browsing the internet. `curl` downloads bytes.
+- There is no Echo AI in this ISO.
+
+## Components that matter
+
+| Component | What it is |
+|---|---|
+| Heap-0 | Static layout in BSS. A 512 KiB `kmalloc` still exists and is disclosed. |
+| RXFS | Native FS, 64 files × 64 KiB. |
+| `epk` | Notes in RXFS. `epk list` = what the kernel has. `--lab` = host. |
+| LIVE | Boots into RAM. Minimal. |
+| SNN | Q6 cube of 64 LIF cells, synthetic `prisma5`, `bench-snn`. |
+| Akida | PCI probe `1e7c:bca1`. Without a board = software LIF. |
+
+## Honest surface
+
+A stranger can boot LIVE, type `help` and cannot accuse it of theatre.
+`rcctl start` does not pretend to start a daemon. `doas` does not isolate.
+`pfctl` does not filter. `tcc` / `python` / `sshd` are not in Tab completion.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echos/limites.md · /en/docs/echos/limites -->
+
+# Limitations — what I do not do
+
+Laboratory policy: if it is not there, say so.
+
+## Hardware
+
+| Item | Status |
+|---|---|
+| Wi-Fi | no. PCI is listed. Zero drivers. |
+| NVMe | class `01:08` in `hwprobe`. No driver. SATA AHCI / IDE / virtio-blk do work. |
+| Native UEFI | no. BIOS/CSM / SeaBIOS. |
+| USB HID | not as log input. PS/2 keyboard and mouse. |
+| Audio | no. |
+| GPU acceleration | no. LFB. |
+| Akida | PCI probe. Without a board = software LIF. No BrainChip blob. |
+| Loihi | outside 2.1. Zero interfaces. |
+| ARM64 kernel | the Universal ISO ELF is x86_64. |
+
+## Software
+
+| Item | Status |
+|---|---|
+| Multiprocess / ring 3 | sketch. One task. |
+| POSIX | no. Command aliases, not glibc. |
+| TLS 1.3 application data | the handshake works; HTTPS GET may return an empty body. HTTP works. |
+| CA pinning | no. |
+| IPv6 | no. |
+| Several simultaneous TCP connections | no. |
+| real sshd/httpd/ftpd | `rcctl` flags. No daemons. |
+| `doas` isolation | no. One memory map. |
+| RXFS | 64 × 64 KiB. |
+| Compilers in LIVE | absent. `epk list --lab` = host notes. |
+| Browser / JS | no. `curl` downloads bytes. |
+| LIVE persistence | no, intentionally. |
+| Commercial use as a general OS | no. Laboratory / robotics / SNN. |
+
+## Heap-0
+
+The contract is **not** satisfied throughout the kernel. `kmalloc` exists.
+
+## What I do sign
+
+- The boot banner does not print `OK` if that stage was not verified.
+- It does not pretend that a NIC, NPU or daemon exists.
+- `command not found` is not the same as “not installed”.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echos/superficie.md · /en/docs/echos/superficie -->
+
+# Public surface — echOS
+
+Every name in `help` / `epk list` / `man` carries a label:
+
+- **REAL** — the unikernel performs that work.
+- **NOTE** — the name exists; the work is a flag, dump or forwarding action.
+- **ABSENT** — outside Tab completion and `help`.
+
+## Commands
+
+| Command | Label | What it does |
+|---------|-------|--------------|
+| help about status mem uptime power bench devices env | REAL | kernel / benchmark |
+| clear reboot halt | REAL | console / reset |
+| ls cd pwd cat write rm cp mv mkdir rmdir tree | REAL | RXFS |
+| head tail less grep find du df nano history | REAL | RXFS |
+| date tz kbd termtheme | REAL | clock, map, palette |
+| man apropos | REAL | embedded pages |
+| echofetch hwprobe live whoami uname hostname echo | REAL | identity / PCI |
+| www curl wget dns tls ping nics ipconf trace nmap | REAL | IPv4; HTTPS may return an empty body |
+| wired chat say | REAL | L2 0x88B5 |
+| epk echos-install install save load format partition | REAL | RXFS notes / disk |
+| gpt | NOTE | GPT writer without valid CRC32 |
+| doas | NOTE | one address space; no isolation |
+| rcctl | NOTE | flags; no daemons |
+| pfctl | NOTE | RAM boolean; does not filter |
+| neuro neurocpu prisma5 bench-snn | REAL | in-kernel SNN; Akida = PCI probe |
+
+## `epk list` (public)
+
+echos-base, echos-shell, echofetch, echos-diag, echos-net, echos-npu,
+echos-io, echos-akida.
+
+`epk install` writes text into RXFS, not an ELF.
+
+## `epk list --lab`
+
+Host notes: tcc, python, rustc, httpd, sshd, … They do not start a process.
+
+## Absent
+
+tcc / python / git in the unikernel, real sshd/httpd, navi/echo in the OS,
+browser, loihi, htop/tmux, Wi-Fi, NVMe controller, UEFI.
+
+---
+
+<!-- src/content/en/echos/comandos.md · /en/docs/echos/comandos -->
+
+# Commands
+
+The live list is in `CMD_NAMES`. Tab reads it. For flags: `man <cmd>`.
+
+## Orientation
+
+```text
+help            short list
+man / manual    pages
+apropos / man -k
+echofetch       card + logo
+about / status / live
+```
+
+## System
+
+```text
+mem [map]       Heap-0 / PMM
+uptime
+date / time     date set YYYY-MM-DD HH:MM:SS
+uname / hostname
+whoami / id
+echo
+env [K] [V]
+power [s]       RAPL if the CPU is Intel and does not #GP
+reboot / halt
+clear / cls
+doas <cmd>      one address space; does not isolate
+```
+
+## Files
+
+```text
+ls cd pwd cat write rm cp mv mkdir rmdir tree
+head tail less grep find
+nano history
+```
+
+## Disk
+
+```text
+df du
+partition cfdisk gpt disklabel
+format <dev> yes
+install / reinstall / echos-install
+save / load
+```
+
+## Network
+
+```text
+www on|off|status
+curl / wdl / wget
+ipconf  nics  dns  tls  ping  traceroute  nmap
+wired / chat / say
+```
+
+There is no browser. `curl` downloads bytes.
+
+## Packages
+
+```text
+epk list | list --lab | info | install | remove | apply
+```
+
+`epk list` is kernel notes. `epk list --lab` is host notes.
+
+## Neuromorphic
+
+```text
+hwprobe
+bench / bench-snn
+prisma5 [alpha|null|stress]    # synthetic drive for the Q6 cube
+neuro / neurocpu [software|akida]
+```
+
+## OpenBSD style
+
+```text
+rcctl enable|disable|status|start|stop   # flags; no daemons
+pfctl -e|-d|-f|-s|-sr                    # RAM boolean; does not filter
+```
+
+— R.N.
+
+---
+
+<!-- src/content/en/prisma/overview.md · /en/docs/prisma/resumen -->
+
+# PRISMA
+
+**EEG analysis software. Research use — not a medical device.**
+
+---
+
+## In one sentence
+
+PRISMA opens an EEG recording, cleans it, analyses it and tells you whether what
+you found **survives serious scrutiny**.
+
+---
+
+## Who it is for
+
+- People recording EEG who do not want to write code just to inspect it
+- People already using MNE-Python or EEGLAB who want a reproducible workflow on top
+- People teaching electrophysiology who need students to see the signal, not a script
+- People building BCI or neurofeedback who need real-time processing
+
+---
+
+## What it does
+
+**Opens almost anything.** BrainVision, EDF/EDF+, BioSemi BDF, GDF, Neuroscan
+CNT, EEGLAB and FIF. Drag in a file and see what is inside: channels, sampling
+rate, markers, and the decisions the reader had to make on its own.
+
+**Cleans the signal and explains itself.** Filters, re-referencing and bad-channel
+detection **across the whole session** — including *why* each channel was marked.
+ICA removes blinks and muscle activity, with labels and warnings: muscle
+components are marked but not removed unless you ask.
+
+**Analyses.** ERP, power spectrum, time-frequency, functional connectivity and
+source localisation with a 3D brain view.
+
+**Repeats the work for you.** Write the steps once in a file and apply them in
+the same way to one subject or 73. Every run records which version of which
+program did what, with which parameters: a year later, you can reconstruct
+exactly how you went from A to B.
+
+**And something almost nobody does: it tells you when you have NOTHING.**
+
+---
+
+## What genuinely makes it different
+
+Any program can calculate a p-value. PRISMA answers the difficult question:
+**would this survive review?**
+
+When you request several comparisons, PRISMA corrects them **as one family** —
+not one by one. Add another exploratory metric and the threshold rises, as it
+should. It also flags separately:
+
+- Whether the result depends on **a few extreme points**
+- Whether it **disappears** after controlling an obvious confounder
+- Whether the sample **never had enough power** to detect it, and how many
+  subjects would be needed
+
+It ends with a clear sentence and a verdict: **defensible, yes or no**.
+
+**Why this exists.** The main hypothesis behind this project — that calibrating
+the threshold per subject predicted behaviour — was tested against two
+independent public datasets and **did not replicate**. Instead of hiding that,
+the discipline required to discover it became part of the product.
+
+`defensible: no` is the **normal** result of honest exploration. It is not a
+program error.
+
+---
+
+## How we know it works
+
+With real public data, not prepared demos.
+
+On **ds006018** (Flanker task, 73 subjects), all 73 were processed without a
+single failure. PRISMA recovered **two effects already established in the
+literature**: the conflict ERP response and midfrontal theta. It correctly
+discarded 30 of 32 candidate clusters. In the third analysis, connectivity, it
+said clearly: **there is nothing here**.
+
+Not finding an effect in all three analyses is precisely what makes it credible.
+
+---
+
+## The two halves
+
+**PRISMA** — the desktop application and analysis layer. Six panels: Session,
+Signal, Preprocessing, Analysis, Group and Limitations. Light and dark themes.
+
+**PRISMA ENGINE** — a real-time engine written in Rust, with **1.8 microseconds**
+mean latency and zero memory allocations on the critical path. Instead of
+analysing fixed windows, it converts the signal into impulses and processes it
+event by event. It is a single binary with nothing to install.
+
+They can be used together or separately.
+
+---
+
+## What it does NOT do
+
+This is written into the application itself, in a panel called **Limitations**,
+because a tool that lists only its virtues is not honest:
+
+- **It is not a medical device.** It neither diagnoses nor predicts anything.
+- **Source localisation uses a template head**, not the subject's MRI: expect
+  1–2 cm of error.
+- **Connectivity between electrodes is contaminated** by volume conduction.
+  Use the included robust measures before claiming interaction.
+- **A significant cluster does not localise precisely.** Its edges are not the
+  boundaries of the effect.
+- **Automatic ICA labelling is a suggestion**, not a verdict.
+- **You still cannot plug in a headset and watch it live** without a bridge
+  script. That was the original objective and is not yet built.
+
+---
+
+## Requirements
+
+64-bit Linux (practically any distribution since 2020). The engine requires no
+installation. The analysis layer requires Python 3.10 or newer.
+
+Built on MNE-Python, the standard library in the electrophysiology community.
+
+---
+
+## Status
+
+**Not yet for sale.** The software works and is tested; what remains is the
+paperwork — licence, payment method and support contact — plus the function that
+was the original goal: connecting a headset and seeing it analysed live.
+
+---
+
+<!-- src/content/en/prisma/tecnico.md · /en/docs/prisma/tecnico -->
+
+# PRISMA — technical documentation
+
+**Version 0.1.0 · Linux x86_64 · research software, not a medical device.**
+
+This document describes what the program does, how it does it and where it
+should not be trusted. Every figure was measured on this machine or on public
+data; nothing is estimated or projected. When a feature is thin, or a claim was
+tested and failed, it is stated here.
+
+---
+
+## 1. What it is
+
+Two layers that ship together and can be used separately.
+
+**PRISMA ENGINE** — event-oriented real-time EEG core, written in Rust (~8,100
+lines). Instead of applying FFT to fixed windows, it encodes the signal into
+impulses and processes it event by event.
+
+**PRISMA 5 SNN** — classic analysis and desktop-interface layer, written in
+Python (~5,500 lines) on top of MNE-Python. An offline EEG suite: cleaning, ERP,
+spectrum, connectivity, source localisation, reproducible pipelines and group
+statistics.
+
+They are deliberately separate. The engine does not depend on Python and runs
+on its own; the analysis layer runs without the engine. The bridge is one
+function that sends the cleaned signal to the engine.
+
+---
+
+## 2. How the engine works
+
+```
+signal → delta modulation → LIF (SIMD) → STDP → prediction → telemetry
+```
+
+**Delta modulation.** An impulse is emitted only when the signal moves beyond
+an adaptive threshold θ_adp. A silent channel produces no events: work is
+proportional to how much the signal changes, not to the sampling rate.
+
+**LIF layer.** Leaky integrate-and-fire neurons integrate the impulse stream,
+vectorised with AVX2, and fall back to scalar code if the CPU lacks it.
+
+**STDP.** Spike-timing-dependent plasticity adjusts synaptic weights from
+pre/post order.
+
+**Predictive coding.** The observed rate is compared with an expected rate; a
+large mismatch raises SPEI and marks a *possible artefact* (blink, muscle, a
+cable). It is not a clinical event detector.
+
+### Measured performance
+
+On this machine (`--headless --bench-samples 200000`), 32 channels:
+
+| | |
+|---|---|
+| Mean hot-path latency | **1.81 µs** |
+| Worst observed latency | 43.9 µs (over 200,000 samples) |
+| Throughput | ~183,000 samples/s, one core |
+| Hot-path memory allocations | **zero**, by construction — fixed buffers only |
+| Binary size | 9.0 MB, with no runtime to install |
+
+In a real-time system the worst figure matters, so it is published alongside
+the mean rather than replaced by it.
+
+### Signal conditioning
+
+Off by default. Silently altering the signal would also alter every metric
+relative to a previous run.
+
+- Notch (50/60 Hz), high-pass, low-pass — RBJ biquads, f64 state
+- Re-referencing: common average (excluding bad channels) or named channels
+- Bad-channel detection across the **whole session**, not a preview window
+
+These filters are **one-pass causal IIR**: their phase shift depends on
+frequency. Do not compare ERP latencies measured through them against
+zero-phase tools.
+
+### Live input
+
+The engine listens on a simple TCP socket: one JSON header line followed by
+channel-interleaved `float32` samples. Anything that can open a socket can feed
+it. A bridge script forwards any LSL stream and can generate a synthetic signal
+to test the live path without hardware.
+
+**Why there is no native LSL, honestly:** `lsl-core` (pure Rust) is GPL-3.0,
+incompatible with a closed binary; official bindings need a `liblsl` whose
+embedded source no longer builds against modern glibc. The generic socket keeps
+the binary dependency-free and accepts more producers.
+
+---
+
+## 3. How the analysis layer works
+
+All numerical methods come from MNE-Python, SciPy or mne-connectivity.
+**Nothing numerical is reimplemented.** ICA and source localisation in
+particular are research numerical methods with decades of validation; rewriting
+them would add risk without removing anything. PRISMA adds the workflow,
+declarative pipeline, group stage, integrity layer and a documented limitation
+beside each method.
+
+### Import
+
+| Format | Reader | Verified with |
+|---|---|---|
+| BrainVision `.vhdr` | MNE | ds006018, ds007655 (real) |
+| EDF / EDF+ | MNE | round trip + real |
+| BDF (BioSemi) | MNE | written with pyedflib |
+| GDF | MNE | BCI Competition IV 2a (real) |
+| Neuroscan CNT | MNE | MNE test recordings |
+| EEGLAB `.set`, FIF | MNE | round trip |
+
+**A real failure uncovered here:** sometimes the Neuroscan header omits sample
+width. Reading 16 bits as 32 (or vice versa) does not raise an error: it silently
+decodes a differently shaped signal and reads the event table at the wrong
+offset. PRISMA tries both widths, keeps the one yielding physiologically
+plausible amplitudes, and records the decision. If both look plausible, it
+refuses and asks rather than guessing.
+
+### Cleaning
+
+- **Filters**: zero-phase (forward and backward) by default offline; a causal
+  mode reproduces what the live engine does.
+- **Bad channels**: full-session sweep using PREP criteria (flatness, robust
+  deviation, high-frequency noise, windowed correlation with neighbours),
+  reporting *why* each was marked. Robust statistics throughout, so one
+  saturated channel cannot hide another.
+- **Interpolation**: spherical splines (Perrin et al., 1989).
+- **ICA**: extended Infomax / FastICA / Picard, with automatic labelling. Blinks
+  use an EOG channel or frontal proxy. **Cardiac components are not attempted
+  without a real ECG channel** — EEG alone offers no reliable detector, so one
+  is not invented. Muscle components are labelled but not removed unless
+  requested: on real data the detector marked 11 of 20.
+
+### Analysis
+
+Epoching with readable event names, baseline correction, ERP average and peak
+measurement; PSD (Welch/multitaper), band power, individual alpha frequency;
+time-frequency (Morlet, multitaper, Stockwell, STFT) and ERD/ERS; connectivity
+(coh, imcoh, plv, ciplv, ppc, pli, wpli); source localisation (sLORETA, dSPM,
+eLORETA, MNE, LCMV beamformer).
+
+### Reproducible pipelines
+
+A YAML file lists the steps; they run over one file, a glob or an entire BIDS
+dataset. Fifteen step types: `montage, filter, bad_channels, interpolate,
+reference, ica, epochs, baseline, erp, psd, tfr, connectivity, sources, engine,
+save_raw`.
+
+Every run writes `pipeline_summary.json` containing the specification, every
+package version, and per-subject parameters, times and outcome for each step.
+A failed subject is recorded and the batch continues.
+
+### Group stage
+
+The per-subject pipeline writes to disk; the group stage reads it and **never
+recomputes a subject**. Rerunning statistics with different parameters takes
+seconds, not another pass through the data.
+
+- **ERP**: spatiotemporal cluster permutation over channels × time
+- **Time-frequency**: clusters over frequency × time × channels *together*, so
+  an effect extending into neighbouring bands is one finding, not several
+- **Connectivity**: paired tests per edge with FDR (upper triangle only —
+  counting a symmetric matrix twice would dilute the correction), plus the
+  Network-Based Statistic (Zalesky et al., 2010) for connected subnetworks
+
+---
+
+## 4. The integrity layer
+
+This part does not exist in other EEG suites, and the reason is not flattering:
+the main claim of this project — that calibrating the threshold per subject
+predicts behaviour — was tested against two independent public datasets and
+**did not replicate**. The discipline needed to discover that is now code.
+
+`integrity_report` takes a *family* of tests and, in one pass:
+
+1. **Corrects across the complete family**, not per test. Adding another
+   exploratory metric raises the threshold, as it should.
+2. **Flags results that depend on extremes** — a large Pearson/Spearman gap
+   means the linear result relies on a few points.
+3. **Flags results that disappear under a confounder** (partial correlation).
+4. **Flags underpowered tests**, and reports how many subjects would be needed.
+5. **Removes non-computable tests (NaN) from the family** rather than letting
+   them corrupt the remaining corrected p-values — a real failure encountered
+   here, now a guarantee.
+6. Ends with `defensible: true/false` and a plain sentence.
+
+`defensible: false` is the normal result of honest exploration, not an error.
+
+---
+
+## 5. What it has been tested against
+
+**135 automated tests.** The synthetic recording used by most of them contains
+planted ground truth — occipital alpha, blinks, mains hum, a dead channel, a
+saturated channel, N1/P3 responses — and tests verify that each stage *recovers
+what was planted*, not merely that it runs.
+
+Statistical methods are tested **in both directions**: they must find a planted
+effect in the exact location **and find nothing in paired noise**. A statistical
+module validated only on positive cases is worthless.
+
+### On real public data
+
+**ds006018** (Flanker task, 73 subjects, actiCHamp, 500 Hz), all 73 processed
+without a single failure. Three group tests from the same run:
+
+| Test | Result |
+|---|---|
+| ERP (channels × time) | 2 of 18 significant clusters, p = 0.0005, 0.18–0.80 s, 22 centroparietal channels |
+| Time-frequency | 2 of 32 significant: midfrontal theta 4–18 Hz (p = 0.0010) and alpha/beta desynchronisation (p = 0.043) |
+| Connectivity (theta wPLI) | **Nothing.** No edge survives FDR over 325 tests; NBS finds 3 candidate components, none significant |
+
+Two established Flanker effects recovered, 30 of 32 candidate clusters
+rejected, and a clear negative result in the third analysis. A suite that found
+an effect in all three would not be credible.
+
+**BCI Competition IV 2a** (GDF, Graz, motor imagery) — complete pipeline, 288
+epochs, 72 per class, without errors.
+
+---
+
+## 6. Limitations
+
+**Not a medical device.** Research software. It does not diagnose, treat or
+predict any condition and is not validated for clinical use.
+
+**Source localisation uses a template head.** fsaverage, not the subject's MRI,
+with template co-registration. Localisation error is on the order of 1–2 cm.
+Maps are reported as template-based.
+
+**Sensor-space connectivity is contaminated by volume conduction.** Two nearby
+electrodes see the same source and will show high coherence or PLV without an
+interaction between them. Use wPLI or imaginary coherence before claiming
+interaction.
+
+**Cluster permutation localises poorly.** A significant cluster means that the
+conditions differ *somewhere* inside the window. Its edges are not the effect's
+boundaries, and a strong effect spreads into neighbouring channels by design.
+
+**The Network-Based Statistic depends on its threshold.** Fix it before looking
+and report the value used.
+
+**Automatic ICA labelling is a suggestion**, not a verdict.
+
+**The engine's per-subject calibration is not validated.** It adapts the encoder
+to the signal in front of it. Whether that improves a downstream outcome was
+tested against two independent public datasets with different paradigms and did
+not replicate. No stronger claim is made.
+
+**The Akida (neuromorphic) backend is a simulation sketch.** There is no physical
+board and no measured energy figures.
+
+**There are no native headset drivers.** Live input uses the generic TCP
+protocol or LSL bridge script. Plugging in a headset and seeing it analysed live
+— the original goal — is not built.
+
+**True 3D rendering needs a GPU/OpenGL context.** There is no software fallback.
+
+**The interface has no undo.** Preprocessing edits an in-memory copy; reload the
+recording to start over.
+
+---
+
+## 7. Requirements
+
+**Engine**: Linux x86_64, glibc 2.30 or newer (2019 — covering Ubuntu 20.04+,
+Debian 11+, RHEL/Rocky 9+, Fedora 31+, Arch and Mint 20+). Its only dynamic
+dependencies are system libraries; OpenGL loads on demand, so it also runs on a
+headless server.
+
+**Analysis layer**: Python 3.10+. Optional extras add the desktop interface
+(PySide6) and true 3D rendering (PyVista/VTK).
+
+Built on MNE-Python (BSD-3-Clause), NumPy, SciPy, scikit-learn, matplotlib and
+mne-connectivity.
+
+---
+
+## 8. Status
+
+The engine, analysis layer, statistics and interface work and have been tested.
+What remains is the paperwork — a real licence, payment route and support
+contact — and the function that was the point of the exercise: plugging in a
+headset and seeing it analysed live, without a bridge script in the middle.

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { SITE, abs, imageFor, pageFor, jsonLd } from "../site.js";
+import { alternatePaths, docsPagePath } from "../i18n.js";
 
 function upsert(selector, attrs) {
   let el = document.head.querySelector(selector);
@@ -21,6 +22,17 @@ function upsertLink(rel, href) {
   el.setAttribute("href", href);
 }
 
+function upsertAlternate(hrefLang, href) {
+  let el = document.head.querySelector(`link[rel="alternate"][hreflang="${hrefLang}"]`);
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "alternate");
+    el.setAttribute("hreflang", hrefLang);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", href);
+}
+
 export default function Head() {
   const loc = useLocation();
   const docsHost =
@@ -28,17 +40,15 @@ export default function Head() {
     window.location.hostname === "docs.rogexlaboratories.com";
 
   useEffect(() => {
-    const path = docsHost
-      ? loc.pathname === "/"
-        ? "/docs"
-        : `/docs${loc.pathname}`.replace(/\/docs\/docs/, "/docs")
-      : loc.pathname;
+    const path = docsPagePath(loc.pathname, docsHost);
     const page = pageFor(path);
+    const language = page.lang === "en" ? "en" : "es";
+    const alternates = alternatePaths(page.path);
     const url = abs(page.path);
     const image = imageFor(page);
 
     document.title = page.title;
-    document.documentElement.lang = "es";
+    document.documentElement.lang = language;
     document.documentElement.style.colorScheme = "dark";
 
     upsert('meta[name="description"]', { name: "description", content: page.description });
@@ -58,7 +68,8 @@ export default function Head() {
     const og = {
       "og:type": "website",
       "og:site_name": SITE.name,
-      "og:locale": SITE.locale,
+      "og:locale": language === "en" ? SITE.localeAlt : SITE.locale,
+      "og:locale:alternate": language === "en" ? SITE.locale : SITE.localeAlt,
       "og:title": page.title,
       "og:description": page.description,
       "og:url": url,
@@ -84,6 +95,9 @@ export default function Head() {
 
     upsertLink("canonical", url);
     upsertLink("image_src", image.url);
+    upsertAlternate("es", abs(alternates.es));
+    upsertAlternate("en", abs(alternates.en));
+    upsertAlternate("x-default", abs(alternates.es));
 
     let ld = document.getElementById("rxlabs-ld");
     if (!ld) {

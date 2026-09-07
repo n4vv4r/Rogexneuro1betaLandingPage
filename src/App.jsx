@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Head from "./components/Head.jsx";
 import Nav from "./components/Nav.jsx";
 import Home from "./pages/Home.jsx";
@@ -26,6 +27,7 @@ export default function App() {
         <Routes>
           <Route path="/*" element={<Docs language={language} />} />
         </Routes>
+        <Analytics />
       </>
     );
   }
@@ -64,6 +66,7 @@ export default function App() {
         <Route path="/echoai" element={<NotFound language="es" />} />
         <Route path="*" element={<NotFound language={language} />} />
       </Routes>
+      <Analytics />
     </>
   );
 }

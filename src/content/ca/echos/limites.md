@@ -1,47 +1,37 @@
-# Límits — el que no faig
+# Límits d'echOS 3.0
 
-Política del laboratori: si no hi és, es diu.
+Tancar 3.0 no converteix un sistema de recerca en un producte certificat. Aquests són els límits actuals.
 
-## Maquinari
+## Plataforma
 
-| Cosa | Estat |
+| Capacitat | Estat actual |
 |---|---|
-| Wi-Fi | no. PCI es llista. Zero drivers. |
-| NVMe | classe `01:08` a `hwprobe`. Sense driver. SATA AHCI / IDE / virtio-blk sí. |
-| UEFI natiu | no. BIOS/CSM / SeaBIOS. |
-| USB HID | no com a entrada de diari. Teclat i ratolí PS/2. |
-| Àudio | no. |
-| Acceleració GPU | no. LFB. |
-| Akida | sonda PCI. Sense placa = LIF per programari. Sense blob BrainChip. |
-| Loihi | fora de 2.1. Zero interfícies. |
-| Nucli ARM64 | l'ELF de la ISO Universal és x86_64. |
+| SMP | Absent: un nucli per arquitectura. |
+| Gràfics AArch64 | Absents: consola sèrie PL011, sense framebuffer. |
+| Userland AArch64 | Shell de diagnòstic reduït; no replica la consola completa d'x86. |
+| Device tree AArch64 | S'usa per a memòria; PL011, GIC i virtio-mmio encara fan servir tres adreces fixes. |
+| ACPI | Sense lector. Sota UEFI ARM el mapa de memòria ve del firmware. |
+| Wi‑Fi, àudio, GPU | Sense controladors. |
+| USB HID | No és l'entrada habitual; x86 usa PS/2. |
+| Akida | Només sonda PCI: detectada vol dir **no suportada**, no accelerada. |
 
-## Programari
+## Robòtica
 
-| Cosa | Estat |
-|---|---|
-| Multiprocés / anell 3 | esbós. Una tasca. |
-| POSIX | no. Àlies d'ordres, no glibc. |
-| Dades d'aplicació TLS 1.3 | la negociació funciona; GET https pot tornar buit. HTTP sí. |
-| Pin de CA | no. |
-| IPv6 | no. |
-| Diversos TCP alhora | no. |
-| sshd/httpd/ftpd reals | flags `rcctl`. No hi ha dimonis. |
-| Aïllament `doas` | no. Un mapa de memòria. |
-| RXFS | 64 × 64 KiB. |
-| Compiladors a LIVE | absents. `epk list --lab` = notes de host. |
-| Navegador / JS | no. `curl` baixa bytes. |
-| Persistència LIVE | no, expressament. |
-| Ús comercial com a SO general | no. Laboratori / robòtica / SNN. |
+- PX4 SITL s'executa a l'host i no és dins de la ISO.
+- El productor autònom inclòs és deliberadament senzill: distància, bateria i enllaç. No és echoAI.
+- El geofence és una caixa alineada amb els eixos; no modela terreny ni polígons.
+- No s'han certificat el vol real, la normativa aeronàutica, la seguretat funcional ni tots els errors de maquinari.
+- L'ABI d'intencions no té accés a PWM ni als motors.
 
-## Heap-0
+## Sistema
 
-El contracte **no** es compleix a tot el nucli. `kmalloc` existeix.
+- No és POSIX ni un sistema operatiu general.
+- No hi ha aïllament complet de processos ni ring 3 de producció.
+- RXFS és petit i deliberadament limitat.
+- La pila de xarxa no equival a un navegador ni a un servidor multiusuari.
+- El contracte Heap‑0 cobreix el camí robòtic; `kmalloc` continua existint fora d'aquest camí.
+- Els percentils publicats són límits de buckets, no precisió inventada. Poden variar entre execucions emulades.
 
-## El que sí que signo
-
-- El bàner d'arrencada no imprimeix `OK` si aquella etapa no s'ha comprovat.
-- No es fingeix un NIC, un NPU ni un dimoni.
-- `command not found` no és el mateix que «no instal·lat».
+Una absència publicada és una propietat verificable, no una promesa futura disfressada.
 
 — R.N.

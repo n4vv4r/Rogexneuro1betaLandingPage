@@ -1,41 +1,29 @@
-# echOS
+# echOS 3.0
 
-Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. No hay Linux
-debajo. No hay busybox. No hay systemd. La máquina *es* el programa.
+echOS 3.0 es un **unikernel para robótica al edge**. Arranca directamente sobre la máquina, sin Linux, `systemd`, BusyBox ni una distribución escondida debajo. Su trabajo es recibir observaciones, producir intenciones limitadas y entregarlas a un controlador de vuelo sin asumir el control directo de los motores.
 
-No es un sistema comercial. No es un navegador. Está pensado para
-software neuromórfico y robótica.
+> Un cuerpo pequeño, medible y portable para sistemas robóticos. No es un chatbot y no contiene un LLM o SLM.
 
-> Unikernel de consola. Software neuromórfico. Akida cuando hay placa.
+## Qué cambió en 3.0
 
-## Qué es, en una frase
+- Una misma base arranca en **x86_64 BIOS**, **x86_64 UEFI** y **AArch64 UEFI**.
+- El camino `sensor → intención → safety gate → autopiloto` usa registros y colas de tamaño fijo.
+- Ese camino realiza **cero reservas dinámicas de memoria**, medido por el propio kernel.
+- El puente MAVLink 2 intercambia telemetría, intenciones y confirmaciones con PX4 SITL.
+- NVMe, GPT y persistencia se prueban contra un dispositivo emulado real y tras reiniciar.
+- Los artefactos se separan por arquitectura y edición, y los builds limpios son reproducibles.
+- NAVI y el experimento de asistente conversacional ya no forman parte del producto.
 
-Una consola JetBrains / Liberation Mono sobre framebuffer (o VGA texto),
-con ROSH, `epk` local, pila IPv4/DNS/TCP/HTTP, y un tejido de eventos /
-SNN in-kernel — sin ventana, sin dock, sin mentir sobre el hardware.
+## El contrato robótico
 
-## Qué no es
+Los sensores entran como registros enteros de 64 bytes. Las decisiones salen como intenciones de 72 bytes con origen causal, tiempo de captura, vencimiento, confianza y límites. La ABI sólo puede expresar órdenes de alto nivel como `HOLD`, `APPROACH`, `AVOID`, `RETURN_HOME`, `LAND` o `ABORT`.
 
-- No es un escritorio.
-- No es Alpine, OpenBSD, Haiku ni un Linux embebido.
-- No es un producto para navegar por internet. `curl` baja bytes.
-- No hay Echo AI en esta ISO.
+No existe un campo para PWM, servo o acelerador. **PX4 conserva la autoridad sobre estabilización y actuadores.**
 
-## Piezas que importan
+## Estado
 
-| Pieza | Qué es |
-|---|---|
-| Heap-0 | Layout estático en BSS. `kmalloc` 512 KiB sigue existiendo y se dice. |
-| RXFS | FS nativo, 64 ficheros × 64 KiB. |
-| `epk` | Notas en RXFS. `epk list` = lo que el kernel tiene. `--lab` = host. |
-| LIVE | Arranca en RAM. Minimal. |
-| SNN | Cubo Q6 de 64 células LIF, `prisma5` sintético, `bench-snn`. |
-| Akida | Sonda PCI `1e7c:bca1`. Sin placa = software LIF. |
+La versión 3.0 está cerrada respecto a su definición de terminado: 19 requisitos cumplidos y seis certificados verdes. Eso no significa “producto aeronáutico listo para desplegar”. Significa que el alcance publicado está implementado, medido y acompañado por límites explícitos.
 
-## Superficie honesta
-
-Un extraño arranca LIVE, escribe `help` y no puede acusar de teatro.
-`rcctl start` no finge un daemon. `doas` no aísla. `pfctl` no filtra.
-`tcc` / `python` / `sshd` no están en Tab.
+Consulta la [guía de uso](./guia), la [arquitectura](./arquitectura), la [evidencia](./evidencia) y la [galería real](./galeria).
 
 — R.N.

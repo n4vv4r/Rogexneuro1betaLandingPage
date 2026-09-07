@@ -29,13 +29,13 @@ const ES_PAGES = [
     path: "/",
     title: "RxLabs® — laboratorio de investigación",
     description:
-      "Laboratorio de software de Roger Navarro (Girona). echOS, PRISMA y echoAI: ECHO-1 cerrado, transferencia causal entre mundos y una ruta verificable hacia robótica autónoma al edge.",
+      "Laboratorio de software de Roger Navarro (Girona). echOS 3.0 para robótica al edge, PRISMA y echoAI: software real, límites publicados y cifras medibles.",
   },
   {
     path: "/about",
     title: "Qué es RxLabs®",
     description:
-      "RxLabs® es el laboratorio de Roger Navarro, Girona. echOS, PRISMA y echoAI: código que corre, límites publicados y números que se pueden volver a medir.",
+      "RxLabs® es el laboratorio de Roger Navarro, Girona. echOS 3.0, PRISMA y echoAI: código que corre, límites publicados y números que se pueden volver a medir.",
   },
   {
     path: "/contact",
@@ -46,30 +46,50 @@ const ES_PAGES = [
     path: "/docs",
     title: "Documentación — RxLabs®",
     description:
-      "Docs públicas del laboratorio: echOS, PRISMA y echoAI. Cifras medidas, superficie honesta, código que arranca.",
+      "Docs públicas del laboratorio: echOS 3.0, PRISMA y echoAI. Guías, arquitectura, evidencia, capturas reales y límites publicados.",
   },
   {
     path: "/docs/echos/que-es",
     title: "echOS — RxLabs®",
     description:
-      "Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. Arranca en QEMU y en metal. SNN in-kernel (LIF / Q6). Laboratorio de investigación, software real.",
+      "echOS 3.0: unikernel para robótica al edge, sin Linux ni LLM. Arranque x86_64 BIOS/UEFI y AArch64 UEFI, runtime acotado y puente PX4.",
+  },
+  {
+    path: "/docs/echos/guia",
+    title: "Guía de uso — echOS 3.0",
+    description: "Cómo arrancar echOS 3.0, leer su estado, ejecutar el escenario robótico, usar paneles y conectar PX4 SITL.",
+  },
+  {
+    path: "/docs/echos/arquitectura",
+    title: "Arquitectura — echOS 3.0",
+    description: "Arquitectura multiplataforma, Sensor e Intent ABI, colas estáticas, safety gate, MAVLink 2, PX4, NVMe y GPT.",
+  },
+  {
+    path: "/docs/echos/evidencia",
+    title: "Evidencia — echOS 3.0",
+    description: "541 comprobaciones verdes: BIOS, UEFI, ARM64, NVMe/GPT, persistencia, runtime robótico y PX4 con datos descargables.",
+  },
+  {
+    path: "/docs/echos/galeria",
+    title: "Galería real — echOS 3.0",
+    description: "13 capturas directas de QEMU con el registro serie de cada arranque, más transcripciones AArch64 directas y UEFI.",
   },
   {
     path: "/docs/echos/limites",
     title: "Límites — echOS",
     description:
-      "Lo que echOS no hace, escrito por el laboratorio. WiFi, UEFI nativo, audio, GPU: ausentes. Akida: sonda PCI, sin placa = software LIF.",
+      "Límites actuales de echOS 3.0: sin SMP, framebuffer ARM64, ACPI, vuelo certificado ni control directo de actuadores.",
   },
   {
     path: "/docs/echos/superficie",
     title: "Superficie — echOS",
     description:
-      "Comandos de echOS etiquetados REAL, NOTA o AUSENTE. La superficie no promete el binario.",
+      "Plataformas, pipeline robótico, almacenamiento y consola que ofrece realmente echOS 3.0.",
   },
   {
     path: "/docs/echos/comandos",
     title: "Comandos — echOS",
-    description: "Mapa de comandos de echOS. Tab lee CMD_NAMES. man <cmd> para flags.",
+    description: "Comandos de echOS 3.0 para diagnóstico, robótica, PX4, consola, red y certificación desde el host.",
   },
   {
     path: "/docs/prisma/resumen",
@@ -160,30 +180,46 @@ const ES_PAGES = [
 const EN_META = {
   "/": [
     "RxLabs® — research laboratory",
-    "Roger Navarro's software laboratory in Girona. echOS, PRISMA and echoAI: ECHO-1 closed, causal transfer across worlds and a verifiable path towards autonomous edge robotics.",
+    "Roger Navarro's software laboratory in Girona. echOS 3.0 for edge robotics, PRISMA and echoAI: real software, published limitations and measurable figures.",
   ],
   "/about": [
     "About RxLabs®",
-    "RxLabs® is Roger Navarro's laboratory in Girona. echOS, PRISMA and echoAI: running code, published limitations and numbers that can be measured again.",
+    "RxLabs® is Roger Navarro's laboratory in Girona. echOS 3.0, PRISMA and echoAI: running code, published limitations and numbers that can be measured again.",
   ],
   "/contact": ["Contact — RxLabs®", "Contact RxLabs®: knightsys@proton.me — Roger Navarro, Girona."],
   "/docs": [
     "Documentation — RxLabs®",
-    "Public laboratory documentation for echOS, PRISMA and echoAI. Measured figures, an honest surface and code that boots.",
+    "Public documentation for echOS 3.0, PRISMA and echoAI: guides, architecture, evidence, real screenshots and published limitations.",
   ],
   "/docs/echos/que-es": [
     "echOS — RxLabs®",
-    "An x86_64 console unikernel. One ELF. GRUB Multiboot2. Boots in QEMU and on bare metal. In-kernel SNN (LIF / Q6). Research laboratory, real software.",
+    "echOS 3.0: a robotic edge unikernel with no Linux or LLM. x86_64 BIOS/UEFI and AArch64 UEFI boot, bounded runtime and PX4 bridge.",
+  ],
+  "/docs/echos/guia": [
+    "User guide — echOS 3.0",
+    "How to boot echOS 3.0, inspect its state, run the robotic scenario, use panes and connect PX4 SITL.",
+  ],
+  "/docs/echos/arquitectura": [
+    "Architecture — echOS 3.0",
+    "Multi-platform architecture, Sensor and Intent ABIs, static queues, safety gate, MAVLink 2, PX4, NVMe and GPT.",
+  ],
+  "/docs/echos/evidencia": [
+    "Evidence — echOS 3.0",
+    "541 passing checks across BIOS, UEFI, ARM64, NVMe/GPT, persistence, the robotic runtime and PX4, with downloadable data.",
+  ],
+  "/docs/echos/galeria": [
+    "Real gallery — echOS 3.0",
+    "13 direct QEMU screenshots with the serial log from every boot, plus direct and UEFI AArch64 transcripts.",
   ],
   "/docs/echos/limites": [
     "Limitations — echOS",
-    "What echOS does not do, documented by the laboratory. Wi-Fi, native UEFI, audio and GPU acceleration are absent. Akida is a PCI probe; without a board it uses software LIF.",
+    "Current echOS 3.0 limitations: no SMP, ARM64 framebuffer, ACPI reader, certified flight or direct actuator control.",
   ],
   "/docs/echos/superficie": [
     "Surface — echOS",
-    "echOS commands labelled REAL, NOTE or ABSENT. The surface does not promise more than the binary provides.",
+    "The platforms, robotic pipeline, storage and console actually provided by echOS 3.0.",
   ],
-  "/docs/echos/comandos": ["Commands — echOS", "Map of echOS commands. Tab reads CMD_NAMES. Use man <cmd> for flags."],
+  "/docs/echos/comandos": ["Commands — echOS", "echOS 3.0 commands for diagnostics, robotics, PX4, console, networking and host-side certification."],
   "/docs/prisma/resumen": [
     "PRISMA — RxLabs®",
     "EEG analysis software for research. Real-time engine in Rust with measured 1.4–3.0 µs latency. Not a medical device.",
@@ -236,30 +272,46 @@ const EN_META = {
 const CA_META = {
   "/": [
     "RxLabs® — laboratori de recerca",
-    "Laboratori de programari de Roger Navarro a Girona. echOS, PRISMA i echoAI: ECHO-1 tancat, transferència causal entre mons i una ruta verificable cap a la robòtica autònoma a l'edge.",
+    "Laboratori de programari de Roger Navarro a Girona. echOS 3.0 per a robòtica a l'edge, PRISMA i echoAI: programari real, límits publicats i xifres mesurables.",
   ],
   "/about": [
     "Què és RxLabs®",
-    "RxLabs® és el laboratori de Roger Navarro a Girona. echOS, PRISMA i echoAI: codi que s'executa, límits publicats i xifres que es poden tornar a mesurar.",
+    "RxLabs® és el laboratori de Roger Navarro a Girona. echOS 3.0, PRISMA i echoAI: codi que s'executa, límits publicats i xifres que es poden tornar a mesurar.",
   ],
   "/contact": ["Contacte — RxLabs®", "Contacte de RxLabs®: knightsys@proton.me — Roger Navarro, Girona."],
   "/docs": [
     "Documentació — RxLabs®",
-    "Documentació pública del laboratori: echOS, PRISMA i echoAI. Xifres mesurades, superfície honesta i codi que arrenca.",
+    "Documentació pública d'echOS 3.0, PRISMA i echoAI: guies, arquitectura, evidència, captures reals i límits publicats.",
   ],
   "/docs/echos/que-es": [
     "echOS — RxLabs®",
-    "Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. Arrenca en QEMU i en metall. SNN al nucli (LIF / Q6). Laboratori de recerca, programari real.",
+    "echOS 3.0: unikernel per a robòtica a l'edge, sense Linux ni LLM. Arrencada x86_64 BIOS/UEFI i AArch64 UEFI, runtime acotat i pont PX4.",
+  ],
+  "/docs/echos/guia": [
+    "Guia d'ús — echOS 3.0",
+    "Com arrencar echOS 3.0, llegir-ne l'estat, executar l'escenari robòtic, usar panells i connectar PX4 SITL.",
+  ],
+  "/docs/echos/arquitectura": [
+    "Arquitectura — echOS 3.0",
+    "Arquitectura multiplataforma, Sensor i Intent ABI, cues estàtiques, safety gate, MAVLink 2, PX4, NVMe i GPT.",
+  ],
+  "/docs/echos/evidencia": [
+    "Evidència — echOS 3.0",
+    "541 comprovacions verdes: BIOS, UEFI, ARM64, NVMe/GPT, persistència, runtime robòtic i PX4 amb dades descarregables.",
+  ],
+  "/docs/echos/galeria": [
+    "Galeria real — echOS 3.0",
+    "13 captures directes de QEMU amb el registre sèrie de cada arrencada, més transcripcions AArch64 directes i UEFI.",
   ],
   "/docs/echos/limites": [
     "Límits — echOS",
-    "El que echOS no fa, documentat pel laboratori. Wi-Fi, UEFI natiu, àudio i acceleració GPU són absents. Akida és una sonda PCI; sense placa usa LIF per programari.",
+    "Límits actuals d'echOS 3.0: sense SMP, framebuffer ARM64, lector ACPI, vol certificat ni control directe d'actuadors.",
   ],
   "/docs/echos/superficie": [
     "Superfície — echOS",
-    "Ordres d'echOS etiquetades REAL, NOTA o ABSENT. La superfície no promet més del que ofereix el binari.",
+    "Plataformes, pipeline robòtic, emmagatzematge i consola que ofereix realment echOS 3.0.",
   ],
-  "/docs/echos/comandos": ["Ordres — echOS", "Mapa d'ordres d'echOS. Tab llegeix CMD_NAMES. Feu servir man <cmd> per als flags."],
+  "/docs/echos/comandos": ["Ordres — echOS", "Ordres d'echOS 3.0 per a diagnòstic, robòtica, PX4, consola, xarxa i certificació des de l'host."],
   "/docs/prisma/resumen": [
     "PRISMA — RxLabs®",
     "Programari d'anàlisi d'EEG per a recerca. Motor de temps real en Rust amb latència mesurada d'1,4–3,0 µs. No és un producte sanitari.",

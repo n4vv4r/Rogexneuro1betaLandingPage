@@ -20,6 +20,10 @@ const docs = [
   ["echoai/hardware", "echoai/hardware.md"],
   ["echoai/limites", "echoai/limites.md"],
   ["echos/que-es", "echos/que-es.md"],
+  ["echos/guia", "echos/guia.md"],
+  ["echos/arquitectura", "echos/arquitectura.md"],
+  ["echos/evidencia", "echos/evidencia.md"],
+  ["echos/galeria", "echos/galeria.md"],
   ["echos/limites", "echos/limites.md"],
   ["echos/superficie", "echos/superficie.md"],
   ["echos/comandos", "echos/comandos.md"],
@@ -83,7 +87,7 @@ const catalanFull = [
 fs.mkdirSync(catalanPublicDir, { recursive: true });
 fs.writeFileSync(path.join(catalanPublicDir, "llms-full.txt"), `${catalanFull.trimEnd()}\n`);
 
-const lastmod = "2026-09-06";
+const lastmod = "2026-09-07";
 const indexable = PAGES.filter((page) => !page.noindex);
 const urls = indexable.map((page) => {
   const base = page.path.replace(/^\/(?:en|ca)(?=\/|$)/, "") || "/";

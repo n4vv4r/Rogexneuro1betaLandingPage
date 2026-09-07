@@ -1,43 +1,39 @@
-# Superfície pública — echOS
+# Superfície d'echOS 3.0
 
-Cada nom a `help` / `epk list` / `man` porta una etiqueta:
+## Plataformes verificades
 
-- **REAL** — l'unikernel fa aquesta feina.
-- **NOTA** — el nom existeix; la feina és un flag, un bolcat o un reenviament.
-- **ABSENT** — fora de Tab i de `help`.
+| Plataforma | Arrencada | Consola | Demo robòtica | Xarxa/PX4 |
+|---|---|---|---|---|
+| x86_64 | BIOS + GRUB Multiboot2 | framebuffer i VGA | sí | sí |
+| x86_64 | UEFI + OVMF | framebuffer | sí | certificació base |
+| AArch64 `virt` | imatge directa i UEFI edk2 | sèrie PL011 | sí | sí |
 
-## Ordres
+## Camí calent
 
-| Ordre | Etiqueta | Què fa |
-|-------|----------|--------|
-| help about status mem uptime power bench devices env | REAL | nucli / benchmark |
-| clear reboot halt | REAL | consola / reset |
-| ls cd pwd cat write rm cp mv mkdir rmdir tree | REAL | RXFS |
-| head tail less grep find du df nano history | REAL | RXFS |
-| date tz kbd termtheme | REAL | rellotge, mapa, paleta |
-| man apropos | REAL | pàgines encastades |
-| echofetch hwprobe live whoami uname hostname echo | REAL | identitat / PCI |
-| www curl wget dns tls ping nics ipconf trace nmap | REAL | IPv4; HTTPS pot tenir el cos buit |
-| wired chat say | REAL | L2 0x88B5 |
-| epk echos-install install save load format partition | REAL | notes RXFS / disc |
-| gpt | NOTA | writer GPT sense CRC32 vàlid |
-| doas | NOTA | un espai d'adreces; no aïlla |
-| rcctl | NOTA | flags; no hi ha dimonis |
-| pfctl | NOTA | booleà RAM; no filtra |
-| neuro neurocpu prisma5 bench-snn | REAL | SNN al nucli; Akida = sonda PCI |
+```text
+Sensor ABI (64 B)
+        ↓
+cua sensor, cap. 32
+        ↓
+runtime productor
+        ↓
+Intent ABI (72 B)
+        ↓
+safety gate: OK / MODIFY / BLOCK
+        ↓
+MAVLink 2 → PX4
+```
 
-## `epk list` (públic)
+Les quatre cues són estàtiques i publiquen capacitat, entrades, sortides, descartes, expiracions i marca màxima. El watchdog emet un comportament segur quan deixa d'arribar una intenció vàlida.
 
-echos-base, echos-shell, echofetch, echos-diag, echos-net, echos-npu,
-echos-io, echos-akida.
+## Emmagatzematge
 
-`epk install` escriu un text a RXFS, no un ELF.
+El controlador NVMe identifica la controladora i el namespace, executa ordres amb timeouts i propaga errors. L'instal·lador escriu una GPT vàlida; la certificació munta un namespace de 128 MiB, escriu un sentinella, reinicia i comprova que el mateix contingut persisteix.
 
-## `epk list --lab`
+## Consola x86
 
-Notes de host: tcc, python, rustc, httpd, sshd, … No arrenquen cap procés.
+La superfície humana conserva la consola gràfica, JetBrains Mono, panells, historial, RXFS, diagnòstic, xarxa i ajuda incorporada. `pane split` divideix la vista; continua havent-hi un sol shell, i un panell pot funcionar com a monitor viu.
 
-## Absents
+Els noms que no fan treball real no es presenten com a serveis. La pàgina [Ordres](./comandos) separa l'ús normal de la verificació.
 
-tcc / python / git a l'unikernel, sshd/httpd reals, navi/echo al SO,
-navegador, loihi, htop/tmux, Wi-Fi, controlador NVMe, UEFI.
+— R.N.

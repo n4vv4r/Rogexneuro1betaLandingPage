@@ -18,18 +18,19 @@ claim for equipment that is not on the bench.
 
 | Line | What it is | Status |
 |---|---|---|
-| **echOS** | An x86_64 console unikernel, one ELF | 2.1.0-honest; boots in QEMU and on bare metal |
+| **echOS** | Robotic edge unikernel | 3.0 closed; x86_64 BIOS/UEFI and AArch64 UEFI |
 | **PRISMA Engine** | EEG to events, Rust and reproducible analysis | Engine 0.1.0 measured; not a medical device |
 | **echoAI** | Two-clock situated agent | ECHO-1 closed; ECHO-2 in design |
 
 ## Where they meet
 
-echOS and echoAI share the **16-byte WSP** contract. They do not share a
-process: echoAI currently runs on a host and is not inside the ISO.
+echOS and echoAI do not share a process: echoAI currently runs on a host and
+is not inside the ISO. echOS 3.0 publishes a bounded sensor-and-intent contract
+that can become their future seam without placing a chatbot inside the OS.
 
-PRISMA and echOS use the vocabulary of a future neuromorphic probe. PRISMA and
-echoAI do not import one another: one analyses a continuous signal; the other
-learns to act in a discrete world.
+PRISMA and echoAI do not import one another either: one analyses a continuous
+signal; the other learns to act in a discrete world. All three lines remain
+separate and meet only through explicit contracts.
 
 ## echoAI status
 
@@ -700,45 +701,278 @@ before any advantage is claimed.
 
 <!-- src/content/en/echos/que-es.md · /en/docs/echos/que-es -->
 
-# echOS
+# echOS 3.0
 
-An x86_64 console unikernel. One ELF. GRUB Multiboot2. There is no Linux
-underneath. No BusyBox. No systemd. The machine *is* the program.
+echOS 3.0 is a **robotic edge unikernel**. It boots directly on the machine, with no Linux, `systemd`, BusyBox or hidden distribution underneath. Its role is to receive observations, produce bounded intents and hand them to a flight controller without taking direct control of the motors.
 
-It is not a commercial operating system. It is not a browser. It is designed
-for neuromorphic software and robotics.
+> A small, measurable and portable body for robotic systems. It is not a chatbot and contains no LLM or SLM.
 
-> Console unikernel. Neuromorphic software. Akida when a board exists.
+## What changed in 3.0
 
-## In one sentence
+- One codebase boots on **x86_64 BIOS**, **x86_64 UEFI** and **AArch64 UEFI**.
+- The `sensor → intent → safety gate → autopilot` path uses fixed-size records and queues.
+- That path performs **zero dynamic memory allocations**, measured by the kernel itself.
+- A MAVLink 2 bridge exchanges telemetry, intents and acknowledgements with PX4 SITL.
+- NVMe, GPT and persistence are tested against an actual emulated device and across a reboot.
+- Artifacts are separated by architecture and edition, and clean builds are reproducible.
+- NAVI and the conversational assistant experiment are no longer part of the product.
 
-A JetBrains / Liberation Mono console over a framebuffer (or VGA text), with
-ROSH, local `epk`, an IPv4/DNS/TCP/HTTP stack, and an in-kernel event fabric / SNN
-— no window, no dock, and no pretending about the hardware.
+## The robotic contract
 
-## What it is not
+Sensors enter as 64-byte integer records. Decisions leave as 72-byte intents with causal origin, capture time, deadline, confidence and limits. The ABI can only express high-level actions such as `HOLD`, `APPROACH`, `AVOID`, `RETURN_HOME`, `LAND` or `ABORT`.
 
-- It is not a desktop.
-- It is not Alpine, OpenBSD, Haiku or embedded Linux.
-- It is not a product for browsing the internet. `curl` downloads bytes.
-- There is no Echo AI in this ISO.
+There is no field for PWM, servos or throttle. **PX4 retains authority over stabilisation and actuators.**
 
-## Components that matter
+## Status
 
-| Component | What it is |
-|---|---|
-| Heap-0 | Static layout in BSS. A 512 KiB `kmalloc` still exists and is disclosed. |
-| RXFS | Native FS, 64 files × 64 KiB. |
-| `epk` | Notes in RXFS. `epk list` = what the kernel has. `--lab` = host. |
-| LIVE | Boots into RAM. Minimal. |
-| SNN | Q6 cube of 64 LIF cells, synthetic `prisma5`, `bench-snn`. |
-| Akida | PCI probe `1e7c:bca1`. Without a board = software LIF. |
+Version 3.0 is closed against its definition of done: 19 requirements met and six green certificates. This does not mean “flight-ready certified product”. It means the published scope is implemented, measured and accompanied by explicit limitations.
 
-## Honest surface
+See the [user guide](./guia), [architecture](./arquitectura), [evidence](./evidencia) and [real gallery](./galeria).
 
-A stranger can boot LIVE, type `help` and cannot accuse it of theatre.
-`rcctl start` does not pretend to start a daemon. `doas` does not isolate.
-`pfctl` does not filter. `tcc` / `python` / `sshd` are not in Tab completion.
+— R.N.
+
+---
+
+<!-- src/content/en/echos/guia.md · /en/docs/echos/guia -->
+
+# User guide
+
+This guide explains what a person sees when booting echOS 3.0. It is not a flight manual and does not replace a safety review.
+
+## 1. Choose how to boot
+
+On x86, a chooser appears before the kernel: run a **LIVE** session or enter the installation flow. To inspect the system without writing to disk, use LIVE.
+
+## 2. Check the machine
+
+At the console, run:
+
+```text
+about
+status
+devices
+limits
+```
+
+`status` shows which subsystems are active. `devices` distinguishes detected hardware from supported hardware. `limits` publishes the fixed ceilings of that build.
+
+## 3. Read local evidence
+
+```text
+mem
+robot run
+robot
+report
+```
+
+`robot run` injects an explicitly **synthetic** scenario. Afterwards, `robot` shows what the safety gate accepted, modified or blocked. `report` generates the block consumed by the technical report.
+
+## 4. Use the console
+
+`help` and `man` are the source of truth. You can work with RXFS, inspect networking and split the console:
+
+```text
+pane split
+pane monitor
+pane next
+```
+
+There is one shell and several views; the monitor continues to refresh while another pane is in use.
+
+## 5. Connect PX4 in the laboratory
+
+With PX4 SITL already running on the host:
+
+```text
+px4 start 10.0.2.2 14580
+px4
+```
+
+The screen should show received telemetry, transmitted intents and `COMMAND_ACK`. Link loss is tested by interrupting that connection and observing degradation to `HOLD`; echOS does not command a motor.
+
+## 6. AArch64
+
+ARM interaction is through PL011 serial. No framebuffer is expected: the real transcripts are published in the [gallery](./galeria).
+
+— R.N.
+
+---
+
+<!-- src/content/en/echos/arquitectura.md · /en/docs/echos/arquitectura -->
+
+# Technical architecture
+
+## Platform separation
+
+Generic code lives in `kernel/`, `fs/`, `userland/` and `ui/`. Concrete implementations live under `arch/x86_64`, `arch/aarch64` and the platform drivers. `make portability` prevents generic trees from accidentally depending on one architecture.
+
+On x86, GRUB provides a Multiboot2 handoff under both BIOS and OVMF. On AArch64, the same image can boot directly or as a UEFI application; the stub preserves the firmware-provided memory map.
+
+## Deterministic runtime
+
+The robotic pipeline uses four bounded queues:
+
+1. sensors into the runtime;
+2. produced intents;
+3. intents awaiting the safety gate;
+4. approved intents towards the autopilot.
+
+Records contain neither pointers nor floats. Time is monotonic, units are fixed, and every intent retains the sequence and time of its causal event. Stack guards, drops, expirations and high-water marks are published in every report.
+
+## Safety gate
+
+The gate validates ABI, range, freshness, deadline, battery, link and geofence. It may accept, limit or block; a corrected decision is not credited as an accepted producer decision. The watchdog produces a safe intent when its deadline expires.
+
+## MAVLink and PX4
+
+The MAVLink 2 parser is incremental, validates CRC and incompatibility flags, follows sequence per sender and only decodes declared messages. It converts telemetry into the Sensor ABI and approved intents into high-level setpoints. PX4 remains the flight controller.
+
+## Storage
+
+The storage stack shares a block interface. NVMe provides identification, command queues, timeouts and error propagation. GPT and RXFS above it make persistence verifiable across a real VM reboot.
+
+## Relationship with echoAI
+
+echOS is the body; echoAI is a separate research line and remains outside it. Their future seam is a sensor-and-intent ABI, not a chatbot inside the kernel.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echos/evidencia.md · /en/docs/echos/evidencia -->
+
+# echOS 3.0 evidence
+
+The release is complete **against its published scope**, not because of a label. Closure requires multi-platform boot, a bounded runtime, persistence, PX4 and the absence of false promises.
+
+## Closure result
+
+| Certificate | Checks | Failures |
+|---|---:|---:|
+| x86_64 BIOS | 130 | 0 |
+| x86_64 UEFI | 130 | 0 |
+| NVMe + GPT + reboot | 20 | 0 |
+| PX4 x86_64 | 25 | 0 |
+| AArch64 direct + PX4 | 76 | 0 |
+| AArch64 UEFI | 60 | 0 |
+| **Total** | **541** | **0** |
+
+A later audit also rebuilt x86 twice from clean trees: `rxos.elf`, `rxos.bin` and the ISO were byte-for-byte identical.
+
+## What was measured
+
+- 61 injected records: 50 accepted, 3 refused and 8 dropped by an intentionally saturated queue.
+- Safety gate: 43 unchanged accepts, 4 modifications and 1 block.
+- Zero `kmalloc` calls along the sensor-to-intent path.
+- High-water marks, drops, expirations, deadlines and watchdog behaviour published.
+- Zero CRC errors and zero sequence gaps in the final PX4 trials.
+- Persistence: 21 bytes written to NVMe, rebooted, then read back identically.
+
+## Reading latency
+
+Percentiles are bucket bounds (`<31 µs`, `<127 µs`, and so on) under emulation. They are not part of the deterministic set: the host may move a sample across a bucket boundary. Structure, balances, gate decisions and build artifacts are the reproducible evidence.
+
+## Downloadable sources
+
+- [Full JSON report](/data/echos3/report.json)
+- [Screenshots and serial logs](./galeria)
+
+The images are not mockups: each comes from an independent boot and retains the full serial log from that session.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echos/galeria.md · /en/docs/echos/galeria -->
+
+# echOS 3.0, running
+
+These 13 images are direct QEMU framebuffer dumps. They were not composed or retouched. Every screenshot links to the complete serial record from that same boot.
+
+## Boot chooser
+
+![LIVE or installation chooser](/media/echos3/00-chooser.png)
+
+The decision is made before boot. [Serial log](/media/echos3/00-chooser.log)
+
+## LIVE session
+
+![Fresh LIVE session](/media/echos3/01-live.png)
+
+The console after the boot checklist completes. [Serial log](/media/echos3/01-live.log)
+
+## Identity
+
+![about command](/media/echos3/02-about.png)
+
+Version and purpose read from the binary itself. [Serial log](/media/echos3/02-about.log)
+
+## Status
+
+![status command](/media/echos3/03-status.png)
+
+State and location of each subsystem. [Serial log](/media/echos3/03-status.log)
+
+## Memory
+
+![mem command](/media/echos3/04-mem.png)
+
+Heap‑0 regions, the `kmalloc` arena and physical allocator. [Serial log](/media/echos3/04-mem.log)
+
+## Compiled limits
+
+![limits command](/media/echos3/05-limits.png)
+
+Capabilities and ceilings in this build. [Serial log](/media/echos3/05-limits.log)
+
+## Typography
+
+![JetBrains Mono specimen](/media/echos3/06-font.png)
+
+JetBrains Mono 10×22, blocks, Braille and box drawing. [Serial log](/media/echos3/06-font.log)
+
+## Devices
+
+![devices command](/media/echos3/07-devices.png)
+
+Detected hardware, including what the system declares it cannot drive. [Serial log](/media/echos3/07-devices.log)
+
+## Robotic runtime
+
+![robot command](/media/echos3/08-robot.png)
+
+Records, intents and safety-gate verdicts after the scenario. [Serial log](/media/echos3/08-robot.log)
+
+## Local report
+
+![report command](/media/echos3/09-report.png)
+
+The evidence block generated inside the system. [Serial log](/media/echos3/09-report.log)
+
+## Panes
+
+![Shell and monitor in two panes](/media/echos3/10-panes.png)
+
+One shell and one live monitor sharing the screen. [Serial log](/media/echos3/10-panes.log)
+
+## Help
+
+![help command](/media/echos3/11-help.png)
+
+The real command list from the binary. [Serial log](/media/echos3/11-help.log)
+
+## PX4 SITL
+
+![MAVLink connection to PX4](/media/echos3/12-px4.png)
+
+Inbound telemetry, outbound intents and `COMMAND_ACK`. [Serial log](/media/echos3/12-px4.log)
+
+## AArch64 over serial
+
+ARM64 has no framebuffer. Rather than fabricate a screen, the real transcripts are published:
+
+- [Direct boot, status, CPU, network, robot and report](/media/echos3/aarch64-serial-kernel.txt)
+- [edk2 UEFI boot and firmware memory map](/media/echos3/aarch64-serial-uefi.txt)
 
 — R.N.
 
@@ -746,51 +980,41 @@ A stranger can boot LIVE, type `help` and cannot accuse it of theatre.
 
 <!-- src/content/en/echos/limites.md · /en/docs/echos/limites -->
 
-# Limitations — what I do not do
+# echOS 3.0 limitations
 
-Laboratory policy: if it is not there, say so.
+Closing 3.0 does not turn a research system into a certified product. These are its current boundaries.
 
-## Hardware
+## Platform
 
-| Item | Status |
+| Capability | Current state |
 |---|---|
-| Wi-Fi | no. PCI is listed. Zero drivers. |
-| NVMe | class `01:08` in `hwprobe`. No driver. SATA AHCI / IDE / virtio-blk do work. |
-| Native UEFI | no. BIOS/CSM / SeaBIOS. |
-| USB HID | not as log input. PS/2 keyboard and mouse. |
-| Audio | no. |
-| GPU acceleration | no. LFB. |
-| Akida | PCI probe. Without a board = software LIF. No BrainChip blob. |
-| Loihi | outside 2.1. Zero interfaces. |
-| ARM64 kernel | the Universal ISO ELF is x86_64. |
+| SMP | Absent: one core per architecture. |
+| AArch64 graphics | Absent: PL011 serial console, no framebuffer. |
+| AArch64 userland | Reduced diagnostic shell; it does not reproduce the full x86 console. |
+| AArch64 device tree | Used for memory; PL011, GIC and virtio-mmio still use three fixed addresses. |
+| ACPI | No reader. Under ARM UEFI the memory map comes from firmware. |
+| Wi‑Fi, audio, GPU | No drivers. |
+| USB HID | Not the normal input path; x86 uses PS/2. |
+| Akida | PCI probe only: detected means **unsupported**, not accelerated. |
 
-## Software
+## Robotics
 
-| Item | Status |
-|---|---|
-| Multiprocess / ring 3 | sketch. One task. |
-| POSIX | no. Command aliases, not glibc. |
-| TLS 1.3 application data | the handshake works; HTTPS GET may return an empty body. HTTP works. |
-| CA pinning | no. |
-| IPv6 | no. |
-| Several simultaneous TCP connections | no. |
-| real sshd/httpd/ftpd | `rcctl` flags. No daemons. |
-| `doas` isolation | no. One memory map. |
-| RXFS | 64 × 64 KiB. |
-| Compilers in LIVE | absent. `epk list --lab` = host notes. |
-| Browser / JS | no. `curl` downloads bytes. |
-| LIVE persistence | no, intentionally. |
-| Commercial use as a general OS | no. Laboratory / robotics / SNN. |
+- PX4 SITL runs on the host and is not part of the ISO.
+- The bundled autonomous producer is deliberately simple: distance, battery and link. It is not echoAI.
+- The geofence is an axis-aligned box; it models neither terrain nor polygons.
+- Real flight, aviation regulation, functional safety and every hardware fault mode have not been certified.
+- The intent ABI has no access to PWM or motors.
 
-## Heap-0
+## System
 
-The contract is **not** satisfied throughout the kernel. `kmalloc` exists.
+- This is neither POSIX nor a general-purpose operating system.
+- There is no complete process isolation or production ring 3.
+- RXFS is intentionally small and bounded.
+- The network stack is not a browser or a multi-user server.
+- The Heap‑0 contract covers the robotic path; `kmalloc` still exists elsewhere.
+- Published percentiles are bucket bounds, not invented precision. They may move between emulated runs.
 
-## What I do sign
-
-- The boot banner does not print `OK` if that stage was not verified.
-- It does not pretend that a NIC, NPU or daemon exists.
-- `command not found` is not the same as “not installed”.
+A published absence is a verifiable property, not a future promise in disguise.
 
 — R.N.
 
@@ -798,136 +1022,112 @@ The contract is **not** satisfied throughout the kernel. `kmalloc` exists.
 
 <!-- src/content/en/echos/superficie.md · /en/docs/echos/superficie -->
 
-# Public surface — echOS
+# echOS 3.0 surface
 
-Every name in `help` / `epk list` / `man` carries a label:
+## Verified platforms
 
-- **REAL** — the unikernel performs that work.
-- **NOTE** — the name exists; the work is a flag, dump or forwarding action.
-- **ABSENT** — outside Tab completion and `help`.
+| Platform | Boot | Console | Robotic demo | Network/PX4 |
+|---|---|---|---|---|
+| x86_64 | BIOS + GRUB Multiboot2 | framebuffer and VGA | yes | yes |
+| x86_64 | UEFI + OVMF | framebuffer | yes | base certification |
+| AArch64 `virt` | direct image and edk2 UEFI | PL011 serial | yes | yes |
 
-## Commands
+## Hot path
 
-| Command | Label | What it does |
-|---------|-------|--------------|
-| help about status mem uptime power bench devices env | REAL | kernel / benchmark |
-| clear reboot halt | REAL | console / reset |
-| ls cd pwd cat write rm cp mv mkdir rmdir tree | REAL | RXFS |
-| head tail less grep find du df nano history | REAL | RXFS |
-| date tz kbd termtheme | REAL | clock, map, palette |
-| man apropos | REAL | embedded pages |
-| echofetch hwprobe live whoami uname hostname echo | REAL | identity / PCI |
-| www curl wget dns tls ping nics ipconf trace nmap | REAL | IPv4; HTTPS may return an empty body |
-| wired chat say | REAL | L2 0x88B5 |
-| epk echos-install install save load format partition | REAL | RXFS notes / disk |
-| gpt | NOTE | GPT writer without valid CRC32 |
-| doas | NOTE | one address space; no isolation |
-| rcctl | NOTE | flags; no daemons |
-| pfctl | NOTE | RAM boolean; does not filter |
-| neuro neurocpu prisma5 bench-snn | REAL | in-kernel SNN; Akida = PCI probe |
+```text
+Sensor ABI (64 B)
+        ↓
+sensor queue, cap. 32
+        ↓
+producer runtime
+        ↓
+Intent ABI (72 B)
+        ↓
+safety gate: OK / MODIFY / BLOCK
+        ↓
+MAVLink 2 → PX4
+```
 
-## `epk list` (public)
+All four queues are static and report capacity, input, output, drops, expirations and high-water mark. The watchdog emits a safe behaviour when a valid intent stops arriving.
 
-echos-base, echos-shell, echofetch, echos-diag, echos-net, echos-npu,
-echos-io, echos-akida.
+## Storage
 
-`epk install` writes text into RXFS, not an ELF.
+The NVMe driver identifies the controller and namespace, executes commands with timeouts and propagates errors. The installer writes a valid GPT; certification mounts a 128 MiB namespace, writes a sentinel, reboots and checks that exactly the same content persists.
 
-## `epk list --lab`
+## x86 console
 
-Host notes: tcc, python, rustc, httpd, sshd, … They do not start a process.
+The human-facing surface retains its graphical console, JetBrains Mono, panes, history, RXFS, diagnostics, networking and embedded help. `pane split` divides the view; there is still one shell, while another pane can act as a live monitor.
 
-## Absent
+Names that perform no real work must not be presented as services. The [Commands](./comandos) page separates daily use from verification.
 
-tcc / python / git in the unikernel, real sshd/httpd, navi/echo in the OS,
-browser, loihi, htop/tmux, Wi-Fi, NVMe controller, UEFI.
+— R.N.
 
 ---
 
 <!-- src/content/en/echos/comandos.md · /en/docs/echos/comandos -->
 
-# Commands
+# echOS 3.0 commands
 
-The live list is in `CMD_NAMES`. Tab reads it. For flags: `man <cmd>`.
+The live list is `CMD_NAMES`. `Tab` reads that same table and `man <command>` shows the available help.
 
-## Orientation
-
-```text
-help            short list
-man / manual    pages
-apropos / man -k
-echofetch       card + logo
-about / status / live
-```
-
-## System
+## First steps
 
 ```text
-mem [map]       Heap-0 / PMM
-uptime
-date / time     date set YYYY-MM-DD HH:MM:SS
-uname / hostname
-whoami / id
-echo
-env [K] [V]
-power [s]       RAPL if the CPU is Intel and does not #GP
-reboot / halt
-clear / cls
-doas <cmd>      one address space; does not isolate
+help                 real command list
+about                system identity and purpose
+status               subsystem state
+limits               compiled limits
+devices              detected hardware and declared support
+mem                   Heap-0, kmalloc and physical memory
+report                evidence block measured during this boot
 ```
 
-## Files
+## Robotics and PX4
 
 ```text
-ls cd pwd cat write rm cp mv mkdir rmdir tree
-head tail less grep find
-nano history
+robot                runtime and safety-gate counters
+robot run            explicitly synthetic scenario
+px4                   MAVLink state and link counters
+px4 start HOST PORT   connect to PX4 SITL over UDP
+px4 stop              stop the bridge
 ```
 
-## Disk
+`robot run` exposes the pipeline without physical sensors. `px4 start 10.0.2.2 14580` is the form used by the gallery and QEMU tests; the address may differ on another laboratory network.
+
+## Console and files
 
 ```text
-df du
-partition cfdisk gpt disklabel
-format <dev> yes
-install / reinstall / echos-install
-save / load
+clear  history  font  termtheme
+pane split | next | close | monitor | shell
+ls  cd  pwd  cat  write  rm  cp  mv  mkdir  rmdir  tree
+head  tail  less  grep  find  nano
+df  du  save  load  format  partition
 ```
 
-## Network
+## Network diagnostics
 
 ```text
-www on|off|status
-curl / wdl / wget
-ipconf  nics  dns  tls  ping  traceroute  nmap
-wired / chat / say
+nics  ipconf  ping  dns  tls  curl  wget  trace  nmap
+wired  chat  say
 ```
 
-There is no browser. `curl` downloads bytes.
+There is no browser. An HTTP download does not imply a web engine.
 
-## Packages
+## Host-side build and certification
 
-```text
-epk list | list --lab | info | install | remove | apply
+```sh
+make build-universal-x86_64
+make build-universal-aarch64
+make test-universal-x86_64 test-uefi-universal-x86_64
+make test-storage-universal-x86_64
+make test-px4-universal-x86_64
+make test-universal-aarch64 test-uefi-universal-aarch64
+make test-px4-universal-aarch64
+make portability
+make repro-universal-x86_64
 ```
 
-`epk list` is kernel notes. `epk list --lab` is host notes.
-
-## Neuromorphic
-
-```text
-hwprobe
-bench / bench-snn
-prisma5 [alpha|null|stress]    # synthetic drive for the Q6 cube
-neuro / neurocpu [software|akida]
-```
-
-## OpenBSD style
-
-```text
-rcctl enable|disable|status|start|stop   # flags; no daemons
-pfctl -e|-d|-f|-s|-sr                    # RAM boolean; does not filter
-```
+PX4 tests require PX4 SITL on the host; UEFI requires OVMF/edk2 and architecture tests require QEMU.
 
 — R.N.
 

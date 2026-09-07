@@ -16,9 +16,10 @@ la preview de PRISMA. Això és laboratori, no fum.
 
 ## Projectes reals
 
-- **echOS** — unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. Sense Linux
-  a sota. Arrenca en QEMU i en metall. SNN al nucli (LIF / cub Q6). Sonda PCI
-  Akida: sense placa fa servir LIF per programari i es declara absent.
+- **echOS** — unikernel 3.0 per a robòtica a l'edge, sense Linux, chatbot, LLM
+  o SLM. Arrenca en x86_64 BIOS/UEFI i AArch64 UEFI. Pipeline sensor→intenció
+  acotat, safety gate, MAVLink 2/PX4, NVMe/GPT i persistència. 541
+  comprovacions verdes; Akida continua sent només una sonda no suportada.
   Docs: https://www.rogexlaboratories.com/ca/docs/echos/que-es
 - **PRISMA** — anàlisi d'EEG per a recerca. Motor Rust orientat a esdeveniments
   (modulació delta → LIF AVX2 → STDP). Xifres de banc mesurades en màquina. No
@@ -44,6 +45,10 @@ la preview de PRISMA. Això és laboratori, no fum.
 - [Maquinari previst](https://www.rogexlaboratories.com/ca/docs/echoai/hardware)
 - [Límits d'echoAI](https://www.rogexlaboratories.com/ca/docs/echoai/limites)
 - [echOS — què és](https://www.rogexlaboratories.com/ca/docs/echos/que-es)
+- [Guia d'ús d'echOS](https://www.rogexlaboratories.com/ca/docs/echos/guia)
+- [Arquitectura d'echOS](https://www.rogexlaboratories.com/ca/docs/echos/arquitectura)
+- [Evidència d'echOS 3.0](https://www.rogexlaboratories.com/ca/docs/echos/evidencia)
+- [Galeria real d'echOS](https://www.rogexlaboratories.com/ca/docs/echos/galeria)
 - [Límits d'echOS](https://www.rogexlaboratories.com/ca/docs/echos/limites)
 - [Superfície d'echOS](https://www.rogexlaboratories.com/ca/docs/echos/superficie)
 - [Ordres d'echOS](https://www.rogexlaboratories.com/ca/docs/echos/comandos)

@@ -1,84 +1,64 @@
-# Comandos
+# Comandos de echOS 3.0
 
-La lista viva está en `CMD_NAMES`. Tab lee eso. Para flags: `man <cmd>`.
+La lista viva está en `CMD_NAMES`. `Tab` usa esa misma tabla y `man <orden>` muestra la ayuda disponible.
 
-## Orientación
-
-```text
-help            lista corta
-man / manual    páginas
-apropos / man -k
-echofetch       tarjeta + logo
-about / status / live
-```
-
-## Sistema
+## Para empezar
 
 ```text
-mem [map]       Heap-0 / PMM
-uptime
-date / time     date set YYYY-MM-DD HH:MM:SS
-uname / hostname
-whoami / id
-echo
-env [K] [V]
-power [s]       RAPL si el CPU es Intel y no #GP
-reboot / halt
-clear / cls
-doas <cmd>      un espacio de direcciones; no aísla
+help                 lista de órdenes reales
+about                identidad y propósito del sistema
+status               estado de subsistemas
+limits               límites compilados
+devices              hardware visto y soporte declarado
+mem                   Heap-0, kmalloc y memoria física
+report                bloque de evidencia medido por este arranque
 ```
 
-## Ficheros
+## Robótica y PX4
 
 ```text
-ls cd pwd cat write rm cp mv mkdir rmdir tree
-head tail less grep find
-nano history
+robot                contadores del runtime y del safety gate
+robot run            escenario sintético, declarado como tal
+px4                   estado MAVLink y contadores del enlace
+px4 start HOST PORT   conecta con PX4 SITL por UDP
+px4 stop              detiene el puente
 ```
 
-## Disco
+`robot run` sirve para inspeccionar el pipeline sin sensores físicos. `px4 start 10.0.2.2 14580` es la forma usada por la galería y las pruebas QEMU; la dirección puede cambiar según la red del laboratorio.
+
+## Consola y ficheros
 
 ```text
-df du
-partition cfdisk gpt disklabel
-format <dev> yes
-install / reinstall / echos-install
-save / load
+clear  history  font  termtheme
+pane split | next | close | monitor | shell
+ls  cd  pwd  cat  write  rm  cp  mv  mkdir  rmdir  tree
+head  tail  less  grep  find  nano
+df  du  save  load  format  partition
 ```
 
-## Red
+## Diagnóstico de red
 
 ```text
-www on|off|status
-curl / wdl / wget
-ipconf  nics  dns  tls  ping  traceroute  nmap
-wired / chat / say
+nics  ipconf  ping  dns  tls  curl  wget  trace  nmap
+wired  chat  say
 ```
 
-No hay navegador. `curl` baja bytes.
+No hay navegador. Una descarga HTTP no implica un motor web.
 
-## Paquetes
+## Construcción y certificación desde el host
 
-```text
-epk list | list --lab | info | install | remove | apply
+```sh
+make build-universal-x86_64
+make build-universal-aarch64
+make test-universal-x86_64 test-uefi-universal-x86_64
+make test-storage-universal-x86_64
+make test-px4-universal-x86_64
+make test-universal-aarch64 test-uefi-universal-aarch64
+make test-px4-universal-aarch64
+make portability
+make repro-universal-x86_64
 ```
 
-`epk list` son notas del kernel. `epk list --lab` son notas de host.
-
-## Neuromórfico
-
-```text
-hwprobe
-bench / bench-snn
-prisma5 [alpha|null|stress]    # drive sintético del cubo Q6
-neuro / neurocpu [software|akida]
-```
-
-## Estilo OpenBSD
-
-```text
-rcctl enable|disable|status|start|stop   # flags; no hay daemons
-pfctl -e|-d|-f|-s|-sr                    # boolean RAM; no filtra
-```
+Las pruebas de PX4 requieren PX4 SITL en el host; UEFI requiere OVMF/edk2 y las pruebas de arquitectura requieren QEMU.
 
 — R.N.

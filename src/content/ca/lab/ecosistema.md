@@ -9,18 +9,19 @@ afirmació de maquinari que no sigui sobre la taula.
 
 | Línia | Què és | Estat |
 |---|---|---|
-| **echOS** | Unikernel x86_64 de consola, un ELF | 2.1.0-honest; arrenca en QEMU i en metall |
+| **echOS** | Unikernel per a robòtica a l'edge | 3.0 tancat; x86_64 BIOS/UEFI i AArch64 UEFI |
 | **PRISMA Engine** | EEG a esdeveniments, Rust i anàlisi reproduïble | Engine 0.1.0 mesurat; no és un producte sanitari |
 | **echoAI** | Agent situat de dos rellotges | ECHO-1 tancat; ECHO-2 en disseny |
 
 ## On es toquen
 
-echOS i echoAI comparteixen el contracte **WSP de 16 bytes**. No comparteixen
-procés: actualment echoAI s'executa en host i no és dins de la ISO.
+echOS i echoAI no comparteixen procés: actualment echoAI s'executa en host i
+no és dins de la ISO. echOS 3.0 publica un contracte acotat de sensors i
+intencions que pot ser la unió futura sense posar un chatbot dins de l'OS.
 
-PRISMA i echOS fan servir el vocabulari d'una futura sonda neuromòrfica. PRISMA
-i echoAI no s'importen: l'un analitza un senyal continu; l'altre aprèn a actuar
-en un món discret.
+PRISMA i echoAI tampoc no s'importen: l'un analitza un senyal continu; l'altre
+aprèn a actuar en un món discret. Les tres línies continuen separades i només
+es troben mitjançant contractes explícits.
 
 ## Estat d'echoAI
 

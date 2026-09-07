@@ -1,41 +1,29 @@
-# echOS
+# echOS 3.0
 
-Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. No hi ha Linux a sota.
-No hi ha BusyBox. No hi ha systemd. La màquina *és* el programa.
+echOS 3.0 és un **unikernel per a robòtica a l'edge**. Arrenca directament sobre la màquina, sense Linux, `systemd`, BusyBox ni cap distribució amagada a sota. La seva funció és rebre observacions, produir intencions limitades i lliurar-les a un controlador de vol sense assumir el control directe dels motors.
 
-No és un sistema comercial. No és un navegador. Està pensat per a programari
-neuromòrfic i robòtica.
+> Un cos petit, mesurable i portable per a sistemes robòtics. No és un chatbot i no conté cap LLM o SLM.
 
-> Unikernel de consola. Programari neuromòrfic. Akida quan hi ha placa.
+## Què ha canviat a 3.0
 
-## Què és, en una frase
+- Una mateixa base arrenca en **x86_64 BIOS**, **x86_64 UEFI** i **AArch64 UEFI**.
+- El camí `sensor → intenció → safety gate → autopilot` usa registres i cues de mida fixa.
+- Aquest camí fa **zero reserves dinàmiques de memòria**, mesurades pel mateix nucli.
+- El pont MAVLink 2 intercanvia telemetria, intencions i confirmacions amb PX4 SITL.
+- NVMe, GPT i la persistència es proven contra un dispositiu emulat real i després de reiniciar.
+- Els artefactes se separen per arquitectura i edició, i les builds netes són reproduïbles.
+- NAVI i l'experiment d'assistent conversacional ja no formen part del producte.
 
-Una consola JetBrains / Liberation Mono sobre framebuffer (o text VGA), amb
-ROSH, `epk` local, pila IPv4/DNS/TCP/HTTP i un teixit d'esdeveniments / SNN al
-nucli — sense finestra, sense dock i sense mentir sobre el maquinari.
+## El contracte robòtic
 
-## Què no és
+Els sensors entren com a registres enters de 64 bytes. Les decisions surten com a intencions de 72 bytes amb origen causal, temps de captura, venciment, confiança i límits. L'ABI només pot expressar ordres d'alt nivell com `HOLD`, `APPROACH`, `AVOID`, `RETURN_HOME`, `LAND` o `ABORT`.
 
-- No és un escriptori.
-- No és Alpine, OpenBSD, Haiku ni un Linux encastat.
-- No és un producte per navegar per internet. `curl` baixa bytes.
-- No hi ha Echo AI en aquesta ISO.
+No hi ha cap camp per a PWM, servos o accelerador. **PX4 conserva l'autoritat sobre l'estabilització i els actuadors.**
 
-## Peces que importen
+## Estat
 
-| Peça | Què és |
-|---|---|
-| Heap-0 | Layout estàtic a BSS. `kmalloc` de 512 KiB continua existint i es declara. |
-| RXFS | FS natiu, 64 fitxers × 64 KiB. |
-| `epk` | Notes a RXFS. `epk list` = el que té el nucli. `--lab` = host. |
-| LIVE | Arrenca en RAM. Mínim. |
-| SNN | Cub Q6 de 64 cèl·lules LIF, `prisma5` sintètic, `bench-snn`. |
-| Akida | Sonda PCI `1e7c:bca1`. Sense placa = LIF per programari. |
+La versió 3.0 està tancada respecte de la seva definició de finalització: 19 requisits complerts i sis certificats verds. Això no vol dir “producte aeronàutic certificat i llest per desplegar”. Vol dir que l'abast publicat està implementat, mesurat i acompanyat de límits explícits.
 
-## Superfície honesta
-
-Un desconegut arrenca LIVE, escriu `help` i no pot acusar-lo de teatre.
-`rcctl start` no fingeix un dimoni. `doas` no aïlla. `pfctl` no filtra.
-`tcc` / `python` / `sshd` no són a Tab.
+Consulta la [guia d'ús](./guia), l'[arquitectura](./arquitectura), l'[evidència](./evidencia) i la [galeria real](./galeria).
 
 — R.N.

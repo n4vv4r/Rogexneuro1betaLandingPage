@@ -2,6 +2,10 @@ import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import echosQue from "../content/echos/que-es.md?raw";
+import echosGuide from "../content/echos/guia.md?raw";
+import echosArch from "../content/echos/arquitectura.md?raw";
+import echosEvidence from "../content/echos/evidencia.md?raw";
+import echosGallery from "../content/echos/galeria.md?raw";
 import echosLim from "../content/echos/limites.md?raw";
 import echosSup from "../content/echos/superficie.md?raw";
 import echosCmd from "../content/echos/comandos.md?raw";
@@ -17,6 +21,10 @@ import echoaiHardware from "../content/echoai/hardware.md?raw";
 import echoaiLimites from "../content/echoai/limites.md?raw";
 import labEco from "../content/lab/ecosistema.md?raw";
 import enEchosQue from "../content/en/echos/que-es.md?raw";
+import enEchosGuide from "../content/en/echos/guia.md?raw";
+import enEchosArch from "../content/en/echos/arquitectura.md?raw";
+import enEchosEvidence from "../content/en/echos/evidencia.md?raw";
+import enEchosGallery from "../content/en/echos/galeria.md?raw";
 import enEchosLim from "../content/en/echos/limites.md?raw";
 import enEchosSup from "../content/en/echos/superficie.md?raw";
 import enEchosCmd from "../content/en/echos/comandos.md?raw";
@@ -32,6 +40,10 @@ import enEchoaiHardware from "../content/en/echoai/hardware.md?raw";
 import enEchoaiLimites from "../content/en/echoai/limites.md?raw";
 import enLabEco from "../content/en/lab/ecosistema.md?raw";
 import caEchosQue from "../content/ca/echos/que-es.md?raw";
+import caEchosGuide from "../content/ca/echos/guia.md?raw";
+import caEchosArch from "../content/ca/echos/arquitectura.md?raw";
+import caEchosEvidence from "../content/ca/echos/evidencia.md?raw";
+import caEchosGallery from "../content/ca/echos/galeria.md?raw";
 import caEchosLim from "../content/ca/echos/limites.md?raw";
 import caEchosSup from "../content/ca/echos/superficie.md?raw";
 import caEchosCmd from "../content/ca/echos/comandos.md?raw";
@@ -61,6 +73,10 @@ const CATALOG = [
   { group: "echoAI", id: "echoai/hardware", title: "Hardware previsto", src: echoaiHardware },
   { group: "echoAI", id: "echoai/limites", title: "Límites", src: echoaiLimites },
   { group: "echOS", id: "echos/que-es", title: "Qué es", src: echosQue },
+  { group: "echOS", id: "echos/guia", title: "Guía de uso", src: echosGuide },
+  { group: "echOS", id: "echos/arquitectura", title: "Arquitectura", src: echosArch },
+  { group: "echOS", id: "echos/evidencia", title: "Evidencia 3.0", src: echosEvidence },
+  { group: "echOS", id: "echos/galeria", title: "Galería", src: echosGallery },
   { group: "echOS", id: "echos/limites", title: "Límites", src: echosLim },
   { group: "echOS", id: "echos/superficie", title: "Superficie", src: echosSup },
   { group: "echOS", id: "echos/comandos", title: "Comandos", src: echosCmd },
@@ -79,6 +95,10 @@ const EN_CATALOG = [
   { group: "echoAI", id: "echoai/hardware", title: "Planned hardware", src: enEchoaiHardware },
   { group: "echoAI", id: "echoai/limites", title: "Limitations", src: enEchoaiLimites },
   { group: "echOS", id: "echos/que-es", title: "What it is", src: enEchosQue },
+  { group: "echOS", id: "echos/guia", title: "User guide", src: enEchosGuide },
+  { group: "echOS", id: "echos/arquitectura", title: "Architecture", src: enEchosArch },
+  { group: "echOS", id: "echos/evidencia", title: "3.0 evidence", src: enEchosEvidence },
+  { group: "echOS", id: "echos/galeria", title: "Gallery", src: enEchosGallery },
   { group: "echOS", id: "echos/limites", title: "Limitations", src: enEchosLim },
   { group: "echOS", id: "echos/superficie", title: "Surface", src: enEchosSup },
   { group: "echOS", id: "echos/comandos", title: "Commands", src: enEchosCmd },
@@ -97,6 +117,10 @@ const CA_CATALOG = [
   { group: "echoAI", id: "echoai/hardware", title: "Maquinari previst", src: caEchoaiHardware },
   { group: "echoAI", id: "echoai/limites", title: "Límits", src: caEchoaiLimites },
   { group: "echOS", id: "echos/que-es", title: "Què és", src: caEchosQue },
+  { group: "echOS", id: "echos/guia", title: "Guia d'ús", src: caEchosGuide },
+  { group: "echOS", id: "echos/arquitectura", title: "Arquitectura", src: caEchosArch },
+  { group: "echOS", id: "echos/evidencia", title: "Evidència 3.0", src: caEchosEvidence },
+  { group: "echOS", id: "echos/galeria", title: "Galeria", src: caEchosGallery },
   { group: "echOS", id: "echos/limites", title: "Límits", src: caEchosLim },
   { group: "echOS", id: "echos/superficie", title: "Superfície", src: caEchosSup },
   { group: "echOS", id: "echos/comandos", title: "Ordres", src: caEchosCmd },

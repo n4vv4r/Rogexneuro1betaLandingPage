@@ -1,47 +1,37 @@
-# Límites — lo que no hago
+# Límites de echOS 3.0
 
-Política del laboratorio: si no está, se dice.
+Cerrar 3.0 no convierte un sistema de investigación en un producto certificado. Estos son los bordes actuales.
 
-## Hardware
+## Plataforma
 
-| Cosa | Estado |
+| Capacidad | Estado actual |
 |---|---|
-| WiFi | no. PCI se lista. Cero driver. |
-| NVMe | clase `01:08` en `hwprobe`. Sin driver. SATA AHCI / IDE / virtio-blk sí. |
-| UEFI nativo | no. BIOS/CSM / SeaBIOS. |
-| USB HID | no como input de diario. PS/2 teclado y ratón. |
-| Audio | no. |
-| GPU accel | no. LFB. |
-| Akida | probe PCI. Sin placa = software LIF. Sin blob BrainChip. |
-| Loihi | fuera de 2.1. Cero interfaz. |
-| ARM64 kernel | el ELF de la ISO Universal es x86_64. |
+| SMP | Ausente: un núcleo por arquitectura. |
+| AArch64 gráfico | Ausente: consola PL011 serie, sin framebuffer. |
+| AArch64 userland | Shell de diagnóstico reducido; no replica la consola completa de x86. |
+| AArch64 device tree | Se usa para memoria; PL011, GIC y virtio-mmio aún usan tres direcciones fijas. |
+| ACPI | Sin lector. En UEFI ARM el mapa de memoria procede del firmware. |
+| Wi‑Fi, audio, GPU | Sin controladores. |
+| USB HID | No es la entrada habitual; x86 usa PS/2. |
+| Akida | Sólo sonda PCI: detectada significa **no soportada**, no acelerada. |
 
-## Software
+## Robótica
 
-| Cosa | Estado |
-|---|---|
-| Multi-proceso / anillo 3 | esbozo. Una tarea. |
-| POSIX | no. Alias de comandos, no glibc. |
-| TLS 1.3 datos de aplicación | el apretón de manos funciona; GET https puede volver vacío. HTTP sí. |
-| Pin de CA | no. |
-| IPv6 | no. |
-| Varios TCP a la vez | no. |
-| sshd/httpd/ftpd reales | flags `rcctl`. No hay daemons. |
-| `doas` aislamiento | no. Un mapa de memoria. |
-| RXFS | 64 × 64 KiB. |
-| Compiladores en LIVE | ausentes. `epk list --lab` = notas de host. |
-| Navegador / JS | no. `curl` baja bytes. |
-| Persistencia LIVE | no, a propósito. |
-| Uso comercial como OS general | no. Laboratorio / robótica / SNN. |
+- PX4 SITL se ejecuta en el host y no está dentro de la ISO.
+- El productor autónomo incluido es deliberadamente sencillo: distancia, batería y enlace. No es echoAI.
+- El geofence es una caja alineada a ejes; no modela terreno ni polígonos.
+- No se ha certificado vuelo real, normativa aeronáutica, seguridad funcional ni tolerancia a todos los fallos de hardware.
+- No hay acceso a PWM o motores desde la ABI de intenciones.
 
-## Heap-0
+## Sistema
 
-El contrato **no** se cumple en todo el kernel. `kmalloc` vive.
+- No es POSIX ni un sistema operativo general.
+- No hay aislamiento completo de procesos ni anillo 3 de producción.
+- RXFS es pequeño y deliberadamente limitado.
+- La pila de red no equivale a un navegador ni a un servidor multiusuario.
+- El contrato Heap‑0 cubre el camino robótico; `kmalloc` sigue existiendo fuera de él.
+- Los percentiles publicados son límites de buckets, no una precisión inventada. Bajo emulación pueden cambiar entre corridas.
 
-## Lo que sí firmo
-
-- El banner de boot no imprime `OK` si esa etapa no se comprobó.
-- No se finge un NIC, un NPU ni un daemon.
-- `command not found` no es lo mismo que «no instalado».
+El criterio es sencillo: una ausencia publicada es una propiedad verificable, no una promesa futura disfrazada.
 
 — R.N.

@@ -9,18 +9,19 @@ claim for equipment that is not on the bench.
 
 | Line | What it is | Status |
 |---|---|---|
-| **echOS** | An x86_64 console unikernel, one ELF | 2.1.0-honest; boots in QEMU and on bare metal |
+| **echOS** | Robotic edge unikernel | 3.0 closed; x86_64 BIOS/UEFI and AArch64 UEFI |
 | **PRISMA Engine** | EEG to events, Rust and reproducible analysis | Engine 0.1.0 measured; not a medical device |
 | **echoAI** | Two-clock situated agent | ECHO-1 closed; ECHO-2 in design |
 
 ## Where they meet
 
-echOS and echoAI share the **16-byte WSP** contract. They do not share a
-process: echoAI currently runs on a host and is not inside the ISO.
+echOS and echoAI do not share a process: echoAI currently runs on a host and
+is not inside the ISO. echOS 3.0 publishes a bounded sensor-and-intent contract
+that can become their future seam without placing a chatbot inside the OS.
 
-PRISMA and echOS use the vocabulary of a future neuromorphic probe. PRISMA and
-echoAI do not import one another: one analyses a continuous signal; the other
-learns to act in a discrete world.
+PRISMA and echoAI do not import one another either: one analyses a continuous
+signal; the other learns to act in a discrete world. All three lines remain
+separate and meet only through explicit contracts.
 
 ## echoAI status
 

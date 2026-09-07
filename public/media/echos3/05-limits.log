@@ -1,0 +1,95 @@
+[0m[37;40m[?25h[5 q[?1000h[?1006h
+                  888       .d88888b.   .d8888b.
+                  888      d88P" "Y88b d88P  Y88b
+                  888      888     888 Y88b.
+ .d88b.   .d8888b 88888b.  888     888  "Y888b.
+d8P  Y8b d88P"    888 "88b 888     888     "Y88b.
+88888888 888      888  888 888     888       "888
+Y8b.     Y88b.    888  888 Y88b. .d88P Y88b  d88P
+ "Y8888   "Y8888P 888  888  "Y88888P"   "Y8888P"
+
+  echOS 3.0.0-honest (Heap-0 · robotic edge unikernel) · Rogex Laboratories
+
+echOS 3.0.0-honest (Heap-0 · robotic edge unikernel)
+Rogex Laboratories
+[echOS] identity version=3.0.0 edition=universal arch=x86_64 boot=bios-multiboot2
+Boot stage: OK
+[echOS] firmware: bios  config table: none  boot services: exited  memory map: 9 of 9 ranges  modules: 1  acpi: RSDP v1 from loader
+GDT: OK (long mode; GDT loaded in boot.asm)
+Heap-0: OK (WSP 64 KiB BSS; kmalloc 512 KiB still exists)
+Memory: OK
+SEB: OK (emit/poll ring)
+Timer: OK
+IDT: OK (IRQ0 delivered through IDT)
+Monotonic clock: TSC calibrated against the PIT, 2095 MHz
+Robot runtime: OK (4 static queues, gate armed, no producer yet)
+[echOS] clock: 2026-09-07 22:22:30 (CMOS RTC)
+Keyboard: OK
+Storage: none (amnesic; attach a disk)
+NVMe: absent (no PCI class 01:08:02 controller)
+NIC: virtio-net
+Akida AKD1000: absent (software LIF)
+RXFS: OK
+[echOS] framebuffer 1280x720x32 (graphical, double-buffered)
+[echOS] mouse: PS/2 IMPS/2 wheel
+[echOS] RAM: kernel using 3 MiB  |  this PC 511 MiB firmware  |  heap 512 KiB
+[echOS] scheduler self-test (spawn/yield/block/wake): PASS
+[echOS] power: idle via HLT (C1)  |  ACPI BOCHS  (C2 lat 4095us, C3 lat 4095us)
+[echOS] thermal: unavailable (no digital thermal sensor)
+[echOS] cpu: QEMU Virtual CPU version 2.5+
+[echOS] power: MSR #GP guard untested (this CPU returns 0 for unknown MSRs)
+[echOS] power: RAPL unavailable (non-Intel CPU)
+[echOS] process table: STUB (single kernel task, pid 0)
+[echOS] syscall table: STUB (direct dispatch; no ring-3, no trap gate)
+[echOS] ipc queue self-test: PASS
+[echOS] event fabric self-test (SPSC ring + Q16.16 LIF + input): PASS
+[echOS] neuro backend: Software LIF (CPU) — software LIF on host CPU (active)
+[echOS] input: interrupt-driven (IRQ1 kbd, IRQ12 mouse) -> IPC queue; idle = hlt
+[echOS] install payload: 2007520 bytes (LIVE can write a bootable disk)
+[echOS] nic: virtio-net MAC 52:54:00:ce:21:01 (Rogex Wired L2 ready)
+[echOS] nic: INTx wake-hint on IRQ 11 (RX still drained by idle loop; INTx UNVERIFIED)
+[echOS] rogex-core (PQC + mesh) initialized
+[echOS] AEAD self-test (RFC 8439 KAT): PASS
+[echOS] ML-KEM keygen... encap... decap... done
+[echOS] ML-KEM handshake (keypair/encap/decap): PASS - shared secrets agree
+[echOS] mesh tx (garlic-wrapped) accepted bytes: 26
+[echOS] Proof-of-Report consensus (3 distinct reporters): PASS - terminal banned from mesh
+[echOS] rgxsite integrity (verify + 1-byte tamper): PASS
+[echOS] REVM (bytecode sealed under ML-KEM key) output -> ROGEX OS
+[echOS] REVM finished: halted
+[echOS] tamper rejected by AEAD: PASS
+[echOS] hardware UID: 066d4227b513da8544244bcb...  TPM 2.0: absent (QEMU has none; use -tpmdev)
+[echOS] init: userland up (rxfs mounted, tree + apps seeded)
+Shell: OK (userland init)
+
+[echOS] installer  —  1=English  2=Espanol  q=LIVE
+[echOS] arrows/Enter in the menu, or type 1 / 2 / q
+
+[?25l[2J[1;1H[0;1;37;40m                                                                                [2;1H  [0;1;33;40m+-[0;1;36;40m echOS 3.0 [0;1;33;40m--------------------------------------------------------------+[0;1;37;40m  [3;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [4;1H  [0;1;33;40m|[0;1;37;40m  [0;1;37;40mJetBrains Mono  ·  Heap-0 shared kernel  ·  local epk[0;1;37;40m                   [0;1;33;40m|[0;1;37;40m  [5;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [6;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [7;1H  [0;1;33;40m|[0;1;37;40m   [0;1;37;43m > English                                                          [0;1;37;40m   [0;1;33;40m|[0;1;37;40m  [8;1H  [0;1;33;40m|[0;1;37;40m      Español                                                             [0;1;33;40m|[0;1;37;40m  [9;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [10;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [11;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [12;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [13;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [14;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [15;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [16;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [17;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [18;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [19;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [20;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [21;1H  [0;1;33;40m|[0;1;37;40m                                                                          [0;1;33;40m|[0;1;37;40m  [22;1H  [0;1;37;40m  Enter confirm  |  1-2 jump  |  q LIVE (Minimal)                           [0;1;37;40m  [23;1H  [0;1;33;40m+--------------------------------------------------------------------------+[0;1;37;40m  [24;1H                                                                                [25;1H                                                                                [0m
+   Welcome, live. Account saved.
+[?25l[2J[1;1H[0;1;37;40m [0;1;33;40m+-[0;1;36;40m echOS 3.0  LIVE [0;1;33;40m----------------------------------------------------------+[0;1;37;40m [2;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [3;1H [0;1;33;40m|[0;1;37;40m  [0;1;36;40mechOS 3.0.0-honest (Heap-0 · robotic edge unikernel)[0;1;37;40m                      [0;1;33;40m|[0;1;37;40m [4;1H [0;1;33;40m|[0;1;37;40m  [0;1;37;40mEvery .epk is available in LIVE.  echos-install writes a disk.[0;1;37;40m            [0;1;33;40m|[0;1;37;40m [5;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [6;1H [0;1;33;40m|[0;1;37;40m  [0;1;37;40mTree:[0;1;37;40m                                                                     [0;1;33;40m|[0;1;37;40m [7;1H [0;1;33;40m|[0;1;37;40m    /boot /sys /bin /etc /epk /var /dev /users /tmp                         [0;1;33;40m|[0;1;37;40m [8;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [9;1H [0;1;33;40m|[0;1;37;40m  [0;1;37;40mTry:[0;1;37;40m                                                                      [0;1;33;40m|[0;1;37;40m [10;1H [0;1;33;40m|[0;1;37;40m    echofetch   epk list   hwprobe   bench-snn   help                       [0;1;33;40m|[0;1;37;40m [11;1H [0;1;33;40m|[0;1;37;40m    tcc  python3.14  qjs  doas  rcctl  pfctl  sudoers                       [0;1;33;40m|[0;1;37;40m [12;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [13;1H [0;1;33;40m|[0;1;37;40m  [0;1;37;40mUsers: /users/<you>/{Desktop,Documents,Downloads,Images,Videos}[0;1;37;40m           [0;1;33;40m|[0;1;37;40m [14;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [15;1H [0;1;33;40m|[0;1;37;40m  [0;1;37;40mNPU:   hwprobe   (Akida AKD1000  PCI 1e7c:bca1)[0;1;37;40m                           [0;1;33;40m|[0;1;37;40m [16;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [17;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [18;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [19;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [20;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [21;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [22;1H [0;1;33;40m|[0;1;37;40m  type commands at the prompt   |   echos-install writes a disk             [0;1;33;40m|[0;1;37;40m [23;1H [0;1;33;40m|[0;1;37;40m                                                                            [0;1;33;40m|[0;1;37;40m [24;1H [0;1;33;40m+----------------------------------------------------------------------------+[0;1;37;40m [25;1H                                                                                [0m[2J[H[0m[?25h
+   Account found: live
+   LIVE / CLI session. Type `echos-install` to install.
+[1;37mlive[0;37m@[1;36mechos[0m [1;34m/users/live[0;37m# [0mclear
+[2J[H[0m[?25h[1;37mlive[0;37m@[1;36mechos[0m [1;34m/users/live[0;37m# [0mlimits
+# limits — compiled ceilings of this build; docs2.0/limites.md is the prose
+echOS 3.0 — declared limits (compiled in, not aspirations)
+ 
+limit             value       where
+tasks             4           kernel/task/scheduler.h
+task stack        65536       bytes per task; IRQs run on it too
+seb ring          1024        spikes, kernel/event/seb.h
+seb channels      8           timer kbd mouse pci net wsp sys
+wsp packet        16          bytes, kernel/include/wsp.h
+heap-0 wsp pool   65536       bytes of BSS, never grows
+devices           64          static probe slots
+kmalloc arena     524288      bytes; the only dynamic allocator
+rxfs files        64          slots, fs/rxfs/rxfs.h
+rxfs file size    65536       bytes per file, fixed
+rxfs dirs         64          directory entries
+rxfs path depth   8           components
+ramdisk           524288      bytes of block device ram0
+ 
+Reached one of these and it refuses; it does not grow. Prose and the
+absent-hardware list: docs2.0/limites.md.
+[1;37mlive[0;37m@[1;36mechos[0m [1;34m/users/live[0;37m# [0m

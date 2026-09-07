@@ -1,0 +1,59 @@
+UEFI firmware (version edk2-20260508-5.fc43 built at 00:00:00 on Jul  8 2026)
+PeiDelayedDispatchOnEndOfPei Count of dispatch cycles is 0
+ArmTrngLib could not be correctly initialized.
+Error: Image at 0005F3E5000 start failed: 00000001
+Tpm2SubmitCommand - Tcg2 - Not Found
+Tpm2GetCapabilityPcrs fail!
+Tpm2SubmitCommand - Tcg2 - Not Found
+BdsDxe: loading Boot0002 "UEFI Non-Block Boot Device" from PciRoot(0x0)/Pci(0x1,0x0)
+BdsDxe: starting Boot0002 "UEFI Non-Block Boot Device" from PciRoot(0x0)/Pci(0x1,0x0)
+echOS: UEFI entry
+echOS: no device tree in the UEFI configuration table
+
+  echOS 3.0.0-honest (Heap-0 · robotic edge unikernel) · Rogex Laboratories
+  [echOS] identity version=3.0.0 edition=universal arch=aarch64 boot=UEFI memory map
+
+Boot stage: OK
+Heap-0: OK (WSP pool bound)
+Memory: OK
+[echOS] memory map: 6 range(s) from the UEFI memory map
+         0x0000000040000000 + 0 MiB  usable
+         0x0000000040646000 + 57 MiB  usable
+         0x0000000044020000 + 53 MiB  usable
+         0x0000000047ed9000 + 0 MiB  usable
+         0x0000000048000000 + 359 MiB  usable
+         0x000000005fff0000 + 0 MiB  usable
+[echOS] RAM: kernel using 0 MiB of 471 MiB
+Interrupts: OK (GICv2, EL1 vectors)
+Timer: OK (ARM generic timer, 100 Hz)
+Monotonic clock: ARM generic timer, 62 MHz, fixed rate
+Scheduler: OK (spawn/yield/block/wake)
+SEB: OK (emit/poll ring)
+Storage: OK (ram0, virtual)
+RXFS: OK
+[echOS] net: virtio-mmio v1 (legacy), MAC 52:54:00:12:34:56
+Network: OK (virtio-net over MMIO)
+Robot runtime: OK (4 static queues, gate armed)
+[echOS] self-tests: scheduler PASS, SEB PASS, RXFS PASS, heap PASS
+
+[echOS] aarch64 bring-up shell. `help` lists what works.
+
+echos(aarch64)# status
+arch        aarch64
+transport   UEFI memory map
+memory      0 MiB used of 471 MiB
+heap        0 B of 524288 B
+ticks       1 at 100 Hz
+uptime      5871 ms (timer)  7 ms (monotonic)
+clock       ARM generic timer, 62 MHz, fixed rate
+interrupts  taken 1, spurious 0
+tasks       1, switches 6
+files       0 in rxfs
+echos(aarch64)# mem
+  0x0000000040000000  0 MiB  usable
+  0x0000000040646000  57 MiB  usable
+  0x0000000044020000  53 MiB  usable
+  0x0000000047ed9000  0 MiB  usable
+  0x0000000048000000  359 MiB  usable
+  0x000000005fff0000  0 MiB  usable
+echos(aarch64)# 

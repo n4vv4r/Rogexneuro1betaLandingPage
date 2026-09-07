@@ -1,0 +1,391 @@
+{
+  "absent": [
+    "**Sin device tree bajo UEFI**: el firmware edk2 de QEMU publica ACPI y no una tabla FDT, as\u00ed que por esa v\u00eda el mapa de memoria viene del propio firmware. echOS no lee ACPI: si un d\u00eda necesita algo que s\u00f3lo est\u00e9 ah\u00ed, habr\u00e1 que escribir ese lector.",
+    "**Sin framebuffer en AArch64**: la consola es PL011 serie. La fuente JetBrains Mono, los paneles y el scroll son la CLI de x86.",
+    "**Sin userland completo en AArch64**: shell de diagn\u00f3stico de nueve \u00f3rdenes. Sin paquetes epk, sin TLS, sin instalador.",
+    "**Tres direcciones fijas en AArch64** (PL011, GIC, virtio-mmio): el DTB ya se lee para la memoria, enumerar perif\u00e9ricos desde \u00e9l est\u00e1 pendiente.",
+    "**Sin SMP** en ninguna arquitectura: un n\u00facleo.",
+    "**Akida**: sonda PCI que se declara *detectada, no soportada*. Nada se descarga en ella y no es un requisito.",
+    "**Sin chatbot, LLM ni SLM**. El tejido de eventos spiking (LIF/Q6) es real y es lo \u00fanico neurom\u00f3rfico que hay.",
+    "**PX4 SITL es una herramienta del host**: no est\u00e1 en la ISO ni lo estar\u00e1."
+  ],
+  "artifacts": {
+    "EchOS-3.0.0-universal-vm.iso": "665971e1bce317cec34e81c754435328dc4f50210cb52c72f7ff16f71c3260ed",
+    "rxos.elf (x86_64)": "fe28b51baa119ead745adde0202c45e902182c3aacfbe0193386e597a6442471",
+    "rxos.img (aarch64)": "4a251b9580db1ee56fd6e5e0295118758309e89678edfb1adddbe7b9f7b8b0da"
+  },
+  "boards": {
+    "aarch64": {
+      "arch": "aarch64",
+      "boot_firmware": "unknown",
+      "boot_info_valid": "1",
+      "boot_transport": "device-tree",
+      "context_switches": "2994330",
+      "deadlines_missed": "1",
+      "deadlines_missed_seen_by_gate_queue": "1",
+      "edition": "universal",
+      "gate_accepted": "43",
+      "gate_blocked": "1",
+      "gate_modified": "4",
+      "gate_seen": "48",
+      "heap0_regions": "5",
+      "heap0_reserved_bytes": "3850752",
+      "heap0_total_bytes": "3850752",
+      "heap_total_bytes": "524288",
+      "heap_used_bytes": "0",
+      "intents_delivered": "48",
+      "intents_expired": "1",
+      "intents_made": "46",
+      "intents_sent": "48",
+      "latency_jitter_us_lt": "96",
+      "latency_max_us_raw": "169",
+      "latency_mean_us_raw": "38",
+      "latency_min_us_raw": "4",
+      "latency_p50_us_lt": "31",
+      "latency_p95_us_lt": "127",
+      "latency_p99_us_lt": "255",
+      "latency_samples_total": "173",
+      "link_drops": "0",
+      "link_open": "0",
+      "link_up": "1",
+      "mav_bad_stx": "0",
+      "mav_command_acks": "38",
+      "mav_crc_errors": "0",
+      "mav_heartbeats_rx": "13",
+      "mav_intents_sent": "126",
+      "mav_packets_lost": "0",
+      "mav_rejected_incompat": "0",
+      "mav_rx_frames": "498",
+      "mav_senders": "1",
+      "mav_sensors_produced": "599",
+      "mav_seq_gaps": "0",
+      "mav_tx_frames": "176",
+      "mav_undecodable": "194",
+      "mem_bump_region_remaining_bytes": "401604608",
+      "mem_frames_handed_out_bytes": "0",
+      "mem_ranges": "1",
+      "mem_total_bytes": "536870912",
+      "outbound_dropped": "1",
+      "pipeline_alloc_calls": "0",
+      "px4_lines_after_our_silence": [
+        "WARN  [commander] Connection to mission computer lost"
+      ],
+      "queue_gate": "pushed 174 popped 174 drops 0 expired 1 high_water 1 capacity 16",
+      "queue_intent": "pushed 172 popped 172 drops 0 expired 0 high_water 1 capacity 16",
+      "queue_out": "pushed 174 popped 174 drops 1 expired 0 high_water 16 capacity 16",
+      "queue_sensor": "pushed 649 popped 649 drops 8 expired 0 high_water 32 capacity 32",
+      "records_accepted": "50",
+      "records_dropped": "8",
+      "records_injected": "61",
+      "records_refused": "3",
+      "seb_selftest_at_boot": "1",
+      "stack_guards_intact": "1",
+      "stack_worst_task": "mavpump",
+      "stack_worst_used_bytes": "7328",
+      "tasks": "1",
+      "version": "3.0.0",
+      "watchdog_intents": "1"
+    },
+    "x86_bios": {
+      "arch": "x86_64",
+      "boot_firmware": "bios",
+      "boot_info_valid": "1",
+      "boot_transport": "multiboot2",
+      "context_switches": "3407",
+      "deadlines_missed": "1",
+      "deadlines_missed_seen_by_gate_queue": "1",
+      "edition": "universal",
+      "gate_accepted": "43",
+      "gate_blocked": "1",
+      "gate_modified": "4",
+      "gate_seen": "48",
+      "heap0_regions": "5",
+      "heap0_reserved_bytes": "3850752",
+      "heap0_total_bytes": "3850752",
+      "heap_total_bytes": "524288",
+      "heap_used_bytes": "0",
+      "intents_delivered": "48",
+      "intents_expired": "1",
+      "intents_made": "46",
+      "intents_sent": "48",
+      "latency_jitter_us_lt": "0",
+      "latency_max_us_raw": "10000",
+      "latency_mean_us_raw": "54",
+      "latency_min_us_raw": "0",
+      "latency_p50_us_lt": "0",
+      "latency_p95_us_lt": "0",
+      "latency_p99_us_lt": "0",
+      "latency_samples_total": "185",
+      "link_drops": "0",
+      "link_open": "0",
+      "link_up": "1",
+      "mav_bad_stx": "0",
+      "mav_command_acks": "36",
+      "mav_crc_errors": "0",
+      "mav_heartbeats_rx": "14",
+      "mav_intents_sent": "138",
+      "mav_packets_lost": "0",
+      "mav_rejected_incompat": "0",
+      "mav_rx_frames": "636",
+      "mav_senders": "1",
+      "mav_sensors_produced": "755",
+      "mav_seq_gaps": "0",
+      "mav_tx_frames": "189",
+      "mav_undecodable": "202",
+      "mem_bump_region_remaining_bytes": "514457600",
+      "mem_frames_handed_out_bytes": "3792896",
+      "mem_ranges": "9",
+      "mem_total_bytes": "536341504",
+      "outbound_dropped": "1",
+      "pipeline_alloc_calls": "0",
+      "px4_lines_after_our_silence": [
+        "WARN  [commander] Connection to mission computer lost"
+      ],
+      "queue_gate": "pushed 186 popped 186 drops 0 expired 1 high_water 1 capacity 16",
+      "queue_intent": "pushed 184 popped 184 drops 0 expired 0 high_water 1 capacity 16",
+      "queue_out": "pushed 186 popped 186 drops 1 expired 0 high_water 16 capacity 16",
+      "queue_sensor": "pushed 805 popped 805 drops 8 expired 0 high_water 32 capacity 32",
+      "records_accepted": "50",
+      "records_dropped": "8",
+      "records_injected": "61",
+      "records_refused": "3",
+      "seb_selftest_at_boot": "1",
+      "stack_guards_intact": "1",
+      "stack_worst_task": "shell",
+      "stack_worst_used_bytes": "9168",
+      "tasks": "2",
+      "version": "3.0.0",
+      "watchdog_intents": "1"
+    },
+    "x86_uefi": {
+      "arch": "x86_64",
+      "boot_firmware": "uefi",
+      "boot_info_valid": "1",
+      "boot_transport": "multiboot2",
+      "context_switches": "7",
+      "deadlines_missed": "1",
+      "deadlines_missed_seen_by_gate_queue": "1",
+      "edition": "universal",
+      "gate_accepted": "43",
+      "gate_blocked": "1",
+      "gate_modified": "4",
+      "gate_seen": "48",
+      "heap0_regions": "5",
+      "heap0_reserved_bytes": "3850752",
+      "heap0_total_bytes": "3850752",
+      "heap_total_bytes": "524288",
+      "heap_used_bytes": "0",
+      "intents_delivered": "47",
+      "intents_expired": "1",
+      "intents_made": "46",
+      "intents_sent": "47",
+      "latency_jitter_us_lt": "96",
+      "latency_max_us_raw": "124",
+      "latency_mean_us_raw": "32",
+      "latency_min_us_raw": "5",
+      "latency_p50_us_lt": "31",
+      "latency_p95_us_lt": "127",
+      "latency_p99_us_lt": "127",
+      "latency_samples_total": "47",
+      "link_open": "0",
+      "mem_bump_region_remaining_bytes": "505769984",
+      "mem_frames_handed_out_bytes": "3805184",
+      "mem_ranges": "21",
+      "mem_total_bytes": "531562496",
+      "outbound_dropped": "1",
+      "pipeline_alloc_calls": "0",
+      "queue_gate": "pushed 48 popped 48 drops 0 expired 1 high_water 1 capacity 16",
+      "queue_intent": "pushed 46 popped 46 drops 0 expired 0 high_water 1 capacity 16",
+      "queue_out": "pushed 47 popped 47 drops 1 expired 0 high_water 16 capacity 16",
+      "queue_sensor": "pushed 50 popped 50 drops 8 expired 0 high_water 32 capacity 32",
+      "records_accepted": "50",
+      "records_dropped": "8",
+      "records_injected": "61",
+      "records_refused": "3",
+      "seb_selftest_at_boot": "1",
+      "stack_guards_intact": "1",
+      "stack_worst_task": "shell",
+      "stack_worst_used_bytes": "3240",
+      "tasks": "2",
+      "version": "3.0.0",
+      "watchdog_intents": "0"
+    }
+  },
+  "certs": {
+    "CERT-21 \u00b7 BIOS": {
+      "checks": 130,
+      "failed": [],
+      "green": true,
+      "present": true
+    },
+    "CERT-21 \u00b7 UEFI": {
+      "checks": 130,
+      "failed": [],
+      "green": true,
+      "present": true
+    },
+    "CERT-22 \u00b7 storage": {
+      "checks": 20,
+      "failed": [],
+      "green": true,
+      "present": true
+    },
+    "CERT-E \u00b7 PX4 x86_64": {
+      "checks": 25,
+      "failed": [],
+      "green": true,
+      "present": true
+    },
+    "CERT-G \u00b7 AArch64": {
+      "checks": 76,
+      "failed": [],
+      "green": true,
+      "present": true
+    },
+    "CERT-G \u00b7 AArch64 UEFI": {
+      "checks": 60,
+      "failed": [],
+      "green": true,
+      "present": true
+    }
+  },
+  "dod": [
+    [
+      "Identidad",
+      "Versi\u00f3n 3.0.0",
+      true,
+      "las tres placas la declaran"
+    ],
+    [
+      "Identidad",
+      "Producto: robotic edge unikernel",
+      true,
+      "README y `about` describen el pipeline, no un chatbot"
+    ],
+    [
+      "Identidad",
+      "Sin promesas de chatbot/LLM/SLM/NAVI/Akida",
+      true,
+      "el eslogan compilado ya no cita Akida; CERT-21 comprueba el ISO byte a byte contra los nombres retirados"
+    ],
+    [
+      "Identidad",
+      "`echoai/` intacto",
+      true,
+      "no se ha tocado en ninguna fase"
+    ],
+    [
+      "Arquitecturas",
+      "x86_64 BIOS arranca",
+      true,
+      "130 comprobaciones"
+    ],
+    [
+      "Arquitecturas",
+      "x86_64 UEFI arranca en QEMU",
+      true,
+      "130 comprobaciones"
+    ],
+    [
+      "Arquitecturas",
+      "AArch64 **UEFI** arranca en QEMU virt",
+      true,
+      "60 comprobaciones: el firmware edk2 carga la misma imagen como aplicaci\u00f3n PE y el mapa de memoria sale del firmware, no de una suposici\u00f3n"
+    ],
+    [
+      "Arquitecturas",
+      "Al menos una arquitectura completa la demo",
+      true,
+      "la completan x86_bios, aarch64"
+    ],
+    [
+      "Build",
+      "Artefactos separados por arquitectura y edici\u00f3n",
+      true,
+      "`build/<arch>/<edition>/`"
+    ],
+    [
+      "Build",
+      "Builds limpios reproducibles",
+      true,
+      "`make repro-universal-x86_64` y dos builds ARM con el mismo sha256"
+    ],
+    [
+      "Memoria",
+      "Cero allocations din\u00e1micas sensor\u2192intent",
+      true,
+      "contador de llamadas a kmalloc alrededor del escenario"
+    ],
+    [
+      "Memoria",
+      "High-water marks medidos",
+      true,
+      "columna `high_water` de las cuatro colas"
+    ],
+    [
+      "Memoria",
+      "Drops y expiraciones medidos",
+      true,
+      "columnas `drops` y `expired`"
+    ],
+    [
+      "Memoria",
+      "Watchdog funcional",
+      true,
+      "habl\u00f3 solo en x86_bios, aarch64"
+    ],
+    [
+      "Almacenamiento",
+      "GPT, NVMe, persistencia tras reboot, errores y timeouts",
+      true,
+      "20 comprobaciones"
+    ],
+    [
+      "Rob\u00f3tica",
+      "Telemetr\u00eda real, intenci\u00f3n enviada, PX4 sigue siendo el controlador",
+      true,
+      "25 comprobaciones"
+    ],
+    [
+      "Rob\u00f3tica",
+      "Mensajes corruptos/fuera de rango rechazados",
+      true,
+      "CRC, secuencia, sysid/compid y ABI de sensores; p\u00e9rdida medida 0 en x86_bios, aarch64"
+    ],
+    [
+      "Rob\u00f3tica",
+      "P\u00e9rdida de enlace \u21d2 conducta segura",
+      true,
+      "PX4 lo registra en x86_bios, aarch64"
+    ],
+    [
+      "Rob\u00f3tica",
+      "Ninguna interfaz controla PWM/motores",
+      true,
+      "el puente s\u00f3lo emite intenci\u00f3n de alto nivel; no hay mensaje de actuaci\u00f3n en la tabla MAVLink"
+    ]
+  ],
+  "latency_stability": {
+    "latency_jitter_us_lt": [
+      "64",
+      "0"
+    ],
+    "latency_p50_us_lt": [
+      "63",
+      "255"
+    ],
+    "latency_p95_us_lt": [
+      "127",
+      "255"
+    ],
+    "latency_p99_us_lt": [
+      "127",
+      "255"
+    ]
+  },
+  "reproducibility": {
+    "diff": {},
+    "fields": 36,
+    "stable": true
+  }
+}

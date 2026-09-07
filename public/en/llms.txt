@@ -16,10 +16,10 @@ PRISMA preview. That is laboratory work, not vapourware.
 
 ## Projects (real)
 
-- **echOS** — x86_64 console unikernel. One ELF. GRUB Multiboot2. No Linux
-  underneath. Boots in QEMU and on bare metal (measured on an HP 15-ac195nl).
-  In-kernel SNN (LIF / Q6 cube). Akida PCI probe: without a board it uses
-  software LIF and is declared absent.
+- **echOS** — 3.0 robotic edge unikernel with no Linux, chatbot, LLM or SLM.
+  Boots on x86_64 BIOS/UEFI and AArch64 UEFI. Bounded sensor-to-intent
+  pipeline, safety gate, MAVLink 2/PX4, NVMe/GPT and persistence. 541 passing
+  checks; Akida remains an unsupported probe only.
   Docs: https://www.rogexlaboratories.com/en/docs/echos/que-es
 - **PRISMA** — EEG analysis for research. Event-driven Rust engine (delta
   modulation → LIF AVX2 → STDP). Machine benchmark: ~1.4–3.0 µs mean latency,
@@ -47,6 +47,10 @@ PRISMA preview. That is laboratory work, not vapourware.
 - [Planned hardware](https://www.rogexlaboratories.com/en/docs/echoai/hardware)
 - [echoAI limitations](https://www.rogexlaboratories.com/en/docs/echoai/limites)
 - [echOS — what it is](https://www.rogexlaboratories.com/en/docs/echos/que-es)
+- [echOS user guide](https://www.rogexlaboratories.com/en/docs/echos/guia)
+- [echOS architecture](https://www.rogexlaboratories.com/en/docs/echos/arquitectura)
+- [echOS 3.0 evidence](https://www.rogexlaboratories.com/en/docs/echos/evidencia)
+- [echOS real gallery](https://www.rogexlaboratories.com/en/docs/echos/galeria)
 - [echOS limitations](https://www.rogexlaboratories.com/en/docs/echos/limites)
 - [echOS surface](https://www.rogexlaboratories.com/en/docs/echos/superficie)
 - [echOS commands](https://www.rogexlaboratories.com/en/docs/echos/comandos)

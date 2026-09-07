@@ -1,0 +1,117 @@
+
+  echOS 3.0.0-honest (Heap-0 · robotic edge unikernel) · Rogex Laboratories
+  [echOS] identity version=3.0.0 edition=universal arch=aarch64 boot=device-tree
+
+Boot stage: OK
+Heap-0: OK (WSP pool bound)
+Memory: OK
+[echOS] memory map: 1 range(s) from the device-tree
+         0x0000000040000000 + 512 MiB  usable
+[echOS] RAM: kernel using 0 MiB of 512 MiB
+Interrupts: OK (GICv2, EL1 vectors)
+Timer: OK (ARM generic timer, 100 Hz)
+Monotonic clock: ARM generic timer, 62 MHz, fixed rate
+Scheduler: OK (spawn/yield/block/wake)
+SEB: OK (emit/poll ring)
+Storage: OK (ram0, virtual)
+RXFS: OK
+[echOS] net: virtio-mmio v1 (legacy), MAC 52:54:00:12:34:56
+Network: OK (virtio-net over MMIO)
+Robot runtime: OK (4 static queues, gate armed)
+[echOS] self-tests: scheduler PASS, SEB PASS, RXFS PASS, heap PASS
+
+[echOS] aarch64 bring-up shell. `help` lists what works.
+
+echos(aarch64)# status
+arch        aarch64
+transport   device-tree
+memory      0 MiB used of 512 MiB
+heap        0 B of 524288 B
+ticks       1 at 100 Hz
+uptime      30 ms (timer)  7 ms (monotonic)
+clock       ARM generic timer, 62 MHz, fixed rate
+interrupts  taken 1, spurious 0
+tasks       1, switches 6
+files       0 in rxfs
+echos(aarch64)# cpu
+vendor      ARM
+  sp  0x00000000400aaac0
+  elr_el1  0x000000004008ebf0
+  spsr_el1  0x0000000020000345
+  esr_el1  0x0000000000000000
+  ttbr0  0x0000000040588000
+  sctlr  0x0000000000c5183d
+  EL  0x0000000000000001
+  daif  0x0000000000000340
+  midr  0x00000000410fd083
+  cntfrq  0x0000000003b9aca0
+echos(aarch64)# net
+driver      virtio-net (mmio)
+transport   virtio-mmio v1 (legacy)
+address     none yet, asking DHCP...
+address     10.0.2.15 mask 255.255.255.0 gw 10.0.2.2
+gateway     replies, rtt 144 us
+echos(aarch64)# robot
+scenario    injected 61 records
+records     accepted 50, refused 3
+intents     made 46, sent 47
+gate        seen 48, accepted 43, MODIFY 4, BLOCK 1
+queues      sensor drops 8 (high water 32), gate drops 0, out drops 1
+balance     61 injected = 50 accepted + 3 refused + 8 dropped
+expired     1
+latency     samples 47, p50 <63 us, p95 <127 us
+echos(aarch64)# report
+--- echos-report v1
+version 3.0.0
+edition universal
+arch aarch64
+boot_transport device-tree
+boot_firmware unknown
+boot_info_valid 1
+mem_ranges 1
+mem_total_bytes 536870912
+mem_frames_handed_out_bytes 0
+mem_bump_region_remaining_bytes 401604608
+heap_total_bytes 524288
+heap_used_bytes 0
+heap0_total_bytes 3850752
+heap0_reserved_bytes 3850752
+heap0_regions 5
+pipeline_alloc_calls 0
+records_injected 61
+records_accepted 50
+records_refused 3
+records_dropped 8
+intents_made 46
+intents_sent 47
+intents_delivered 47
+intents_expired 1
+deadlines_missed 1
+deadlines_missed_seen_by_gate_queue 1
+outbound_dropped 1
+watchdog_intents 0
+gate_seen 48
+gate_accepted 43
+gate_modified 4
+gate_blocked 1
+queue_sensor pushed 100 popped 100 drops 16 expired 0 high_water 32 capacity 32
+queue_intent pushed 92 popped 92 drops 0 expired 0 high_water 1 capacity 16
+queue_gate pushed 96 popped 96 drops 0 expired 2 high_water 1 capacity 16
+queue_out pushed 94 popped 94 drops 2 expired 0 high_water 16 capacity 16
+latency_samples_total 94
+latency_p50_us_lt 63
+latency_p95_us_lt 127
+latency_p99_us_lt 127
+latency_jitter_us_lt 64
+latency_min_us_raw 2
+latency_max_us_raw 118
+latency_mean_us_raw 43
+tasks 1
+context_switches 6
+stack_guards_intact 1
+stack_worst_used_bytes 0
+stack_worst_task -
+link_open 0
+seb_selftest_at_boot 1
+--- end
+echos(aarch64)# 

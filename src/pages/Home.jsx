@@ -1,9 +1,9 @@
 import Carousel from "../components/Carousel.jsx";
 
 const ECHOS = [
-  "/media/echos/01.png",
-  "/media/echos/02.png",
-  "/media/echos/03.jpg",
+  "/media/echos3/00-chooser.png",
+  "/media/echos3/08-robot.png",
+  "/media/echos3/12-px4.png",
 ];
 
 const PRISMA = [

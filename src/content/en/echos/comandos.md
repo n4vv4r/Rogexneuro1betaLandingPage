@@ -1,84 +1,64 @@
-# Commands
+# echOS 3.0 commands
 
-The live list is in `CMD_NAMES`. Tab reads it. For flags: `man <cmd>`.
+The live list is `CMD_NAMES`. `Tab` reads that same table and `man <command>` shows the available help.
 
-## Orientation
-
-```text
-help            short list
-man / manual    pages
-apropos / man -k
-echofetch       card + logo
-about / status / live
-```
-
-## System
+## First steps
 
 ```text
-mem [map]       Heap-0 / PMM
-uptime
-date / time     date set YYYY-MM-DD HH:MM:SS
-uname / hostname
-whoami / id
-echo
-env [K] [V]
-power [s]       RAPL if the CPU is Intel and does not #GP
-reboot / halt
-clear / cls
-doas <cmd>      one address space; does not isolate
+help                 real command list
+about                system identity and purpose
+status               subsystem state
+limits               compiled limits
+devices              detected hardware and declared support
+mem                   Heap-0, kmalloc and physical memory
+report                evidence block measured during this boot
 ```
 
-## Files
+## Robotics and PX4
 
 ```text
-ls cd pwd cat write rm cp mv mkdir rmdir tree
-head tail less grep find
-nano history
+robot                runtime and safety-gate counters
+robot run            explicitly synthetic scenario
+px4                   MAVLink state and link counters
+px4 start HOST PORT   connect to PX4 SITL over UDP
+px4 stop              stop the bridge
 ```
 
-## Disk
+`robot run` exposes the pipeline without physical sensors. `px4 start 10.0.2.2 14580` is the form used by the gallery and QEMU tests; the address may differ on another laboratory network.
+
+## Console and files
 
 ```text
-df du
-partition cfdisk gpt disklabel
-format <dev> yes
-install / reinstall / echos-install
-save / load
+clear  history  font  termtheme
+pane split | next | close | monitor | shell
+ls  cd  pwd  cat  write  rm  cp  mv  mkdir  rmdir  tree
+head  tail  less  grep  find  nano
+df  du  save  load  format  partition
 ```
 
-## Network
+## Network diagnostics
 
 ```text
-www on|off|status
-curl / wdl / wget
-ipconf  nics  dns  tls  ping  traceroute  nmap
-wired / chat / say
+nics  ipconf  ping  dns  tls  curl  wget  trace  nmap
+wired  chat  say
 ```
 
-There is no browser. `curl` downloads bytes.
+There is no browser. An HTTP download does not imply a web engine.
 
-## Packages
+## Host-side build and certification
 
-```text
-epk list | list --lab | info | install | remove | apply
+```sh
+make build-universal-x86_64
+make build-universal-aarch64
+make test-universal-x86_64 test-uefi-universal-x86_64
+make test-storage-universal-x86_64
+make test-px4-universal-x86_64
+make test-universal-aarch64 test-uefi-universal-aarch64
+make test-px4-universal-aarch64
+make portability
+make repro-universal-x86_64
 ```
 
-`epk list` is kernel notes. `epk list --lab` is host notes.
-
-## Neuromorphic
-
-```text
-hwprobe
-bench / bench-snn
-prisma5 [alpha|null|stress]    # synthetic drive for the Q6 cube
-neuro / neurocpu [software|akida]
-```
-
-## OpenBSD style
-
-```text
-rcctl enable|disable|status|start|stop   # flags; no daemons
-pfctl -e|-d|-f|-s|-sr                    # RAM boolean; does not filter
-```
+PX4 tests require PX4 SITL on the host; UEFI requires OVMF/edk2 and architecture tests require QEMU.
 
 — R.N.

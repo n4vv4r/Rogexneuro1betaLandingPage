@@ -18,18 +18,19 @@ afirmació de maquinari que no sigui sobre la taula.
 
 | Línia | Què és | Estat |
 |---|---|---|
-| **echOS** | Unikernel x86_64 de consola, un ELF | 2.1.0-honest; arrenca en QEMU i en metall |
+| **echOS** | Unikernel per a robòtica a l'edge | 3.0 tancat; x86_64 BIOS/UEFI i AArch64 UEFI |
 | **PRISMA Engine** | EEG a esdeveniments, Rust i anàlisi reproduïble | Engine 0.1.0 mesurat; no és un producte sanitari |
 | **echoAI** | Agent situat de dos rellotges | ECHO-1 tancat; ECHO-2 en disseny |
 
 ## On es toquen
 
-echOS i echoAI comparteixen el contracte **WSP de 16 bytes**. No comparteixen
-procés: actualment echoAI s'executa en host i no és dins de la ISO.
+echOS i echoAI no comparteixen procés: actualment echoAI s'executa en host i
+no és dins de la ISO. echOS 3.0 publica un contracte acotat de sensors i
+intencions que pot ser la unió futura sense posar un chatbot dins de l'OS.
 
-PRISMA i echOS fan servir el vocabulari d'una futura sonda neuromòrfica. PRISMA
-i echoAI no s'importen: l'un analitza un senyal continu; l'altre aprèn a actuar
-en un món discret.
+PRISMA i echoAI tampoc no s'importen: l'un analitza un senyal continu; l'altre
+aprèn a actuar en un món discret. Les tres línies continuen separades i només
+es troben mitjançant contractes explícits.
 
 ## Estat d'echoAI
 
@@ -710,45 +711,278 @@ comparació amb CPU/Jetson abans de parlar d'avantatge.
 
 <!-- src/content/ca/echos/que-es.md · /ca/docs/echos/que-es -->
 
-# echOS
+# echOS 3.0
 
-Unikernel x86_64 de consola. Un ELF. GRUB Multiboot2. No hi ha Linux a sota.
-No hi ha BusyBox. No hi ha systemd. La màquina *és* el programa.
+echOS 3.0 és un **unikernel per a robòtica a l'edge**. Arrenca directament sobre la màquina, sense Linux, `systemd`, BusyBox ni cap distribució amagada a sota. La seva funció és rebre observacions, produir intencions limitades i lliurar-les a un controlador de vol sense assumir el control directe dels motors.
 
-No és un sistema comercial. No és un navegador. Està pensat per a programari
-neuromòrfic i robòtica.
+> Un cos petit, mesurable i portable per a sistemes robòtics. No és un chatbot i no conté cap LLM o SLM.
 
-> Unikernel de consola. Programari neuromòrfic. Akida quan hi ha placa.
+## Què ha canviat a 3.0
 
-## Què és, en una frase
+- Una mateixa base arrenca en **x86_64 BIOS**, **x86_64 UEFI** i **AArch64 UEFI**.
+- El camí `sensor → intenció → safety gate → autopilot` usa registres i cues de mida fixa.
+- Aquest camí fa **zero reserves dinàmiques de memòria**, mesurades pel mateix nucli.
+- El pont MAVLink 2 intercanvia telemetria, intencions i confirmacions amb PX4 SITL.
+- NVMe, GPT i la persistència es proven contra un dispositiu emulat real i després de reiniciar.
+- Els artefactes se separen per arquitectura i edició, i les builds netes són reproduïbles.
+- NAVI i l'experiment d'assistent conversacional ja no formen part del producte.
 
-Una consola JetBrains / Liberation Mono sobre framebuffer (o text VGA), amb
-ROSH, `epk` local, pila IPv4/DNS/TCP/HTTP i un teixit d'esdeveniments / SNN al
-nucli — sense finestra, sense dock i sense mentir sobre el maquinari.
+## El contracte robòtic
 
-## Què no és
+Els sensors entren com a registres enters de 64 bytes. Les decisions surten com a intencions de 72 bytes amb origen causal, temps de captura, venciment, confiança i límits. L'ABI només pot expressar ordres d'alt nivell com `HOLD`, `APPROACH`, `AVOID`, `RETURN_HOME`, `LAND` o `ABORT`.
 
-- No és un escriptori.
-- No és Alpine, OpenBSD, Haiku ni un Linux encastat.
-- No és un producte per navegar per internet. `curl` baixa bytes.
-- No hi ha Echo AI en aquesta ISO.
+No hi ha cap camp per a PWM, servos o accelerador. **PX4 conserva l'autoritat sobre l'estabilització i els actuadors.**
 
-## Peces que importen
+## Estat
 
-| Peça | Què és |
-|---|---|
-| Heap-0 | Layout estàtic a BSS. `kmalloc` de 512 KiB continua existint i es declara. |
-| RXFS | FS natiu, 64 fitxers × 64 KiB. |
-| `epk` | Notes a RXFS. `epk list` = el que té el nucli. `--lab` = host. |
-| LIVE | Arrenca en RAM. Mínim. |
-| SNN | Cub Q6 de 64 cèl·lules LIF, `prisma5` sintètic, `bench-snn`. |
-| Akida | Sonda PCI `1e7c:bca1`. Sense placa = LIF per programari. |
+La versió 3.0 està tancada respecte de la seva definició de finalització: 19 requisits complerts i sis certificats verds. Això no vol dir “producte aeronàutic certificat i llest per desplegar”. Vol dir que l'abast publicat està implementat, mesurat i acompanyat de límits explícits.
 
-## Superfície honesta
+Consulta la [guia d'ús](./guia), l'[arquitectura](./arquitectura), l'[evidència](./evidencia) i la [galeria real](./galeria).
 
-Un desconegut arrenca LIVE, escriu `help` i no pot acusar-lo de teatre.
-`rcctl start` no fingeix un dimoni. `doas` no aïlla. `pfctl` no filtra.
-`tcc` / `python` / `sshd` no són a Tab.
+— R.N.
+
+---
+
+<!-- src/content/ca/echos/guia.md · /ca/docs/echos/guia -->
+
+# Guia d'ús
+
+Aquesta guia explica què veu una persona quan arrenca echOS 3.0. No és un manual de vol ni substitueix una revisió de seguretat.
+
+## 1. Triar l'arrencada
+
+En x86 apareix un selector abans del nucli: executar una sessió **LIVE** o entrar al flux d'instal·lació. Per conèixer el sistema sense escriure al disc, fes servir LIVE.
+
+## 2. Comprovar la màquina
+
+En arribar a la consola:
+
+```text
+about
+status
+devices
+limits
+```
+
+`status` mostra quins subsistemes són actius. `devices` diferencia maquinari detectat de maquinari suportat. `limits` publica els sostres fixos d'aquella compilació.
+
+## 3. Llegir l'evidència local
+
+```text
+mem
+robot run
+robot
+report
+```
+
+`robot run` injecta un escenari explícitament **sintètic**. Després, `robot` mostra què ha acceptat, modificat o bloquejat el safety gate. `report` genera el bloc que alimenta l'informe tècnic.
+
+## 4. Treballar amb la consola
+
+`help` i `man` són la font de veritat. Pots treballar amb RXFS, consultar la xarxa i dividir la consola:
+
+```text
+pane split
+pane monitor
+pane next
+```
+
+Hi ha un shell i diverses vistes; el monitor continua actualitzant-se mentre s'usa un altre panell.
+
+## 5. Connectar PX4 al laboratori
+
+Amb PX4 SITL ja arrencat a l'host:
+
+```text
+px4 start 10.0.2.2 14580
+px4
+```
+
+La pantalla ha de mostrar telemetria rebuda, intencions transmeses i `COMMAND_ACK`. La pèrdua d'enllaç es prova interrompent la connexió i observant la degradació a `HOLD`; echOS no ordena cap motor.
+
+## 6. AArch64
+
+En ARM la interacció és per sèrie PL011. És normal no veure framebuffer: les transcripcions reals són a la [galeria](./galeria).
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echos/arquitectura.md · /ca/docs/echos/arquitectura -->
+
+# Arquitectura tècnica
+
+## Separació per plataforma
+
+El codi genèric viu a `kernel/`, `fs/`, `userland/` i `ui/`. Les implementacions concretes viuen sota `arch/x86_64`, `arch/aarch64` i els controladors de plataforma. `make portability` evita que els arbres genèrics depenguin accidentalment d'una arquitectura.
+
+En x86, GRUB lliura un handoff Multiboot2 tant sota BIOS com sota OVMF. En AArch64, la mateixa imatge pot arrencar directament o com a aplicació UEFI; el stub preserva el mapa de memòria lliurat pel firmware.
+
+## Runtime determinista
+
+El pipeline robòtic usa quatre cues acotades:
+
+1. sensors cap al runtime;
+2. intencions produïdes;
+3. intencions pendents del safety gate;
+4. intencions aprovades cap a l'autopilot.
+
+Els registres no contenen punters ni floats. El temps és monòton, les unitats són fixes i cada intenció conserva la seqüència i el temps de l'esdeveniment causal. Les guardes de pila, drops, expiracions i marques màximes es publiquen a cada informe.
+
+## Safety gate
+
+El gate valida ABI, rang, frescor, deadline, bateria, enllaç i geofence. Pot acceptar, limitar o bloquejar; una decisió corregida no es compta com una acceptació del productor. El watchdog produeix una intenció segura quan venç el termini.
+
+## MAVLink i PX4
+
+El parser MAVLink 2 és incremental, valida CRC i flags incompatibles, segueix la seqüència per emissor i només descodifica els missatges declarats. Converteix telemetria a Sensor ABI i intencions aprovades en consignes d'alt nivell. PX4 continua sent el controlador de vol.
+
+## Disc
+
+La pila d'emmagatzematge comparteix una interfície de blocs. NVMe aporta identificació, cues d'ordres, timeouts i propagació d'errors. GPT i RXFS permeten verificar la persistència després d'un reinici real de la VM.
+
+## Relació amb echoAI
+
+echOS és el cos; echoAI és una línia de recerca separada i es manté fora. La unió futura és una ABI de sensors i intencions, no un chatbot dins del nucli.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echos/evidencia.md · /ca/docs/echos/evidencia -->
+
+# Evidència d'echOS 3.0
+
+La versió es considera completa **respecte del seu abast publicat**, no per una etiqueta. El tancament exigeix arrencada multiplataforma, runtime acotat, persistència, PX4 i absència de promeses falses.
+
+## Resultat del tancament
+
+| Certificat | Comprovacions | Fallades |
+|---|---:|---:|
+| x86_64 BIOS | 130 | 0 |
+| x86_64 UEFI | 130 | 0 |
+| NVMe + GPT + reinici | 20 | 0 |
+| PX4 x86_64 | 25 | 0 |
+| AArch64 directe + PX4 | 76 | 0 |
+| AArch64 UEFI | 60 | 0 |
+| **Total** | **541** | **0** |
+
+Una auditoria posterior també va reconstruir x86 dues vegades des d'arbres nets: `rxos.elf`, `rxos.bin` i la ISO van ser idèntics byte a byte.
+
+## Què s'ha mesurat
+
+- 61 registres injectats: 50 acceptats, 3 rebutjats i 8 descartats per una cua saturada intencionadament.
+- Safety gate: 43 acceptacions intactes, 4 modificacions i 1 bloqueig.
+- Zero crides a `kmalloc` en el camí sensor→intenció.
+- Marques màximes, drops, expiracions, deadlines i watchdog publicats.
+- Zero errors CRC i zero salts de seqüència als assajos PX4 finals.
+- Persistència: 21 bytes escrits a NVMe, reinici i lectura idèntica.
+
+## Com llegir la latència
+
+Els percentils són cotes de buckets (`<31 µs`, `<127 µs`, etc.) sota emulació. No formen part del conjunt determinista: l'host pot moure una mostra d'un bucket a un altre. L'estructura, els balanços, les decisions del gate i els artefactes de build són l'evidència reproduïble.
+
+## Fonts descarregables
+
+- [Informe JSON complet](/data/echos3/report.json)
+- [Captures i registres sèrie](./galeria)
+
+Les imatges no són mockups: cadascuna prové d'una arrencada independent i conserva el registre sèrie complet d'aquella sessió.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echos/galeria.md · /ca/docs/echos/galeria -->
+
+# echOS 3.0, en execució
+
+Les 13 imatges són bolcats directes del framebuffer de QEMU. No estan compostes ni retocades. Cada captura enllaça el registre sèrie complet de la mateixa arrencada.
+
+## Selector d'arrencada
+
+![Selector LIVE o instal·lació](/media/echos3/00-chooser.png)
+
+La decisió es pren abans d'arrencar. [Registre sèrie](/media/echos3/00-chooser.log)
+
+## Sessió LIVE
+
+![Sessió LIVE acabada d'iniciar](/media/echos3/01-live.png)
+
+La consola després de completar el checklist d'arrencada. [Registre sèrie](/media/echos3/01-live.log)
+
+## Identitat
+
+![Ordre about](/media/echos3/02-about.png)
+
+Versió i propòsit llegits del mateix binari. [Registre sèrie](/media/echos3/02-about.log)
+
+## Estat
+
+![Ordre status](/media/echos3/03-status.png)
+
+Estat i localització de cada subsistema. [Registre sèrie](/media/echos3/03-status.log)
+
+## Memòria
+
+![Ordre mem](/media/echos3/04-mem.png)
+
+Regions Heap‑0, arena `kmalloc` i assignador físic. [Registre sèrie](/media/echos3/04-mem.log)
+
+## Límits compilats
+
+![Ordre limits](/media/echos3/05-limits.png)
+
+Capacitats i sostres d'aquesta build. [Registre sèrie](/media/echos3/05-limits.log)
+
+## Tipografia
+
+![Mostra JetBrains Mono](/media/echos3/06-font.png)
+
+JetBrains Mono 10×22, blocs, Braille i dibuix de caixes. [Registre sèrie](/media/echos3/06-font.log)
+
+## Dispositius
+
+![Ordre devices](/media/echos3/07-devices.png)
+
+Maquinari trobat i allò que el sistema declara que no condueix. [Registre sèrie](/media/echos3/07-devices.log)
+
+## Runtime robòtic
+
+![Ordre robot](/media/echos3/08-robot.png)
+
+Registres, intencions i veredictes del safety gate després de l'escenari. [Registre sèrie](/media/echos3/08-robot.log)
+
+## Informe local
+
+![Ordre report](/media/echos3/09-report.png)
+
+Bloc d'evidència generat dins del sistema. [Registre sèrie](/media/echos3/09-report.log)
+
+## Panells
+
+![Shell i monitor en dos panells](/media/echos3/10-panes.png)
+
+Un shell i un monitor viu compartint pantalla. [Registre sèrie](/media/echos3/10-panes.log)
+
+## Ajuda
+
+![Ordre help](/media/echos3/11-help.png)
+
+La llista d'ordres reals del binari. [Registre sèrie](/media/echos3/11-help.log)
+
+## PX4 SITL
+
+![Enllaç MAVLink amb PX4](/media/echos3/12-px4.png)
+
+Telemetria d'entrada, intencions de sortida i `COMMAND_ACK`. [Registre sèrie](/media/echos3/12-px4.log)
+
+## AArch64 per sèrie
+
+ARM64 no té framebuffer. En lloc de fabricar una pantalla, es publiquen les transcripcions reals:
+
+- [Arrencada directa, status, CPU, xarxa, robot i report](/media/echos3/aarch64-serial-kernel.txt)
+- [Arrencada UEFI edk2 i mapa de memòria del firmware](/media/echos3/aarch64-serial-uefi.txt)
 
 — R.N.
 
@@ -756,51 +990,41 @@ Un desconegut arrenca LIVE, escriu `help` i no pot acusar-lo de teatre.
 
 <!-- src/content/ca/echos/limites.md · /ca/docs/echos/limites -->
 
-# Límits — el que no faig
+# Límits d'echOS 3.0
 
-Política del laboratori: si no hi és, es diu.
+Tancar 3.0 no converteix un sistema de recerca en un producte certificat. Aquests són els límits actuals.
 
-## Maquinari
+## Plataforma
 
-| Cosa | Estat |
+| Capacitat | Estat actual |
 |---|---|
-| Wi-Fi | no. PCI es llista. Zero drivers. |
-| NVMe | classe `01:08` a `hwprobe`. Sense driver. SATA AHCI / IDE / virtio-blk sí. |
-| UEFI natiu | no. BIOS/CSM / SeaBIOS. |
-| USB HID | no com a entrada de diari. Teclat i ratolí PS/2. |
-| Àudio | no. |
-| Acceleració GPU | no. LFB. |
-| Akida | sonda PCI. Sense placa = LIF per programari. Sense blob BrainChip. |
-| Loihi | fora de 2.1. Zero interfícies. |
-| Nucli ARM64 | l'ELF de la ISO Universal és x86_64. |
+| SMP | Absent: un nucli per arquitectura. |
+| Gràfics AArch64 | Absents: consola sèrie PL011, sense framebuffer. |
+| Userland AArch64 | Shell de diagnòstic reduït; no replica la consola completa d'x86. |
+| Device tree AArch64 | S'usa per a memòria; PL011, GIC i virtio-mmio encara fan servir tres adreces fixes. |
+| ACPI | Sense lector. Sota UEFI ARM el mapa de memòria ve del firmware. |
+| Wi‑Fi, àudio, GPU | Sense controladors. |
+| USB HID | No és l'entrada habitual; x86 usa PS/2. |
+| Akida | Només sonda PCI: detectada vol dir **no suportada**, no accelerada. |
 
-## Programari
+## Robòtica
 
-| Cosa | Estat |
-|---|---|
-| Multiprocés / anell 3 | esbós. Una tasca. |
-| POSIX | no. Àlies d'ordres, no glibc. |
-| Dades d'aplicació TLS 1.3 | la negociació funciona; GET https pot tornar buit. HTTP sí. |
-| Pin de CA | no. |
-| IPv6 | no. |
-| Diversos TCP alhora | no. |
-| sshd/httpd/ftpd reals | flags `rcctl`. No hi ha dimonis. |
-| Aïllament `doas` | no. Un mapa de memòria. |
-| RXFS | 64 × 64 KiB. |
-| Compiladors a LIVE | absents. `epk list --lab` = notes de host. |
-| Navegador / JS | no. `curl` baixa bytes. |
-| Persistència LIVE | no, expressament. |
-| Ús comercial com a SO general | no. Laboratori / robòtica / SNN. |
+- PX4 SITL s'executa a l'host i no és dins de la ISO.
+- El productor autònom inclòs és deliberadament senzill: distància, bateria i enllaç. No és echoAI.
+- El geofence és una caixa alineada amb els eixos; no modela terreny ni polígons.
+- No s'han certificat el vol real, la normativa aeronàutica, la seguretat funcional ni tots els errors de maquinari.
+- L'ABI d'intencions no té accés a PWM ni als motors.
 
-## Heap-0
+## Sistema
 
-El contracte **no** es compleix a tot el nucli. `kmalloc` existeix.
+- No és POSIX ni un sistema operatiu general.
+- No hi ha aïllament complet de processos ni ring 3 de producció.
+- RXFS és petit i deliberadament limitat.
+- La pila de xarxa no equival a un navegador ni a un servidor multiusuari.
+- El contracte Heap‑0 cobreix el camí robòtic; `kmalloc` continua existint fora d'aquest camí.
+- Els percentils publicats són límits de buckets, no precisió inventada. Poden variar entre execucions emulades.
 
-## El que sí que signo
-
-- El bàner d'arrencada no imprimeix `OK` si aquella etapa no s'ha comprovat.
-- No es fingeix un NIC, un NPU ni un dimoni.
-- `command not found` no és el mateix que «no instal·lat».
+Una absència publicada és una propietat verificable, no una promesa futura disfressada.
 
 — R.N.
 
@@ -808,136 +1032,112 @@ El contracte **no** es compleix a tot el nucli. `kmalloc` existeix.
 
 <!-- src/content/ca/echos/superficie.md · /ca/docs/echos/superficie -->
 
-# Superfície pública — echOS
+# Superfície d'echOS 3.0
 
-Cada nom a `help` / `epk list` / `man` porta una etiqueta:
+## Plataformes verificades
 
-- **REAL** — l'unikernel fa aquesta feina.
-- **NOTA** — el nom existeix; la feina és un flag, un bolcat o un reenviament.
-- **ABSENT** — fora de Tab i de `help`.
+| Plataforma | Arrencada | Consola | Demo robòtica | Xarxa/PX4 |
+|---|---|---|---|---|
+| x86_64 | BIOS + GRUB Multiboot2 | framebuffer i VGA | sí | sí |
+| x86_64 | UEFI + OVMF | framebuffer | sí | certificació base |
+| AArch64 `virt` | imatge directa i UEFI edk2 | sèrie PL011 | sí | sí |
 
-## Ordres
+## Camí calent
 
-| Ordre | Etiqueta | Què fa |
-|-------|----------|--------|
-| help about status mem uptime power bench devices env | REAL | nucli / benchmark |
-| clear reboot halt | REAL | consola / reset |
-| ls cd pwd cat write rm cp mv mkdir rmdir tree | REAL | RXFS |
-| head tail less grep find du df nano history | REAL | RXFS |
-| date tz kbd termtheme | REAL | rellotge, mapa, paleta |
-| man apropos | REAL | pàgines encastades |
-| echofetch hwprobe live whoami uname hostname echo | REAL | identitat / PCI |
-| www curl wget dns tls ping nics ipconf trace nmap | REAL | IPv4; HTTPS pot tenir el cos buit |
-| wired chat say | REAL | L2 0x88B5 |
-| epk echos-install install save load format partition | REAL | notes RXFS / disc |
-| gpt | NOTA | writer GPT sense CRC32 vàlid |
-| doas | NOTA | un espai d'adreces; no aïlla |
-| rcctl | NOTA | flags; no hi ha dimonis |
-| pfctl | NOTA | booleà RAM; no filtra |
-| neuro neurocpu prisma5 bench-snn | REAL | SNN al nucli; Akida = sonda PCI |
+```text
+Sensor ABI (64 B)
+        ↓
+cua sensor, cap. 32
+        ↓
+runtime productor
+        ↓
+Intent ABI (72 B)
+        ↓
+safety gate: OK / MODIFY / BLOCK
+        ↓
+MAVLink 2 → PX4
+```
 
-## `epk list` (públic)
+Les quatre cues són estàtiques i publiquen capacitat, entrades, sortides, descartes, expiracions i marca màxima. El watchdog emet un comportament segur quan deixa d'arribar una intenció vàlida.
 
-echos-base, echos-shell, echofetch, echos-diag, echos-net, echos-npu,
-echos-io, echos-akida.
+## Emmagatzematge
 
-`epk install` escriu un text a RXFS, no un ELF.
+El controlador NVMe identifica la controladora i el namespace, executa ordres amb timeouts i propaga errors. L'instal·lador escriu una GPT vàlida; la certificació munta un namespace de 128 MiB, escriu un sentinella, reinicia i comprova que el mateix contingut persisteix.
 
-## `epk list --lab`
+## Consola x86
 
-Notes de host: tcc, python, rustc, httpd, sshd, … No arrenquen cap procés.
+La superfície humana conserva la consola gràfica, JetBrains Mono, panells, historial, RXFS, diagnòstic, xarxa i ajuda incorporada. `pane split` divideix la vista; continua havent-hi un sol shell, i un panell pot funcionar com a monitor viu.
 
-## Absents
+Els noms que no fan treball real no es presenten com a serveis. La pàgina [Ordres](./comandos) separa l'ús normal de la verificació.
 
-tcc / python / git a l'unikernel, sshd/httpd reals, navi/echo al SO,
-navegador, loihi, htop/tmux, Wi-Fi, controlador NVMe, UEFI.
+— R.N.
 
 ---
 
 <!-- src/content/ca/echos/comandos.md · /ca/docs/echos/comandos -->
 
-# Ordres
+# Ordres d'echOS 3.0
 
-La llista viva és a `CMD_NAMES`. Tab la llegeix. Per als flags: `man <cmd>`.
+La llista viva és a `CMD_NAMES`. `Tab` llegeix aquesta mateixa taula i `man <ordre>` mostra l'ajuda disponible.
 
-## Orientació
-
-```text
-help            llista curta
-man / manual    pàgines
-apropos / man -k
-echofetch       targeta + logo
-about / status / live
-```
-
-## Sistema
+## Per començar
 
 ```text
-mem [map]       Heap-0 / PMM
-uptime
-date / time     date set YYYY-MM-DD HH:MM:SS
-uname / hostname
-whoami / id
-echo
-env [K] [V]
-power [s]       RAPL si la CPU és Intel i no fa #GP
-reboot / halt
-clear / cls
-doas <cmd>      un espai d'adreces; no aïlla
+help                 llista d'ordres reals
+about                identitat i propòsit del sistema
+status               estat dels subsistemes
+limits               límits compilats
+devices              maquinari vist i suport declarat
+mem                   Heap-0, kmalloc i memòria física
+report                bloc d'evidència mesurat en aquesta arrencada
 ```
 
-## Fitxers
+## Robòtica i PX4
 
 ```text
-ls cd pwd cat write rm cp mv mkdir rmdir tree
-head tail less grep find
-nano history
+robot                comptadors del runtime i del safety gate
+robot run            escenari sintètic, declarat com a tal
+px4                   estat MAVLink i comptadors de l'enllaç
+px4 start HOST PORT   connecta amb PX4 SITL per UDP
+px4 stop              atura el pont
 ```
 
-## Disc
+`robot run` permet inspeccionar el pipeline sense sensors físics. `px4 start 10.0.2.2 14580` és la forma usada a la galeria i a les proves QEMU; l'adreça pot canviar en una altra xarxa de laboratori.
+
+## Consola i fitxers
 
 ```text
-df du
-partition cfdisk gpt disklabel
-format <dev> yes
-install / reinstall / echos-install
-save / load
+clear  history  font  termtheme
+pane split | next | close | monitor | shell
+ls  cd  pwd  cat  write  rm  cp  mv  mkdir  rmdir  tree
+head  tail  less  grep  find  nano
+df  du  save  load  format  partition
 ```
 
-## Xarxa
+## Diagnòstic de xarxa
 
 ```text
-www on|off|status
-curl / wdl / wget
-ipconf  nics  dns  tls  ping  traceroute  nmap
-wired / chat / say
+nics  ipconf  ping  dns  tls  curl  wget  trace  nmap
+wired  chat  say
 ```
 
-No hi ha navegador. `curl` baixa bytes.
+No hi ha navegador. Una baixada HTTP no implica un motor web.
 
-## Paquets
+## Construcció i certificació des de l'host
 
-```text
-epk list | list --lab | info | install | remove | apply
+```sh
+make build-universal-x86_64
+make build-universal-aarch64
+make test-universal-x86_64 test-uefi-universal-x86_64
+make test-storage-universal-x86_64
+make test-px4-universal-x86_64
+make test-universal-aarch64 test-uefi-universal-aarch64
+make test-px4-universal-aarch64
+make portability
+make repro-universal-x86_64
 ```
 
-`epk list` són notes del nucli. `epk list --lab` són notes de host.
-
-## Neuromòrfic
-
-```text
-hwprobe
-bench / bench-snn
-prisma5 [alpha|null|stress]    # drive sintètic del cub Q6
-neuro / neurocpu [software|akida]
-```
-
-## Estil OpenBSD
-
-```text
-rcctl enable|disable|status|start|stop   # flags; no hi ha dimonis
-pfctl -e|-d|-f|-s|-sr                    # booleà RAM; no filtra
-```
+Les proves de PX4 requereixen PX4 SITL a l'host; UEFI requereix OVMF/edk2 i les proves d'arquitectura requereixen QEMU.
 
 — R.N.
 

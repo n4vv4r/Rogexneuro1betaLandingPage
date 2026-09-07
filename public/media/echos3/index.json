@@ -1,0 +1,109 @@
+[
+  {
+    "file": "00-chooser.png",
+    "caption": "The first screen: install or run live, decided before anything boots.",
+    "typed": [
+      "chooser"
+    ]
+  },
+  {
+    "file": "01-live.png",
+    "caption": "The LIVE session as it opens. The boot checklist went to the serial side (see 01-live.log); `status` asks for it again live.",
+    "typed": []
+  },
+  {
+    "file": "02-about.png",
+    "caption": "Identity, straight out of version.h.",
+    "typed": [
+      "clear",
+      "about"
+    ]
+  },
+  {
+    "file": "03-status.png",
+    "caption": "Subsystem card: state and where the code lives.",
+    "typed": [
+      "clear",
+      "status"
+    ]
+  },
+  {
+    "file": "04-mem.png",
+    "caption": "Heap-0 regions, the 512 KiB kmalloc arena, and the frame allocator.",
+    "typed": [
+      "clear",
+      "mem"
+    ]
+  },
+  {
+    "file": "05-limits.png",
+    "caption": "The ceilings this build was compiled with.",
+    "typed": [
+      "clear",
+      "limits"
+    ]
+  },
+  {
+    "file": "06-font.png",
+    "caption": "JetBrains Mono at 10x22: weights, blocks, box drawing, Braille.",
+    "typed": [
+      "clear",
+      "font"
+    ]
+  },
+  {
+    "file": "07-devices.png",
+    "caption": "What the probe table found, including what it will not drive.",
+    "typed": [
+      "clear",
+      "devices"
+    ]
+  },
+  {
+    "file": "08-robot.png",
+    "caption": "The robotic pipeline after its scenario: records in, intents out, and the safety gate's verdicts, including what it refused.",
+    "typed": [
+      "robot run",
+      "clear",
+      "robot"
+    ]
+  },
+  {
+    "file": "09-report.png",
+    "caption": "The evidence block the 3.0 report is assembled from.",
+    "typed": [
+      "clear",
+      "report"
+    ]
+  },
+  {
+    "file": "10-panes.png",
+    "caption": "Two panes, one shell: a live monitor beside the shell's own output.",
+    "typed": [
+      "clear",
+      "pane split",
+      "pane monitor",
+      "pane next",
+      "about",
+      "status"
+    ]
+  },
+  {
+    "file": "11-help.png",
+    "caption": "The command list. Names that do nothing are not in it.",
+    "typed": [
+      "clear",
+      "help"
+    ]
+  },
+  {
+    "file": "12-px4.png",
+    "caption": "MAVLink 2 to PX4 SITL: telemetry in, intent out, ACKs back.",
+    "typed": [
+      "clear",
+      "px4 start 10.0.2.2 14580",
+      "@sleep:10",
+      "px4"
+    ]
+  }
+]

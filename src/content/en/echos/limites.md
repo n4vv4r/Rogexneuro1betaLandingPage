@@ -1,47 +1,37 @@
-# Limitations — what I do not do
+# echOS 3.0 limitations
 
-Laboratory policy: if it is not there, say so.
+Closing 3.0 does not turn a research system into a certified product. These are its current boundaries.
 
-## Hardware
+## Platform
 
-| Item | Status |
+| Capability | Current state |
 |---|---|
-| Wi-Fi | no. PCI is listed. Zero drivers. |
-| NVMe | class `01:08` in `hwprobe`. No driver. SATA AHCI / IDE / virtio-blk do work. |
-| Native UEFI | no. BIOS/CSM / SeaBIOS. |
-| USB HID | not as log input. PS/2 keyboard and mouse. |
-| Audio | no. |
-| GPU acceleration | no. LFB. |
-| Akida | PCI probe. Without a board = software LIF. No BrainChip blob. |
-| Loihi | outside 2.1. Zero interfaces. |
-| ARM64 kernel | the Universal ISO ELF is x86_64. |
+| SMP | Absent: one core per architecture. |
+| AArch64 graphics | Absent: PL011 serial console, no framebuffer. |
+| AArch64 userland | Reduced diagnostic shell; it does not reproduce the full x86 console. |
+| AArch64 device tree | Used for memory; PL011, GIC and virtio-mmio still use three fixed addresses. |
+| ACPI | No reader. Under ARM UEFI the memory map comes from firmware. |
+| Wi‑Fi, audio, GPU | No drivers. |
+| USB HID | Not the normal input path; x86 uses PS/2. |
+| Akida | PCI probe only: detected means **unsupported**, not accelerated. |
 
-## Software
+## Robotics
 
-| Item | Status |
-|---|---|
-| Multiprocess / ring 3 | sketch. One task. |
-| POSIX | no. Command aliases, not glibc. |
-| TLS 1.3 application data | the handshake works; HTTPS GET may return an empty body. HTTP works. |
-| CA pinning | no. |
-| IPv6 | no. |
-| Several simultaneous TCP connections | no. |
-| real sshd/httpd/ftpd | `rcctl` flags. No daemons. |
-| `doas` isolation | no. One memory map. |
-| RXFS | 64 × 64 KiB. |
-| Compilers in LIVE | absent. `epk list --lab` = host notes. |
-| Browser / JS | no. `curl` downloads bytes. |
-| LIVE persistence | no, intentionally. |
-| Commercial use as a general OS | no. Laboratory / robotics / SNN. |
+- PX4 SITL runs on the host and is not part of the ISO.
+- The bundled autonomous producer is deliberately simple: distance, battery and link. It is not echoAI.
+- The geofence is an axis-aligned box; it models neither terrain nor polygons.
+- Real flight, aviation regulation, functional safety and every hardware fault mode have not been certified.
+- The intent ABI has no access to PWM or motors.
 
-## Heap-0
+## System
 
-The contract is **not** satisfied throughout the kernel. `kmalloc` exists.
+- This is neither POSIX nor a general-purpose operating system.
+- There is no complete process isolation or production ring 3.
+- RXFS is intentionally small and bounded.
+- The network stack is not a browser or a multi-user server.
+- The Heap‑0 contract covers the robotic path; `kmalloc` still exists elsewhere.
+- Published percentiles are bucket bounds, not invented precision. They may move between emulated runs.
 
-## What I do sign
-
-- The boot banner does not print `OK` if that stage was not verified.
-- It does not pretend that a NIC, NPU or daemon exists.
-- `command not found` is not the same as “not installed”.
+A published absence is a verifiable property, not a future promise in disguise.
 
 — R.N.

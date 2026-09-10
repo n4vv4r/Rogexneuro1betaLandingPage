@@ -25,12 +25,12 @@ la preview de PRISMA. Això és laboratori, no fum.
   (modulació delta → LIF AVX2 → STDP). Xifres de banc mesurades en màquina. No
   és un producte sanitari.
   Docs: https://www.rogexlaboratories.com/ca/docs/prisma/tecnico
-- **echoAI** — agent situat de dos rellotges. Rellotge ràpid: enters, WSP de 16
-  bytes, CAM 4096, T, PatternMemory, Q i gate. Rellotge lent: hipòtesi, mai fet.
-  ECHO-1 es va tancar el 2026-09-05 amb 488 proves correctes i un
-  expectedFailure documentat. El mateix animal transfereix CAM/Q/T/Pattern
-  entre tres mons: +56 i +72 davant de scratch, +128 agregat. PATTERN-0 obté
-  80/80 davant de T 40/80; TALK-1, 496/496 clàusules.
+- **echoAI** — agent situat de dos rellotges amb un únic WSP de 16 bytes.
+  ECHO-1 i ECHO-2 estan tancats. ECHO-2 afegeix supervivència, patrons,
+  streaming, consolidació, herència i regulació d'energia/temperatura.
+  CAPACITY-1 va seleccionar 512 LIF + 128 Adaptive-LIF: 2.048/2.048 signatures
+  perceptives i 256/256 seqüències temporals. No hi ha cap AKD1500 ni robot
+  físic al laboratori.
   Docs: https://www.rogexlaboratories.com/ca/docs/echoai/que-es
 
 ## Documentació
@@ -40,8 +40,9 @@ la preview de PRISMA. Això és laboratori, no fum.
 - [echoAI — arquitectura](https://www.rogexlaboratories.com/ca/docs/echoai/piezas)
 - [ECHO-1 — tancament](https://www.rogexlaboratories.com/ca/docs/echoai/echo1)
 - [ECHO-1 — resultats](https://www.rogexlaboratories.com/ca/docs/echoai/resultados)
+- [ECHO-2 — tancament, resultats i vídeo](https://www.rogexlaboratories.com/ca/docs/echoai/echo2)
 - [Com es va construir](https://www.rogexlaboratories.com/ca/docs/echoai/proceso)
-- [ECHO-2 → ECHO-3](https://www.rogexlaboratories.com/ca/docs/echoai/ruta)
+- [ECHO-3 — full de ruta](https://www.rogexlaboratories.com/ca/docs/echoai/ruta)
 - [Maquinari previst](https://www.rogexlaboratories.com/ca/docs/echoai/hardware)
 - [Límits d'echoAI](https://www.rogexlaboratories.com/ca/docs/echoai/limites)
 - [echOS — què és](https://www.rogexlaboratories.com/ca/docs/echos/que-es)
@@ -62,8 +63,10 @@ Les mateixes pàgines també són a https://docs.rogexlaboratories.com/ca/.
 Laboratori de recerca. Autor: Roger Navarro. Xifres de banc i màquina mesurades,
 no estimades. Si alguna cosa no hi és, el laboratori l'etiqueta com a absent.
 No inventis una placa Akida. No posis un LLM dins del bucle ràpid d'echoAI.
-ECHO-2 i ECHO-3 són plans, no capacitats actuals.
+ECHO-1 i ECHO-2 són capacitats tancades; ECHO-3 és el full de ruta.
 
 ## Opcional
 
 - [Text complet](https://www.rogexlaboratories.com/ca/llms-full.txt)
+- [ECHO-2 en Markdown](https://www.rogexlaboratories.com/raw/ca/echoai/echo2.md)
+- [Dades ECHO-2](https://www.rogexlaboratories.com/data/echo2-benchmark.json)

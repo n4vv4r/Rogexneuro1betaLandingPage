@@ -20,7 +20,7 @@ afirmació de maquinari que no sigui sobre la taula.
 |---|---|---|
 | **echOS** | Unikernel per a robòtica a l'edge | 3.0 tancat; x86_64 BIOS/UEFI i AArch64 UEFI |
 | **PRISMA Engine** | EEG a esdeveniments, Rust i anàlisi reproduïble | Engine 0.1.0 mesurat; no és un producte sanitari |
-| **echoAI** | Agent situat de dos rellotges | ECHO-1 tancat; ECHO-2 en disseny |
+| **echoAI** | Agent situat de dos rellotges | ECHO-1 i ECHO-2 tancats; ECHO-3 en disseny |
 
 ## On es toquen
 
@@ -39,14 +39,15 @@ operacions, llenguatge acotat, narració pòstuma, patrons temporals i
 transferència. El seu tancament reprodueix 488 proves correctes, una fallada
 esperada documentada i guanys de transferència de `+56` i `+72`.
 
-ECHO-2 està planificat per al reconeixement d'objectes, l'homeòstasi i la
-supervivència entre vides. ECHO-3 traslladarà aquestes capacitats a la robòtica
-a l'edge: primer simulació i HIL; després càmera, LiDAR i un dron controlat per
-PX4/Pixhawk.
+ECHO-2 afegeix supervivència entre vides, patrons perceptius, streaming,
+consolidació, herència i regulació conjunta d'energia i temperatura. El seu
+monitor neuronal seleccionat conté 512 LIF + 128 Adaptive-LIF. ECHO-3 portarà
+aquestes capacitats a tres mons 3D i a la robòtica a l'edge: primer simulació
+i HIL; després càmera, LiDAR i un dron controlat per PX4/Pixhawk.
 
 ## Maquinari
 
-No hi ha cap AKD1000 al laboratori. Akida apareix únicament com a sonda, stub o
+No hi ha cap AKD1500 M.2 al laboratori. Akida apareix únicament com a sonda o
 maquinari futur. Si s'hi incorpora, es publicaran mesures pròpies i no xifres
 heretades d'un fullet.
 
@@ -74,8 +75,9 @@ percebre → recordar → predir → actuar → conseqüència → aprendre
 
 ## Estat actual
 
-**ECHO-1 va quedar tancat el 5 de setembre de 2026.** La suite canònica acaba
-amb 488 proves correctes i un `expectedFailure` explícit: WALK-1 sense la resta
+**ECHO-1 va quedar tancat el 5 de setembre de 2026 i ECHO-2 el 9 de setembre
+de 2026.** La suite canònica d'ECHO-1 acaba amb 488 proves correctes i un
+`expectedFailure` explícit: WALK-1 sense la resta
 entera opt-in. No s'amaga com a verd.
 
 ECHO-1 demostra que el mateix animal:
@@ -91,6 +93,13 @@ ECHO-1 demostra que el mateix animal:
 El tancament de transferència fa servir tres mons. A les dues fronteres
 mesurades, l'animal transferit obté `208 vs 152` (`+56`) i `224 vs 152` (`+72`).
 El guany agregat és `+128`. No hi intervenen cap LLM ni etiquetes humanes.
+
+ECHO-2 conserva aquest nucli i afegeix supervivència entre vides,
+generalització de patrons, flux continu, consolidació, herència d'una
+predisposició i regulació conjunta d'energia i temperatura. CAPACITY-1 va
+seleccionar un monitor de 512 LIF + 128 Adaptive-LIF: 2.048/2.048 signatures
+perceptives i 256/256 seqüències temporals. [Tancament, gràfiques i vídeo
+d'ECHO-2](./echo2).
 
 ## Tres canals que no es barregen
 
@@ -128,9 +137,8 @@ errònies queden registrades com a deute de seguretat, no amagades.
 sintètics. Encara no és un robot, no demostra percepció visual i no autoritza a
 posar un model generatiu en el control de motors.
 
-ECHO-2 portarà el mateix contracte a la supervivència autònoma i al
-reconeixement d'objectes. ECHO-3 el connectarà amb sensors i un cos físic a
-l'edge.
+ECHO-3 portarà el contracte tancat d'ECHO-2 a tres mons 3D, sensors, dinàmica
+de vol, PX4 i finalment un cos físic a l'edge.
 
 — R.N.
 
@@ -220,9 +228,16 @@ La placa web representa el diari de torns i el pot seguir en viu mitjançant
 polling local. És observabilitat, mai una entrada de control. El GIF de la home
 prové d'una execució real.
 
+## Monitor neuronal d'ECHO-2
+
+CAPACITY-1 va seleccionar 512 neurones LIF per a signatures perceptives i 128
+Adaptive-LIF per al context temporal. És un monitor causal i observable; Q i
+el gate conserven la decisió. NEURAL-VIZ-1 mostra les capes i els dispars al
+costat de WSP, CAM, T, patrons, homeòstasi, mort i herència.
+
 ## Maquinari futur
 
-Avui echoAI s'executa en host i no hi ha cap AKD1000 al laboratori. Un futur
+Avui echoAI s'executa en host i no hi ha cap AKD1500 M.2 al laboratori. Un futur
 accelerador neuromòrfic es tractaria com a coprocessador perceptiu o head
 acotat, mai com a VERIFY, memòria sobirana o pilot.
 
@@ -333,6 +348,112 @@ PYTHONPATH=. python3 -m echoai.tests.test_nexus0
 
 Resultat auditat: `xfer1 rc=0`, `green=true`, 488 proves correctes i una fallada
 esperada documentada.
+
+— R.N.
+
+---
+
+<!-- src/content/ca/echoai/echo2.md · /ca/docs/echoai/echo2 -->
+
+# ECHO-2 — tancament, resultats i demostració
+
+**ECHO-2 va quedar tancat el 9 de setembre de 2026.** L'agent conserva el
+nucli d'ECHO-1 i afegeix viabilitat, reconeixement de patrons, operació en
+flux, consolidació, herència d'una predisposició i regulació de dues variables
+internes. CAPACITY-1 va justificar una arquitectura de monitor de 512 LIF +
+128 Adaptive-LIF i NEURAL-VIZ-1 la va fer observable en una GUI nativa.
+
+## Demostració directa
+
+<figure class="echo2-video">
+  <video controls preload="metadata" playsinline poster="/media/echoai/opengraph/echo2.png" aria-label="Demostració de la GUI nativa d'ECHO-2">
+    <source src="/media/echoai/echo2-neural-viz-demo.mp4" type="video/mp4">
+    El navegador no pot reproduir MP4. <a href="/media/echoai/echo2-neural-viz-demo.mp4">Descarrega el vídeo</a>.
+  </video>
+  <figcaption>Enregistrament directe de 2:03 fet el 9 de setembre de 2026. Recorre la xarxa neuronal, el dron 3D, el mapa WSP de 16 bytes i el tutorial.</figcaption>
+</figure>
+
+No és una animació promocional. L'aplicació executa `Agent.turn()` i mostra
+WSP, CAM, T, PATTERN, Q, gate, homeòstasi, mort, respawn, herència i crides
+eventuals al còrtex. El dron representa la pose real del cos discret Body3D.
+VTK/OpenGL renderitza la vista; encara no hi ha aerodinàmica, IMU, motors ni
+PID.
+
+## Comparació directa amb l'escala anterior
+
+CAPACITY-1 va repetir l'examen amb l'arquitectura de 256 LIF usada com a
+baseline de mida ECHO-1 i amb l'ampliació d'ECHO-2. La comparació es va
+executar dins del mateix banc, amb llavors reservades i memòria congelada; no
+reconstrueix retrospectivament una puntuació del llançament ECHO-1.
+
+<div class="release-chart" role="img" aria-label="Signatures perceptives correctes: baseline de 256 LIF, 829 de 2048; ECHO-2 amb 512 LIF, 2048 de 2048">
+  <h3>Signatures perceptives reservades</h3>
+  <div class="release-bar"><span>Baseline · 256 LIF</span><i><b style="width:40.48%"></b></i><strong>829 / 2.048</strong></div>
+  <div class="release-bar is-echo2"><span>ECHO-2 · 512 LIF</span><i><b style="width:100%"></b></i><strong>2.048 / 2.048</strong></div>
+</div>
+
+La millora és de **+1.219 encerts**, del 40,48% al 100%. En barrejar les
+signatures, el mateix sistema cau a 142/2.048: el resultat depèn de la
+representació i no només d'afegir files.
+
+<div class="release-chart" role="img" aria-label="Discriminació temporal: control de 640 LIF estàtiques, 0 de 256; ECHO-2 amb 512 LIF i 128 Adaptive-LIF, 256 de 256">
+  <h3>Discriminació temporal amb 640 neurones totals</h3>
+  <div class="release-bar"><span>Control · 640 LIF</span><i><b style="width:0%"></b></i><strong>0 / 256</strong></div>
+  <div class="release-bar is-echo2"><span>ECHO-2 · 512 LIF + 128 ALIF</span><i><b style="width:100%"></b></i><strong>256 / 256</strong></div>
+</div>
+
+El total de neurones és idèntic. La causa que canvia és l'adaptació temporal:
+desactivar-la retorna 0/256. El banc va seleccionar memòria de 8 ticks i guany
+adaptatiu 4.
+
+<div class="release-chart" role="img" aria-label="Escala de seqüència exercitada: ECHO-1, 352 torns; ECHO-2 STREAM-1, 4608 frames">
+  <h3>Escala de seqüència exercitada</h3>
+  <div class="release-bar"><span>ECHO-1 · nucli</span><i><b style="width:7.64%"></b></i><strong>352 torns</strong></div>
+  <div class="release-bar is-echo2"><span>ECHO-2 · STREAM-1</span><i><b style="width:100%"></b></i><strong>4.608 frames</strong></div>
+</div>
+
+La tercera gràfica mesura escala recorreguda, **no precisió en la mateixa
+tasca**: són càrregues diferents. STREAM-1 va processar 48 blocs, va obtenir
+4.512/4.512 prediccions conegudes al braç coherent i `dynamic_alias=0`.
+
+## Què va afegir cada fase
+
+| Fase | Evidència de tancament |
+|---|---|
+| VITA-1 / FOOD-1 | `H` baixa, la mort acaba una vida i aliment/verí s'aprenen per conseqüències |
+| SURV-1 | medianes conservant memòria: 28/40/40 torns; reiniciant: 16/16/16 |
+| SHIFT-S | adaptació davant Q congelada: +421/+416/+446 torns; la transferència negativa també es publica |
+| PATTERN-1 | 32/32 variants reservades davant 0/32 per coincidència exacta; zero ids d'objecte o posició |
+| STREAM-1 | 4.608 frames, 48 blocs i 4.512/4.512 prediccions coherents |
+| SLEEP-2 | 8.208 files es compacten en 144 regles; 720/720 a l'examen davant T 0/720, sense reescriure CAM/T/Q |
+| GEN-1f | pressupost heretat 8: 360 errors tardans davant 602 del naïf; 52 victòries, 24 derrotes, 52 empats |
+| HEAT-1b | energia + temperatura: 20.786 torns davant 7.221 sense temperatura i 7.186 sense Q; examen carregar/refredar 12/12 |
+| CAPACITY-1 | 512 LIF: 2.048/2.048; 512 LIF + 128 ALIF: 256/256 temporal |
+| NEURAL-VIZ-1 | una GUI Python mostra en directe l'arquitectura i tots els components auditables |
+
+## Què millora respecte d'ECHO-1
+
+ECHO-1 va tancar memòria, predicció, objectes, accions físiques discretes,
+patrons temporals i transferència entre mons. ECHO-2 ho conserva i afegeix una
+conseqüència entre episodis: el cos pot morir, reaparèixer, regular energia i
+temperatura, conservar experiència i transmetre només una predisposició
+d'exploració a un descendent amb memòries buides.
+
+L'ampliació neuronal tampoc s'accepta pel número `640`. S'accepta perquè
+millora dos exàmens causals i perd quan s'elimina o es barreja la
+característica responsable.
+
+## Integritat i dades
+
+- WSP es manté en 16 bytes i no existeix un segon thought-bus.
+- `false_facts=0`, `destroyed=0` i còrtex apagat als bancs principals.
+- La branca neuronal de la GUI és un monitor perceptiu; Q manté la decisió causal.
+- Els exàmens reservats estan congelats durant la puntuació.
+- Els resultats negatius anteriors de GEN-1 i HEAT-1 es conserven en vermell.
+- No hi ha robot físic, càmera, LiDAR, IMU, PX4 ni AKD1500 en aquest tancament.
+
+[Descarrega el resum ECHO-2 i les empremtes SHA-256](/data/echo2-benchmark.json).
+El fitxer també inclou el hash del MP4.
 
 — R.N.
 
@@ -462,94 +583,77 @@ L'estat publicat d'ECHO-1 correspon a 488 proves correctes, un
 `expectedFailure` conegut i els informes verds de ROOM-1, OBJ-1, OPEN-1,
 SIGN-C, TALK-1, PATTERN-0 i XFER-1.
 
+ECHO-2 es va tancar després amb informes verds separats per a supervivència,
+PATTERN-1, STREAM-1, SLEEP-2, GEN-1f, HEAT-1b i CAPACITY-1. El resum públic
+inclou les empremtes SHA-256 d'aquests informes i de la demostració en vídeo.
+
 — R.N.
 
 ---
 
 <!-- src/content/ca/echoai/ruta.md · /ca/docs/echoai/ruta -->
 
-# Full de ruta — ECHO-2 i ECHO-3
+# Full de ruta — ECHO-3
 
-ECHO-1 està tancat. El següent no consisteix a engrandir el mapa ni a deixar
-que un LLM condueixi. L'objectiu empresarial és la robòtica autònoma a l'edge,
-amb els drons com a plataforma principal.
+ECHO-1 i ECHO-2 estan tancats. Aquesta pàgina conté únicament el futur
+d'echoAI: portar les capacitats mesurades en simulació a la percepció i la
+robòtica a l'edge. Cada element continua sent **pla** fins que existeixin el
+seu banc, informe i tancament.
 
-Tot element d'aquesta pàgina és **pla** fins que existeixin el seu banc, el seu
-informe i el seu tancament.
-
-## ECHO-2 — un animal que manté la viabilitat
-
-ECHO-2 continuarà en simulació controlada. Afegirà necessitats internes,
-identitat d'objectes i vides completes sense trencar el camí ràpid enter.
-
-| Slice | Pregunta que ha de tancar |
-|---|---|
-| VITA-1 | Un estat homeostàtic `H` viu a l'Agent, baixa amb el temps i acaba un episodi quan arriba a zero? |
-| PATTERN-1 | Reconeix el mateix objecte o categoria a través d'observacions, posicions i contextos diferents sense fer servir el seu id com a resposta? |
-| FOOD-1 | Descobreix per les conseqüències quin objecte restaura `H` i quin el redueix, sense `if gana: menjar`? |
-| SURV-1 | L'experiència conservada entre vides augmenta la mediana de supervivència davant de reiniciar Q/T/CAM? |
-| SHIFT-S | S'adapta quan canvien els riscos o els recursos sense esborrar la memòria a mà? |
-| STREAM-1 | Opera durant un flux llarg amb frames externs i alias mesurat? |
-| SLEEP-2 | Consolida episodis en regles sense destruir CAM ni cridar el còrtex? |
-| GEN-1 | Un enter heretable redueix el temps d'aprenentatge sense copiar Q al descendent? |
-| HEAT-1 | Una segona necessitat crea un trade-off real després de tancar la supervivència amb una de sola? |
-
-### La supervivència no és una recompensa per continuar viu
-
-`H` serà una restricció de viabilitat, no `reward += 1`. La recompensa
-continuarà ensenyant política local; `H` decidirà si existeix un torn següent.
-La mort tancarà una vida i reiniciarà cos i homeòstasi, però l'experiment
-compararà conservar la memòria amb esborrar-la.
-
-PATTERN-1 és la porta cap als objectes reals: primer ha de demostrar identitat i
-categoria sense píxels ni sensors sorollosos. ECHO-3 connectarà aquesta
-capacitat amb observacions físiques.
-
-## ECHO-3 — percepció i cos físic
-
-ECHO-3 traslladarà l'agent a un companion computer d'un dron. L'autopilot
-mantindrà l'estabilització, l'actitud i els failsafes; echoAI escollirà objectius
-i accions d'alt nivell a través del gate.
-
-| Slice | Resultat esperat |
-|---|---|
-| SIM-3 | la mateixa missió en simulació, software-in-the-loop i hardware-in-the-loop |
-| SENSOR-1 | càmera estèreo, IMU i LiDAR sincronitzats amb timestamps i fallades explícites |
-| GROUND-1 | convertir observacions físiques en estats WSP sense obrir un segon bus |
-| PATTERN-1R | associar vistes i clústers 3D amb el mateix objecte après a ECHO-2 |
-| FUSION-1 | càmera i LiDAR aporten evidència independent; la discrepància redueix la confiança |
-| DYNAMIC-1 | detectar objectes mòbils i predir trajectòries a curt termini |
-| POWER-1 | mesurar watts i energia per missió; despertar còmput pesant només quan aporta valor |
-| SAFE-1 | desconnexions, sensors congelats i propostes errònies no poden saltar-se el gate ni l'autopilot |
-| DRONE-3 | missió completa en gàbia i entorn controlat: inspeccionar, evitar, tornar i aterrar |
-
-### Paper d'Akida, si arriba al laboratori
-
-Un AKD1000 podria funcionar com a percepció dispersa sempre activa:
-classificació de regions, novetat, moviment o prefiltratge de núvols de punts.
-La seva sortida serien identificadors i confiances enteres que entrarien per
-l'adaptador sensorial existent.
-
-No seria el cervell complet, no escriuria CAM, no decidiria VERIFY ni manaria
-motors. Jetson conservaria la fusió complexa, la instrumentació i els models de
-desenvolupament; Pixhawk conservaria el control de vol.
-
-Abans d'atribuir-li una capacitat s'exigiran un driver real, un model compilat
-per a AKD1000 i mesures pròpies de potència i latència. Les capacitats
-publicades per a generacions posteriors d'Akida no s'atribuiran automàticament
-a l'AKD1000.
-
-## Demostració objectiu
+## Objectiu
 
 Un dron s'enlaira en un entorn controlat, inspecciona una ruta, reconeix
 objectes persistents, detecta que un pas après ha canviat, evita un obstacle
-mòbil, decideix tornar segons l'energia disponible i aterra en una zona
-alternativa. Tot el control crític continua local i no cal cap connexió al
-núvol.
+mòbil, decideix tornar segons l'energia disponible i aterra. El control crític
+continua local i la pèrdua de xarxa no atura la missió.
 
-La demo només serà verda si també supera la pèrdua de càmera, la pèrdua de
-LiDAR, el reinici del companion computer, una sortida neuronal errònia i la
-retirada completa de l'accelerador opcional.
+L'autopilot mantindrà l'estabilització, l'actitud i els failsafes. echoAI
+escollirà objectius o accions d'alt nivell mitjançant el gate. Cap LLM
+escriurà directament als motors.
+
+## Fases d'ECHO-3
+
+| Slice | Resultat esperat |
+|---|---|
+| SIM-3 | tres mapes 3D declaratius; aprendre a A i examinar camins no vistos a B/C |
+| FLIGHT-1 | més voxels i rumbs, motors, dinàmica, aerodinàmica i vent mesurats |
+| SENSOR-1 | càmera, IMU i LiDAR sincronitzats, amb soroll, latència i fallades explícites |
+| GROUND-1 | convertir observacions físiques en WSP sense obrir un segon bus |
+| PATTERN-1R | associar vistes i clústers 3D amb l'objecte après a ECHO-2 |
+| FUSION-1 | càmera i LiDAR aporten evidència independent; la discrepància redueix la confiança |
+| DYNAMIC-1 | detectar objectes mòbils i predir trajectòries a curt termini |
+| PX4-1 | integrar PID, SITL/HIL i setpoints acotats mantenint els failsafes |
+| COMMAND-1 | acceptar ordres verificades: enlairar-se, aterrar, anar a coordenades, tornar o cancel·lar |
+| POWER-1 | mesurar watts i energia per missió; despertar còmput pesant només quan aporta valor |
+| SAFE-1 | sensors congelats, desconnexions i propostes errònies no salten el gate ni PX4 |
+| DRONE-3 | missió completa en simulació avançada, gàbia i entorn controlat |
+
+## Laboratori 3D
+
+NEURAL-VIZ-1 evolucionarà cap a una aplicació Python nativa amb el món 3D,
+xarxa neuronal, WSP, sensors, PX4/PID, motors, missió, timeline i replay. El
+món A servirà per aprendre. Els mons B i C tindran altres camins, parets i
+moviments reservats per mesurar transferència sense hardcodejar escenaris.
+
+El renderer pot usar GPU; la documentació distingirà sempre renderitzat,
+física i còmput neuronal. Una aparença realista no compta com a vol ni
+intel·ligència demostrada.
+
+## AKD1500 M.2, quan existeixi al laboratori
+
+El primer pas serà comparar CPU i AKD1500 amb el mateix model, dades i host:
+precisió, latència, memòria, consum i fallback. L'accelerador podrà produir
+trets i confiances enteres cap a WSP. Q, T, CAM, VERIFY i gate continuaran
+sota el control del nucli.
+
+Avui no hi ha cap targeta AKD1500 al laboratori. ECHO-3 pot avançar en
+programari, PX4 i simulació sense fingir el maquinari.
+
+## Porta final
+
+La demostració haurà de superar pèrdua de càmera, pèrdua de LiDAR, reinici del
+companion computer, sortida neuronal errònia, vent reservat i retirada completa
+de l'accelerador opcional. Els mons B i C romandran congelats fins a l'examen.
 
 — R.N.
 
@@ -611,7 +715,7 @@ manera independent i contradir-se.
 
 ### 5. Neuromòrfic opcional
 
-- [**BrainChip AKD1000**](https://brainchip.com/dev-tools/) PCIe o M.2, només
+- [**BrainChip AKD1500 M.2**](https://brainchip.com/dev-tools/), només
   si es disposa del maquinari, un driver compatible i una toolchain reproduïble.
 
 El seu primer banc seria percepció sempre activa davant de CPU/Jetson sobre el
@@ -625,7 +729,7 @@ desconnectar-lo. No s'acceptaran TOPS de fullet com a substitut d'aquesta mesura
 3. X500/Pixhawk per a SITL, HIL i gàbia.
 4. TFmini-S per a integració primerenca de distància.
 5. Mid-360 quan SENSOR-1 i SAFE-1 ja tinguin banc.
-6. AKD1000 quan existeixi una tasca perceptiva petita que es pugui comparar amb
+6. AKD1500 M.2 quan existeixi una tasca perceptiva petita que es pugui comparar amb
    un baseline i que no bloquegi el full de ruta.
 
 ## Condició d'ús
@@ -650,14 +754,14 @@ finalment un entorn exterior autoritzat.
 
 La política del laboratori és separar resultats, plans i hipòtesis.
 
-## El que ECHO-1 no demostra
+## El que ECHO-2 no demostra
 
 - No és intel·ligència general ni una persona artificial.
-- No reconeix objectes en imatges reals.
+- Reconeix famílies simbòliques reservades, no objectes en imatges reals.
 - No fa SLAM, control de vol ni navegació certificada.
 - Encara no opera amb soroll, vent, latència física o sensors incomplets.
-- No demostra supervivència autònoma; això pertany a ECHO-2.
-- No conté cap AKD1000 ni cap altre NPU físic.
+- La supervivència demostrada ocorre en mons discrets, no en un dron físic.
+- No conté cap AKD1500 M.2 ni cap altre NPU físic.
 - No converteix el rendiment d'un món sintètic en una afirmació de seguretat
   robòtica.
 
@@ -672,8 +776,9 @@ en paràfrasis, però va triar `approach` en dues amenaces no canòniques i va
 rebre `-16`. Això demostra per què la seva sortida és una proposta i no una
 ordre segura.
 
-CAM té 4.096 ranures i no fa servir LRU. Els mons actuals encara són petits;
-SLEEP-2 només es justificarà quan hi hagi pressió de memòria mesurada.
+SLEEP-2 consolida 8.208 files en 144 regles sense reescriure CAM/T/Q, però els
+mons continuen sent petits. La GUI 3D representa Body3D; encara no simula
+aerodinàmica, IMU, motors, vent ni PID.
 
 ## Condicions per a la robòtica
 
@@ -693,7 +798,7 @@ L'autopilot i els mecanismes de seguretat continuen separats.
 
 ## Akida
 
-No hi ha cap AKD1000 al laboratori. Les xifres de consum o aprenentatge del
+No hi ha cap AKD1500 M.2 al laboratori. Les xifres de consum o aprenentatge del
 fabricant no són resultats de RxLabs. Si arriba una placa, es publicaran la
 compatibilitat, el model exacte, la toolchain, la potència mesurada i la
 comparació amb CPU/Jetson abans de parlar d'avantatge.

@@ -20,7 +20,7 @@ claim for equipment that is not on the bench.
 |---|---|---|
 | **echOS** | Robotic edge unikernel | 3.0 closed; x86_64 BIOS/UEFI and AArch64 UEFI |
 | **PRISMA Engine** | EEG to events, Rust and reproducible analysis | Engine 0.1.0 measured; not a medical device |
-| **echoAI** | Two-clock situated agent | ECHO-1 closed; ECHO-2 in design |
+| **echoAI** | Two-clock situated agent | ECHO-1 and ECHO-2 closed; ECHO-3 in design |
 
 ## Where they meet
 
@@ -39,13 +39,15 @@ operations, bounded language, post-hoc narration, temporal patterns and
 transfer. Its closure reproduces 488 passing tests, one documented expected
 failure, and transfer gains of `+56` and `+72`.
 
-ECHO-2 is planned around object recognition, homeostasis and survival across
-lives. ECHO-3 will move those capabilities to edge robotics: simulation and
-HIL first, then camera, LiDAR and a drone controlled by PX4/Pixhawk.
+ECHO-2 adds survival across lives, perceptual patterns, streaming,
+consolidation, inheritance and joint energy/temperature regulation. Its
+selected neural monitor contains 512 LIF + 128 Adaptive-LIF neurons. ECHO-3
+will move those capabilities into three 3D worlds and edge robotics:
+simulation and HIL first, then cameras, LiDAR and a PX4/Pixhawk drone.
 
 ## Hardware
 
-There is no AKD1000 in the laboratory. Akida appears only as a probe, stub or
+There is no AKD1500 M.2 in the laboratory. Akida appears only as a probe or
 future hardware. If one is added, our own measurements will be published
 instead of figures inherited from a brochure.
 
@@ -73,8 +75,9 @@ perceive → remember → predict → act → consequence → learn
 
 ## Current status
 
-**ECHO-1 was closed on 5 September 2026.** The canonical suite ends with 488
-passing tests and one explicit `expectedFailure`: WALK-1 without the opt-in
+**ECHO-1 closed on 5 September 2026 and ECHO-2 on 9 September 2026.** The
+canonical ECHO-1 suite ends with 488 passing tests and one explicit
+`expectedFailure`: WALK-1 without the opt-in
 integer remainder. It is not hidden as green.
 
 ECHO-1 demonstrates that the same animal:
@@ -90,6 +93,12 @@ ECHO-1 demonstrates that the same animal:
 The transfer closure uses three worlds. At the two measured boundaries, the
 transferred animal scores `208 vs 152` (`+56`) and `224 vs 152` (`+72`). The
 aggregate gain is `+128`. No LLM or human labels are involved.
+
+ECHO-2 retains that core and adds survival across lives, pattern
+generalisation, continuous streams, consolidation, inherited predisposition
+and joint energy/temperature regulation. CAPACITY-1 selected a monitor with
+512 LIF + 128 Adaptive-LIF neurons: 2,048/2,048 perceptual signatures and
+256/256 temporal sequences. [ECHO-2 closure, charts and video](./echo2).
 
 ## Three channels that do not mix
 
@@ -127,8 +136,8 @@ This is evidence of memory, control, prediction, composition and transfer in
 synthetic worlds. It is not yet a robot, does not demonstrate visual perception,
 and does not authorise placing a generative model in motor control.
 
-ECHO-2 will take the same contract into autonomous survival and object
-recognition. ECHO-3 will connect it to sensors and a physical body at the edge.
+ECHO-3 will take ECHO-2's closed contract into three 3D worlds, sensors,
+flight dynamics, PX4 and ultimately a physical body at the edge.
 
 — R.N.
 
@@ -215,9 +224,16 @@ The web board renders the turn log and can follow it live through local polling.
 It is observability, never a control input. The home-page GIF comes from a real
 run.
 
+## ECHO-2 neural monitor
+
+CAPACITY-1 selected 512 LIF neurons for perceptual signatures and 128
+Adaptive-LIF neurons for temporal context. It is a causal, observable monitor;
+Q and the gate retain control of the decision. NEURAL-VIZ-1 displays its layers
+and spikes beside WSP, CAM, T, patterns, homeostasis, death and inheritance.
+
 ## Future hardware
 
-Today echoAI runs on a host and there is no AKD1000 in the laboratory. A future
+Today echoAI runs on a host and there is no AKD1500 M.2 in the laboratory. A future
 neuromorphic accelerator would be treated as a perceptual coprocessor or bounded
 head, never as VERIFY, sovereign memory or pilot.
 
@@ -326,6 +342,112 @@ PYTHONPATH=. python3 -m echoai.tests.test_nexus0
 
 Audited result: `xfer1 rc=0`, `green=true`, 488 passing tests and one documented
 expected failure.
+
+— R.N.
+
+---
+
+<!-- src/content/en/echoai/echo2.md · /en/docs/echoai/echo2 -->
+
+# ECHO-2 — closure, results and demonstration
+
+**ECHO-2 closed on 9 September 2026.** The agent retains the ECHO-1 core and
+adds viability, pattern recognition, stream operation, consolidation,
+inheritance of one predisposition and regulation of two internal variables.
+CAPACITY-1 justified a 512 LIF + 128 Adaptive-LIF monitor architecture, and
+NEURAL-VIZ-1 made it observable in a native GUI.
+
+## Direct demonstration
+
+<figure class="echo2-video">
+  <video controls preload="metadata" playsinline poster="/media/echoai/opengraph/echo2.png" aria-label="Demonstration of the native ECHO-2 GUI">
+    <source src="/media/echoai/echo2-neural-viz-demo.mp4" type="video/mp4">
+    Your browser cannot play MP4. <a href="/media/echoai/echo2-neural-viz-demo.mp4">Download the video</a>.
+  </video>
+  <figcaption>A direct 2:03 recording made on 9 September 2026. It visits the neural network, 3D drone, 16-byte WSP map and tutorial.</figcaption>
+</figure>
+
+This is not a promotional animation. The application runs `Agent.turn()` and
+shows its WSP, CAM, T, PATTERN, Q, gate, homeostasis, death, respawn,
+inheritance and occasional cortex calls. The drone represents the real pose of
+the discrete Body3D body. VTK/OpenGL renders the view; aerodynamics, IMU,
+motors and PID do not exist yet.
+
+## Direct comparison with the previous scale
+
+CAPACITY-1 repeated the exam with the 256-LIF architecture used as the ECHO-1
+size baseline and with the ECHO-2 extension. This comparison ran inside the
+same bench with reserved seeds and frozen memory; it is not a retrospective
+score for the ECHO-1 release.
+
+<div class="release-chart" role="img" aria-label="Correct held-out perceptual signatures: 256 LIF baseline, 829 of 2048; ECHO-2 with 512 LIF, 2048 of 2048">
+  <h3>Held-out perceptual signatures</h3>
+  <div class="release-bar"><span>Baseline · 256 LIF</span><i><b style="width:40.48%"></b></i><strong>829 / 2,048</strong></div>
+  <div class="release-bar is-echo2"><span>ECHO-2 · 512 LIF</span><i><b style="width:100%"></b></i><strong>2,048 / 2,048</strong></div>
+</div>
+
+The gain is **+1,219 hits**, from 40.48% to 100%. Permuting the signatures
+drops the same system to 142/2,048: the result depends on the representation,
+not merely on adding rows.
+
+<div class="release-chart" role="img" aria-label="Temporal discrimination: control with 640 static LIF, 0 of 256; ECHO-2 with 512 LIF and 128 Adaptive-LIF, 256 of 256">
+  <h3>Temporal discrimination with 640 neurons in total</h3>
+  <div class="release-bar"><span>Control · 640 LIF</span><i><b style="width:0%"></b></i><strong>0 / 256</strong></div>
+  <div class="release-bar is-echo2"><span>ECHO-2 · 512 LIF + 128 ALIF</span><i><b style="width:100%"></b></i><strong>256 / 256</strong></div>
+</div>
+
+The total number of neurons is identical here. Temporal adaptation is the
+changed cause: disabling it returns 0/256. The bench selected an eight-tick
+memory and adaptation gain 4.
+
+<div class="release-chart" role="img" aria-label="Exercised sequence scale: ECHO-1, 352 turns; ECHO-2 STREAM-1, 4608 frames">
+  <h3>Exercised sequence scale</h3>
+  <div class="release-bar"><span>ECHO-1 · core</span><i><b style="width:7.64%"></b></i><strong>352 turns</strong></div>
+  <div class="release-bar is-echo2"><span>ECHO-2 · STREAM-1</span><i><b style="width:100%"></b></i><strong>4,608 frames</strong></div>
+</div>
+
+The third chart shows exercised scale, **not accuracy on the same task**: the
+workloads differ. STREAM-1 processed 48 chunks, reached 4,512/4,512 known
+predictions in the coherent arm and kept `dynamic_alias=0`.
+
+## What each phase added
+
+| Phase | Closure evidence |
+|---|---|
+| VITA-1 / FOOD-1 | `H` falls, death ends a life, and food/poison are learned from consequences |
+| SURV-1 | medians with retained memory: 28/40/40 turns; with resets: 16/16/16 |
+| SHIFT-S | adaptation over frozen Q: +421/+416/+446 turns; negative transfer is also published |
+| PATTERN-1 | 32/32 held-out variants versus 0/32 for exact matching; no object id or position |
+| STREAM-1 | 4,608 frames, 48 chunks and 4,512/4,512 coherent predictions |
+| SLEEP-2 | 8,208 rows become 144 rules; 720/720 in the exam versus T at 0/720, without rewriting CAM/T/Q |
+| GEN-1f | inherited budget 8: 360 late errors versus 602 for naïve; 52 wins, 24 losses, 52 ties |
+| HEAT-1b | energy + temperature: 20,786 turns versus 7,221 without temperature and 7,186 without Q; load/cool exam 12/12 |
+| CAPACITY-1 | 512 LIF: 2,048/2,048; 512 LIF + 128 ALIF: 256/256 temporal |
+| NEURAL-VIZ-1 | one Python GUI displays the architecture and every auditable component live |
+
+## What improves over ECHO-1
+
+ECHO-1 closed memory, prediction, objects, discrete physical actions, temporal
+patterns and transfer between worlds. ECHO-2 retains them and adds a
+consequence across episodes: the body can die, respawn, regulate energy and
+temperature, retain experience and transmit only an exploration predisposition
+to a descendant whose memories start empty.
+
+The neural extension is not accepted because of the number `640`. It is
+accepted because it improves two causal exams and loses when the responsible
+feature is removed or permuted.
+
+## Integrity and data
+
+- WSP remains 16 bytes and there is no second thought bus.
+- `false_facts=0`, `destroyed=0`, with the cortex disabled in the main benches.
+- The neural branch in the GUI is a perceptual monitor; Q remains the causal policy.
+- Held-out exams are frozen during scoring.
+- Earlier negative GEN-1 and HEAT-1 results remain published as red.
+- This closure has no physical robot, camera, LiDAR, IMU, PX4 or AKD1500.
+
+[Download the ECHO-2 summary and SHA-256 fingerprints](/data/echo2-benchmark.json).
+That file also includes the MP4 hash.
 
 — R.N.
 
@@ -456,92 +578,76 @@ The published ECHO-1 state corresponds to 488 passing tests, one known
 `expectedFailure`, and green ROOM-1, OBJ-1, OPEN-1, SIGN-C, TALK-1, PATTERN-0
 and XFER-1 reports.
 
+ECHO-2 subsequently closed with separate green reports for survival,
+PATTERN-1, STREAM-1, SLEEP-2, GEN-1f, HEAT-1b and CAPACITY-1. The public
+summary includes SHA-256 fingerprints for those reports and the video demo.
+
 — R.N.
 
 ---
 
 <!-- src/content/en/echoai/ruta.md · /en/docs/echoai/ruta -->
 
-# Roadmap — ECHO-2 and ECHO-3
+# Roadmap — ECHO-3
 
-ECHO-1 is closed. What follows is not about making the map larger or letting an
-LLM drive. The business objective is autonomous edge robotics, with drones as
-the primary platform.
+ECHO-1 and ECHO-2 are closed. This page contains only echoAI's future: moving
+the capabilities measured in simulation into perception and edge robotics.
+Every item remains a **plan** until its bench, report and closure exist.
 
-Every item on this page is a **plan** until its bench, report and closure exist.
+## Objective
 
-## ECHO-2 — an animal that maintains viability
+A drone takes off in a controlled environment, inspects a route, recognises
+persistent objects, detects that a learned passage changed, avoids a moving
+obstacle, decides to return from its remaining energy and lands. Critical
+control remains local and loss of network access does not stop the mission.
 
-ECHO-2 will remain in controlled simulation. It will add internal needs, object
-identity and complete lives without breaking the integer fast path.
+The autopilot will retain stabilisation, attitude control and failsafes.
+echoAI will select goals or high-level actions through the gate. No LLM will
+write directly to the motors.
 
-| Slice | Question it must close |
-|---|---|
-| VITA-1 | Does a homeostatic state `H` live in the Agent, fall over time and end an episode at zero? |
-| PATTERN-1 | Does it recognise the same object or category across different observations, positions and contexts without using its id as the answer? |
-| FOOD-1 | Does it discover through consequences which object restores `H` and which reduces it, without `if hungry: eat`? |
-| SURV-1 | Does experience retained across lives increase median survival versus resetting Q/T/CAM? |
-| SHIFT-S | Does it adapt when risks or resources change without manually clearing memory? |
-| STREAM-1 | Does it operate through a long stream with external frames and measured aliasing? |
-| SLEEP-2 | Does it consolidate episodes into rules without destroying CAM or calling the cortex? |
-| GEN-1 | Does an inheritable integer reduce learning time without copying Q into the descendant? |
-| HEAT-1 | Does a second need create a real trade-off after survival is closed with one? |
-
-### Survival is not a reward for remaining alive
-
-`H` will be a viability constraint, not `reward += 1`. Reward will continue to
-teach local policy; `H` will decide whether a next turn exists. Death will end a
-life and reset body and homeostasis, while the experiment compares retaining
-memory with erasing it.
-
-PATTERN-1 is the gate towards real objects: it must first demonstrate identity
-and category without pixels or noisy sensors. ECHO-3 will connect that capability
-to physical observations.
-
-## ECHO-3 — perception and physical body
-
-ECHO-3 will move the agent onto a drone companion computer. The autopilot will
-retain stabilisation, attitude control and failsafes; echoAI will select goals
-and high-level actions through the gate.
+## ECHO-3 phases
 
 | Slice | Expected result |
 |---|---|
-| SIM-3 | the same mission in simulation, software-in-the-loop and hardware-in-the-loop |
-| SENSOR-1 | stereo camera, IMU and LiDAR synchronised with timestamps and explicit faults |
-| GROUND-1 | convert physical observations into WSP states without opening a second bus |
-| PATTERN-1R | associate views and 3D clusters with the same object learned in ECHO-2 |
+| SIM-3 | three declarative 3D maps; learn in A and examine unseen paths in B/C |
+| FLIGHT-1 | more voxels and headings, motors, dynamics, aerodynamics and measured wind |
+| SENSOR-1 | synchronised camera, IMU and LiDAR with explicit noise, latency and faults |
+| GROUND-1 | convert physical observations into WSP without opening a second bus |
+| PATTERN-1R | associate 3D views and clusters with the object learned in ECHO-2 |
 | FUSION-1 | camera and LiDAR provide independent evidence; disagreement reduces confidence |
 | DYNAMIC-1 | detect moving objects and predict short-term trajectories |
+| PX4-1 | integrate PID, SITL/HIL and bounded setpoints while retaining failsafes |
+| COMMAND-1 | accept verified commands: take off, land, go to coordinates, return or cancel |
 | POWER-1 | measure watts and energy per mission; wake heavy compute only when it adds value |
-| SAFE-1 | disconnections, frozen sensors and wrong proposals cannot bypass the gate or autopilot |
-| DRONE-3 | complete mission in a cage and controlled environment: inspect, avoid, return and land |
+| SAFE-1 | frozen sensors, disconnections and wrong proposals cannot bypass the gate or PX4 |
+| DRONE-3 | complete mission in advanced simulation, a cage and a controlled environment |
 
-### Role of Akida, if it reaches the laboratory
+## 3D laboratory
 
-An AKD1000 could act as sparse always-on perception: region classification,
-novelty, movement or point-cloud prefiltering. Its output would be integer
-identifiers and confidence values entering through the existing sensor adapter.
+NEURAL-VIZ-1 will evolve into a native Python application containing the 3D
+world, neural network, WSP, sensors, PX4/PID, motors, mission, timeline and
+replay. World A is for learning. Worlds B and C contain different paths,
+walls and reserved movements to measure transfer without hardcoded scenarios.
 
-It would not be the complete brain, would not write CAM, would not decide VERIFY
-and would not command motors. Jetson would retain complex fusion,
-instrumentation and development models; Pixhawk would retain flight control.
+The renderer may use a GPU; the documentation will always distinguish
+rendering, physics and neural computation. Realistic visuals do not count as
+demonstrated flight or intelligence.
 
-Before attributing a capability to it, a real driver, a model compiled for
-AKD1000 and our own power and latency measurements would be required.
-Capabilities published for later Akida generations will not automatically be
-attributed to AKD1000.
+## AKD1500 M.2, when it exists in the laboratory
 
-## Target demonstration
+The first step will compare CPU and AKD1500 with the same model, data and host:
+accuracy, latency, memory, power and fallback. The accelerator may produce
+integer features and confidence values for WSP. Q, T, CAM, VERIFY and the gate
+remain under core control.
 
-A drone takes off in a controlled environment, inspects a route, recognises
-persistent objects, detects that a learned passage has changed, avoids a moving
-obstacle, decides to return based on available energy, and lands in an
-alternative area. All critical control remains local and no cloud connection is
-required.
+There is no AKD1500 card in the laboratory today. ECHO-3 can advance through
+software, PX4 and simulation without pretending the hardware is present.
 
-The demo will only be green if it also survives loss of camera, loss of LiDAR,
-companion-computer restart, incorrect neural output and complete removal of the
-optional accelerator.
+## Final gate
+
+The demonstration must survive loss of camera, loss of LiDAR, companion
+computer restart, wrong neural output, reserved wind and complete removal of
+the optional accelerator. Worlds B and C remain frozen until examination.
 
 — R.N.
 
@@ -602,7 +708,7 @@ independently and contradict one another.
 
 ### 5. Optional neuromorphic hardware
 
-- [**BrainChip AKD1000**](https://brainchip.com/dev-tools/) over PCIe or M.2,
+- [**BrainChip AKD1500 M.2**](https://brainchip.com/dev-tools/),
   only if the hardware, a compatible driver and a reproducible toolchain are
   available.
 
@@ -617,7 +723,7 @@ Brochure TOPS will not substitute for those measurements.
 3. X500/Pixhawk for SITL, HIL and cage testing.
 4. TFmini-S for early range integration.
 5. Mid-360 once SENSOR-1 and SAFE-1 have a bench.
-6. AKD1000 when a small perceptual task exists that can be compared against a
+6. AKD1500 M.2 when a small perceptual task exists that can be compared against a
    baseline and does not block the roadmap.
 
 ## Condition of use
@@ -642,14 +748,14 @@ authorised outdoor environment.
 
 The laboratory's policy is to separate results, plans and hypotheses.
 
-## What ECHO-1 does not demonstrate
+## What ECHO-2 does not demonstrate
 
 - It is not general intelligence or an artificial person.
-- It does not recognise objects in real images.
+- It recognises held-out symbolic families, not objects in real images.
 - It does not perform SLAM, flight control or certified navigation.
 - It does not yet operate with noise, wind, physical latency or incomplete sensors.
-- It does not demonstrate autonomous survival; that belongs to ECHO-2.
-- It does not contain an AKD1000 or another physical NPU.
+- Its demonstrated survival occurs in discrete worlds, not on a physical drone.
+- It does not contain an AKD1500 M.2 or another physical NPU.
 - It does not turn performance in a synthetic world into a robotics safety claim.
 
 ## Visible debt
@@ -662,8 +768,9 @@ The local Qwen solved SIGN-C's canonical examples and beat the stub on
 paraphrases, but selected `approach` for two non-canonical threats and received
 `-16`. This demonstrates why its output is a proposal rather than a safe order.
 
-CAM has 4,096 slots and does not use LRU. Current worlds are still small;
-SLEEP-2 will only be justified once measured memory pressure exists.
+SLEEP-2 consolidates 8,208 rows into 144 rules without rewriting CAM/T/Q, but
+the worlds remain small. The 3D GUI represents Body3D; it does not yet simulate
+aerodynamics, IMU, motors, wind or PID.
 
 ## Conditions for robotics
 
@@ -683,7 +790,7 @@ collision. The autopilot and safety mechanisms remain separate.
 
 ## Akida
 
-There is no AKD1000 in the laboratory. Manufacturer power or learning figures
+There is no AKD1500 M.2 in the laboratory. Manufacturer power or learning figures
 are not RxLabs results. If a board arrives, compatibility, exact model,
 toolchain, measured power and a comparison against CPU/Jetson will be published
 before any advantage is claimed.

@@ -14,6 +14,7 @@ import prismaTe from "../content/prisma/tecnico.md?raw";
 import echoaiQue from "../content/echoai/que-es.md?raw";
 import echoaiPie from "../content/echoai/piezas.md?raw";
 import echoaiEcho1 from "../content/echoai/echo1.md?raw";
+import echoaiEcho2 from "../content/echoai/echo2.md?raw";
 import echoaiResultados from "../content/echoai/resultados.md?raw";
 import echoaiProceso from "../content/echoai/proceso.md?raw";
 import echoaiRuta from "../content/echoai/ruta.md?raw";
@@ -33,6 +34,7 @@ import enPrismaTe from "../content/en/prisma/tecnico.md?raw";
 import enEchoaiQue from "../content/en/echoai/que-es.md?raw";
 import enEchoaiPie from "../content/en/echoai/piezas.md?raw";
 import enEchoaiEcho1 from "../content/en/echoai/echo1.md?raw";
+import enEchoaiEcho2 from "../content/en/echoai/echo2.md?raw";
 import enEchoaiResultados from "../content/en/echoai/resultados.md?raw";
 import enEchoaiProceso from "../content/en/echoai/proceso.md?raw";
 import enEchoaiRuta from "../content/en/echoai/ruta.md?raw";
@@ -52,6 +54,7 @@ import caPrismaTe from "../content/ca/prisma/tecnico.md?raw";
 import caEchoaiQue from "../content/ca/echoai/que-es.md?raw";
 import caEchoaiPie from "../content/ca/echoai/piezas.md?raw";
 import caEchoaiEcho1 from "../content/ca/echoai/echo1.md?raw";
+import caEchoaiEcho2 from "../content/ca/echoai/echo2.md?raw";
 import caEchoaiResultados from "../content/ca/echoai/resultados.md?raw";
 import caEchoaiProceso from "../content/ca/echoai/proceso.md?raw";
 import caEchoaiRuta from "../content/ca/echoai/ruta.md?raw";
@@ -67,9 +70,10 @@ const CATALOG = [
   { group: "echoAI", id: "echoai/que-es", title: "Qué es", src: echoaiQue },
   { group: "echoAI", id: "echoai/piezas", title: "Arquitectura", src: echoaiPie },
   { group: "echoAI", id: "echoai/echo1", title: "ECHO-1", src: echoaiEcho1 },
+  { group: "echoAI", id: "echoai/echo2", title: "ECHO-2", src: echoaiEcho2 },
   { group: "echoAI", id: "echoai/resultados", title: "Resultados", src: echoaiResultados },
   { group: "echoAI", id: "echoai/proceso", title: "Cómo se construyó", src: echoaiProceso },
-  { group: "echoAI", id: "echoai/ruta", title: "ECHO-2 → ECHO-3", src: echoaiRuta },
+  { group: "echoAI", id: "echoai/ruta", title: "ECHO-3", src: echoaiRuta },
   { group: "echoAI", id: "echoai/hardware", title: "Hardware previsto", src: echoaiHardware },
   { group: "echoAI", id: "echoai/limites", title: "Límites", src: echoaiLimites },
   { group: "echOS", id: "echos/que-es", title: "Qué es", src: echosQue },
@@ -89,9 +93,10 @@ const EN_CATALOG = [
   { group: "echoAI", id: "echoai/que-es", title: "What it is", src: enEchoaiQue },
   { group: "echoAI", id: "echoai/piezas", title: "Architecture", src: enEchoaiPie },
   { group: "echoAI", id: "echoai/echo1", title: "ECHO-1", src: enEchoaiEcho1 },
+  { group: "echoAI", id: "echoai/echo2", title: "ECHO-2", src: enEchoaiEcho2 },
   { group: "echoAI", id: "echoai/resultados", title: "Results", src: enEchoaiResultados },
   { group: "echoAI", id: "echoai/proceso", title: "How it was built", src: enEchoaiProceso },
-  { group: "echoAI", id: "echoai/ruta", title: "ECHO-2 → ECHO-3", src: enEchoaiRuta },
+  { group: "echoAI", id: "echoai/ruta", title: "ECHO-3", src: enEchoaiRuta },
   { group: "echoAI", id: "echoai/hardware", title: "Planned hardware", src: enEchoaiHardware },
   { group: "echoAI", id: "echoai/limites", title: "Limitations", src: enEchoaiLimites },
   { group: "echOS", id: "echos/que-es", title: "What it is", src: enEchosQue },
@@ -111,9 +116,10 @@ const CA_CATALOG = [
   { group: "echoAI", id: "echoai/que-es", title: "Què és", src: caEchoaiQue },
   { group: "echoAI", id: "echoai/piezas", title: "Arquitectura", src: caEchoaiPie },
   { group: "echoAI", id: "echoai/echo1", title: "ECHO-1", src: caEchoaiEcho1 },
+  { group: "echoAI", id: "echoai/echo2", title: "ECHO-2", src: caEchoaiEcho2 },
   { group: "echoAI", id: "echoai/resultados", title: "Resultats", src: caEchoaiResultados },
   { group: "echoAI", id: "echoai/proceso", title: "Com es va construir", src: caEchoaiProceso },
-  { group: "echoAI", id: "echoai/ruta", title: "ECHO-2 → ECHO-3", src: caEchoaiRuta },
+  { group: "echoAI", id: "echoai/ruta", title: "ECHO-3", src: caEchoaiRuta },
   { group: "echoAI", id: "echoai/hardware", title: "Maquinari previst", src: caEchoaiHardware },
   { group: "echoAI", id: "echoai/limites", title: "Límits", src: caEchoaiLimites },
   { group: "echOS", id: "echos/que-es", title: "Què és", src: caEchosQue },

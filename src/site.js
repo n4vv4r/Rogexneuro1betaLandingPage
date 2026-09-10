@@ -24,6 +24,17 @@ export const ECHOAI_OG = {
   imageAlt: "ECHO-AI — RxLabs®",
 };
 
+export const ECHO2_OG = {
+  image: "/media/echoai/opengraph/echo2.png",
+  imageW: 1200,
+  imageH: 630,
+  imageAlt: "ECHO-2 en directo — red neuronal y dron 3D",
+  imageAltEn: "ECHO-2 live — neural network and 3D drone",
+  imageAltCa: "ECHO-2 en directe — xarxa neuronal i dron 3D",
+};
+
+export const ECHO2_VIDEO = "/media/echoai/echo2-neural-viz-demo.mp4";
+
 const ES_PAGES = [
   {
     path: "/",
@@ -107,25 +118,31 @@ const ES_PAGES = [
     path: "/docs/lab/ecosistema",
     title: "El laboratorio — RxLabs®",
     description:
-      "Tres líneas reales: echOS, PRISMA y echoAI. Código ejecutable, límites publicados y una ruta desde ECHO-1 hacia robótica al edge.",
+      "Tres líneas reales: echOS, PRISMA y echoAI. ECHO-1 y ECHO-2 cerrados, código ejecutable, límites publicados y ECHO-3 hacia robótica al edge.",
   },
   {
     path: "/docs/echoai/que-es",
     title: "echoAI — RxLabs®",
     description:
-      "Agente situado de dos relojes. ECHO-1 cerrado: memoria, objetos, patrones y transferencia causal entre tres mundos, con el córtex apagado por defecto.",
+      "Agente situado de dos relojes. ECHO-1 y ECHO-2 cerrados: memoria, supervivencia, patrones, consolidación, herencia y control interno medidos.",
   },
   {
     path: "/docs/echoai/piezas",
     title: "echoAI — arquitectura",
     description:
-      "WSP 16 B, CAM 4096, T, PatternMemory, Q, gate, ATTEND y córtex opcional. Un bus, tres canales y contratos medidos.",
+      "WSP 16 B, CAM 4096, T, PatternMemory, Q, gate y monitor de 512 LIF + 128 Adaptive-LIF. Un bus y contratos medidos.",
   },
   {
     path: "/docs/echoai/echo1",
     title: "ECHO-1 — cierre",
     description:
       "Cadena completa de ECHO-1: SELF, ROOM, objetos, abrir, conflicto, narración, patrones y transferencia. 488 pruebas y +128 agregado.",
+  },
+  {
+    path: "/docs/echoai/echo2",
+    title: "ECHO-2 — cierre, resultados y demostración",
+    description:
+      "ECHO-2 cerrado: 512 LIF + 128 Adaptive-LIF, supervivencia, patrones, consolidación, herencia, control térmico y una demostración directa en vídeo.",
   },
   {
     path: "/docs/echoai/resultados",
@@ -141,9 +158,9 @@ const ES_PAGES = [
   },
   {
     path: "/docs/echoai/ruta",
-    title: "echoAI — ECHO-2 y ECHO-3",
+    title: "echoAI — hoja de ruta ECHO-3",
     description:
-      "Hoja de ruta desde ECHO-1 hacia supervivencia autónoma, reconocimiento de objetos y robótica física con cámara, LiDAR y drones al edge.",
+      "Hoja de ruta de ECHO-3: tres mundos 3D, aerodinámica, viento, IMU, PX4, órdenes y transferencia hacia un dron físico al edge.",
   },
   {
     path: "/docs/echoai/hardware",
@@ -155,7 +172,7 @@ const ES_PAGES = [
     path: "/docs/echoai/limites",
     title: "echoAI — límites",
     description:
-      "Qué no demuestra ECHO-1 y qué debe verificarse antes de robótica: sensores, deadlines, failsafes, HIL, energía y hardware ausente.",
+      "Qué no demuestra ECHO-2 y qué debe verificarse antes de volar: física, sensores, deadlines, failsafes, HIL, energía y hardware ausente.",
   },
   {
     path: "/echos",
@@ -230,19 +247,23 @@ const EN_META = {
   ],
   "/docs/lab/ecosistema": [
     "The laboratory — RxLabs®",
-    "Three real lines of work: echOS, PRISMA and echoAI. Executable code, published limitations and a path from ECHO-1 towards edge robotics.",
+    "Three real lines: echOS, PRISMA and echoAI. ECHO-1 and ECHO-2 are closed, with executable code, published limits and ECHO-3 towards edge robotics.",
   ],
   "/docs/echoai/que-es": [
     "echoAI — RxLabs®",
-    "A two-clock situated agent. ECHO-1 is closed: memory, objects, patterns and causal transfer across three worlds, with the cortex disabled by default.",
+    "A two-clock situated agent. ECHO-1 and ECHO-2 are closed: measured memory, survival, patterns, consolidation, inheritance and internal control.",
   ],
   "/docs/echoai/piezas": [
     "echoAI — architecture",
-    "16-byte WSP, CAM 4096, T, PatternMemory, Q, gate, ATTEND and an optional cortex. One bus, three channels and measured contracts.",
+    "16-byte WSP, CAM 4096, T, PatternMemory, Q, gate and a 512 LIF + 128 Adaptive-LIF monitor. One bus and measured contracts.",
   ],
   "/docs/echoai/echo1": [
     "ECHO-1 — closure",
     "The complete ECHO-1 chain: SELF, ROOM, objects, opening, conflict, narration, patterns and transfer. 488 tests and an aggregate +128 gain.",
+  ],
+  "/docs/echoai/echo2": [
+    "ECHO-2 — closure, results and demonstration",
+    "ECHO-2 closed: 512 LIF + 128 Adaptive-LIF neurons, survival, patterns, consolidation, inheritance, thermal control and a direct video demonstration.",
   ],
   "/docs/echoai/resultados": [
     "ECHO-1 — results and benchmark",
@@ -253,8 +274,8 @@ const EN_META = {
     "The echoAI experimental process: one KPI per slice, causal controls, adversarial review, mutants and reproducible reports.",
   ],
   "/docs/echoai/ruta": [
-    "echoAI — ECHO-2 and ECHO-3",
-    "Roadmap from ECHO-1 to autonomous survival, object recognition and physical robotics with cameras, LiDAR and edge drones.",
+    "echoAI — ECHO-3 roadmap",
+    "ECHO-3 roadmap: three 3D worlds, aerodynamics, wind, IMU, PX4, commands and transfer towards a physical edge drone.",
   ],
   "/docs/echoai/hardware": [
     "echoAI — planned hardware",
@@ -262,7 +283,7 @@ const EN_META = {
   ],
   "/docs/echoai/limites": [
     "echoAI — limitations",
-    "What ECHO-1 does not demonstrate and what must be verified before robotics: sensors, deadlines, failsafes, HIL, energy and absent hardware.",
+    "What ECHO-2 does not demonstrate and what must be verified before flight: physics, sensors, deadlines, failsafes, HIL, energy and absent hardware.",
   ],
   "/echos": ["404 — RxLabs®", "Not found."],
   "/prisma": ["404 — RxLabs®", "Not found."],
@@ -322,19 +343,23 @@ const CA_META = {
   ],
   "/docs/lab/ecosistema": [
     "El laboratori — RxLabs®",
-    "Tres línies reals de treball: echOS, PRISMA i echoAI. Codi executable, límits publicats i una ruta des d'ECHO-1 cap a la robòtica a l'edge.",
+    "Tres línies reals: echOS, PRISMA i echoAI. ECHO-1 i ECHO-2 estan tancats, amb codi executable, límits publicats i ECHO-3 cap a la robòtica a l'edge.",
   ],
   "/docs/echoai/que-es": [
     "echoAI — RxLabs®",
-    "Agent situat de dos rellotges. ECHO-1 tancat: memòria, objectes, patrons i transferència causal entre tres mons, amb el còrtex apagat per defecte.",
+    "Agent situat de dos rellotges. ECHO-1 i ECHO-2 estan tancats: memòria, supervivència, patrons, consolidació, herència i control intern mesurats.",
   ],
   "/docs/echoai/piezas": [
     "echoAI — arquitectura",
-    "WSP de 16 bytes, CAM 4096, T, PatternMemory, Q, gate, ATTEND i còrtex opcional. Un bus, tres canals i contractes mesurats.",
+    "WSP de 16 bytes, CAM 4096, T, PatternMemory, Q, gate i monitor de 512 LIF + 128 Adaptive-LIF. Un bus i contractes mesurats.",
   ],
   "/docs/echoai/echo1": [
     "ECHO-1 — tancament",
     "Cadena completa d'ECHO-1: SELF, ROOM, objectes, obertura, conflicte, narració, patrons i transferència. 488 proves i un guany agregat de +128.",
+  ],
+  "/docs/echoai/echo2": [
+    "ECHO-2 — tancament, resultats i demostració",
+    "ECHO-2 tancat: 512 LIF + 128 Adaptive-LIF, supervivència, patrons, consolidació, herència, control tèrmic i una demostració directa en vídeo.",
   ],
   "/docs/echoai/resultados": [
     "ECHO-1 — resultats i benchmark",
@@ -345,8 +370,8 @@ const CA_META = {
     "Procés experimental d'echoAI: un KPI per slice, controls causals, revisió adversarial, mutants i informes reproduïbles.",
   ],
   "/docs/echoai/ruta": [
-    "echoAI — ECHO-2 i ECHO-3",
-    "Full de ruta d'ECHO-1 cap a supervivència autònoma, reconeixement d'objectes i robòtica física amb càmera, LiDAR i drons a l'edge.",
+    "echoAI — full de ruta ECHO-3",
+    "Full de ruta d'ECHO-3: tres mons 3D, aerodinàmica, vent, IMU, PX4, ordres i transferència cap a un dron físic a l'edge.",
   ],
   "/docs/echoai/hardware": [
     "echoAI — maquinari previst",
@@ -354,7 +379,7 @@ const CA_META = {
   ],
   "/docs/echoai/limites": [
     "echoAI — límits",
-    "Què no demostra ECHO-1 i què cal verificar abans de la robòtica: sensors, deadlines, failsafes, HIL, energia i maquinari absent.",
+    "Què no demostra ECHO-2 i què cal verificar abans de volar: física, sensors, deadlines, failsafes, HIL, energia i maquinari absent.",
   ],
   "/echos": ["404 — RxLabs®", "No trobat."],
   "/prisma": ["404 — RxLabs®", "No trobat."],
@@ -398,14 +423,18 @@ export function abs(path) {
 }
 
 export function imageFor(page) {
-  const source = page?.path?.includes("/docs/echoai/") ? ECHOAI_OG : SITE;
+  const source = page?.path?.includes("/docs/echoai/echo2")
+    ? ECHO2_OG
+    : page?.path?.includes("/docs/echoai/") ? ECHOAI_OG : SITE;
   return {
     url: abs(source.image),
     width: source.imageW,
     height: source.imageH,
     alt: source === SITE
       ? page?.lang === "en" ? SITE.imageAltEn : page?.lang === "ca" ? SITE.imageAltCa : SITE.imageAlt
-      : source.imageAlt,
+      : page?.lang === "en" ? source.imageAltEn || source.imageAlt
+        : page?.lang === "ca" ? source.imageAltCa || source.imageAlt
+          : source.imageAlt,
   };
 }
 
@@ -432,19 +461,45 @@ export function jsonLd(page) {
         : "Laboratorio de investigación de software. echOS, PRISMA y echoAI: código que corre, números medidos.",
   };
   if (!page || page.noindex) return org;
+  const graph = [
+    org,
+    {
+      "@type": "WebPage",
+      name: page.title,
+      description: page.description,
+      url: abs(page.path),
+      inLanguage: language,
+      isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+      author: { "@type": "Person", name: SITE.author },
+    },
+  ];
+  if (page.path.includes("/docs/echoai/echo2")) {
+    graph.push({
+      "@type": "VideoObject",
+      name: page.title,
+      description: page.description,
+      thumbnailUrl: abs(ECHO2_OG.image),
+      uploadDate: "2026-09-09T23:10:07+02:00",
+      duration: "PT2M3S",
+      contentUrl: abs(ECHO2_VIDEO),
+      encodingFormat: "video/mp4",
+      width: 1280,
+      height: 720,
+    }, {
+      "@type": "Dataset",
+      name: `ECHO-2 benchmark — ${language}`,
+      description: page.description,
+      url: abs("/data/echo2-benchmark.json"),
+      creator: { "@type": "Person", name: SITE.author },
+      distribution: {
+        "@type": "DataDownload",
+        contentUrl: abs("/data/echo2-benchmark.json"),
+        encodingFormat: "application/json",
+      },
+    });
+  }
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      org,
-      {
-        "@type": "WebPage",
-        name: page.title,
-        description: page.description,
-        url: abs(page.path),
-        inLanguage: language,
-        isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
-        author: { "@type": "Person", name: SITE.author },
-      },
-    ],
+    "@graph": graph,
   };
 }

@@ -1,0 +1,182 @@
+{
+  "schema": "rxlabs.echo2-benchmark.v1",
+  "release": "ECHO-2",
+  "status": "closed",
+  "date": "2026-09-09",
+  "benchmarkKind": "causal acceptance benches with frozen held-out exams",
+  "sources": [
+    {
+      "file": "echoai/lab/echo2_report.json",
+      "sha256": "40608247770d373d8552b1bff7cffff1d261b48b408ed32374cabcb8740389de"
+    },
+    {
+      "file": "echoai/lab/echo2_pattern1_report.json",
+      "sha256": "15973815a3267b08c7284a7789accfc0069fa6dca19cbb28d363d2110302e029"
+    },
+    {
+      "file": "echoai/lab/echo2_shifts_report.json",
+      "sha256": "510371644ebb25a61001f3656fd94c8d131dfa806e84a3c88502372008d1cce4"
+    },
+    {
+      "file": "echoai/lab/echo2_stream1_report.json",
+      "sha256": "1449356bcfd2e11573ff912a1bdefc43a263138d6f42f6d5e68ccc37c10413bc"
+    },
+    {
+      "file": "echoai/lab/echo2_sleep2_report.json",
+      "sha256": "4427db7db758ae6560b0ac778723b33e4461223a543fa45c6329f11e85ee6005"
+    },
+    {
+      "file": "echoai/lab/echo2_gen1f_report.json",
+      "sha256": "a6e85ea88e1d0e0762a927b3300df7189870a38cf9ff1b9b0846ada47d9b54e2"
+    },
+    {
+      "file": "echoai/lab/echo2_heat1b_report.json",
+      "sha256": "cdfe49f5d192c9a792f02fd28dc8f1d24a2e0c124f13b20e03be28ddfe669570"
+    },
+    {
+      "file": "echoai/lab/echo2_capacity1_report.json",
+      "sha256": "8250125545eda65d1b2c1a33071b5a0472bcbc70f8e45fd1f2506390153b5464"
+    }
+  ],
+  "video": {
+    "file": "public/media/echoai/echo2-neural-viz-demo.mp4",
+    "sha256": "4cf8116009a787d45a3bfe6e34084ba986538d3045408b9dc386e1a95354d73d",
+    "durationSeconds": 123.466667,
+    "width": 1280,
+    "height": 720,
+    "videoCodec": "H.264",
+    "audioCodec": "AAC"
+  },
+  "comparison": {
+    "note": "Capacity comparisons were run inside CAPACITY-1; 256 LIF is the ECHO-1-size baseline, not a retroactive ECHO-1 release score.",
+    "perception": {
+      "echo1SizeBaseline": {
+        "neurons": 256,
+        "hits": 829,
+        "total": 2048
+      },
+      "echo2": {
+        "neurons": 512,
+        "hits": 2048,
+        "total": 2048
+      }
+    },
+    "temporal": {
+      "staticControl": {
+        "neurons": 640,
+        "hits": 0,
+        "total": 256
+      },
+      "echo2": {
+        "lif": 512,
+        "adaptiveLif": 128,
+        "hits": 256,
+        "total": 256
+      }
+    },
+    "streamScale": {
+      "note": "Different workloads; this comparison shows exercised sequence scale only.",
+      "echo1Turns": 352,
+      "echo2Frames": 4608
+    }
+  },
+  "survival": {
+    "seeds": [
+      {
+        "seed": 17,
+        "retainedMedian": 28,
+        "resetMedian": 16
+      },
+      {
+        "seed": 101,
+        "retainedMedian": 40,
+        "resetMedian": 16
+      },
+      {
+        "seed": 20260903,
+        "retainedMedian": 40,
+        "resetMedian": 16
+      }
+    ],
+    "inertRetainedMedian": 16,
+    "inertResetMedian": 16
+  },
+  "pattern": {
+    "representation": "binary16",
+    "trainSamples": 144,
+    "heldOutHits": 32,
+    "heldOutTotal": 32,
+    "exactBaselineHits": 0,
+    "families": 4,
+    "objectIdUsed": false
+  },
+  "shift": {
+    "seeds": [
+      {
+        "seed": 17,
+        "gainVsFrozen": 421,
+        "gainVsScratch": -99
+      },
+      {
+        "seed": 101,
+        "gainVsFrozen": 416,
+        "gainVsScratch": -53
+      },
+      {
+        "seed": 20260903,
+        "gainVsFrozen": 446,
+        "gainVsScratch": -27
+      }
+    ]
+  },
+  "stream": {
+    "frames": 4608,
+    "chunks": 48,
+    "coherentKnown": 4512,
+    "coherentHits": 4512,
+    "dynamicAlias": 0
+  },
+  "sleep": {
+    "sourceRows": 8208,
+    "rules": 144,
+    "heldOutHits": 720,
+    "heldOutTotal": 720,
+    "tBaselineHits": 0,
+    "sourceUnchanged": true
+  },
+  "inheritance": {
+    "evidenceBudget": 8,
+    "inheritedLateErrors": 360,
+    "naiveLateErrors": 602,
+    "strictWins": 52,
+    "strictLosses": 24,
+    "ties": 52,
+    "reached": 126
+  },
+  "heat": {
+    "jointTurns": 20786,
+    "temperatureBlindTurns": 7221,
+    "noQTurns": 7186,
+    "resetTurns": 5293,
+    "loadCoolExam": {
+      "hits": 12,
+      "total": 12
+    }
+  },
+  "capacity": {
+    "lif": 512,
+    "adaptiveLif": 128,
+    "perceptionHits": 2048,
+    "perceptionTotal": 2048,
+    "temporalHits": 256,
+    "temporalTotal": 256,
+    "selectedMemoryTicks": 8,
+    "selectedAdaptGain": 4
+  },
+  "integrity": {
+    "wspBytes": 16,
+    "falseFacts": 0,
+    "destroyed": 0,
+    "cortexCallsInCapacityBench": 0
+  }
+}

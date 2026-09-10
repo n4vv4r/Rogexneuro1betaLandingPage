@@ -786,6 +786,73 @@ button { font-family: inherit; }
 .bench-sources code { color: #888; overflow-wrap: anywhere; }
 .bench-download { display: inline-block; margin-top: 4px; }
 
+.echo2-video {
+  margin: 1.6rem 0 2.2rem;
+}
+
+.echo2-video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #050505;
+  border: 1px solid #303030;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.45);
+}
+
+.echo2-video figcaption {
+  margin-top: 9px;
+  color: #858585;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.release-chart {
+  margin: 1.2rem 0 2rem;
+  padding: 17px;
+  border: 1px solid #292929;
+  background: linear-gradient(135deg, #111, #090909);
+}
+
+.release-chart h3 {
+  margin: 0 0 16px;
+  color: #eee;
+  font-size: 13px;
+}
+
+.release-bar {
+  display: grid;
+  grid-template-columns: minmax(145px, 0.9fr) minmax(140px, 1.5fr) minmax(86px, auto);
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+  font-size: 11px;
+}
+
+.release-bar i {
+  display: block;
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid #343434;
+  background: #151515;
+}
+
+.release-bar b {
+  display: block;
+  height: 100%;
+  background: #686868;
+}
+
+.release-bar.is-echo2 b {
+  background: linear-gradient(90deg, #d7d7d7, #fff);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.28);
+}
+
+.release-bar strong {
+  color: #f3f3f3;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 @media (max-width: 860px) {
   .nav {
     height: auto;
@@ -880,6 +947,11 @@ button { font-family: inherit; }
 }
 
 @media (max-width: 520px) {
+  .release-bar {
+    grid-template-columns: 1fr auto;
+    gap: 6px 10px;
+  }
+  .release-bar i { grid-column: 1 / -1; grid-row: 2; }
   .bench-stat { min-height: 92px; }
   .turn-stage { padding: 16px; }
   .turn-controls {

@@ -5,7 +5,9 @@ Allow: /llms-full.txt
 Allow: /sitemap.xml
 Allow: /og.png
 Allow: /docs
-Allow: /media/
+Allow: /raw/
+Allow: /data/
+Allow: /media/echoai/
 Disallow: /echos
 Disallow: /prisma
 Disallow: /echoai
@@ -17,6 +19,12 @@ User-agent: ChatGPT-User
 Allow: /
 
 User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: anthropic-ai

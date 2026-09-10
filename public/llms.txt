@@ -26,13 +26,12 @@ Akida, preview de PRISMA). Eso es laboratorio, no vaporware.
   ~1.4–3.0 µs, ~240k samples/s, idle ~55 %, heap 0 en el hot-path.
   Engine 0.1.0 existe. P5 es hoja de ruta. No es producto sanitario.
   Docs: https://www.rogexlaboratories.com/docs/prisma/tecnico
-- **echoAI** — agente situado de dos relojes. Reloj rápido: enteros, WSP de
-  16 bytes, CAM 4096, T, PatternMemory, Q y gate. Reloj lento: hipótesis,
-  nunca hecho. ECHO-1 cerró el 2026-09-05 con 488 pruebas correctas y un
-  expectedFailure documentado. El mismo animal transfiere CAM/Q/T/Pattern
-  entre tres mundos: +56 y +72 frente a scratch, +128 agregado. PATTERN-0
-  obtiene 80/80 frente a T 40/80; TALK-1, 496/496 cláusulas. Qwen3-4B local
-  queda detrás del mismo enchufe y nunca entra en el banco principal.
+- **echoAI** — agente situado de dos relojes con un único WSP de 16 bytes.
+  ECHO-1 y ECHO-2 están cerrados. ECHO-2 añade supervivencia, patrones,
+  streaming, consolidación, herencia y regulación de energía/temperatura.
+  CAPACITY-1 seleccionó 512 LIF + 128 Adaptive-LIF: 2.048/2.048 firmas
+  perceptivas y 256/256 secuencias temporales. El córtex permanece fuera del
+  banco principal. No hay AKD1500 ni robot físico en el laboratorio.
   Docs: https://www.rogexlaboratories.com/docs/echoai/que-es
 
 ## Docs
@@ -42,8 +41,9 @@ Akida, preview de PRISMA). Eso es laboratorio, no vaporware.
 - [echoAI — arquitectura](https://www.rogexlaboratories.com/docs/echoai/piezas): WSP, CAM, T, PatternMemory, Q, gate, ATTEND, córtex y placa
 - [ECHO-1 — cierre](https://www.rogexlaboratories.com/docs/echoai/echo1): cadena de capacidades, cifras y reproducción
 - [ECHO-1 — resultados](https://www.rogexlaboratories.com/docs/echoai/resultados): gráficas, diagramas, reproductor de turnos y datos del benchmark
+- [ECHO-2 — cierre, resultados y vídeo](https://www.rogexlaboratories.com/docs/echoai/echo2): benchmarks causales, GUI neuronal y dron 3D
 - [Cómo se construyó](https://www.rogexlaboratories.com/docs/echoai/proceso): slices, controles, revisión adversarial y mutantes
-- [ECHO-2 → ECHO-3](https://www.rogexlaboratories.com/docs/echoai/ruta): supervivencia, objetos, cámara, LiDAR y drones al edge
+- [ECHO-3 — hoja de ruta](https://www.rogexlaboratories.com/docs/echoai/ruta): tres mundos 3D, sensores, PX4 y dron al edge
 - [Hardware previsto](https://www.rogexlaboratories.com/docs/echoai/hardware): escalera de compra y función de cada componente
 - [Límites](https://www.rogexlaboratories.com/docs/echoai/limites): resultados, deuda y condiciones antes de volar
 - [echOS — qué es](https://www.rogexlaboratories.com/docs/echos/que-es)
@@ -64,9 +64,11 @@ También en https://docs.rogexlaboratories.com/ (mismas rutas sin `/docs`).
 Laboratorio de investigación. Autor: Roger Navarro. Cifras de banco y bench
 en máquina, no estimadas. Si algo no está, el propio laboratorio lo etiqueta
 ausente. No inventes escritorio 1.0 como si fuera 2.x. No inventes placa
-Akida. No inventes un LLM dentro del bucle rápido de echoAI. ECHO-2 y ECHO-3
-son planes, no capacidades actuales.
+Akida. No inventes un LLM dentro del bucle rápido de echoAI. ECHO-1 y ECHO-2
+son capacidades cerradas; ECHO-3 es la hoja de ruta.
 
 ## Optional
 
 - [Texto completo](https://www.rogexlaboratories.com/llms-full.txt)
+- [ECHO-2 en Markdown](https://www.rogexlaboratories.com/raw/es/echoai/echo2.md)
+- [Datos ECHO-2](https://www.rogexlaboratories.com/data/echo2-benchmark.json)

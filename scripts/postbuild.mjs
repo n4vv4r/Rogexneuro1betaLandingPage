@@ -1,12 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { PAGES, SITE, abs, imageFor, jsonLd } from "../src/site.js";
+import { marked } from "marked";
+import { PAGES, SITE, ECHO2_VIDEO, abs, imageFor, jsonLd } from "../src/site.js";
 import { alternatePaths } from "../src/i18n.js";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const template = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+const contentDir = path.join(root, "src", "content");
+
+marked.setOptions({ gfm: true, breaks: false });
 
 function strip(html) {
   return html
@@ -36,6 +40,17 @@ function inject(html, page) {
     .map(([, locale]) => `    <meta property="og:locale:alternate" content="${locale}" />`)
     .join("\n");
   const alternate = alternatePaths(page.path);
+  const isEcho2 = page.path.includes("/docs/echoai/echo2");
+  const videoMeta = isEcho2 ? `
+    <meta property="og:video" content="${abs(ECHO2_VIDEO)}" />
+    <meta property="og:video:secure_url" content="${abs(ECHO2_VIDEO)}" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video:width" content="1280" />
+    <meta property="og:video:height" content="720" />` : "";
+  const markdownHref = markdownSource(page);
+  const markdownAlternate = markdownHref
+    ? `\n    <link rel="alternate" type="text/markdown" href="${abs(markdownHref)}" />`
+    : "";
   html = strip(html);
   const block = `
     <title>${esc(page.title)}</title>
@@ -65,19 +80,58 @@ ${localeAlternates}
     <meta property="og:image:width" content="${image.width}" />
     <meta property="og:image:height" content="${image.height}" />
     <meta property="og:image:alt" content="${esc(image.alt)}" />
+${videoMeta}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(page.title)}" />
     <meta name="twitter:description" content="${esc(page.description)}" />
     <meta name="twitter:image" content="${image.url}" />
-    <meta name="twitter:image:alt" content="${esc(image.alt)}" />
+    <meta name="twitter:image:alt" content="${esc(image.alt)}" />${markdownAlternate}
 `;
 
-  return html
+  html = html
     .replace(/<html lang="[^"]*">/, `<html lang="${language}">`)
     .replace(/<title>[\s\S]*?<\/title>/, "")
     .replace(/<meta name="description"[^>]*>/, "")
     .replace(/<meta name="theme-color"[^>]*>/, "")
     .replace("</head>", `${block}</head>`);
+  return html.replace('<div id="root"></div>', `<div id="root">${staticBody(page)}</div>`);
+}
+
+function pageLanguage(page) {
+  return page.lang === "en" ? "en" : page.lang === "ca" ? "ca" : "es";
+}
+
+function docSlug(page) {
+  return page.path.replace(/^\/(?:en|ca)(?=\/|$)/, "").replace(/^\/docs\/?/, "");
+}
+
+function markdownSource(page) {
+  const slug = docSlug(page);
+  if (!slug || !page.path.includes("/docs/")) return null;
+  return `/raw/${pageLanguage(page)}/${slug}.md`;
+}
+
+function markdownFile(page) {
+  let slug = docSlug(page);
+  if (!slug) return null;
+  if (slug === "prisma/resumen") slug = "prisma/overview";
+  const language = pageLanguage(page);
+  return path.join(contentDir, language === "es" ? "" : language, `${slug}.md`);
+}
+
+function staticBody(page) {
+  const language = pageLanguage(page);
+  const file = markdownFile(page);
+  let body = "";
+  if (file && fs.existsSync(file)) {
+    body = marked.parse(fs.readFileSync(file, "utf8"));
+  } else if (page.path.replace(/^\/(?:en|ca)(?=\/|$)/, "") === "/docs") {
+    const docs = PAGES.filter((entry) => entry.lang === language && entry.path.includes("/docs/") && !entry.noindex);
+    body = `<h1>${language === "en" ? "Documentation" : language === "ca" ? "Documentació" : "Documentación"}</h1><ul>${docs.map((entry) => `<li><a href="${entry.path}">${esc(entry.title)}</a><p>${esc(entry.description)}</p></li>`).join("")}</ul>`;
+  } else {
+    return "";
+  }
+  return `<main class="page static-page"><div class="docs is-side-hidden"><article class="docs-body static-doc-body">${body}</article></div></main>`;
 }
 
 function esc(s) {

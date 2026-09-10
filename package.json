@@ -6,6 +6,7 @@
   "description": "RxLabs® — landing. echOS 3.0, PRISMA and echoAI.",
   "scripts": {
     "data:echo1": "node scripts/export-echo1-benchmark.mjs",
+    "data:echo2": "node scripts/export-echo2-benchmark.mjs",
     "predev": "node scripts/sync-docs.mjs",
     "dev": "vite",
     "prebuild": "node scripts/sync-docs.mjs",

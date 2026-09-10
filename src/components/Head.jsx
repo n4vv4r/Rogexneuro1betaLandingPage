@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { SITE, abs, imageFor, pageFor, jsonLd } from "../site.js";
+import { SITE, ECHO2_VIDEO, abs, imageFor, pageFor, jsonLd } from "../site.js";
 import { alternatePaths, docsPagePath } from "../i18n.js";
 
 function upsert(selector, attrs) {
@@ -43,6 +43,32 @@ function replaceOgLocaleAlternates(language) {
     el.setAttribute("content", locale);
     document.head.appendChild(el);
   }
+}
+
+function replaceVideoMetadata(page) {
+  document.head.querySelectorAll('meta[property^="og:video"]').forEach((el) => el.remove());
+  if (!page.path.includes("/docs/echoai/echo2")) return;
+  const fields = {
+    "og:video": abs(ECHO2_VIDEO),
+    "og:video:secure_url": abs(ECHO2_VIDEO),
+    "og:video:type": "video/mp4",
+    "og:video:width": "1280",
+    "og:video:height": "720",
+  };
+  for (const [property, content] of Object.entries(fields)) {
+    upsert(`meta[property="${property}"]`, { property, content });
+  }
+}
+
+function replaceMarkdownAlternate(page, language) {
+  document.head.querySelectorAll('link[rel="alternate"][type="text/markdown"]').forEach((el) => el.remove());
+  if (!page.path.includes("/docs/")) return;
+  const slug = page.path.replace(/^\/(?:en|ca)(?=\/|$)/, "").replace(/^\/docs\//, "");
+  const el = document.createElement("link");
+  el.rel = "alternate";
+  el.type = "text/markdown";
+  el.href = abs(`/raw/${language}/${slug}.md`);
+  document.head.appendChild(el);
 }
 
 export default function Head() {
@@ -96,6 +122,8 @@ export default function Head() {
       upsert(`meta[property="${k}"]`, { property: k, content: v });
     }
     replaceOgLocaleAlternates(language);
+    replaceVideoMetadata(page);
+    replaceMarkdownAlternate(page, language);
 
     upsert('meta[name="twitter:card"]', { name: "twitter:card", content: "summary_large_image" });
     upsert('meta[name="twitter:title"]', { name: "twitter:title", content: page.title });

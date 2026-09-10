@@ -14,6 +14,7 @@ const docs = [
   ["echoai/que-es", "echoai/que-es.md"],
   ["echoai/piezas", "echoai/piezas.md"],
   ["echoai/echo1", "echoai/echo1.md"],
+  ["echoai/echo2", "echoai/echo2.md"],
   ["echoai/resultados", "echoai/resultados.md"],
   ["echoai/proceso", "echoai/proceso.md"],
   ["echoai/ruta", "echoai/ruta.md"],
@@ -87,14 +88,27 @@ const catalanFull = [
 fs.mkdirSync(catalanPublicDir, { recursive: true });
 fs.writeFileSync(path.join(catalanPublicDir, "llms-full.txt"), `${catalanFull.trimEnd()}\n`);
 
-const lastmod = "2026-09-07";
+for (const language of ["es", "en", "ca"]) {
+  for (const [slug, file] of docs) {
+    const source = path.join(contentDir, language === "es" ? "" : language, file);
+    const target = path.join(publicDir, "raw", language, `${slug}.md`);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.copyFileSync(source, target);
+  }
+}
+
+const lastmod = "2026-09-10";
 const indexable = PAGES.filter((page) => !page.noindex);
 const urls = indexable.map((page) => {
   const base = page.path.replace(/^\/(?:en|ca)(?=\/|$)/, "") || "/";
   const priority = base === "/" ? "1.0"
     : base === "/docs" || base === "/docs/echoai/que-es" ? "0.9"
       : base.startsWith("/docs/") ? "0.8" : "0.7";
-  return `  <url><loc>${SITE.url}${page.path === "/" ? "/" : page.path}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority></url>`;
+  const loc = `${SITE.url}${page.path === "/" ? "/" : page.path}`;
+  if (page.path.includes("/docs/echoai/echo2")) {
+    return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority><video:video><video:thumbnail_loc>${SITE.url}/media/echoai/opengraph/echo2.png</video:thumbnail_loc><video:title>${xml(page.title)}</video:title><video:description>${xml(page.description)}</video:description><video:content_loc>${SITE.url}/media/echoai/echo2-neural-viz-demo.mp4</video:content_loc><video:duration>123</video:duration><video:publication_date>2026-09-09T21:10:07Z</video:publication_date></video:video></url>`;
+  }
+  return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority></url>`;
 });
 
 for (const [slug] of docs) {
@@ -111,7 +125,7 @@ urls.push(`  <url><loc>${SITE.url}/ca/llms-full.txt</loc><lastmod>${lastmod}</la
 
 const sitemap = [
   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-  "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+  "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:video=\"http://www.google.com/schemas/sitemap-video/1.1\">",
   ...urls,
   "</urlset>",
   "",
@@ -119,3 +133,12 @@ const sitemap = [
 
 fs.writeFileSync(path.join(publicDir, "sitemap.xml"), sitemap);
 console.log(`docs: synced ${docs.length * 3} documents and ${urls.length} URLs`);
+
+function xml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
